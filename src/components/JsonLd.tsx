@@ -1,4 +1,4 @@
-import { activeContacts, site, terms } from '@/data/site';
+import { activeContacts, addressValue, emailValue, phones, site, terms, vk, yandex } from '@/data/site';
 import { faq } from '@/data/content';
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -12,13 +12,13 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
 
 /** Организация + локальный бизнес: помогает Яндексу и Google понять, кто мы и где. */
 export function OrganizationJsonLd() {
-  const phone = activeContacts.find((c) => c.id === 'phone');
-  const email = activeContacts.find((c) => c.id === 'email');
-  const address = activeContacts.find((c) => c.id === 'address');
-  const socials = activeContacts
-    .filter((c) => ['telegram', 'vk'].includes(c.id))
-    .map((c) => c.href!)
-    .filter(Boolean);
+  const socials = [
+    vk.url,
+    yandex.orgUrl,
+    ...activeContacts
+      .filter((c) => ['telegram', 'instagram'].includes(c.id))
+      .map((c) => c.href!),
+  ].filter(Boolean);
 
   return (
     <JsonLd
@@ -34,14 +34,17 @@ export function OrganizationJsonLd() {
         areaServed: { '@type': 'City', name: site.city },
         address: {
           '@type': 'PostalAddress',
+          streetAddress: addressValue.replace(`${site.city}, `, ''),
           addressLocality: site.city,
           addressRegion: site.region,
           addressCountry: 'RU',
-          ...(address?.value ? { streetAddress: address.value } : {}),
         },
-        ...(phone?.value ? { telephone: phone.value } : {}),
-        ...(email?.value ? { email: email.value } : {}),
-        ...(socials.length ? { sameAs: socials } : {}),
+        telephone: phones.map((p) => p.raw),
+        email: emailValue,
+        foundingDate: String(terms.furnitureSince),
+        sameAs: socials,
+        // aggregateRating намеренно не размечаем: разметка чужих отзывов
+        // на собственном сайте нарушает правила поисковиков
         priceRange: 'Стоимость рассчитывается по проекту',
         makesOffer: [
           'Кухни на заказ',

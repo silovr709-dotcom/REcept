@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: '/portfolio', priority: 0.9, changeFrequency: 'weekly' },
     { url: '/mebel-na-zakaz', priority: 0.8, changeFrequency: 'monthly' },
     { url: '/materialy', priority: 0.7, changeFrequency: 'monthly' },
+    { url: '/otzyvy', priority: 0.8, changeFrequency: 'weekly' },
     { url: '/o-nas', priority: 0.7, changeFrequency: 'monthly' },
     { url: '/kontakty', priority: 0.8, changeFrequency: 'monthly' },
   ] as const;

@@ -4,6 +4,7 @@ import { Headache } from '@/components/sections/Headache';
 import { Services } from '@/components/sections/Services';
 import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
 import { Details } from '@/components/sections/Details';
+import { VideoWall } from '@/components/sections/VideoWall';
 import { Process } from '@/components/sections/Process';
 import { Timing } from '@/components/sections/Timing';
 import { Advantages } from '@/components/sections/Advantages';
@@ -41,6 +42,8 @@ export default function HomePage() {
       <Services />
       <PortfolioPreview />
       <Details tone="cream" />
+      <VideoWall />
+      <Testimonials tone="cream" />
       <Process tone="bone" />
       <Timing tone="cream" />
       <Advantages tone="bone" />
@@ -55,7 +58,6 @@ export default function HomePage() {
       <Price tone="cream" />
       <Founders />
       <Objections tone="bone" />
-      <Testimonials tone="cream" />
       <Faq />
       <FinalCta />
       <FaqJsonLd />

@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { ButtonLink } from '../ui/Button';
 import { Eyebrow } from '../ui/Section';
+import { RatingBadge } from '../RatingBadge';
+import { terms } from '@/data/site';
 import hero from '@public/images/kitchens/kitchen-01.webp';
 
 /**
@@ -80,6 +82,10 @@ export function Hero() {
               Без обязательств. Сначала обсудим задачу и поймём, что вам
               действительно нужно.
             </p>
+
+            <div className="animate-fade-up mt-7" style={{ animationDelay: '260ms' }}>
+              <RatingBadge />
+            </div>
           </div>
 
           {/* Визуальное доказательство качества */}
@@ -100,10 +106,13 @@ export function Hero() {
         {/* Доказательство прямо на первом экране */}
         <ul className="animate-fade-up mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:grid-cols-4 lg:mt-16">
           {[
+            {
+              big: `с ${terms.furnitureSince}`,
+              small: `семья делает мебель в Твери, кухни на заказ — с ${terms.kitchensSince}`,
+            },
             { big: '24', small: 'месяца гарантии на изделие' },
-            { big: '50/50', small: 'оплата — без полной предоплаты' },
             { big: '0 ₽', small: 'проект, визуализация и схемы электрики' },
-            { big: 'Тверь', small: 'доставка и сборка — наши' },
+            { big: '50/50', small: 'оплата — без полной предоплаты' },
           ].map((item) => (
             <li key={item.small}>
               <p className="font-display text-[1.625rem] leading-none text-ink">

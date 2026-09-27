@@ -53,7 +53,7 @@ export function Header() {
           <Logo />
 
           <nav aria-label="Основная навигация" className="hidden lg:block">
-            <ul className="flex items-center gap-7">
+            <ul className="flex items-center gap-5 xl:gap-7">
               {navigation.map((item) => {
                 const active = pathname === item.href;
                 return (
@@ -77,7 +77,7 @@ export function Header() {
             {hasPhone ? (
               <a
                 href={phoneHref!}
-                className="hidden text-[0.9375rem] font-semibold text-ink transition-colors hover:text-brass xl:inline"
+                className="hidden text-[0.9375rem] font-semibold text-ink transition-colors hover:text-brass 2xl:inline"
               >
                 {phoneDisplay}
               </a>

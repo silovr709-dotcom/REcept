@@ -4,6 +4,8 @@ import { PortfolioGrid } from '@/components/PortfolioGrid';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
 import { CtaButton } from '@/components/CtaButton';
+import { VideoWall } from '@/components/sections/VideoWall';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { projects, projectLayouts } from '@/data/projects';
@@ -65,6 +67,9 @@ export default function PortfolioPage() {
           </Reveal>
         </div>
       </Section>
+
+      <VideoWall />
+      <Testimonials tone="cream" />
 
       <FinalCta
         title="С какой из этих кухонь начнём вашу?"

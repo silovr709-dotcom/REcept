@@ -3,6 +3,7 @@ import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section } from '../ui/Section';
 import { team } from '@/data/content';
+import { terms } from '@/data/site';
 import shot from '@public/images/kitchens/kitchen-04.webp';
 
 /**
@@ -32,16 +33,17 @@ export function Founders() {
 
             <div className="mt-7 grid gap-5 text-lead text-cream/70">
               <p>
-                «РЕцепт» — семейное дело. Здесь нет отдела продаж, который
-                передаёт заказ «на производство», и менеджера, который уволится
-                через месяц. Есть Роберт и Катя, которые ведут проект от первого
-                разговора до сборки и остаются на связи после.
+                «РЕцепт» — семейное дело. Наша семья занимается мебелью в Твери
+                с {terms.furnitureSince} года, а индивидуальными кухнями — с{' '}
+                {terms.kitchensSince}-го. Здесь нет отдела продаж и менеджера,
+                который уволится через месяц: есть Роберт и Катя, которые ведут
+                проект от первого разговора до сборки и остаются на связи после.
               </p>
               <p>
                 Поэтому мы не можем позволить себе сделать плохо: следующий
-                заказ к нам приходит от тех, кому мы уже что-то сделали. Это не
-                маркетинговая позиция, это просто способ работать, когда фамилия
-                стоит за каждым проектом.
+                заказ к нам приходит от тех, кому мы уже что-то сделали, и от их
+                знакомых. Это не маркетинговая позиция — это просто способ
+                работать, когда за каждым проектом стоит твоя фамилия.
               </p>
             </div>
 
@@ -70,15 +72,11 @@ export function Founders() {
                     )}
                     <div>
                       <p className="font-display text-[1.25rem] text-cream">
-                        {person.name}
+                        {person.fullName}
                       </p>
-                      {person.role ? (
-                        <p className="text-sm text-cream/60">{person.role}</p>
-                      ) : (
-                        <p className="text-sm text-cream/60">
-                          Ведёт проекты лично
-                        </p>
-                      )}
+                      <p className="text-sm text-cream/60">
+                        {person.role ?? 'Ведёт проекты лично'}
+                      </p>
                     </div>
                   </div>
                   {person.bio ? (

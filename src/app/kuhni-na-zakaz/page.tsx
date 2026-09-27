@@ -9,6 +9,7 @@ import { Details } from '@/components/sections/Details';
 import { Process } from '@/components/sections/Process';
 import { Price } from '@/components/sections/Price';
 import { Timing } from '@/components/sections/Timing';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd, FaqJsonLd } from '@/components/JsonLd';
@@ -16,7 +17,7 @@ import { featuredProjects } from '@/data/projects';
 import shot from '@public/images/kitchens/kitchen-05.webp';
 
 export const metadata: Metadata = {
-  title: 'Кухни на заказ в Твери — проект, производство и сборка',
+  title: 'Кухни на заказ в Твери — проект, изготовление и сборка',
   description:
     'Кухни на заказ в Твери по вашим размерам: бесплатное проектирование и визуализация, схемы электрики, производство, доставка и сборка. Гарантия 24 месяца, оплата 50/50. Роберт и Катя ведут проект лично.',
   alternates: { canonical: '/kuhni-na-zakaz' },
@@ -48,7 +49,7 @@ const includes = [
   'Подбор материалов, фурнитуры и наполнения',
   'Схема электрики для вашего мастера',
   'Согласование техники и проверка зазоров',
-  'Производство по вашим размерам',
+  'Изготовление по вашим размерам под нашим контролем',
   'Доставка и сборка в Твери',
   'Гарантия 24 месяца и связь после установки',
 ];
@@ -205,7 +206,8 @@ export default function KitchensPage() {
       <Process tone="bone" />
       <Timing tone="cream" />
       <Price tone="bone" />
-      <Faq limit={6} tone="cream" />
+      <Testimonials tone="cream" />
+      <Faq limit={6} tone="bone" />
       <FinalCta
         title="Посчитаем вашу кухню"
         source="kitchens-final"

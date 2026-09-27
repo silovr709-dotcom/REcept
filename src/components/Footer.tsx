@@ -1,10 +1,14 @@
 import Link from 'next/link';
 import { Logo } from './Logo';
+import { RatingBadge } from './RatingBadge';
 import {
   WORKING_HOURS,
   activeContacts,
   navigation,
+  phoneDisplay,
+  phoneHref,
   site,
+  terms,
 } from '@/data/site';
 
 export function Footer() {

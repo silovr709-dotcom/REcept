@@ -1,58 +1,87 @@
+import Link from 'next/link';
+import { RatingBadge } from '../RatingBadge';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { testimonials } from '@/data/content';
+import { rating, reviews } from '@/data/reviews';
+import { yandex } from '@/data/site';
 
 /**
  * ОТЗЫВЫ.
- * Архитектура блока готова, но выдуманных отзывов здесь нет и не будет.
- * Пока массив `testimonials` пуст, секция не рендерится вообще —
- * пустой блок с рыбой навредил бы доверию сильнее, чем его отсутствие.
+ * Это не «отзывы с нашего сайта», которые можно написать самим, а цитаты
+ * из карточки организации на Яндекс Картах. У каждого есть автор, дата
+ * и ссылка на первоисточник — любой может открыть и сверить.
  */
-export function Testimonials({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
-  if (testimonials.length === 0) return null;
+export function Testimonials({
+  tone = 'bone',
+  limit = 3,
+}: {
+  tone?: 'cream' | 'bone';
+  limit?: number;
+}) {
+  if (reviews.length === 0) return null;
+  const items = reviews.slice(0, limit);
 
   return (
     <Section tone={tone} aria-labelledby="testimonials-title">
       <div className="container-page">
-        <SectionHeading
-          id="testimonials-title"
-          eyebrow="Отзывы"
-          title="Что говорят те, у кого уже стоит наша кухня"
-        />
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeading
+            id="testimonials-title"
+            eyebrow="Отзывы"
+            title={`${rating.value} из 5 на Яндекс Картах`}
+            lead={`${rating.reviewsCount} отзыва и ${rating.scoresCount} оценки в карточке организации. Мы не можем ни отредактировать их, ни удалить — поэтому им и стоит верить больше, чем тексту на сайте.`}
+          />
+          <RatingBadge className="shrink-0" />
+        </div>
 
-        <ul className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <li key={`${t.author}-${i}`}>
+        <ul className="mt-12 grid gap-6 lg:mt-14 lg:grid-cols-3">
+          {items.map((t, i) => (
+            <li key={`${t.author ?? 'anon'}-${i}`}>
               <Reveal
-                delay={Math.min(i, 3) * 50}
+                delay={Math.min(i, 3) * 60}
                 className={`flex h-full flex-col rounded-lg border border-line p-7 ${
                   tone === 'bone' ? 'bg-cream' : 'bg-bone'
                 }`}
               >
+                <p className="font-display text-[1.0625rem] leading-snug text-ink">
+                  {t.highlight}
+                </p>
+                <div aria-hidden="true" className="rule-brass my-5 w-full" />
                 <blockquote className="grow text-[0.9375rem] leading-relaxed text-stone">
-                  «{t.text}»
+                  {t.text}
                 </blockquote>
-                <footer className="mt-6 border-t border-line pt-4">
-                  <p className="font-semibold text-ink">{t.author}</p>
-                  {t.source ? (
-                    t.url ? (
-                      <a
-                        href={t.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-brass underline underline-offset-4"
-                      >
-                        {t.source}
-                      </a>
-                    ) : (
-                      <p className="text-sm text-stone">{t.source}</p>
-                    )
-                  ) : null}
+                <footer className="mt-6 flex items-baseline justify-between gap-4 border-t border-line pt-4">
+                  <p className="font-semibold text-ink">
+                    {t.author ?? 'Без подписи'}
+                  </p>
+                  <p className="shrink-0 text-sm text-stone">{t.date}</p>
                 </footer>
               </Reveal>
             </li>
           ))}
         </ul>
+
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-stone">
+            Цитаты приведены дословно, сокращения отмечены многоточием.
+          </p>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            <Link
+              href="/otzyvy"
+              className="font-semibold text-brass underline decoration-brass/40 underline-offset-4"
+            >
+              Все отзывы на сайте
+            </Link>
+            <a
+              href={yandex.reviewsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-ink underline decoration-brass/40 underline-offset-4"
+            >
+              Проверить на Яндекс Картах
+            </a>
+          </div>
+        </div>
       </div>
     </Section>
   );
