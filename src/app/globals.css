@@ -1,0 +1,442 @@
+@import 'tailwindcss';
+
+/* ==================================================================
+   ШРИФТЫ — self-hosted, без обращения к сторонним CDN
+   ================================================================== */
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('/fonts/manrope-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('/fonts/manrope-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 800;
+  src: url('/fonts/playfair-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 800;
+  src: url('/fonts/playfair-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==================================================================
+   ДИЗАЙН-СИСТЕМА
+   ================================================================== */
+
+@theme {
+  /* Цвет: тёплый графит, кость, глина, латунь, мох */
+  --color-ink: #16130f;
+  --color-soot: #211d18;
+  --color-coal: #2e2a23;
+  --color-cream: #fdfbf7;
+  --color-bone: #f5f1ea;
+  --color-sand: #e9e1d4;
+  --color-line: #ded4c4;
+  --color-stone: #6e665a;
+  --color-clay: #c6a981;
+  --color-brass: #8f6530;
+  --color-brasslight: #c79a54;
+  --color-moss: #3c4a3e;
+
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Roboto, Arial, sans-serif;
+  --font-display: 'Playfair Display', 'Manrope', Georgia, 'Times New Roman',
+    serif;
+
+  /* Типографическая шкала (fluid) */
+  --text-display: clamp(2.5rem, 1.35rem + 5.1vw, 6.25rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.025em;
+
+  --text-h1: clamp(2.125rem, 1.25rem + 3.9vw, 4.5rem);
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.022em;
+
+  --text-h2: clamp(1.75rem, 1.15rem + 2.6vw, 3.25rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.018em;
+
+  --text-h3: clamp(1.3rem, 1.05rem + 1.1vw, 1.9rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.012em;
+
+  --text-lead: clamp(1.0625rem, 0.98rem + 0.42vw, 1.3125rem);
+  --text-lead--line-height: 1.55;
+
+  --text-body: clamp(0.975rem, 0.94rem + 0.18vw, 1.0625rem);
+  --text-body--line-height: 1.65;
+
+  --text-eyebrow: 0.6875rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.16em;
+
+  /* Шаг сетки и ритм */
+  --spacing-section: clamp(4.5rem, 3rem + 6vw, 9rem);
+  --spacing-gutter: clamp(1.25rem, 0.6rem + 2.4vw, 3.5rem);
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ==================================================================
+   БАЗА
+   ================================================================== */
+
+@layer base {
+  * {
+    min-width: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 90px;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    font-feature-settings: 'ss01', 'cv01';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Видимый и аккуратный фокус — важен для доступности */
+  :focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: var(--color-clay);
+    color: var(--color-ink);
+  }
+
+  /* Минимальная область нажатия на мобильных */
+  button,
+  a[role='button'] {
+    touch-action: manipulation;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+/* ==================================================================
+   УТИЛИТЫ
+   ================================================================== */
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 88rem;
+  padding-inline: var(--spacing-gutter);
+}
+
+@utility container-text {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 46rem;
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+@utility hairline {
+  border-color: color-mix(in srgb, var(--color-line) 100%, transparent);
+}
+
+/* Тонкая «золотая» линия-разделитель */
+@utility rule-brass {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-brass) 55%, transparent),
+    transparent
+  );
+  height: 1px;
+}
+
+/* ==================================================================
+   ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ
+   Без JS-библиотек: IntersectionObserver добавляет [data-revealed]
+   ================================================================== */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal][data-revealed='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Страховка: если гидратация не произошла, контент всё равно появится */
+[data-reveal] {
+  animation: reveal-failsafe 0.4s linear 5s forwards;
+}
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Если JS отключён — показываем всё сразу */
+.no-js [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==================================================================
+   LOADING EXPERIENCE
+   Кухня собирается по слоям: корпуса → столешница → верх → GOLA → свет
+   ================================================================== */
+
+#recept-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--color-ink);
+  opacity: 1;
+  transition:
+    opacity 0.55s var(--ease-soft),
+    visibility 0.55s;
+}
+
+#recept-loader[data-state='done'] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Страховка: если JS не сработал, шторка уходит сама */
+#recept-loader {
+  animation: loader-failsafe 0.6s var(--ease-soft) 4.5s forwards;
+}
+
+@keyframes loader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* Пока идёт заставка — блокируем прокрутку. Атрибут ставится синхронно
+   на <html> ещё до отрисовки, поэтому гонок с гидратацией не возникает. */
+html[data-loading='true'],
+html[data-loading='true'] body {
+  overflow: hidden;
+}
+
+.loader-piece {
+  opacity: 0;
+  animation: piece-in 0.5s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--d) * var(--loader-speed, 1));
+}
+
+.loader-piece--up {
+  transform: translateY(16px);
+}
+.loader-piece--down {
+  transform: translateY(-16px);
+}
+.loader-piece--left {
+  transform: translateX(-20px);
+}
+
+@keyframes piece-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.loader-gola {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: gola-draw 0.6s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--d) * var(--loader-speed, 1));
+}
+
+@keyframes gola-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.loader-light {
+  opacity: 0;
+  animation: light-on 0.9s ease-out forwards;
+  animation-delay: calc(var(--d) * var(--loader-speed, 1));
+}
+
+@keyframes light-on {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+.loader-text {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: piece-in 0.7s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--d) * var(--loader-speed, 1));
+}
+
+/* Повторный визит — ускоренная версия */
+html[data-loader='short'] .loader-piece,
+html[data-loader='short'] .loader-gola,
+html[data-loader='short'] .loader-light,
+html[data-loader='short'] .loader-text {
+  --loader-speed: 0.35;
+}
+
+/* ==================================================================
+   ПРОЧИЕ АНИМАЦИИ
+   ================================================================== */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s var(--ease-out-expo) both;
+}
+
+@keyframes soft-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-soft-zoom {
+  animation: soft-zoom 1.6s var(--ease-out-expo) both;
+}
+
+/* Мобильная панель действий */
+.mobile-bar-enter {
+  transform: translateY(120%);
+  transition: transform 0.4s var(--ease-soft);
+}
+.mobile-bar-enter[data-visible='true'] {
+  transform: none;
+}
+
+/* ==================================================================
+   PREFERS-REDUCED-MOTION
+   ================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .loader-piece,
+  .loader-gola,
+  .loader-light,
+  .loader-text {
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+/* Печать: убираем интерфейсные элементы */
+@media print {
+  header,
+  footer,
+  #recept-loader,
+  .no-print {
+    display: none !important;
+  }
+}

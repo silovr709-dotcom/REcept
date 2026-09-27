@@ -1,0 +1,121 @@
+import Image from 'next/image';
+import { CtaButton } from '../CtaButton';
+import { ButtonLink } from '../ui/Button';
+import { Eyebrow } from '../ui/Section';
+import hero from '@public/images/kitchens/kitchen-01.webp';
+
+/**
+ * ПЕРВЫЙ ЭКРАН — правило пяти секунд.
+ * Человек должен сразу понять: что это, что делают, где, чем отличаются
+ * и что делать дальше. Поэтому сначала смысл, потом красота.
+ *
+ * Порядок на мобильном специально такой: заголовок → объяснение → кнопки
+ * → фотография → цифры. Кнопка не уезжает вниз за картинку.
+ */
+export function Hero() {
+  return (
+    <section className="relative overflow-hidden bg-cream pb-14 pt-24 lg:pb-20 lg:pt-32">
+      {/* Мягкое тёплое свечение — глубина без «чёрного с золотом» */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-40 -top-40 size-[38rem] rounded-full bg-sand/60 blur-3xl"
+      />
+
+      <div className="container-page relative">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_1fr] lg:gap-16 xl:gap-20">
+          {/* Текстовая колонка */}
+          <div className="max-w-2xl">
+            <Eyebrow className="animate-fade-up">
+              Семейное мебельное ателье · Тверь
+            </Eyebrow>
+
+            <h1
+              className="animate-fade-up font-display mt-6 text-h1 text-ink"
+              style={{ animationDelay: '60ms' }}
+            >
+              Кухни на заказ <span className="block">в Твери</span>
+            </h1>
+
+            <p
+              className="animate-fade-up mt-6 max-w-xl text-lead text-stone"
+              style={{ animationDelay: '120ms' }}
+            >
+              Роберт и Катя лично ведут проект — от первого замера до момента,
+              когда вы впервые готовите на новой кухне. Проектирование,
+              визуализация и схемы электрики{' '}
+              <span className="font-semibold text-ink">бесплатно</span>.
+            </p>
+
+            <div
+              className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+              style={{ animationDelay: '180ms' }}
+            >
+              <CtaButton
+                source="hero"
+                variant="brass"
+                size="lg"
+                withArrow
+                className="w-full sm:w-auto"
+                modalTitle="Расскажите, какую кухню вы хотите"
+                modalLead="Можно даже без точного проекта и размеров — разберёмся вместе. Роберт или Катя свяжутся и подскажут, с чего начать."
+                submitLabel="Рассчитать мою кухню"
+              >
+                Рассчитать мою кухню
+              </CtaButton>
+
+              <ButtonLink
+                href="/portfolio"
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto"
+              >
+                Посмотреть проекты
+              </ButtonLink>
+            </div>
+
+            <p
+              className="animate-fade-up mt-4 max-w-md text-sm text-stone"
+              style={{ animationDelay: '220ms' }}
+            >
+              Без обязательств. Сначала обсудим задачу и поймём, что вам
+              действительно нужно.
+            </p>
+          </div>
+
+          {/* Визуальное доказательство качества */}
+          <div className="animate-soft-zoom relative aspect-4/3 overflow-hidden rounded-lg bg-sand sm:aspect-3/2 lg:aspect-auto lg:h-[min(70vh,38rem)]">
+            <Image
+              src={hero}
+              alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
+              fill
+              priority
+              fetchPriority="high"
+              sizes="(max-width: 1023px) 100vw, 46vw"
+              placeholder="blur"
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Доказательство прямо на первом экране */}
+        <ul className="animate-fade-up mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:grid-cols-4 lg:mt-16">
+          {[
+            { big: '24', small: 'месяца гарантии на изделие' },
+            { big: '50/50', small: 'оплата — без полной предоплаты' },
+            { big: '0 ₽', small: 'проект, визуализация и схемы электрики' },
+            { big: 'Тверь', small: 'доставка и сборка — наши' },
+          ].map((item) => (
+            <li key={item.small}>
+              <p className="font-display text-[1.625rem] leading-none text-ink">
+                {item.big}
+              </p>
+              <p className="mt-2 text-[0.8125rem] leading-snug text-stone">
+                {item.small}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
