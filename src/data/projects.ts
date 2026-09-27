@@ -39,6 +39,8 @@ export type Project = {
   solutions: { title: string; text: string }[];
   /** Почему такое решение имеет смысл — без выдуманных историй заказчика */
   rationale: string;
+  /** Фрагменты этого же кадра: фурнитура, фактуры, стыки (см. data/details.ts) */
+  detailIds: string[];
   /** TODO: заполнить, если владельцы дадут реальные данные */
   area: string | null;
   term: string | null;
@@ -78,6 +80,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Прямая компоновка в нише — рабочее решение для комнаты, где нельзя «размазать» кухню по двум стенам. Вся техника, хранение и рабочая поверхность собраны в один фронт, а остальное пространство остаётся свободным.',
+    detailIds: ['brass-hood', 'stone-top-tap', 'brass-gola', 'brass-frames', 'black-column'],
     area: null,
     term: null,
     budget: null,
@@ -114,6 +117,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Когда кухня открыта в гостиную, она перестаёт быть «техническим» помещением. Поэтому фасады сделаны без ручек и максимально спокойными, а вся «жизнь» отдана острову и свету.',
+    detailIds: ['island-wood'],
     area: null,
     term: null,
     budget: null,
@@ -149,6 +153,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Маленькая кухня не обязана быть белой и безликой. Её можно сделать характерной, если правильно распределить массу цвета и не перегрузить верхний ярус.',
+    detailIds: ['reeded-green', 'wood-top-green'],
     area: null,
     term: null,
     budget: null,
@@ -185,6 +190,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Тёмная кухня требует аккуратной работы со светом и фактурами. Матовая поверхность не бликует, а древесные элементы не дают интерьеру стать мрачным.',
+    detailIds: ['graphite-wood'],
     area: null,
     term: null,
     budget: null,
@@ -221,6 +227,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'В большом помещении главная задача — не «залить» стену мебелью, а задать ритм. Здесь это сделано чередованием светлых и тёмных объёмов.',
+    detailIds: ['wood-grey'],
     area: null,
     term: null,
     budget: null,
@@ -257,6 +264,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Неоклассика легко превращается в «тяжёлую» кухню. Спасает сдержанная фрезеровка, светлая столешница и минимум контрастных деталей.',
+    detailIds: ['fluted-white', 'vitrine-black', 'brass-handles'],
     area: null,
     term: null,
     budget: null,
@@ -293,6 +301,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Когда потолки высокие, шкафы «в рост человека» оставляют мёртвую зону наверху. Второй ярус решает это и заодно делает кухню визуально выше.',
+    detailIds: ['ribbed-glass-gold', 'wood-backsplash', 'open-niche'],
     area: null,
     term: null,
     budget: null,
@@ -329,6 +338,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'На маленькой площади каждое решение должно быть функциональным. Здесь работает не декор, а расстановка: свет, высоты и удобные расстояния.',
+    detailIds: ['marble-splash'],
     area: null,
     term: null,
     budget: null,
@@ -365,6 +375,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'П-образная схема — самая ёмкая по хранению. Её сложность в точности размеров: ошибка в сантиметр по любой из трёх стен видна сразу.',
+    detailIds: ['quartz-top'],
     area: null,
     term: null,
     budget: null,

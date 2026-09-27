@@ -4,10 +4,21 @@ import { PageHero } from '@/components/PageHero';
 import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
+import { Details } from '@/components/sections/Details';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { getDetailsFor } from '@/data/details';
 import shot from '@public/images/kitchens/kitchen-06.webp';
+
+const craftDetails = getDetailsFor([
+  'open-niche',
+  'ribbed-glass-gold',
+  'brass-handles',
+  'vitrine-black',
+  'fluted-white',
+  'brass-gola',
+]);
 
 export const metadata: Metadata = {
   title: 'Гардеробные, шкафы и мебель на заказ в Твери',
@@ -96,6 +107,16 @@ export default function FurniturePage() {
           </div>
         </div>
       </Section>
+
+      <Details
+        tone="bone"
+        items={craftDetails}
+        columns={3}
+        eyebrow="Как это сделано"
+        title="Хранение, подсветка и фурнитура — те же, что и в кухнях"
+        lead="Гардеробные и шкафы мы делаем на том же производстве, из тех же материалов и с той же фурнитурой. Пока в портфолио опубликованы кухни — вот фрагменты, по которым видно уровень работы."
+        showCta={false}
+      />
 
       {/* Честно про фотографии */}
       <Section tone="ink">

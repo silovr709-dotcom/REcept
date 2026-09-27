@@ -1,7 +1,12 @@
+import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { objections } from '@/data/content';
+import { getDetailsFor } from '@/data/details';
+
+// Кадры с объектов не дают блоку превратиться в сплошную стену текста
+const objectionShots = getDetailsFor(['reeded-green', 'marble-splash', 'brass-frames']);
 
 /**
  * Снимаем главные страхи до того, как человек успеет закрыть вкладку.
@@ -17,7 +22,7 @@ export function Objections({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
           lead="Кухня — дорогая и долгая покупка. Сомневаться перед ней логично. Вот что обычно беспокоит людей больше всего."
         />
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {objections.map((o, i) => (
             <Reveal
               key={o.fear}
@@ -33,6 +38,27 @@ export function Objections({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
               <p className="text-[0.9375rem] leading-relaxed text-stone">
                 {o.answer}
               </p>
+            </Reveal>
+          ))}
+
+          {objectionShots.map((d, i) => (
+            <Reveal key={d.id} delay={i * 50} className="h-full">
+              <figure className="relative h-full min-h-56 overflow-hidden rounded-lg bg-sand">
+                <Image
+                  src={d.image}
+                  alt={d.alt}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                  placeholder="blur"
+                  className="object-cover"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-12">
+                  <p className="text-[0.9375rem] font-semibold text-cream">
+                    {d.title}
+                  </p>
+                </figcaption>
+              </figure>
             </Reveal>
           ))}
         </div>

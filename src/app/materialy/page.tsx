@@ -4,8 +4,10 @@ import { PageHero } from '@/components/PageHero';
 import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
+import { Details } from '@/components/sections/Details';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { details } from '@/data/details';
 import shot from '@public/images/kitchens/kitchen-03.webp';
 import shot2 from '@public/images/kitchens/kitchen-08.webp';
 
@@ -110,7 +112,16 @@ export default function MaterialsPage() {
         </CtaButton>
       </PageHero>
 
-      <Section tone="bone" aria-labelledby="facades-title">
+      <Details
+        tone="bone"
+        items={details}
+        eyebrow="Фактуры вживую"
+        title="Материалы, с которыми мы уже работали"
+        lead="Это не каталог поставщика и не рендеры: каждый кадр — фрагмент кухни, которую мы сделали. Металл, стекло, камень, дерево и рельеф в реальном освещении реальных квартир."
+        footnote="Нажмите на любой фрагмент, чтобы посмотреть проект целиком."
+      />
+
+      <Section tone="cream" aria-labelledby="facades-title">
         <div className="container-page">
           <SectionHeading
             id="facades-title"
@@ -124,7 +135,7 @@ export default function MaterialsPage() {
               <Reveal
                 key={f.title}
                 delay={Math.min(i, 5) * 40}
-                className="flex h-full flex-col bg-cream p-7"
+                className="flex h-full flex-col bg-bone p-7"
               >
                 <span className="self-start rounded-full border border-brass/30 px-3 py-1 text-[0.6875rem] font-bold uppercase tracking-wider text-brass">
                   {f.tag}
@@ -141,7 +152,7 @@ export default function MaterialsPage() {
         </div>
       </Section>
 
-      <Section tone="cream">
+      <Section tone="bone">
         <div className="container-page">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
             <Reveal>

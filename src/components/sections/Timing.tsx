@@ -28,9 +28,9 @@ const stages = [
   },
 ];
 
-export function Timing() {
+export function Timing({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
   return (
-    <Section tone="bone" aria-labelledby="timing-title">
+    <Section tone={tone} aria-labelledby="timing-title">
       <div className="container-page">
         <SectionHeading
           id="timing-title"
@@ -46,8 +46,8 @@ export function Timing() {
               delay={i * 60}
               className={`flex h-full flex-col rounded-lg p-7 sm:p-8 ${
                 s.best
-                  ? 'border-2 border-brass bg-cream'
-                  : 'border border-line bg-cream/70'
+                  ? `border-2 border-brass ${tone === 'cream' ? 'bg-bone' : 'bg-cream'}`
+                  : `border border-line ${tone === 'cream' ? 'bg-bone/60' : 'bg-cream/70'}`
               }`}
             >
               <div className="flex items-center justify-between gap-4">

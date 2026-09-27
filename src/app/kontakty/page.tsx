@@ -3,7 +3,18 @@ import { PageHero } from '@/components/PageHero';
 import { LeadForm } from '@/components/LeadForm';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
+import { PhotoBand } from '@/components/PhotoBand';
+import { Details } from '@/components/sections/Details';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { getDetailsFor } from '@/data/details';
+import bandContacts from '@public/images/kitchens/kitchen-07.webp';
+
+const contactDetails = getDetailsFor([
+  'brass-hood',
+  'reeded-green',
+  'marble-splash',
+  'quartz-top',
+]);
 import {
   WORKING_HOURS,
   activeContacts,
@@ -174,6 +185,22 @@ export default function ContactsPage() {
           </div>
         </div>
       </Section>
+
+      <Details
+        tone="cream"
+        items={contactDetails}
+        eyebrow="Пока вы думаете"
+        title="Посмотрите, как мы работаем с деталями"
+        lead="Фрагменты наших кухонь в Твери. По ним видно то, что не покажет общий план: профили, стыки, подсветку и фактуры."
+        showCta={false}
+      />
+
+      <PhotoBand
+        image={bandContacts}
+        alt="Угловая кухня на заказ до потолка от ателье «РЕцепт»: светлые фасады, деревянный фартук, антресоли с рифлёным стеклом"
+        overlay="quote"
+        caption="Начните с простого вопроса. Дальше разберёмся вместе."
+      />
 
       <BreadcrumbJsonLd items={[{ name: 'Контакты', url: '/kontakty' }]} />
     </>

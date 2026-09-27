@@ -9,9 +9,9 @@ import { priceExplanation, priceFactors } from '@/data/content';
  * невозможно назвать без проекта, и что человек получит вместо неё.
  * Никаких «скидок только сегодня» и зачёркнутых цифр.
  */
-export function Price() {
+export function Price({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
   return (
-    <Section tone="bone" id="price" aria-labelledby="price-title">
+    <Section tone={tone} id="price" aria-labelledby="price-title">
       <div className="container-page">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
           <div>
@@ -71,7 +71,11 @@ export function Price() {
           </div>
 
           <Reveal>
-            <div className="rounded-lg border border-line bg-cream p-7 sm:p-9">
+            <div
+              className={`rounded-lg border border-line p-7 sm:p-9 ${
+                tone === 'bone' ? 'bg-cream' : 'bg-bone'
+              }`}
+            >
               <h3 className="text-eyebrow font-bold uppercase text-brass">
                 Из чего складывается стоимость
               </h3>

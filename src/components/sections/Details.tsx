@@ -1,0 +1,110 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { CtaButton } from '../CtaButton';
+import { Reveal } from '../ui/Reveal';
+import { Section, SectionHeading } from '../ui/Section';
+import { featuredDetails, type Detail } from '@/data/details';
+
+/**
+ * ДЕТАЛИ.
+ * Общий план показывает, что кухня красивая. Деталь показывает, что она
+ * сделана под конкретное помещение: профиль, кромка, стык, подсветка, фактура.
+ * Именно это отличает мебель на заказ от коробки из магазина.
+ *
+ * Все кадры — фрагменты реальных фотографий наших работ.
+ */
+
+// Разные пропорции задают editorial-ритм вместо скучной сетки квадратов
+const ratios = ['aspect-4/5', 'aspect-square', 'aspect-square', 'aspect-4/5'];
+
+export function Details({
+  tone = 'cream',
+  items = featuredDetails,
+  eyebrow = 'Детали',
+  title = 'Индивидуальная мебель видна в мелочах',
+  lead = 'Профиль-ручка вместо накладной, кромка столешницы, стык фактур, свет под корпусом, рифлёное стекло вместо прозрачного. Это нельзя купить готовым — это проектируется под конкретную кухню.',
+  footnote = 'Все фрагменты — с наших объектов в Твери. Нажмите на любой, чтобы посмотреть проект целиком.',
+  showCta = true,
+  columns = 4,
+}: {
+  tone?: 'cream' | 'bone';
+  items?: Detail[];
+  eyebrow?: string;
+  title?: string;
+  lead?: string;
+  footnote?: string;
+  showCta?: boolean;
+  columns?: 3 | 4;
+}) {
+  if (items.length === 0) return null;
+
+  const cols =
+    columns === 3
+      ? 'grid-cols-2 lg:grid-cols-3'
+      : 'grid-cols-2 lg:grid-cols-4';
+  const sizes =
+    columns === 3
+      ? '(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 30vw'
+      : '(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 22vw';
+
+  return (
+    <Section tone={tone} aria-labelledby="details-title">
+      <div className="container-page">
+        <SectionHeading
+          id="details-title"
+          eyebrow={eyebrow}
+          title={title}
+          lead={lead}
+        />
+
+        <ul className={`mt-12 grid gap-x-4 gap-y-8 sm:gap-x-6 lg:mt-16 ${cols}`}>
+          {items.map((d, i) => (
+            <li key={d.id}>
+              <Reveal delay={Math.min(i, 5) * 40}>
+                <Link href={`/portfolio/${d.project}`} className="group block">
+                  <div
+                    className={`relative overflow-hidden rounded-md bg-sand ${ratios[i % ratios.length]}`}
+                  >
+                    <Image
+                      src={d.image}
+                      alt={d.alt}
+                      fill
+                      loading="lazy"
+                      sizes={sizes}
+                      placeholder="blur"
+                      className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+                    />
+                  </div>
+                  <p className="mt-3 text-[0.9375rem] font-semibold leading-snug text-ink transition-colors group-hover:text-brass">
+                    {d.title}
+                  </p>
+                  <p className="mt-1 text-[0.8125rem] leading-snug text-stone">
+                    {d.note}
+                  </p>
+                </Link>
+              </Reveal>
+            </li>
+          ))}
+        </ul>
+
+        {showCta ? (
+          <Reveal className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-xl text-stone">{footnote}</p>
+            <CtaButton
+              source="details"
+              variant="primary"
+              size="md"
+              withArrow
+              className="shrink-0 max-sm:w-full"
+              modalTitle="Покажем образцы вживую"
+              modalLead="Фактуру, металл и кромку лучше один раз потрогать. Договоримся о встрече — привезём образцы и посмотрим их при вашем свете."
+              submitLabel="Посмотреть образцы"
+            >
+              Посмотреть образцы вживую
+            </CtaButton>
+          </Reveal>
+        ) : null}
+      </div>
+    </Section>
+  );
+}

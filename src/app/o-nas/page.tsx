@@ -7,7 +7,9 @@ import { Testimonials } from '@/components/sections/Testimonials';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
+import { PhotoBand } from '@/components/PhotoBand';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import bandIsland from '@public/images/kitchens/kitchen-04.webp';
 
 export const metadata: Metadata = {
   title: 'О нас: семейное мебельное ателье «РЕцепт» в Твери',
@@ -98,9 +100,16 @@ export default function AboutPage() {
         </div>
       </Section>
 
+      <PhotoBand
+        image={bandIsland}
+        alt="Графитовая кухня с островом, изготовленная и собранная ателье «РЕцепт» в Твери"
+        overlay="quote"
+        caption="Каждую кухню в портфолио Роберт и Катя проектировали, привозили и собирали сами."
+      />
+
       <Founders />
-      <Advantages />
-      <Testimonials />
+      <Advantages tone="cream" />
+      <Testimonials tone="cream" />
       <Objections tone="bone" />
 
       <FinalCta

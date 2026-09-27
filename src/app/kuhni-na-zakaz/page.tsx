@@ -5,6 +5,7 @@ import { ProjectCard } from '@/components/ProjectCard';
 import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
+import { Details } from '@/components/sections/Details';
 import { Process } from '@/components/sections/Process';
 import { Price } from '@/components/sections/Price';
 import { Timing } from '@/components/sections/Timing';
@@ -200,9 +201,10 @@ export default function KitchensPage() {
         </div>
       </Section>
 
-      <Process />
-      <Timing />
-      <Price />
+      <Details tone="cream" />
+      <Process tone="bone" />
+      <Timing tone="cream" />
+      <Price tone="bone" />
       <Faq limit={6} tone="cream" />
       <FinalCta
         title="Посчитаем вашу кухню"

@@ -8,11 +8,11 @@ import { testimonials } from '@/data/content';
  * Пока массив `testimonials` пуст, секция не рендерится вообще —
  * пустой блок с рыбой навредил бы доверию сильнее, чем его отсутствие.
  */
-export function Testimonials() {
+export function Testimonials({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
   if (testimonials.length === 0) return null;
 
   return (
-    <Section tone="bone" aria-labelledby="testimonials-title">
+    <Section tone={tone} aria-labelledby="testimonials-title">
       <div className="container-page">
         <SectionHeading
           id="testimonials-title"
@@ -25,7 +25,9 @@ export function Testimonials() {
             <li key={`${t.author}-${i}`}>
               <Reveal
                 delay={Math.min(i, 3) * 50}
-                className="flex h-full flex-col rounded-lg border border-line bg-cream p-7"
+                className={`flex h-full flex-col rounded-lg border border-line p-7 ${
+                  tone === 'bone' ? 'bg-cream' : 'bg-bone'
+                }`}
               >
                 <blockquote className="grow text-[0.9375rem] leading-relaxed text-stone">
                   «{t.text}»

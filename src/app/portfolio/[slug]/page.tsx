@@ -10,6 +10,7 @@ import { Section } from '@/components/ui/Section';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getProject, projects } from '@/data/projects';
+import { getDetailsFor } from '@/data/details';
 import { site } from '@/data/site';
 
 type Params = { params: Promise<{ slug: string }> };
@@ -47,6 +48,7 @@ export default async function ProjectPage({ params }: Params) {
   if (!project) notFound();
 
   const others = projects.filter((p) => p.slug !== project.slug).slice(0, 3);
+  const projectDetails = getDetailsFor(project.detailIds);
   const facts = [
     project.area ? { label: 'Площадь', value: project.area } : null,
     project.term ? { label: 'Срок', value: project.term } : null,
@@ -107,6 +109,52 @@ export default async function ProjectPage({ params }: Params) {
                     </Reveal>
                   ))}
                 </dl>
+
+                {/* Фрагменты: фурнитура, фактуры и стыки крупным планом */}
+                {projectDetails.length > 0 ? (
+                  <div className="mt-12">
+                    <h2 className="text-eyebrow font-bold uppercase text-brass">
+                      Детали этого проекта
+                    </h2>
+                    <ul
+                      className={`mt-6 grid gap-4 ${
+                        projectDetails.length === 1
+                          ? 'grid-cols-1'
+                          : 'grid-cols-2 sm:gap-5'
+                      }`}
+                    >
+                      {projectDetails.map((d, i) => (
+                        <li key={d.id}>
+                          <Reveal delay={Math.min(i, 4) * 40}>
+                            <div
+                              className={`relative overflow-hidden rounded-md bg-sand ${
+                                projectDetails.length === 1
+                                  ? 'aspect-16/9'
+                                  : 'aspect-4/3'
+                              }`}
+                            >
+                              <Image
+                                src={d.image}
+                                alt={d.alt}
+                                fill
+                                loading="lazy"
+                                sizes="(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 26vw"
+                                placeholder="blur"
+                                className="object-cover"
+                              />
+                            </div>
+                            <p className="mt-2.5 text-[0.875rem] font-semibold leading-snug text-ink">
+                              {d.title}
+                            </p>
+                            <p className="mt-0.5 text-[0.8125rem] leading-snug text-stone">
+                              {d.note}
+                            </p>
+                          </Reveal>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
 
                 <div className="mt-12 rounded-lg border-l-2 border-brass bg-bone p-7">
                   <p className="text-eyebrow font-bold uppercase text-brass">
