@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Breadcrumbs } from '@/components/PageHero';
 import { ProjectCard } from '@/components/ProjectCard';
+import { ZoomableImage } from '@/components/ZoomableImage';
 import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
@@ -76,22 +76,27 @@ export default async function ProjectPage({ params }: Params) {
             <p className="mt-5 max-w-2xl text-lead text-stone">
               {project.summary}
             </p>
+            <p className="mt-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-bone px-4 py-2 text-[0.8125rem] font-semibold text-ink">
+                <span aria-hidden="true" className="size-1.5 rounded-full bg-brass" />
+                {project.layout} компоновка
+              </span>
+            </p>
           </div>
         </section>
 
         <div className="container-page">
-          <div className="relative aspect-4/3 overflow-hidden rounded-lg bg-sand sm:aspect-16/9">
-            <Image
-              src={project.image}
-              alt={project.alt}
-              fill
-              priority
-              fetchPriority="high"
-              sizes="(max-width: 1440px) 100vw, 1400px"
-              placeholder="blur"
-              className="object-cover"
-            />
-          </div>
+          <ZoomableImage
+            image={project.image}
+            alt={project.alt}
+            caption={`${project.title} — работа ателье «РЕцепт», Тверь`}
+            sizes="(max-width: 1440px) 100vw, 1400px"
+            priority
+            wrapperClassName="aspect-4/3 rounded-lg sm:aspect-16/9"
+          />
+          <p className="mt-3 text-sm text-stone">
+            Нажмите на фотографию, чтобы рассмотреть детали
+          </p>
         </div>
 
         <Section tone="cream">
@@ -126,23 +131,17 @@ export default async function ProjectPage({ params }: Params) {
                       {projectDetails.map((d, i) => (
                         <li key={d.id}>
                           <Reveal delay={Math.min(i, 4) * 40}>
-                            <div
-                              className={`relative overflow-hidden rounded-md bg-sand ${
+                            <ZoomableImage
+                              image={d.image}
+                              alt={d.alt}
+                              caption={`${d.title} — ${d.note.toLowerCase()}`}
+                              sizes="(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 26vw"
+                              wrapperClassName={`rounded-md ${
                                 projectDetails.length === 1
                                   ? 'aspect-16/9'
                                   : 'aspect-4/3'
                               }`}
-                            >
-                              <Image
-                                src={d.image}
-                                alt={d.alt}
-                                fill
-                                loading="lazy"
-                                sizes="(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 26vw"
-                                placeholder="blur"
-                                className="object-cover"
-                              />
-                            </div>
+                            />
                             <p className="mt-2.5 text-[0.875rem] font-semibold leading-snug text-ink">
                               {d.title}
                             </p>

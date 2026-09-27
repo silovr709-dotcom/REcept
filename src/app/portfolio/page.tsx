@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/PageHero';
-import { ProjectCard } from '@/components/ProjectCard';
+import { PortfolioGrid } from '@/components/PortfolioGrid';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
 import { CtaButton } from '@/components/CtaButton';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
-import { projects } from '@/data/projects';
+import { projects, projectLayouts } from '@/data/projects';
 
 export const metadata: Metadata = {
   title: 'Портфолио: кухни на заказ в Твери',
@@ -40,24 +40,7 @@ export default function PortfolioPage() {
 
       <Section tone="bone">
         <div className="container-page">
-          <ul className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, i) => (
-              <li key={project.slug} className={i % 5 === 0 ? 'lg:col-span-2' : ''}>
-                <Reveal delay={Math.min(i, 4) * 40}>
-                  <ProjectCard
-                    project={project}
-                    priority={i < 2}
-                    ratio={i % 5 === 0 ? 'aspect-16/10' : 'aspect-4/5'}
-                    sizes={
-                      i % 5 === 0
-                        ? '(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 62vw'
-                        : '(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 31vw'
-                    }
-                  />
-                </Reveal>
-              </li>
-            ))}
-          </ul>
+          <PortfolioGrid projects={projects} layouts={projectLayouts} />
 
           <Reveal className="mt-16 rounded-lg border border-line bg-cream p-8 text-center sm:p-12">
             <h2 className="font-display mx-auto max-w-2xl text-h3 text-ink">

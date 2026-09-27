@@ -43,6 +43,9 @@ export function ProjectCard({
           aria-hidden="true"
           className="absolute inset-0 bg-linear-to-t from-ink/45 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
+        <span className="absolute left-3 top-3 rounded-full bg-cream/90 px-3 py-1 text-[0.6875rem] font-bold uppercase tracking-wider text-ink backdrop-blur-sm">
+          {project.layout}
+        </span>
       </div>
 
       <div className="mt-4 flex items-start justify-between gap-4">
