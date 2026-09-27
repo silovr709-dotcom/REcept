@@ -223,8 +223,10 @@
   transform: none;
 }
 
-/* Страховка: если гидратация не произошла, контент всё равно появится */
-[data-reveal] {
+/* Страховка: если гидратация не произошла, контент всё равно появится.
+   Как только React ожил, на <html> появляется data-hydrated и страховка
+   отключается, чтобы не ломать появление при скролле. */
+html:not([data-hydrated]) [data-reveal] {
   animation: reveal-failsafe 0.4s linear 5s forwards;
 }
 

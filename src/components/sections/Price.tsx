@@ -71,7 +71,7 @@ export function Price() {
           </div>
 
           <Reveal>
-            <div className="rounded-lg border border-line bg-bone p-7 sm:p-9">
+            <div className="rounded-lg border border-line bg-cream p-7 sm:p-9">
               <h3 className="text-eyebrow font-bold uppercase text-brass">
                 Из чего складывается стоимость
               </h3>

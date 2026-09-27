@@ -46,8 +46,8 @@ export function Timing() {
               delay={i * 60}
               className={`flex h-full flex-col rounded-lg p-7 sm:p-8 ${
                 s.best
-                  ? 'border-2 border-brass bg-bone'
-                  : 'border border-line bg-bone/60'
+                  ? 'border-2 border-brass bg-cream'
+                  : 'border border-line bg-cream/70'
               }`}
             >
               <div className="flex items-center justify-between gap-4">

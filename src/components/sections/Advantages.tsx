@@ -42,7 +42,7 @@ export function Advantages() {
             <Reveal
               key={adv.id}
               delay={Math.min(i, 4) * 50}
-              className="flex h-full flex-col rounded-lg border border-line bg-cream p-7 sm:p-8"
+              className="flex h-full flex-col rounded-lg border border-line bg-bone p-7 sm:p-8"
             >
               <div className="flex size-9 items-center justify-center rounded-full bg-brass/12">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">

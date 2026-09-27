@@ -10,6 +10,9 @@ import { useEffect } from 'react';
  */
 export function LoaderController() {
   useEffect(() => {
+    // Сообщаем CSS, что React ожил: отключаются страховочные анимации
+    document.documentElement.dataset.hydrated = 'true';
+
     const el = document.getElementById('recept-loader');
     if (!el) return;
 
@@ -18,16 +21,20 @@ export function LoaderController() {
     const minDuration = reduce ? 0 : isShort ? 500 : 1700;
 
     const start = Number(document.documentElement.dataset.loaderStart) || Date.now();
+    let done = false;
 
     const finish = () => {
+      if (done) return;
+      done = true;
       el.dataset.state = 'done';
+      el.setAttribute('aria-hidden', 'true');
+      el.removeAttribute('role');
       document.documentElement.removeAttribute('data-loading');
       try {
         sessionStorage.setItem('recept:visited', '1');
       } catch {
         /* приватный режим — не критично */
       }
-      window.setTimeout(() => el.remove(), 700);
     };
 
     const schedule = () => {
@@ -35,14 +42,16 @@ export function LoaderController() {
       window.setTimeout(finish, Math.max(0, minDuration - elapsed));
     };
 
+    // Страховка на медленных сетях: не держим дольше трёх секунд
+    const hardStop = window.setTimeout(finish, 3000);
+
     if (document.readyState === 'complete') {
       schedule();
     } else {
       window.addEventListener('load', schedule, { once: true });
-      // Страховка на медленных сетях: не держим дольше 3 секунд
-      const hardStop = window.setTimeout(finish, 3000);
-      return () => window.clearTimeout(hardStop);
     }
+
+    return () => window.clearTimeout(hardStop);
   }, []);
 
   return null;
