@@ -110,6 +110,9 @@
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
+  /* Доводчик: резкий старт и долгое затухание без отскока —
+     именно так ведёт себя хорошая мебельная фурнитура */
+  --ease-soft-close: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* ==================================================================
@@ -466,6 +469,22 @@ html[data-loader='short'] .loader-text {
 }
 
 /* Мобильная панель действий */
+/* Форма выезжает ящиком: снизу на мобильном, из глубины на десктопе */
+@keyframes drawer-open-modal {
+  from {
+    transform: translateY(14%) scale(0.985);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-drawer {
+  animation: drawer-open-modal 0.55s var(--ease-soft-close) both;
+}
+
 .mobile-bar-enter {
   transform: translateY(120%);
   transition: transform 0.4s var(--ease-soft);
@@ -578,5 +597,196 @@ html[data-loader='short'] .loader-text {
   #recept-loader,
   .no-print {
     display: none !important;
+  }
+}
+
+/* ==================================================================
+   МЕБЕЛЬНАЯ МЕХАНИКА
+   ==================================================================
+   Сайт мебельщика должен ощущаться как мебель. Страницы не «сменяются»,
+   а открываются: одна — фасадом на петлях, другая — выдвижным ящиком.
+   Движение подчинено логике доводчика: быстрый старт, долгое мягкое
+   затухание, никакого отскока.
+
+   Всё построено на переходах представлений браузера. Где они не
+   поддерживаются (Firefox) или человек просил меньше движения —
+   страница просто меняется мгновенно, без единой ошибки.
+   ================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    /* Отключаем стандартное растворение: у нас своя механика */
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-image-pair(root) {
+    isolation: auto;
+  }
+
+  /* ---------- ФАСАД НА ПЕТЛЯХ ----------
+     Уходящая страница отводится как дверца: ось вращения слева,
+     у самой петли. Новая приходит из-за неё. */
+  html[data-nav='door']::view-transition-old(root) {
+    transform-origin: left center;
+    animation: door-close 460ms var(--ease-soft-close) both;
+    z-index: 2;
+  }
+
+  html[data-nav='door']::view-transition-new(root) {
+    transform-origin: left center;
+    animation: door-open 620ms var(--ease-soft-close) both;
+    z-index: 1;
+  }
+
+  @keyframes door-close {
+    from {
+      transform: perspective(1600px) rotateY(0) translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: perspective(1600px) rotateY(-11deg) translateX(-4%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes door-open {
+    from {
+      transform: perspective(1600px) rotateY(9deg) translateX(3%);
+      opacity: 0.25;
+    }
+    to {
+      transform: perspective(1600px) rotateY(0) translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /* ---------- ВЫДВИЖНОЙ ЯЩИК ----------
+     Вглубь (в карточку проекта) — ящик выдвигается справа.
+     Наружу — задвигается обратно. */
+  html[data-nav='drawer']::view-transition-new(root) {
+    animation: drawer-out 560ms var(--ease-soft-close) both;
+    z-index: 2;
+  }
+
+  html[data-nav='drawer']::view-transition-old(root) {
+    animation: drawer-rest 560ms var(--ease-soft-close) both;
+    z-index: 1;
+  }
+
+  html[data-nav='drawer-back']::view-transition-old(root) {
+    animation: drawer-in 440ms var(--ease-soft-close) both;
+    z-index: 2;
+  }
+
+  html[data-nav='drawer-back']::view-transition-new(root) {
+    animation: drawer-return 560ms var(--ease-soft-close) both;
+    z-index: 1;
+  }
+
+  @keyframes drawer-out {
+    from {
+      transform: translateX(26%);
+      box-shadow: -28px 0 60px -20px rgba(25, 23, 19, 0.45);
+    }
+    to {
+      transform: translateX(0);
+      box-shadow: -28px 0 60px -20px rgba(25, 23, 19, 0);
+    }
+  }
+
+  @keyframes drawer-rest {
+    from {
+      transform: translateX(0) scale(1);
+      filter: brightness(1);
+    }
+    to {
+      transform: translateX(-7%) scale(0.985);
+      filter: brightness(0.9);
+    }
+  }
+
+  @keyframes drawer-in {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(26%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes drawer-return {
+    from {
+      transform: translateX(-7%) scale(0.985);
+      filter: brightness(0.9);
+    }
+    to {
+      transform: translateX(0) scale(1);
+      filter: brightness(1);
+    }
+  }
+}
+
+/* ---------- Ящик: раскрытие вопроса в списке ----------
+   Ответ не «разворачивается», а выезжает на доводчике. */
+.drawer-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  /* Закрытый ящик скрыт и от скринридера, и от клавиатуры.
+     Задержка равна длительности — чтобы не обрезать закрытие. */
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.52s var(--ease-soft-close),
+    opacity 0.4s var(--ease-soft-close),
+    visibility 0s linear 0.52s;
+}
+
+.drawer-panel > * {
+  overflow: hidden;
+}
+
+.drawer-panel[data-open='true'] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    grid-template-rows 0.52s var(--ease-soft-close),
+    opacity 0.4s var(--ease-soft-close),
+    visibility 0s;
+}
+
+/* ---------- Подъёмный фасад: мобильное меню ---------- */
+.lift-door {
+  transform-origin: top center;
+  transition:
+    transform 0.5s var(--ease-soft-close),
+    opacity 0.35s var(--ease-soft-close);
+}
+
+.lift-door[data-open='false'] {
+  transform: perspective(1200px) rotateX(-8deg) translateY(-6px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lift-door[data-open='true'] {
+  transform: perspective(1200px) rotateX(0) translateY(0);
+  opacity: 1;
+}
+
+/* ---------- Фасад приоткрывается при наведении ---------- */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hinge {
+    perspective: 1400px;
+  }
+  .hinge-panel {
+    transform-origin: left center;
+    transition: transform 0.7s var(--ease-soft-close);
+  }
+  .hinge:hover .hinge-panel {
+    transform: rotateY(-2.2deg);
   }
 }

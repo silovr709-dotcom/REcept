@@ -64,14 +64,17 @@ export function Accordion({
                 </span>
               </button>
             </h3>
+            {/* Ящик на доводчике: содержимое выезжает, а не «раскрывается» */}
             <div
               id={panelId}
               role="region"
               aria-labelledby={btnId}
-              hidden={!isOpen}
-              className={`pb-7 ${aColor} max-w-3xl`}
+              data-open={isOpen}
+              className="drawer-panel"
             >
-              {item.a}
+              <div>
+                <div className={`pb-7 ${aColor} max-w-3xl`}>{item.a}</div>
+              </div>
             </div>
           </div>
         );

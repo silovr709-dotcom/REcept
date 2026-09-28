@@ -125,7 +125,7 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="lead-modal-title"
-            className="animate-fade-up relative w-full max-w-2xl rounded-t-2xl bg-cream p-6 shadow-2xl sm:rounded-lg sm:p-9"
+            className="animate-drawer relative w-full max-w-2xl bg-cream p-6 shadow-2xl sm:p-9"
           >
             <button
               type="button"

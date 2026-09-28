@@ -126,10 +126,14 @@ export function Header() {
       </div>
 
       {/* Мобильное меню */}
+      {/* Подъёмный фасад: меню откидывается от верхней кромки */}
       <div
         id="mobile-menu"
-        hidden={!menuOpen}
-        className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-cream lg:hidden"
+        data-open={menuOpen}
+        aria-hidden={!menuOpen}
+        className={`lift-door max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-cream lg:hidden ${
+          menuOpen ? '' : 'invisible h-0 overflow-hidden border-t-0'
+        }`}
       >
         <div className="container-page py-6">
           <ul className="grid gap-1">

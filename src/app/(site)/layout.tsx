@@ -6,6 +6,7 @@ import { MobileActionBar } from '@/components/MobileActionBar';
 import { SiteProvider } from '@/components/SiteProvider';
 import { OrganizationJsonLd } from '@/components/JsonLd';
 import { Analytics } from '@/components/Analytics';
+import { FurnitureNavigation } from '@/components/FurnitureNavigation';
 import { getSiteView } from '@/lib/content/view';
 
 /**
@@ -48,6 +49,7 @@ export default async function SiteLayout({
         </LeadModalProvider>
       </SiteProvider>
 
+      <FurnitureNavigation />
       <OrganizationJsonLd />
       <Analytics />
     </>

@@ -24,10 +24,10 @@ export function ProjectCard({
   return (
     <Link
       href={`/portfolio/${project.slug}`}
-      className={`group block ${className}`}
+      className={`group hinge block ${className}`}
     >
       <div
-        className={`media-reveal relative overflow-hidden rounded-md bg-sand ${ratio ?? aspect[project.shape]}`}
+        className={`media-reveal hinge-panel relative overflow-hidden rounded-md bg-sand ${ratio ?? aspect[project.shape]}`}
       >
         <Image
           src={project.image.src}
