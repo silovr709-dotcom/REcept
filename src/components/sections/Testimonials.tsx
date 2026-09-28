@@ -44,14 +44,12 @@ export async function Testimonials({
             <li key={`${t.author ?? 'anon'}-${i}`}>
               <Reveal
                 delay={Math.min(i, 3) * 60}
-                className={`flex h-full flex-col rounded-lg border border-line p-7 ${
-                  tone === 'bone' ? 'bg-cream' : 'bg-bone'
-                }`}
+                className="flex h-full flex-col border-t border-line pt-7"
               >
                 <p className="font-display text-[1.0625rem] leading-snug text-ink">
                   {t.highlight}
                 </p>
-                <div aria-hidden="true" className="rule-brass my-5 w-full" />
+                <div className="my-4" />
                 <blockquote className="grow text-[0.9375rem] leading-relaxed text-stone">
                   {t.text}
                 </blockquote>

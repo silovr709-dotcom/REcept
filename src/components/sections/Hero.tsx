@@ -1,123 +1,110 @@
 import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { ButtonLink } from '../ui/Button';
-import { Eyebrow } from '../ui/Section';
 import { RatingBadge } from '../RatingBadge';
 import { getContent } from '@/lib/content/store';
 
 /**
- * ПЕРВЫЙ ЭКРАН — правило пяти секунд.
- * Человек должен сразу понять: что это, что делают, где, чем отличаются
- * и что делать дальше. Поэтому сначала смысл, потом красота.
+ * ПЕРВЫЙ ЭКРАН
+ * ============
+ * Фотография на весь экран, а не в колонке рядом с текстом. Так делают
+ * студии, которым есть что показать: снимок работает как витрина, а
+ * текста ровно столько, чтобы за пять секунд понять, что это, где и
+ * что нажать.
  *
- * Порядок на мобильном специально такой: заголовок → объяснение → кнопки
- * → фотография → цифры. Кнопка не уезжает вниз за картинку.
+ * Заголовок вынесен на нижнюю кромку кадра — взгляд идёт сверху вниз
+ * по фотографии и упирается прямо в него, а следом в кнопку.
  */
 export async function Hero() {
   const { hero } = await getContent('texts');
 
   return (
-    <section className="relative overflow-hidden bg-cream pb-14 pt-24 lg:pb-20 lg:pt-32">
-      {/* Мягкое тёплое свечение — глубина без «чёрного с золотом» */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-40 -top-40 size-[38rem] rounded-full bg-sand/60 blur-3xl"
-      />
+    <section className="relative isolate flex min-h-[92svh] flex-col justify-end overflow-hidden bg-ink pb-10 pt-32 sm:pb-14 lg:min-h-svh">
+      {hero.image ? (
+        <>
+          <Image
+            src={hero.image.src}
+            alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={hero.image.blurDataURL || undefined}
+            className="animate-soft-zoom -z-10 object-cover"
+          />
+          {/* Затемнение снизу: текст должен читаться на любом кадре */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-linear-to-t from-ink/92 via-ink/45 to-ink/25"
+          />
+        </>
+      ) : null}
 
       <div className="container-page relative">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_1fr] lg:gap-16 xl:gap-20">
-          <div className="max-w-2xl">
-            <Eyebrow className="animate-fade-up">{hero.eyebrow}</Eyebrow>
+        <p
+          className="animate-fade-up label-xs text-cream/65"
+          style={{ animationDelay: '120ms' }}
+        >
+          {hero.eyebrow}
+        </p>
 
-            <h1
-              className="animate-fade-up font-display mt-6 text-h1 text-ink"
-              style={{ animationDelay: '60ms' }}
+        <h1
+          className="animate-fade-up font-display mt-6 max-w-[16ch] text-h1 text-cream"
+          style={{ animationDelay: '200ms' }}
+        >
+          {hero.title}
+          {hero.titleSecondLine ? ` ${hero.titleSecondLine}` : ''}
+        </h1>
+
+        <div className="mt-10 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+          <p
+            className="animate-fade-up max-w-xl text-lead text-cream/75"
+            style={{ animationDelay: '300ms' }}
+          >
+            {hero.lead}
+          </p>
+
+          <div
+            className="animate-fade-up flex shrink-0 flex-col items-start gap-4 sm:flex-row sm:items-center"
+            style={{ animationDelay: '380ms' }}
+          >
+            <CtaButton
+              source="hero"
+              variant="light-solid"
+              size="lg"
+              withArrow
+              className="max-sm:w-full"
+              modalTitle="Расскажите, какую кухню вы хотите"
+              modalLead="Можно даже без точного проекта и размеров — разберёмся вместе. Роберт или Катя свяжутся и подскажут, с чего начать."
+              submitLabel={hero.primaryCta}
             >
-              {hero.title}{' '}
-              {hero.titleSecondLine ? (
-                <span className="block">{hero.titleSecondLine}</span>
-              ) : null}
-            </h1>
+              {hero.primaryCta}
+            </CtaButton>
 
-            <p
-              className="animate-fade-up mt-6 max-w-xl text-lead text-stone"
-              style={{ animationDelay: '120ms' }}
+            <ButtonLink
+              href="/portfolio"
+              variant="light"
+              size="lg"
+              className="max-sm:w-full"
             >
-              {hero.lead}
-            </p>
-
-            <div
-              className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
-              style={{ animationDelay: '180ms' }}
-            >
-              <CtaButton
-                source="hero"
-                variant="brass"
-                size="lg"
-                withArrow
-                className="w-full sm:w-auto"
-                modalTitle="Расскажите, какую кухню вы хотите"
-                modalLead="Можно даже без точного проекта и размеров — разберёмся вместе. Роберт или Катя свяжутся и подскажут, с чего начать."
-                submitLabel={hero.primaryCta}
-              >
-                {hero.primaryCta}
-              </CtaButton>
-
-              <ButtonLink
-                href="/portfolio"
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                {hero.secondaryCta}
-              </ButtonLink>
-            </div>
-
-            <p
-              className="animate-fade-up mt-4 max-w-md text-sm text-stone"
-              style={{ animationDelay: '220ms' }}
-            >
-              {hero.reassurance}
-            </p>
-
-            <div className="animate-fade-up mt-7" style={{ animationDelay: '260ms' }}>
-              <RatingBadge />
-            </div>
+              {hero.secondaryCta}
+            </ButtonLink>
           </div>
-
-          {/* Визуальное доказательство качества */}
-          {hero.image ? (
-            <div className="crop-frame animate-soft-zoom relative aspect-4/3 bg-sand sm:aspect-3/2 lg:aspect-auto lg:h-[min(70vh,38rem)]">
-              <Image
-                src={hero.image.src}
-                alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
-                fill
-                priority
-                fetchPriority="high"
-                sizes="(max-width: 1023px) 100vw, 46vw"
-                placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
-                blurDataURL={hero.image.blurDataURL || undefined}
-                className="object-cover"
-              />
-            </div>
-          ) : null}
         </div>
 
-        {/* Доказательство прямо на первом экране */}
-        {hero.stats.length > 0 ? (
-          <ul className="animate-fade-up mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:grid-cols-4 lg:mt-16">
-            {hero.stats.map((item) => (
-              <li key={item.small}>
-                <p className="font-display text-[1.625rem] leading-none text-ink">
-                  {item.big}
-                </p>
-                <p className="mt-2 text-[0.8125rem] leading-snug text-stone">
-                  {item.small}
-                </p>
-              </li>
-            ))}
-          </ul>
-        ) : null}
+        <div
+          className="animate-fade-up mt-12 flex flex-wrap items-center gap-x-10 gap-y-5 border-t border-cream/15 pt-8"
+          style={{ animationDelay: '460ms' }}
+        >
+          <RatingBadge tone="light" />
+          {hero.stats.slice(0, 3).map((item) => (
+            <p key={item.small} className="text-[0.8125rem] text-cream/60">
+              <span className="mr-2 font-semibold text-cream">{item.big}</span>
+              {item.small}
+            </p>
+          ))}
+        </div>
       </div>
     </section>
   );

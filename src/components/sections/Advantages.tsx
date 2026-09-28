@@ -44,7 +44,7 @@ export async function Advantages({
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {/* Главное преимущество — крупным планом */}
           <Reveal className="lg:col-span-3">
-            <div className="relative overflow-hidden rounded-lg bg-ink p-8 text-cream sm:p-12">
+            <div className="relative overflow-hidden bg-ink p-10 text-cream sm:p-16">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-brass/20 blur-3xl"
@@ -65,22 +65,9 @@ export async function Advantages({
             <Reveal
               key={adv.id}
               delay={Math.min(i, 4) * 50}
-              className={`flex h-full flex-col rounded-lg border border-line p-7 sm:p-8 ${
-                tone === 'bone' ? 'bg-cream' : 'bg-bone'
-              }`}
+              className="flex h-full flex-col border-t border-line pt-7"
             >
-              <div className="flex size-9 items-center justify-center rounded-full bg-brass/12">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path
-                    d="m5 12.5 4.5 4.5L19 7"
-                    stroke="#8F6530"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <h3 className="font-display mt-5 text-[1.1875rem] text-ink">
+              <h3 className="font-display text-[1.1875rem] text-ink">
                 {adv.title}
               </h3>
               <p className="mt-3 text-[0.9375rem] leading-relaxed text-stone">
@@ -91,7 +78,7 @@ export async function Advantages({
 
           {advantageShots.map((d, i) => (
             <Reveal key={d.id} delay={i * 60} className="h-full">
-              <figure className="relative h-full min-h-56 overflow-hidden rounded-lg bg-sand">
+              <figure className="relative h-full min-h-64 overflow-hidden bg-sand">
                 <Image
                   src={d.image.src}
                   alt={d.alt}

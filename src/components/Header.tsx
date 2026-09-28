@@ -43,7 +43,7 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-90 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
         scrolled || menuOpen
-          ? 'worktop bg-cream/95 backdrop-blur-md'
+          ? 'bg-cream/92 backdrop-blur-xl'
           : 'bg-transparent'
       }`}
     >

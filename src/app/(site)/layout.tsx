@@ -26,13 +26,6 @@ export default async function SiteLayout({
     <>
       <LoadingScreen />
 
-      {/* Прогресс прокрутки: чистый CSS, без обработчиков скролла */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-x-0 top-0 z-95 h-[2px]"
-      >
-        <div className="scroll-progress h-full w-full bg-linear-to-r from-brass/0 via-brass to-brasslight" />
-      </div>
 
       <a
         href="#main"

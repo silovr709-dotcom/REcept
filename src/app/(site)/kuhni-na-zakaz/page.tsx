@@ -114,7 +114,7 @@ export default async function KitchensPage() {
             lead="Форма кухни определяется не вкусом, а геометрией комнаты, окнами, коммуникациями и тем, сколько людей готовит одновременно."
           />
 
-          <div className="grid-fronts mt-12 grid overflow-hidden rounded-lg sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:grid-cols-4">
             {layouts.map((l, i) => (
               <Reveal
                 key={l.title}

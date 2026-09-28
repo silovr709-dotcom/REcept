@@ -29,14 +29,12 @@ export async function Objections({ tone = 'cream' }: { tone?: 'cream' | 'bone' }
             <Reveal
               key={o.fear}
               delay={Math.min(i, 3) * 50}
-              className={`flex h-full flex-col rounded-lg border border-line p-7 sm:p-8 ${
-                tone === 'bone' ? 'bg-cream' : 'bg-bone'
-              }`}
+              className="flex h-full flex-col border-t border-line pt-7"
             >
               <p className="font-display text-[1.1875rem] leading-snug text-ink">
                 «{o.fear}»
               </p>
-              <div aria-hidden="true" className="rule-brass my-5 w-full" />
+              <div className="my-5" />
               <p className="text-[0.9375rem] leading-relaxed text-stone">
                 {o.answer}
               </p>
@@ -45,7 +43,7 @@ export async function Objections({ tone = 'cream' }: { tone?: 'cream' | 'bone' }
 
           {objectionShots.map((d, i) => (
             <Reveal key={d.id} delay={i * 50} className="h-full">
-              <figure className="relative h-full min-h-56 overflow-hidden rounded-lg bg-sand">
+              <figure className="relative h-full min-h-64 overflow-hidden bg-sand">
                 <Image
                   src={d.image.src}
                   alt={d.alt}

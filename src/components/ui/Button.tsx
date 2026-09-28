@@ -14,7 +14,13 @@ import type { ComponentProps, ReactNode } from 'react';
  * Заливка при наведении наезжает снизу, а не «подсвечивается».
  */
 
-type Variant = 'primary' | 'brass' | 'outline' | 'ghost' | 'light';
+type Variant =
+  | 'primary'
+  | 'brass'
+  | 'outline'
+  | 'ghost'
+  | 'light'
+  | 'light-solid';
 type Size = 'md' | 'lg';
 
 const base =
@@ -31,13 +37,15 @@ const sweep =
   'focus-visible:before:scale-y-100';
 
 const variants: Record<Variant, string> = {
-  // Основное действие: плотный графит, при наведении наезжает бронзовый слой
-  primary: `bg-ink text-cream ${sweep} before:bg-brass`,
-  // Исторический вариант — оставлен для совместимости, выглядит как основной
-  brass: `bg-ink text-cream ${sweep} before:bg-brass`,
-  outline: `border border-ink/30 text-ink ${sweep} before:bg-ink hover:text-cream hover:border-ink`,
-  ghost: 'text-ink hover:text-brass',
-  light: `border border-cream/35 text-cream ${sweep} before:bg-cream hover:text-ink hover:border-cream`,
+  // Основное действие: плотный графит, заливка наезжает снизу
+  primary: `bg-ink text-cream ${sweep} before:bg-coal`,
+  brass: `bg-ink text-cream ${sweep} before:bg-coal`,
+  outline: `border border-ink/25 text-ink ${sweep} before:bg-ink hover:text-cream hover:border-ink`,
+  ghost: 'text-ink hover:opacity-60',
+  // На фотографии: тонкая светлая рамка
+  light: `border border-cream/40 text-cream ${sweep} before:bg-cream hover:text-ink hover:border-cream`,
+  // На фотографии: плотная светлая плашка — главное действие первого экрана
+  'light-solid': `bg-cream text-ink ${sweep} before:bg-sand`,
 };
 
 const sizes: Record<Size, string> = {

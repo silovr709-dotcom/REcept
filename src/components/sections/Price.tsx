@@ -74,11 +74,7 @@ export async function Price({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
           </div>
 
           <Reveal>
-            <div
-              className={`rounded-lg border border-line p-7 sm:p-9 ${
-                tone === 'bone' ? 'bg-cream' : 'bg-bone'
-              }`}
-            >
+            <div className="border-t border-line pt-9">
               <h3 className="text-eyebrow font-bold uppercase text-brass">
                 Из чего складывается стоимость
               </h3>

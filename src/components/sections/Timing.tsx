@@ -28,18 +28,14 @@ export async function Timing({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
             <Reveal
               key={s.stage}
               delay={i * 60}
-              className={`flex h-full flex-col rounded-lg p-7 sm:p-8 ${
-                s.best
-                  ? `border-2 border-brass ${tone === 'cream' ? 'bg-bone' : 'bg-cream'}`
-                  : `border border-line ${tone === 'cream' ? 'bg-bone/60' : 'bg-cream/70'}`
+              className={`flex h-full flex-col pt-7 ${
+                s.best ? 'border-t-2 border-ink' : 'border-t border-line'
               }`}
             >
               <div className="flex items-center justify-between gap-4">
                 <h3 className="font-display text-[1.25rem] text-ink">{s.stage}</h3>
                 <span
-                  className={`shrink-0 rounded-full px-3 py-1 text-[0.6875rem] font-bold uppercase tracking-wider ${
-                    s.best ? 'bg-brass text-white' : 'border border-line text-stone'
-                  }`}
+                  className={`label-xs shrink-0 ${s.best ? 'text-ink' : 'text-stone'}`}
                 >
                   {s.mark}
                 </span>

@@ -87,13 +87,6 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <link
-          rel="preload"
-          href="/fonts/playfair-cyrillic.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <noscript>
           <style>{`#recept-loader{display:none!important}`}</style>
