@@ -142,7 +142,7 @@ export default async function MaterialsPage() {
             lead="Именно фасады формируют и внешний вид, и значительную долю стоимости. Разброс цен здесь самый большой."
           />
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-lg bg-line sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid-fronts mt-12 grid overflow-hidden rounded-lg sm:grid-cols-2 lg:grid-cols-3">
             {facades.map((f, i) => (
               <Reveal
                 key={f.title}

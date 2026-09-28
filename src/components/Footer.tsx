@@ -16,7 +16,7 @@ export async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-ink pb-24 pt-(--spacing-section) text-cream lg:pb-14">
+    <footer className="plinth relative bg-ink pb-24 pt-(--spacing-section) text-cream lg:pb-14">
       <div className="container-page">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr]">
           <div>

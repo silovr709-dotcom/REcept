@@ -113,6 +113,12 @@
   /* Доводчик: резкий старт и долгое затухание без отскока —
      именно так ведёт себя хорошая мебельная фурнитура */
   --ease-soft-close: cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* Физика корпуса: теневой зазор между фасадами и освещённая кромка.
+     Именно по этим двум линиям глаз узнаёт мебель без ручек. */
+  --gap-shadow: #0d0c0a;
+  --edge-light: rgba(255, 255, 255, 0.62);
+  --edge-light-dark: rgba(255, 255, 255, 0.07);
 }
 
 /* ==================================================================
@@ -809,6 +815,213 @@ html[data-loader='short'] .loader-text {
     to {
       opacity: 1;
       transform: none;
+    }
+  }
+}
+
+/* ==================================================================
+   КОРПУС: СТРАНИЦА КАК ФРОНТ ШКАФА
+   ==================================================================
+   Сайт должен читаться как мебель ещё до того, как человек начал
+   разбирать текст. Поэтому страница собрана не из «блоков», а из
+   фасадов: между ними теневой зазор, у каждого освещённая верхняя
+   кромка, слева петли, внизу цоколь.
+
+   Все приёмы взяты у мебели без ручек: там форму держат ровно две
+   линии — тёмный зазор и светящаяся кромка рядом с ним.
+   ================================================================== */
+
+/* ---------- ФАСАД ----------
+   Секция получает объём: тонкий зазор сверху, светлая кромка под ним
+   и едва уловимый перепад освещённости сверху вниз. */
+.front {
+  position: relative;
+  isolation: isolate;
+}
+
+.front::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 5px;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--gap-shadow) 78%, transparent) 0%,
+      color-mix(in srgb, var(--gap-shadow) 38%, transparent) 55%,
+      transparent 100%
+    );
+}
+
+/* Освещённая кромка — фасад «ловит» свет сразу под зазором */
+.front::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 5px;
+  height: 1px;
+  z-index: 3;
+  pointer-events: none;
+  background: var(--edge-light);
+}
+
+.front-dark::after {
+  background: var(--edge-light-dark);
+}
+
+/* Перепад света по высоте фасада: сверху чуть светлее */
+.front-surface {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.55),
+    rgba(0, 0, 0, 0.016) 42%,
+    rgba(0, 0, 0, 0.05)
+  );
+}
+
+.front-surface-dark {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05),
+    rgba(0, 0, 0, 0.14) 60%,
+    rgba(0, 0, 0, 0.26)
+  );
+}
+
+/* ---------- ПЕТЛИ ----------
+   Две чашки на левой кромке, на четверти и три четверти высоты —
+   как навешивают дверцу в реальности. */
+.hinges::before,
+.hinges::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 7px;
+  height: 34px;
+  z-index: 4;
+  pointer-events: none;
+  border-radius: 0 2px 2px 0;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-brass) 85%, black),
+    var(--color-brasslight) 45%,
+    color-mix(in srgb, var(--color-brass) 70%, black)
+  );
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.28);
+}
+
+.hinges::before {
+  top: 22%;
+}
+.hinges::after {
+  top: 74%;
+}
+
+@media (max-width: 1023px) {
+  .hinges::before,
+  .hinges::after {
+    display: none;
+  }
+}
+
+/* ---------- ПРОФИЛЬ-РУЧКА ----------
+   Утопленный паз по верхней кромке: тень сверху, блик снизу.
+   Ровно так выглядит GOLA, за которую открывают фасад. */
+.gola {
+  position: relative;
+}
+
+.gola::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 9px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--gap-shadow) 55%, transparent),
+    color-mix(in srgb, var(--gap-shadow) 14%, transparent) 62%,
+    var(--edge-light) 100%
+  );
+}
+
+.gola-dark::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.18) 62%,
+    var(--edge-light-dark) 100%
+  );
+}
+
+/* ---------- ЦОКОЛЬ ----------
+   Подвал стоит на утопленном основании, как корпус на ножках. */
+.plinth {
+  position: relative;
+}
+
+.plinth::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 6px;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.plinth::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 22px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), transparent);
+}
+
+/* ---------- СТОЛЕШНИЦА ----------
+   Шапка — не полоса, а край плиты: светлая фаска и тень под ней. */
+.worktop {
+  box-shadow:
+    inset 0 -1px 0 var(--edge-light),
+    0 1px 0 color-mix(in srgb, var(--gap-shadow) 45%, transparent),
+    0 10px 24px -18px rgba(13, 12, 10, 0.6);
+}
+
+/* ---------- СЕТКА ИЗ ФАСАДОВ ----------
+   Промежутки между карточками — не воздух, а теневые зазоры корпуса. */
+@utility grid-fronts {
+  background-color: var(--gap-shadow);
+  gap: 4px;
+}
+
+/* ---------- ЯЩИК ПРИ ПРОКРУТКЕ ----------
+   Секция слегка выдвигается навстречу, пока входит в кадр. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .front-pull {
+      animation: front-pull linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 82%;
+    }
+
+    @keyframes front-pull {
+      from {
+        transform: translateY(14px) scale(0.994);
+        box-shadow: 0 -18px 40px -30px rgba(13, 12, 10, 0);
+      }
+      to {
+        transform: none;
+        box-shadow: 0 -18px 40px -30px rgba(13, 12, 10, 0.5);
+      }
     }
   }
 }

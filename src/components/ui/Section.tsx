@@ -9,6 +9,20 @@ const tones: Record<Tone, string> = {
   ink: 'bg-ink text-cream',
 };
 
+/**
+ * СЕКЦИЯ КАК ФАСАД
+ * ================
+ * Страница собрана не из «блоков», а из фасадов корпуса. Каждая секция
+ * получает то, по чему глаз узнаёт мебель без ручек:
+ *
+ * — теневой зазор по верхней кромке и светлую фаску под ним;
+ * — перепад освещённости сверху вниз, как на крашеной плоскости;
+ * — петли на левой кромке, на четверти и три четверти высоты;
+ * — лёгкое выдвижение навстречу, пока фасад входит в кадр.
+ *
+ * Благодаря этому структура читается как мебель ещё до того,
+ * как человек начал разбирать текст.
+ */
 export function Section({
   children,
   tone = 'cream',
@@ -16,6 +30,8 @@ export function Section({
   className = '',
   as: Tag = 'section',
   'aria-labelledby': labelledBy,
+  /** Петли уместны не везде: на узких вставках они мешают */
+  hinges = true,
 }: {
   children: ReactNode;
   tone?: Tone;
@@ -23,13 +39,28 @@ export function Section({
   className?: string;
   as?: 'section' | 'div' | 'article' | 'footer';
   'aria-labelledby'?: string;
+  hinges?: boolean;
 }) {
+  const dark = tone === 'ink';
+
   return (
     <Tag
       id={id}
       aria-labelledby={labelledBy}
-      className={`${tones[tone]} py-(--spacing-section) ${className}`}
+      className={[
+        'front front-pull',
+        dark ? 'front-dark front-surface-dark' : 'front-surface',
+        tones[tone],
+        'py-(--spacing-section)',
+        className,
+      ].join(' ')}
     >
+      {hinges ? (
+        <span
+          aria-hidden="true"
+          className="hinges pointer-events-none absolute inset-y-0 left-0 w-0"
+        />
+      ) : null}
       {children}
     </Tag>
   );

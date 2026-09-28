@@ -73,7 +73,7 @@ export async function Services({ compact = false }: { compact?: boolean }) {
               lead="Чаще всего к нам приходят за кухней, а уезжаем мы с объекта, сделав ещё гардеробную и шкаф в прихожей. В одной стилистике, из тех же материалов и с одной ответственностью."
             />
 
-            <ul className="mt-10 grid gap-px overflow-hidden rounded-lg bg-line sm:grid-cols-2">
+            <ul className="grid-fronts mt-10 grid overflow-hidden rounded-lg sm:grid-cols-2">
               {services.map((s, i) => (
                 <li key={s.id}>
                   <Link

@@ -24,6 +24,10 @@ export function Accordion({
   const baseId = useId();
 
   const border = tone === 'light' ? 'border-cream/15' : 'border-line';
+  const drawerFace =
+    tone === 'light'
+      ? 'gola gola-dark bg-cream/[0.03]'
+      : 'gola bg-bone/70';
   const qColor = tone === 'light' ? 'text-cream' : 'text-ink';
   const aColor = tone === 'light' ? 'text-cream/70' : 'text-stone';
 
@@ -34,7 +38,8 @@ export function Accordion({
         const btnId = `${baseId}-btn-${i}`;
         const panelId = `${baseId}-panel-${i}`;
         return (
-          <div key={i} className={`border-b ${border}`}>
+          // Каждый вопрос — фасад ящика: паз-ручка сверху, зазор снизу
+          <div key={i} className={`${drawerFace} border-b ${border}`}>
             <h3>
               <button
                 id={btnId}
@@ -42,7 +47,7 @@ export function Accordion({
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpen(isOpen ? null : i)}
-                className={`flex w-full items-start justify-between gap-6 py-6 text-left text-h3 font-display ${qColor} transition-colors ${
+                className={`flex w-full items-start justify-between gap-6 px-5 pb-6 pt-7 text-left text-h3 font-display ${qColor} transition-colors ${
                   tone === 'light' ? 'hover:text-brasslight' : 'hover:text-brass'
                 }`}
               >
@@ -73,7 +78,7 @@ export function Accordion({
               className="drawer-panel"
             >
               <div>
-                <div className={`pb-7 ${aColor} max-w-3xl`}>{item.a}</div>
+                <div className={`px-5 pb-7 ${aColor} max-w-3xl`}>{item.a}</div>
               </div>
             </div>
           </div>
