@@ -1,6 +1,12 @@
 import type { MetadataRoute } from 'next';
 import { getSiteView } from '@/lib/content/view';
 
+/**
+ * Отдаётся файлом на этапе сборки — это нужно и обычному режиму,
+ * и статической витрине, где сервера нет вовсе.
+ */
+export const dynamic = 'force-static';
+
 export default async function manifest(): Promise<MetadataRoute.Manifest> {
   const site = await getSiteView();
   return {

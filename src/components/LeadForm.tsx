@@ -10,6 +10,13 @@ type Status = 'idle' | 'sending' | 'success' | 'error';
 const MAX_FILES = 3;
 const MAX_FILE_MB = 8;
 
+/**
+ * Витрина на GitHub Pages — это набор файлов без сервера, принимать заявки
+ * там некому. Честно говорим об этом вместо того, чтобы показывать
+ * «спасибо» и терять обращение.
+ */
+const IS_DEMO = process.env.NEXT_PUBLIC_DEMO === '1';
+
 export function LeadForm({
   tone = 'dark',
   compact = false,
@@ -56,6 +63,14 @@ export function LeadForm({
     // Файлы добавляем вручную — так проще контролировать лимиты
     data.delete('files');
     for (const f of files) data.append('files', f);
+
+    if (IS_DEMO) {
+      setStatus('error');
+      setErrorText(
+        'Это витрина дизайна без сервера — заявка отсюда не отправится. На рабочем сайте форма уходит на почту.',
+      );
+      return;
+    }
 
     setStatus('sending');
     setErrorText(null);
@@ -292,6 +307,13 @@ export function LeadForm({
             </p>
           ) : null}
         </div>
+      ) : null}
+
+      {IS_DEMO ? (
+        <p className="mt-5 border-l-2 border-brass bg-brass/10 px-4 py-3 text-xs leading-relaxed text-ink">
+          Демонстрационная версия: показывает дизайн и переходы, но заявки
+          не принимает — здесь нет сервера.
+        </p>
       ) : null}
 
       <div className="mt-6 flex flex-col gap-4">

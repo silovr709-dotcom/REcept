@@ -1,12 +1,32 @@
 import type { NextConfig } from 'next';
 
+/**
+ * СТАТИЧЕСКАЯ ВИТРИНА ДЛЯ GITHUB PAGES
+ * ====================================
+ * Обычный режим — полноценный сайт с сервером: форма заявок, админка,
+ * оптимизация картинок на лету.
+ *
+ * Режим STATIC_EXPORT=1 собирает те же страницы в набор файлов, который
+ * можно положить на GitHub Pages и открыть по постоянной ссылке. Сервера
+ * там нет, поэтому приём заявок и админка в витрину не попадают — она
+ * нужна только чтобы посмотреть дизайн.
+ *
+ * Адрес витрины лежит в подпапке репозитория, отсюда basePath.
+ */
+const isStatic = process.env.STATIC_EXPORT === '1';
+const basePath = isStatic ? '/REcept' : '';
+
 const nextConfig: NextConfig = {
+  ...(isStatic ? { output: 'export' as const, basePath, trailingSlash: true } : {}),
+  env: { NEXT_PUBLIC_BASE_PATH: basePath, NEXT_PUBLIC_DEMO: isStatic ? '1' : '' },
   reactStrictMode: true,
   poweredByHeader: false,
   // Превью запускается на поддомене e2b.app — разрешаем dev-запросы оттуда
   allowedDevOrigins: ['*.e2b.app'],
   compress: true,
   images: {
+    // На статике оптимизатора нет — отдаём файлы как есть
+    unoptimized: isStatic,
     // Современные форматы: AVIF даёт лучший вес, WebP — запасной вариант.
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [360, 414, 640, 750, 828, 1080, 1200, 1600, 1920, 2048],

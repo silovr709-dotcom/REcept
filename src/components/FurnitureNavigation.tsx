@@ -23,6 +23,19 @@ import { useCallback, useEffect, useRef } from 'react';
 
 type NavKind = 'door' | 'drawer' | 'drawer-back';
 
+/**
+ * В статической витрине сайт лежит в подпапке, и в разметке адреса идут
+ * с префиксом. Роутеру его передавать нельзя — он добавит префикс сам.
+ */
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
+function stripBase(pathname: string) {
+  if (BASE && pathname.startsWith(BASE)) {
+    return pathname.slice(BASE.length) || '/';
+  }
+  return pathname;
+}
+
 /** Вглубь текущего раздела — ящик, в сторону — дверца. */
 function kindFor(from: string, to: string): NavKind {
   const base = from === '/' ? '' : from;
@@ -112,14 +125,14 @@ export function FurnitureNavigation() {
       // Якоря внутри той же страницы обрабатывает браузер
       if (url.pathname === window.location.pathname) return;
 
+      const to = stripBase(url.pathname);
+      const from = stripBase(window.location.pathname);
+
       // Забираем клик себе: иначе ссылка Next уведёт навигацию мимо анимации
       event.preventDefault();
       event.stopPropagation();
 
-      navigate(
-        url.pathname + url.search + url.hash,
-        kindFor(window.location.pathname, url.pathname),
-      );
+      navigate(to + url.search + url.hash, kindFor(from, to));
     }
 
     document.addEventListener('click', onClickCapture, true);
