@@ -4,9 +4,11 @@ import { Section, SectionHeading } from '../ui/Section';
 import { getContent } from '@/lib/content/store';
 
 export async function Faq({
+  index,
   limit,
   tone = 'bone',
 }: {
+  index?: string;
   limit?: number;
   tone?: 'cream' | 'bone';
 }) {
@@ -22,7 +24,7 @@ export async function Faq({
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <div>
             <SectionHeading
-              index="09"
+              index={index}
               id="faq-title"
               eyebrow="Вопросы"
               title="Коротко о главном"

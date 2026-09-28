@@ -19,6 +19,7 @@ import type { DetailItem } from '@/lib/content/types';
 const ratios = ['aspect-4/5', 'aspect-square', 'aspect-square', 'aspect-4/5'];
 
 export async function Details({
+  index,
   tone = 'cream',
   items,
   eyebrow = 'Детали',
@@ -29,6 +30,7 @@ export async function Details({
   columns = 4,
   limit,
 }: {
+  index?: string;
   tone?: 'cream' | 'bone';
   items?: DetailItem[];
   eyebrow?: string;
@@ -56,7 +58,7 @@ export async function Details({
     <Section tone={tone} aria-labelledby="details-title">
       <div className="container-page">
         <SectionHeading
-          index="04"
+          index={index}
           id="details-title"
           eyebrow={eyebrow}
           title={title}

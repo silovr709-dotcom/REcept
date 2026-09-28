@@ -12,9 +12,11 @@ import { getSiteView } from '@/lib/content/view';
  * и ссылка на первоисточник — любой может открыть и сверить.
  */
 export async function Testimonials({
+  index,
   tone = 'bone',
   limit = 3,
 }: {
+  index?: string;
   tone?: 'cream' | 'bone';
   limit?: number;
 }) {
@@ -31,7 +33,7 @@ export async function Testimonials({
       <div className="container-page">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
-            index="07"
+            index={index}
             id="testimonials-title"
             eyebrow="Отзывы"
             title={`${rating.value} из 5 на Яндекс Картах`}

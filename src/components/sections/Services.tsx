@@ -5,7 +5,13 @@ import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleProjects } from '@/lib/content/store';
 import { pickImage } from '@/lib/content/images';
 
-export async function Services({ compact = false }: { compact?: boolean }) {
+export async function Services({
+  index,
+  compact = false,
+}: {
+  index?: string;
+  compact?: boolean;
+}) {
   const [{ services }, projects] = await Promise.all([
     getContent('texts'),
     getVisibleProjects(),
@@ -20,7 +26,7 @@ export async function Services({ compact = false }: { compact?: boolean }) {
         <div className="container-page">
           <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
             <SectionHeading
-              index="02"
+              index={index}
               id="services-title"
               eyebrow="Что мы делаем"
               title="Кухни — основное. Но не единственное"

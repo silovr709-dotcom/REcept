@@ -48,8 +48,11 @@ export default async function HomePage() {
     <>
       <Hero />
 
-      {/* 01 — зачем мы нужны: главная боль, ради которой к нам приходят */}
-      <Headache />
+      {/* Сайт личного бренда: люди идут сразу за первым экраном,
+          раньше услуг, портфолио и любых объяснений */}
+      <Founders index="01" />
+
+      <Headache index="02" />
 
       {bandHouse ? (
         <PhotoBand
@@ -60,14 +63,14 @@ export default async function HomePage() {
         />
       ) : null}
 
-      {/* 02–04 — визуальное доказательство */}
-      <Services compact />
-      <PortfolioPreview limit={6} />
-      <Details tone="cream" limit={4} />
+      {/* Визуальное доказательство */}
+      <Services index="03" compact />
+      <PortfolioPreview index="04" limit={6} />
+      <Details index="05" tone="cream" limit={4} />
 
-      {/* 05–06 — как это устроено и сколько стоит */}
-      <Process tone="bone" limit={5} />
-      <Price tone="cream" />
+      {/* Как это устроено и сколько стоит */}
+      <Process index="06" tone="bone" limit={5} />
+      <Price index="07" tone="cream" />
 
       {bandClassic ? (
         <PhotoBand
@@ -78,11 +81,10 @@ export default async function HomePage() {
         />
       ) : null}
 
-      {/* 07–09 — доверие и остаточные сомнения */}
-      <Founders />
-      <Testimonials tone="cream" />
-      <Objections tone="bone" />
-      <Faq limit={6} tone="cream" />
+      {/* Доверие и остаточные сомнения */}
+      <Testimonials index="08" tone="cream" />
+      <Objections index="09" tone="bone" />
+      <Faq index="10" limit={6} tone="cream" />
 
       <FinalCta />
       {/* Столько же вопросов, сколько видно в блоке выше */}

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { ButtonLink } from '../ui/Button';
 import { RatingBadge } from '../RatingBadge';
+import Link from 'next/link';
 import { getContent } from '@/lib/content/store';
 
 /**
@@ -18,7 +19,8 @@ import { getContent } from '@/lib/content/store';
  * на сайте, где размер работает как заявление.
  */
 export async function Hero() {
-  const { hero } = await getContent('texts');
+  const { hero, team } = await getContent('texts');
+  const names = team.map((t) => t.fullName.split(' ')[0]).join(' и ');
 
   return (
     <section className="relative bg-cream pt-28 lg:pt-36">
@@ -79,6 +81,20 @@ export async function Hero() {
         </div>
 
         <p className="mt-5 max-w-md text-sm text-stone">{hero.reassurance}</p>
+
+        {/* Подпись авторов: за мебелью на заказ идут к людям, а не в компанию */}
+        <Link
+          href="/o-nas"
+          className="group mt-10 inline-flex items-baseline gap-4 border-t border-line pt-6"
+        >
+          <span className="label-xs text-stone">Делаем вдвоём</span>
+          <span className="font-display text-h3 text-ink transition-colors group-hover:text-stone">
+            {names}
+          </span>
+          <span aria-hidden="true" className="text-stone">
+            →
+          </span>
+        </Link>
       </div>
 
       {/* Кадр во всю ширину: без затемнения и без текста поверх */}

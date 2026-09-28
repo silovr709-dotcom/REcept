@@ -55,7 +55,7 @@ export async function FinalCta({
           <div>
             <p className="flex items-center gap-3 text-eyebrow font-bold uppercase text-clay">
               <span aria-hidden="true" className="h-px w-6 bg-clay/60" />
-              Следующий шаг
+              Пишет вам не робот
             </p>
 
             <h2
@@ -70,7 +70,7 @@ export async function FinalCta({
             <ol className="mt-10 grid gap-5 border-t border-cream/12 pt-8">
               {[
                 'Вы оставляете контакт — это занимает меньше минуты.',
-                'Роберт или Катя связываются и задают несколько вопросов о помещении.',
+                'Роберт или Катя — кто-то из нас двоих — связывается и задаёт несколько вопросов о помещении.',
                 'Вместе решаем, с чего начать: с замера, с планировки или просто с разговора.',
               ].map((step, i) => (
                 <li key={step} className="flex gap-4">

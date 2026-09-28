@@ -9,7 +9,13 @@ import { getContent } from '@/lib/content/store';
  * невозможно назвать без проекта, и что человек получит вместо неё.
  * Никаких «скидок только сегодня» и зачёркнутых цифр.
  */
-export async function Price({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
+export async function Price({
+  index,
+  tone = 'cream',
+}: {
+  index?: string;
+  tone?: 'cream' | 'bone';
+}) {
   const { price } = await getContent('texts');
   const priceExplanation = price;
   const priceFactors = price.factors;
@@ -19,7 +25,7 @@ export async function Price({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
         <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
           <div>
             <SectionHeading
-              index="06"
+              index={index}
               id="price-title"
               eyebrow="Стоимость"
               title={priceExplanation.headline}

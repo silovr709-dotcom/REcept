@@ -8,14 +8,14 @@ import { getContent } from '@/lib/content/store';
  * Главная мысль: чтобы получить хорошую кухню, не нужно самому
  * становиться специалистом по кухням и координатором стройки.
  */
-export async function Headache() {
+export async function Headache({ index }: { index?: string } = {}) {
   const { headache } = await getContent('texts');
 
   return (
     <Section tone="ink" aria-labelledby="headache-title">
       <div className="container-page">
         <SectionHeading
-          index="01"
+          index={index}
           id="headache-title"
           tone="light"
           eyebrow={headache.eyebrow}

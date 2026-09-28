@@ -10,9 +10,11 @@ import { getContent, getVisibleDetails } from '@/lib/content/store';
  * что его ждёт и сколько усилий потребуется лично от него.
  */
 export async function Process({
+  index,
   tone = 'bone',
   limit,
 }: {
+  index?: string;
   tone?: 'cream' | 'bone';
   /** Сколько шагов показать. Без ограничения — все */
   limit?: number;
@@ -29,7 +31,7 @@ export async function Process({
     <Section tone={tone} id="process" aria-labelledby="process-title">
       <div className="container-page">
         <SectionHeading
-          index="05"
+          index={index}
           id="process-title"
           eyebrow="Как проходит работа"
           title={

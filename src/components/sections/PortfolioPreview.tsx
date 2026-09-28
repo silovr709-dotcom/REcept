@@ -28,7 +28,13 @@ const rhythm = [
   { span: 'lg:col-span-6', offset: 'lg:mt-20', ratio: 'aspect-3/2' },
 ];
 
-export async function PortfolioPreview({ limit }: { limit?: number } = {}) {
+export async function PortfolioPreview({
+  index,
+  limit,
+}: {
+  index?: string;
+  limit?: number;
+} = {}) {
   const all = await getVisibleProjects();
   const projects = limit ? all.slice(0, limit) : all;
   if (projects.length === 0) return null;
@@ -39,7 +45,7 @@ export async function PortfolioPreview({ limit }: { limit?: number } = {}) {
       <div className="container-page">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
-            index="03"
+            index={index}
             id="portfolio-title"
             eyebrow="Проекты"
             title="Разные бюджеты, разные метражи, один подход"

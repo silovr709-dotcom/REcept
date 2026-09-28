@@ -7,7 +7,13 @@ import { getContent, getVisibleDetails } from '@/lib/content/store';
 /**
  * Снимаем главные страхи до того, как человек успеет закрыть вкладку.
  */
-export async function Objections({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
+export async function Objections({
+  index,
+  tone = 'cream',
+}: {
+  index?: string;
+  tone?: 'cream' | 'bone';
+}) {
   const [{ objections }, details] = await Promise.all([
     getContent('texts'),
     getVisibleDetails(),
@@ -18,7 +24,7 @@ export async function Objections({ tone = 'cream' }: { tone?: 'cream' | 'bone' }
     <Section tone={tone} aria-labelledby="objections-title">
       <div className="container-page">
         <SectionHeading
-          index="08"
+          index={index}
           id="objections-title"
           eyebrow="Честно о сомнениях"
           title="«А если…» — нормальные вопросы, на которые есть ответы"
