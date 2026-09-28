@@ -68,7 +68,7 @@ export function MobileActionBar() {
               )
             }
             tabIndex={visible ? 0 : -1}
-            className="grid min-h-13 shrink-0 place-items-center rounded-full border border-ink/20 px-5 text-[0.9375rem] font-semibold text-ink"
+            className="grid min-h-13 shrink-0 place-items-center border border-ink/25 px-5 text-[0.6875rem] font-semibold uppercase tracking-[0.13em] text-ink"
           >
             {secondary.label}
           </a>
@@ -86,7 +86,7 @@ export function MobileActionBar() {
               source: 'mobile-bar',
             });
           }}
-          className="flex min-h-13 flex-1 items-center justify-center gap-2 rounded-full bg-brass px-5 text-[0.9375rem] font-semibold text-white shadow-[0_8px_24px_-10px_rgba(160,115,56,0.8)]"
+          className="flex min-h-13 flex-1 items-center justify-center gap-2.5 bg-ink px-5 text-[0.6875rem] font-semibold uppercase tracking-[0.13em] text-cream"
         >
           Рассчитать кухню
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">

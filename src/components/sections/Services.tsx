@@ -80,7 +80,7 @@ export async function Services({ compact = false }: { compact?: boolean }) {
                     href={s.href}
                     className="group flex h-full flex-col bg-cream p-6 transition-colors hover:bg-bone sm:p-7"
                   >
-                    <span className="text-eyebrow font-bold uppercase text-brass">
+                    <span className="text-eyebrow font-bold uppercase text-stone">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <h3 className="font-display mt-3 text-[1.25rem] text-ink">

@@ -47,12 +47,13 @@ export function Eyebrow({
   return (
     <p
       className={`flex items-center gap-3 text-eyebrow font-bold uppercase ${
-        tone === 'dark' ? 'text-brass' : 'text-clay'
+        tone === 'dark' ? 'text-stone' : 'text-cream/60'
       } ${className}`}
     >
+      {/* Засечка как на обмерном чертеже, а не декоративная линия */}
       <span
         aria-hidden="true"
-        className={`h-px w-6 ${tone === 'dark' ? 'bg-brass/60' : 'bg-clay/60'}`}
+        className={`inline-block h-3 w-px ${tone === 'dark' ? 'bg-brass' : 'bg-brasslight'}`}
       />
       {children}
     </p>

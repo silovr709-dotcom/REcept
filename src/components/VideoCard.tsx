@@ -100,7 +100,7 @@ export function VideoCard({
         </svg>
       </span>
 
-      <span className="absolute bottom-3 right-3 rounded-full bg-ink/70 px-2.5 py-1 text-[0.75rem] font-medium text-cream backdrop-blur-sm">
+      <span className="absolute bottom-0 right-0 bg-ink/75 px-2.5 py-1.5 text-[0.6875rem] font-semibold tracking-[0.1em] text-cream backdrop-blur-sm">
         {duration}
       </span>
 

@@ -149,7 +149,7 @@ export default async function MaterialsPage() {
                 delay={Math.min(i, 5) * 40}
                 className="flex h-full flex-col bg-bone p-7"
               >
-                <span className="self-start rounded-full border border-brass/30 px-3 py-1 text-[0.6875rem] font-bold uppercase tracking-wider text-brass">
+                <span className="self-start border-l border-brass pl-2.5 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-brass">
                   {f.tag}
                 </span>
                 <h3 className="font-display mt-4 text-[1.1875rem] text-ink">

@@ -52,10 +52,10 @@ export function PortfolioGrid({
               type="button"
               onClick={() => setActive(chip.id)}
               aria-pressed={isActive}
-              className={`inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-[0.875rem] font-medium transition-colors ${
+              className={`inline-flex min-h-10 items-center gap-2 border px-4 text-[0.6875rem] font-semibold uppercase tracking-[0.13em] transition-colors ${
                 isActive
                   ? 'border-ink bg-ink text-cream'
-                  : 'border-line bg-cream text-ink hover:border-ink/40'
+                  : 'border-line text-ink hover:border-ink/50'
               }`}
             >
               {chip.label}

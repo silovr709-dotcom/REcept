@@ -1,29 +1,48 @@
 import Link from 'next/link';
 import type { ComponentProps, ReactNode } from 'react';
 
+/**
+ * КНОПКИ
+ * ======
+ * Скруглённые «таблетки» — самый узнаваемый признак шаблонного сайта:
+ * так выглядит любой лендинг, собранный из готовых блоков. Мастерская,
+ * которая делает мебель по миллиметровым размерам, не может общаться
+ * с человеком языком типовых элементов.
+ *
+ * Поэтому геометрия здесь чертёжная: прямой угол, тонкая линия, крупный
+ * межбуквенный интервал и капитель — как подпись на техническом листе.
+ * Заливка при наведении наезжает снизу, а не «подсвечивается».
+ */
+
 type Variant = 'primary' | 'brass' | 'outline' | 'ghost' | 'light';
 type Size = 'md' | 'lg';
 
 const base =
-  'group relative inline-flex items-center justify-center gap-2.5 font-semibold ' +
-  'transition-[background-color,color,border-color,transform,box-shadow] duration-300 ' +
-  'active:translate-y-px disabled:pointer-events-none disabled:opacity-55 text-center';
+  'group relative inline-flex items-center justify-center gap-3 overflow-hidden ' +
+  'rounded-none font-semibold uppercase leading-none ' +
+  'transition-colors duration-300 active:translate-y-px ' +
+  'disabled:pointer-events-none disabled:opacity-55 text-center';
+
+/** Слой заливки, который наезжает снизу при наведении */
+const sweep =
+  'before:absolute before:inset-0 before:-z-0 before:origin-bottom ' +
+  'before:scale-y-0 before:transition-transform before:duration-400 ' +
+  'before:ease-[cubic-bezier(0.16,1,0.3,1)] hover:before:scale-y-100 ' +
+  'focus-visible:before:scale-y-100';
 
 const variants: Record<Variant, string> = {
-  primary:
-    'bg-ink text-cream hover:bg-coal shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_10px_30px_-12px_rgba(22,19,15,0.55)] hover:shadow-[0_1px_0_rgba(255,255,255,0.12)_inset,0_16px_40px_-14px_rgba(22,19,15,0.6)]',
-  brass:
-    'bg-brass text-white hover:bg-[#8d6330] shadow-[0_10px_30px_-12px_rgba(160,115,56,0.7)]',
-  outline:
-    'border border-ink/25 text-ink hover:border-ink/70 hover:bg-ink/[0.04]',
-  ghost: 'text-ink hover:bg-ink/[0.05]',
-  light:
-    'border border-cream/30 text-cream hover:bg-cream/10 hover:border-cream/60',
+  // Основное действие: плотный графит, при наведении наезжает бронзовый слой
+  primary: `bg-ink text-cream ${sweep} before:bg-brass`,
+  // Исторический вариант — оставлен для совместимости, выглядит как основной
+  brass: `bg-ink text-cream ${sweep} before:bg-brass`,
+  outline: `border border-ink/30 text-ink ${sweep} before:bg-ink hover:text-cream hover:border-ink`,
+  ghost: 'text-ink hover:text-brass',
+  light: `border border-cream/35 text-cream ${sweep} before:bg-cream hover:text-ink hover:border-cream`,
 };
 
 const sizes: Record<Size, string> = {
-  md: 'min-h-11 px-5 py-2.5 text-[0.9375rem] rounded-full',
-  lg: 'min-h-14 px-7 py-3.5 text-[1rem] rounded-full',
+  md: 'min-h-11 px-6 py-3 text-[0.6875rem] tracking-[0.14em]',
+  lg: 'min-h-14 px-8 py-4 text-[0.75rem] tracking-[0.13em]',
 };
 
 type CommonProps = {
@@ -38,22 +57,21 @@ type CommonProps = {
 function Inner({ children, withArrow }: { children: ReactNode; withArrow?: boolean }) {
   return (
     <>
-      <span>{children}</span>
+      <span className="relative z-10">{children}</span>
       {withArrow ? (
         <svg
           aria-hidden="true"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
+          width="18"
+          height="8"
+          viewBox="0 0 18 8"
           fill="none"
-          className="shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+          className="relative z-10 shrink-0 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5"
         >
           <path
-            d="M2.5 8h11m0 0L9 3.5M13.5 8 9 12.5"
+            d="M0 4h16.5M13 1l3.5 3L13 7"
             stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeWidth="1"
+            strokeLinecap="square"
           />
         </svg>
       ) : null}

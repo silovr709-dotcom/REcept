@@ -54,7 +54,7 @@ export async function Process({
                 }`}
               >
                 <div className="flex items-baseline gap-3">
-                  <span className="font-display text-[1.75rem] leading-none text-brass/80">
+                  <span className="text-[0.75rem] font-bold tracking-[0.16em] text-stone">
                     {step.n}
                   </span>
                   <h3 className="font-display text-[1.1875rem] leading-snug text-ink">

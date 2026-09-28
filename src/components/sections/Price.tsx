@@ -85,7 +85,7 @@ export async function Price({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
               <dl className="mt-7 grid gap-6">
                 {priceFactors.map((f, i) => (
                   <div key={f.title} className="flex gap-5">
-                    <span className="font-display shrink-0 text-[1.125rem] leading-tight text-brass">
+                    <span className="shrink-0 pt-1 text-[0.6875rem] font-bold tracking-[0.16em] text-stone">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div>

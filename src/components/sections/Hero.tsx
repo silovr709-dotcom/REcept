@@ -87,7 +87,7 @@ export async function Hero() {
 
           {/* Визуальное доказательство качества */}
           {hero.image ? (
-            <div className="animate-soft-zoom relative aspect-4/3 overflow-hidden rounded-lg bg-sand sm:aspect-3/2 lg:aspect-auto lg:h-[min(70vh,38rem)]">
+            <div className="crop-frame animate-soft-zoom relative aspect-4/3 bg-sand sm:aspect-3/2 lg:aspect-auto lg:h-[min(70vh,38rem)]">
               <Image
                 src={hero.image.src}
                 alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"

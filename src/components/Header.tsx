@@ -177,7 +177,7 @@ export function Header() {
             {hasPhone ? (
               <a
                 href={phoneHref}
-                className="flex min-h-13 items-center justify-center rounded-full border border-ink/20 text-[1rem] font-semibold text-ink"
+                className="flex min-h-13 items-center justify-center border border-ink/25 text-[0.75rem] font-semibold uppercase tracking-[0.13em] text-ink"
               >
                 Позвонить {phoneDisplay}
               </a>

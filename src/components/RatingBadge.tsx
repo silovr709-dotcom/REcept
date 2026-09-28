@@ -41,10 +41,10 @@ export function RatingBadge({
       href={yandex.reviewsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group inline-flex items-center gap-3 rounded-full border px-4 py-2 transition-colors ${
+      className={`group inline-flex items-center gap-3 border-y px-1 py-2.5 transition-colors ${
         tone === 'light'
-          ? 'border-cream/20 hover:border-cream/45'
-          : 'border-line bg-cream hover:border-brass/50'
+          ? 'border-cream/20 hover:border-cream/50'
+          : 'border-line hover:border-ink/40'
       } ${className}`}
     >
       <span

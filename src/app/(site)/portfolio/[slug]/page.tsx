@@ -84,7 +84,7 @@ export default async function ProjectPage({ params }: Params) {
               {project.summary}
             </p>
             <p className="mt-6">
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-bone px-4 py-2 text-[0.8125rem] font-semibold text-ink">
+              <span className="inline-flex items-center gap-2.5 border-y border-line px-1 py-2 text-[0.6875rem] font-bold uppercase tracking-[0.16em] text-ink">
                 <span aria-hidden="true" className="size-1.5 rounded-full bg-brass" />
                 {project.layout} компоновка
               </span>
