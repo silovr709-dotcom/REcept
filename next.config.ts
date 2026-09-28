@@ -17,7 +17,15 @@ const isStatic = process.env.STATIC_EXPORT === '1';
 const basePath = isStatic ? '/REcept' : '';
 
 const nextConfig: NextConfig = {
-  ...(isStatic ? { output: 'export' as const, basePath, trailingSlash: true } : {}),
+  // Три режима сборки:
+  // обычный — для разработки и `next start`;
+  // STANDALONE=1 — самодостаточный сервер для контейнера и своего хостинга;
+  // STATIC_EXPORT=1 — набор файлов для витрины без сервера.
+  ...(isStatic
+    ? { output: 'export' as const, basePath, trailingSlash: true }
+    : process.env.STANDALONE === '1'
+      ? { output: 'standalone' as const }
+      : {}),
   env: { NEXT_PUBLIC_BASE_PATH: basePath, NEXT_PUBLIC_DEMO: isStatic ? '1' : '' },
   reactStrictMode: true,
   poweredByHeader: false,

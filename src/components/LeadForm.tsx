@@ -11,11 +11,23 @@ const MAX_FILES = 3;
 const MAX_FILE_MB = 8;
 
 /**
- * Витрина на GitHub Pages — это набор файлов без сервера, принимать заявки
- * там некому. Честно говорим об этом вместо того, чтобы показывать
- * «спасибо» и терять обращение.
+ * КУДА УХОДИТ ЗАЯВКА
+ * ==================
+ * По умолчанию — на собственный сервер (/api/lead): оттуда письмо на почту
+ * плюс резервная запись в журнал.
+ *
+ * Но статическая витрина сервера не имеет. Чтобы и там заявки не пропадали,
+ * можно указать внешний приёмщик форм — сервис, который сам шлёт письмо.
+ * Тогда форма работает где угодно, включая GitHub Pages.
+ *
+ * Если ни сервера, ни приёмщика нет — честно говорим об этом, вместо того
+ * чтобы показать «спасибо» и потерять обращение.
  */
-const IS_DEMO = process.env.NEXT_PUBLIC_DEMO === '1';
+const EXTERNAL_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? '';
+const EXTERNAL_KEY = process.env.NEXT_PUBLIC_FORM_ACCESS_KEY ?? '';
+const IS_STATIC = process.env.NEXT_PUBLIC_DEMO === '1';
+/** Принимать заявки некому: статика без внешнего приёмщика */
+const NO_RECEIVER = IS_STATIC && !EXTERNAL_ENDPOINT;
 
 export function LeadForm({
   tone = 'dark',
@@ -64,7 +76,7 @@ export function LeadForm({
     data.delete('files');
     for (const f of files) data.append('files', f);
 
-    if (IS_DEMO) {
+    if (NO_RECEIVER) {
       setStatus('error');
       setErrorText(
         'Это витрина дизайна без сервера — заявка отсюда не отправится. На рабочем сайте форма уходит на почту.',
@@ -76,13 +88,23 @@ export function LeadForm({
     setErrorText(null);
 
     try {
-      const res = await fetch('/api/lead', { method: 'POST', body: data });
+      if (EXTERNAL_KEY) data.set('access_key', EXTERNAL_KEY);
+      data.set('subject', `Заявка с сайта: ${String(data.get('name') ?? '')}`);
+
+      const res = await fetch(EXTERNAL_ENDPOINT || '/api/lead', {
+        method: 'POST',
+        body: data,
+        headers: EXTERNAL_ENDPOINT ? { Accept: 'application/json' } : undefined,
+      });
       const json = (await res.json().catch(() => ({}))) as {
         ok?: boolean;
+        success?: boolean;
         error?: string;
       };
 
-      if (!res.ok || !json.ok) {
+      // Свой сервер отвечает ok, внешние приёмщики — success
+      const delivered = EXTERNAL_ENDPOINT ? res.ok && json.success !== false : res.ok && json.ok;
+      if (!delivered) {
         throw new Error(json.error || 'Не удалось отправить заявку');
       }
 
@@ -309,7 +331,7 @@ export function LeadForm({
         </div>
       ) : null}
 
-      {IS_DEMO ? (
+      {NO_RECEIVER ? (
         <p className="mt-5 border-l-2 border-brass bg-brass/10 px-4 py-3 text-xs leading-relaxed text-ink">
           Демонстрационная версия: показывает дизайн и переходы, но заявки
           не принимает — здесь нет сервера.
