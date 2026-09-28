@@ -1,5 +1,5 @@
-import { activeContacts, addressValue, emailValue, phones, site, terms, vk, yandex } from '@/data/site';
-import { faq } from '@/data/content';
+import { getContent } from '@/lib/content/store';
+import { getSiteView } from '@/lib/content/view';
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
@@ -10,15 +10,13 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
   );
 }
 
-/** Организация + локальный бизнес: помогает Яндексу и Google понять, кто мы и где. */
-export function OrganizationJsonLd() {
-  const socials = [
-    vk.url,
-    yandex.orgUrl,
-    ...activeContacts
-      .filter((c) => ['telegram', 'instagram'].includes(c.id))
-      .map((c) => c.href!),
-  ].filter(Boolean);
+/** Организация и локальный бизнес: помогает Яндексу и Google понять, кто мы и где. */
+export async function OrganizationJsonLd() {
+  const site = await getSiteView();
+
+  const socials = [site.vkUrl, site.instagramUrl, site.yandex?.orgUrl].filter(
+    (v): v is string => Boolean(v),
+  );
 
   return (
     <JsonLd
@@ -29,23 +27,29 @@ export function OrganizationJsonLd() {
         name: site.legalName,
         alternateName: site.name,
         url: site.url,
-        description: site.description,
+        description: site.metaDescription,
         image: `${site.url}/og.jpg`,
         areaServed: { '@type': 'City', name: site.city },
         address: {
           '@type': 'PostalAddress',
-          streetAddress: addressValue.replace(`${site.city}, `, ''),
+          ...(site.address
+            ? { streetAddress: site.address.replace(`${site.city}, `, '') }
+            : {}),
           addressLocality: site.city,
           addressRegion: site.region,
           addressCountry: 'RU',
         },
-        telephone: phones.map((p) => p.raw),
-        email: emailValue,
-        foundingDate: String(terms.furnitureSince),
-        sameAs: socials,
+        ...(site.phones.length
+          ? { telephone: site.phones.map((p) => p.raw) }
+          : {}),
+        ...(site.email ? { email: site.email } : {}),
+        ...(site.terms.furnitureSince
+          ? { foundingDate: String(site.terms.furnitureSince) }
+          : {}),
+        ...(socials.length ? { sameAs: socials } : {}),
+        priceRange: 'Стоимость рассчитывается по проекту',
         // aggregateRating намеренно не размечаем: разметка чужих отзывов
         // на собственном сайте нарушает правила поисковиков
-        priceRange: 'Стоимость рассчитывается по проекту',
         makesOffer: [
           'Кухни на заказ',
           'Гардеробные на заказ',
@@ -58,7 +62,7 @@ export function OrganizationJsonLd() {
             '@type': 'WarrantyPromise',
             durationOfWarranty: {
               '@type': 'QuantitativeValue',
-              value: terms.warrantyMonths,
+              value: site.terms.warrantyMonths,
               unitCode: 'MON',
             },
           },
@@ -68,7 +72,10 @@ export function OrganizationJsonLd() {
   );
 }
 
-export function FaqJsonLd() {
+export async function FaqJsonLd() {
+  const { faq } = await getContent('texts');
+  if (faq.length === 0) return null;
+
   return (
     <JsonLd
       data={{
@@ -84,11 +91,12 @@ export function FaqJsonLd() {
   );
 }
 
-export function BreadcrumbJsonLd({
+export async function BreadcrumbJsonLd({
   items,
 }: {
   items: { name: string; url: string }[];
 }) {
+  const site = await getSiteView();
   return (
     <JsonLd
       data={{

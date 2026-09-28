@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { ProjectCard } from './ProjectCard';
 import { Reveal } from './ui/Reveal';
-import type { Project } from '@/data/projects';
+import type { ProjectItem as Project } from '@/lib/content/types';
 
 /**
  * Отбор работ по компоновке.

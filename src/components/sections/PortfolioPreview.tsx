@@ -3,14 +3,15 @@ import { CtaButton } from '../CtaButton';
 import { ProjectCard } from '../ProjectCard';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { featuredProjects } from '@/data/projects';
+import { getVisibleProjects } from '@/lib/content/store';
 
 /**
  * Портфолио на главной — это доказательство, а не каталог.
  * Шесть работ, разные задачи и бюджеты, и сразу после — возврат к действию.
  */
-export function PortfolioPreview() {
-  const [a, b, c, d, e, f] = featuredProjects;
+export async function PortfolioPreview() {
+  const projects = await getVisibleProjects();
+  const [a, b, c, d, e, f] = projects.slice(0, 6);
 
   return (
     <Section tone="bone" aria-labelledby="portfolio-title">

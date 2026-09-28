@@ -1,5 +1,6 @@
-import { rating } from '@/data/reviews';
-import { yandex } from '@/data/site';
+'use client';
+
+import { useSite } from './SiteProvider';
 
 function Stars({ tone }: { tone: 'dark' | 'light' }) {
   return (
@@ -18,8 +19,9 @@ function Stars({ tone }: { tone: 'dark' | 'light' }) {
 
 /**
  * Рейтинг с Яндекс Карт.
- * Цифры не вбиты «для красоты»: это реальные значения карточки организации,
- * и ссылка ведёт туда же, где их можно проверить.
+ * Цифры не вбиты «для красоты»: они берутся из карточки организации,
+ * и ссылка ведёт туда же, где их можно проверить. Если рейтинг отключён
+ * в админке или отзывов нет — бейдж просто не показывается.
  *
  * Микроразметку aggregateRating мы сознательно НЕ ставим: разметка чужих
  * отзывов на своём сайте противоречит правилам поисковиков.
@@ -31,6 +33,9 @@ export function RatingBadge({
   tone?: 'dark' | 'light';
   className?: string;
 }) {
+  const { rating, yandex } = useSite();
+  if (!rating || !yandex) return null;
+
   return (
     <a
       href={yandex.reviewsUrl}

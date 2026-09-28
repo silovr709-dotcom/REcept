@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import type { StaticImageData } from 'next/image';
+import type { ImageRef } from '@/lib/content/types';
 
 /**
  * Широкая фотополоса между текстовыми блоками.
@@ -13,7 +13,7 @@ export function PhotoBand({
   overlay = 'none',
   height = 'md',
 }: {
-  image: StaticImageData;
+  image: ImageRef;
   alt: string;
   caption?: string;
   overlay?: 'none' | 'quote';
@@ -29,12 +29,13 @@ export function PhotoBand({
     <figure className="relative bg-ink">
       <div className={`relative w-full overflow-hidden ${heights[height]}`}>
         <Image
-          src={image}
+          src={image.src}
           alt={alt}
           fill
           loading="lazy"
           sizes="100vw"
-          placeholder="blur"
+          placeholder={image.blurDataURL ? 'blur' : 'empty'}
+          blurDataURL={image.blurDataURL || undefined}
           className="object-cover"
         />
         {overlay === 'quote' ? (

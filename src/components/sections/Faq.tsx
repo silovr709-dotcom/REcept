@@ -1,15 +1,16 @@
 import { Accordion } from '../ui/Accordion';
 import { CtaButton } from '../CtaButton';
 import { Section, SectionHeading } from '../ui/Section';
-import { faq } from '@/data/content';
+import { getContent } from '@/lib/content/store';
 
-export function Faq({
+export async function Faq({
   limit,
   tone = 'bone',
 }: {
   limit?: number;
   tone?: 'cream' | 'bone';
 }) {
+  const { faq } = await getContent('texts');
   const items = (limit ? faq.slice(0, limit) : faq).map((f) => ({
     q: f.q,
     a: <p>{f.a}</p>,

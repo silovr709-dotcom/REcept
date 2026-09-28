@@ -1,42 +1,26 @@
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
+import { getContent } from '@/lib/content/store';
 
 /**
  * ЧЕСТНАЯ ПРИЧИНА НЕ ОТКЛАДЫВАТЬ.
  * Никаких таймеров и «скидок только сегодня». Просто объясняем реальную
  * логику: чем раньше начат проект кухни, тем больше решений ещё возможно.
  */
-const stages = [
-  {
-    stage: 'До ремонта',
-    mark: 'Лучший момент',
-    best: true,
-    text: 'Кухня проектируется первой, а ремонт подстраивается под неё. Мы передаём вашему электрику схему выводов, а плиточнику — размеры фартука. Возможны любые решения: встроенная техника, скрытая вытяжка, подсветка, нестандартные высоты.',
-  },
-  {
-    stage: 'Во время ремонта',
-    mark: 'Ещё не поздно',
-    best: false,
-    text: 'Успеваем скорректировать электрику и подрезать плитку под нужные размеры, если работы ещё не закончены. Часть решений может потребовать переделок — обсудим, что имеет смысл, а что нет.',
-  },
-  {
-    stage: 'Ремонт закончен',
-    mark: 'Тоже делаем',
-    best: false,
-    text: 'Работаем по факту: подстраиваем проект под существующие розетки, выводы и отделку. Вариантов меньше, но хорошая кухня всё равно получается — просто задача становится инженернее.',
-  },
-];
 
-export function Timing({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
+
+export async function Timing({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
+  const { timing } = await getContent('texts');
+  const stages = timing.stages;
   return (
     <Section tone={tone} aria-labelledby="timing-title">
       <div className="container-page">
         <SectionHeading
           id="timing-title"
           eyebrow="Когда к нам приходить"
-          title="Чем раньше начат проект кухни, тем больше решений ещё возможно"
-          lead="Это единственная честная причина не откладывать. Никаких «скидок только сегодня» у нас нет и не будет — есть только последовательность работ, которую нельзя запустить назад."
+          title={timing.title}
+          lead={timing.lead}
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">

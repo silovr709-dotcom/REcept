@@ -1,8 +1,8 @@
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { ButtonLink } from '../ui/Button';
-import { vk } from '@/data/site';
-import { vkVideoEmbed, vkVideoLink, vkVideos } from '@/data/videos';
+import { getVisibleVideos } from '@/lib/content/store';
+import { getSiteView } from '@/lib/content/view';
 
 /**
  * ЖИВОЕ ВИДЕО С ОБЪЕКТОВ.
@@ -13,9 +13,14 @@ import { vkVideoEmbed, vkVideoLink, vkVideos } from '@/data/videos';
  * доскроллил до блока (loading="lazy") — на скорость первой загрузки
  * это не влияет.
  */
-export function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
-  if (vkVideos.length === 0) return null;
+export async function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
+  const [vkVideos, site] = await Promise.all([getVisibleVideos(), getSiteView()]);
+  const groupId = site.vkGroupId;
+  if (vkVideos.length === 0 || !groupId || !site.vkUrl) return null;
 
+  const vkVideoEmbed = (id: string) =>
+    `https://vk.com/video_ext.php?oid=-${groupId}&id=${id}&hd=2`;
+  const vkVideoLink = (id: string) => `https://vk.com/video-${groupId}_${id}`;
   const light = tone === 'ink';
 
   return (
@@ -30,7 +35,7 @@ export function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
             lead="Короткие ролики из нашего сообщества: кухни целиком, механизмы, наполнение и мелочи, которые не влезают в один кадр."
           />
           <ButtonLink
-            href={vk.url}
+            href={site.vkUrl}
             variant={light ? 'light' : 'outline'}
             size="md"
             withArrow

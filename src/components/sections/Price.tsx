@@ -1,7 +1,7 @@
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { priceExplanation, priceFactors } from '@/data/content';
+import { getContent } from '@/lib/content/store';
 
 /**
  * ЦЕНА И ПРОЗРАЧНОСТЬ.
@@ -9,7 +9,10 @@ import { priceExplanation, priceFactors } from '@/data/content';
  * невозможно назвать без проекта, и что человек получит вместо неё.
  * Никаких «скидок только сегодня» и зачёркнутых цифр.
  */
-export function Price({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
+export async function Price({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
+  const { price } = await getContent('texts');
+  const priceExplanation = price;
+  const priceFactors = price.factors;
   return (
     <Section tone={tone} id="price" aria-labelledby="price-title">
       <div className="container-page">

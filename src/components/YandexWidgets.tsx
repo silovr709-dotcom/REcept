@@ -1,4 +1,4 @@
-import { yandex } from '@/data/site';
+import { getSiteView } from '@/lib/content/view';
 
 /**
  * Официальный виджет отзывов Яндекс Карт.
@@ -6,7 +6,10 @@ import { yandex } from '@/data/site';
  * это и есть доказательство. Грузится лениво, поэтому на скорость страницы
  * почти не влияет.
  */
-export function YandexReviewsWidget({ height = 620 }: { height?: number }) {
+export async function YandexReviewsWidget({ height = 620 }: { height?: number }) {
+  const { yandex } = await getSiteView();
+  if (!yandex) return null;
+
   return (
     <div
       className="overflow-hidden rounded-lg border border-line bg-cream"
@@ -27,8 +30,9 @@ export function YandexReviewsWidget({ height = 620 }: { height?: number }) {
  * Заодно показывает актуальные часы работы — мы не дублируем их текстом,
  * чтобы на сайте не висело устаревшее расписание.
  */
-export function YandexMapWidget({ height = 420 }: { height?: number }) {
-  const src = `https://yandex.ru/map-widget/v1/org/${yandex.orgId}/?indoorLevel=1&lang=ru_RU`;
+export async function YandexMapWidget({ height = 420 }: { height?: number }) {
+  const { yandex, address } = await getSiteView();
+  if (!yandex) return null;
 
   return (
     <div
@@ -36,8 +40,8 @@ export function YandexMapWidget({ height = 420 }: { height?: number }) {
       style={{ height }}
     >
       <iframe
-        src={src}
-        title="Мебельное ателье «РЕцепт» на карте Твери: проспект Калинина, 13А"
+        src={yandex.mapWidgetUrl}
+        title={`Мебельное ателье «РЕцепт» на карте: ${address ?? 'Тверь'}`}
         loading="lazy"
         allowFullScreen
         className="size-full border-0"

@@ -2,17 +2,19 @@ import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { processSteps } from '@/data/content';
-import { getDetailsFor } from '@/data/details';
-
-// Два кадра с объектов закрывают пустые ячейки сетки и разбавляют текст
-const processShots = getDetailsFor(['stone-top-tap', 'open-niche']);
+import { getContent, getVisibleDetails } from '@/lib/content/store';
 
 /**
  * Процесс снимает страх неизвестности: человек должен понимать,
  * что его ждёт и сколько усилий потребуется лично от него.
  */
-export function Process({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
+export async function Process({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
+  const [{ processSteps }, details] = await Promise.all([
+    getContent('texts'),
+    getVisibleDetails(),
+  ]);
+  // Два кадра с объектов закрывают пустые ячейки сетки и разбавляют текст
+  const processShots = details.slice(2, 4);
   return (
     <Section tone={tone} id="process" aria-labelledby="process-title">
       <div className="container-page">
@@ -56,12 +58,13 @@ export function Process({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
           {processShots.map((d) => (
             <div key={d.id} className="relative min-h-52 bg-sand">
               <Image
-                src={d.image}
+                src={d.image.src}
                 alt={d.alt}
                 fill
                 loading="lazy"
                 sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                placeholder="blur"
+                placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
+                blurDataURL={d.image.blurDataURL || undefined}
                 className="object-cover"
               />
               <p className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/80 to-transparent p-5 pt-10 text-[0.8125rem] font-medium text-cream">

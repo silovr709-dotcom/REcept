@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Project } from '@/data/projects';
+import type { ProjectItem } from '@/lib/content/types';
 
-const aspect: Record<Project['shape'], string> = {
+const aspect: Record<ProjectItem['shape'], string> = {
   landscape: 'aspect-4/3',
   portrait: 'aspect-4/5',
   panorama: 'aspect-16/9',
@@ -15,7 +15,7 @@ export function ProjectCard({
   className = '',
   ratio,
 }: {
-  project: Project;
+  project: ProjectItem;
   priority?: boolean;
   sizes?: string;
   className?: string;
@@ -30,13 +30,14 @@ export function ProjectCard({
         className={`relative overflow-hidden rounded-md bg-sand ${ratio ?? aspect[project.shape]}`}
       >
         <Image
-          src={project.image}
+          src={project.image.src}
           alt={project.alt}
           fill
           sizes={sizes}
           priority={priority}
           loading={priority ? undefined : 'lazy'}
-          placeholder="blur"
+          placeholder={project.image.blurDataURL ? 'blur' : 'empty'}
+          blurDataURL={project.image.blurDataURL || undefined}
           className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.035]"
         />
         <div

@@ -2,7 +2,7 @@
 
 import { useId, useRef, useState } from 'react';
 import { Button } from './ui/Button';
-import { activeContacts } from '@/data/site';
+import { useSite } from './SiteProvider';
 
 type Status = 'idle' | 'sending' | 'success' | 'error';
 
@@ -22,6 +22,7 @@ export function LeadForm({
   source?: string;
   onSuccess?: () => void;
 }) {
+  const { contacts: activeContacts } = useSite();
   const [status, setStatus] = useState<Status>('idle');
   const [errorText, setErrorText] = useState<string | null>(null);
   const [files, setFiles] = useState<File[]>([]);
@@ -129,7 +130,7 @@ export function LeadForm({
               <span key={c.id}>
                 {i > 0 ? ', ' : ''}
                 <a
-                  href={c.href!}
+                  href={c.href}
                   className="underline decoration-brass/50 underline-offset-4 hover:text-brass"
                 >
                   {c.label}
@@ -281,7 +282,7 @@ export function LeadForm({
               {activeContacts.map((c, i) => (
                 <span key={c.id}>
                   {i > 0 ? ', ' : ''}
-                  <a href={c.href!} className="underline underline-offset-2">
+                  <a href={c.href} className="underline underline-offset-2">
                     {c.value}
                   </a>
                 </span>

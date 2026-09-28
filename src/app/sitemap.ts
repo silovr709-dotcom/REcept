@@ -1,8 +1,12 @@
 import type { MetadataRoute } from 'next';
-import { projects } from '@/data/projects';
-import { site } from '@/data/site';
+import { getVisibleProjects } from '@/lib/content/store';
+import { getSiteView } from '@/lib/content/view';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [site, projects] = await Promise.all([
+    getSiteView(),
+    getVisibleProjects(),
+  ]);
   const now = new Date();
 
   const pages = [

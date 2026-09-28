@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { RatingBadge } from '../RatingBadge';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { rating, reviews } from '@/data/reviews';
-import { yandex } from '@/data/site';
+import { getVisibleReviews } from '@/lib/content/store';
+import { getSiteView } from '@/lib/content/view';
 
 /**
  * ОТЗЫВЫ.
@@ -11,15 +11,20 @@ import { yandex } from '@/data/site';
  * из карточки организации на Яндекс Картах. У каждого есть автор, дата
  * и ссылка на первоисточник — любой может открыть и сверить.
  */
-export function Testimonials({
+export async function Testimonials({
   tone = 'bone',
   limit = 3,
 }: {
   tone?: 'cream' | 'bone';
   limit?: number;
 }) {
-  if (reviews.length === 0) return null;
-  const items = reviews.slice(0, limit);
+  const [{ rating, items: all }, site] = await Promise.all([
+    getVisibleReviews(),
+    getSiteView(),
+  ]);
+  if (all.length === 0 || !site.yandex) return null;
+  const items = all.slice(0, limit);
+  const yandex = site.yandex;
 
   return (
     <Section tone={tone} aria-labelledby="testimonials-title">

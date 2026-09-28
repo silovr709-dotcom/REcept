@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import { Logo } from './Logo';
 import { RatingBadge } from './RatingBadge';
-import {
-  WORKING_HOURS,
-  activeContacts,
-  navigation,
-  phoneDisplay,
-  phoneHref,
-  site,
-  terms,
-} from '@/data/site';
+import { getSiteView } from '@/lib/content/view';
 
-export function Footer() {
+export async function Footer() {
+  const site = await getSiteView();
+  const {
+    navigation,
+    contacts: activeContacts,
+    workingHours: WORKING_HOURS,
+    terms,
+  } = site;
+  const phoneDisplay = site.primaryPhone?.display ?? '';
+  const phoneHref = site.primaryPhone ? `tel:${site.primaryPhone.raw}` : '';
   const year = new Date().getFullYear();
 
   return (
@@ -25,9 +26,9 @@ export function Footer() {
               мебель на заказ. Роберт и Катя ведут каждый проект лично.
             </p>
             <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-cream/60">
-              <li>Гарантия 24 месяца</li>
+              <li>Гарантия {terms.warrantyMonths} месяца</li>
               <li aria-hidden="true">·</li>
-              <li>Оплата 50 / 50</li>
+              <li>Оплата {terms.payment}</li>
               <li aria-hidden="true">·</li>
               <li>Проект бесплатно</li>
             </ul>
@@ -56,9 +57,9 @@ export function Footer() {
                 {activeContacts.map((c) => (
                   <li key={c.id}>
                     <a
-                      href={c.href!}
+                      href={c.href}
                       className="text-cream/70 transition-colors hover:text-cream"
-                      {...(c.href!.startsWith('http')
+                      {...(c.href.startsWith('http')
                         ? { target: '_blank', rel: 'noopener noreferrer' }
                         : {})}
                     >

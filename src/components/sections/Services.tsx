@@ -2,27 +2,36 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { services } from '@/data/content';
-import kitchenShot from '@public/images/kitchens/kitchen-07.webp';
+import { getContent, getVisibleProjects } from '@/lib/content/store';
+import { pickImage } from '@/lib/content/images';
 
-export function Services() {
+export async function Services() {
+  const [{ services }, projects] = await Promise.all([
+    getContent('texts'),
+    getVisibleProjects(),
+  ]);
+  const shot = pickImage(projects, 'uglovaya-kuhnya-do-potolka', 6);
+
   return (
     <Section tone="cream" aria-labelledby="services-title">
       <div className="container-page">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
-          <Reveal>
-            <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-sand sm:aspect-16/10 lg:aspect-4/5">
-              <Image
-                src={kitchenShot}
-                alt="Угловая кухня на заказ до потолка, изготовленная ателье «РЕцепт»"
-                fill
-                loading="lazy"
-                sizes="(max-width: 1023px) 100vw, 42vw"
-                placeholder="blur"
-                className="object-cover"
-              />
-            </div>
-          </Reveal>
+          {shot ? (
+            <Reveal>
+              <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-sand sm:aspect-16/10 lg:aspect-4/5">
+                <Image
+                  src={shot.image.src}
+                  alt={shot.alt}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 1023px) 100vw, 42vw"
+                  placeholder={shot.image.blurDataURL ? 'blur' : 'empty'}
+                  blurDataURL={shot.image.blurDataURL || undefined}
+                  className="object-cover"
+                />
+              </div>
+            </Reveal>
+          ) : null}
 
           <div>
             <SectionHeading

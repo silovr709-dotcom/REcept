@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from 'react';
 import { LeadForm } from './LeadForm';
-import { activeContacts, hasPhone, phoneDisplay, phoneHref } from '@/data/site';
+import { useSite } from './SiteProvider';
 
 type ModalPayload = {
   title?: string;
@@ -39,6 +39,10 @@ const DEFAULTS: Required<ModalPayload> = {
 };
 
 export function LeadModalProvider({ children }: { children: ReactNode }) {
+  const { contacts: activeContacts, primaryPhone } = useSite();
+  const hasPhone = Boolean(primaryPhone);
+  const phoneDisplay = primaryPhone?.display ?? '';
+  const phoneHref = primaryPhone ? `tel:${primaryPhone.raw}` : '';
   const [payload, setPayload] = useState<Required<ModalPayload> | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const lastFocused = useRef<HTMLElement | null>(null);
@@ -162,7 +166,7 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
                   <p>
                     Не любите формы?{' '}
                     <a
-                      href={phoneHref!}
+                      href={phoneHref}
                       className="font-semibold text-ink underline decoration-brass/50 underline-offset-4"
                     >
                       {phoneDisplay}
@@ -175,7 +179,7 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
                       <span key={c.id}>
                         {i > 0 ? ' · ' : ''}
                         <a
-                          href={c.href!}
+                          href={c.href}
                           className="font-semibold text-ink underline decoration-brass/50 underline-offset-4"
                         >
                           {c.label}

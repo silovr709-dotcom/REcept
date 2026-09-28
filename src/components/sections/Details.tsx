@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { featuredDetails, type Detail } from '@/data/details';
+import { getVisibleDetails } from '@/lib/content/store';
+import type { DetailItem } from '@/lib/content/types';
 
 /**
  * ДЕТАЛИ.
@@ -17,9 +18,9 @@ import { featuredDetails, type Detail } from '@/data/details';
 // Разные пропорции задают editorial-ритм вместо скучной сетки квадратов
 const ratios = ['aspect-4/5', 'aspect-square', 'aspect-square', 'aspect-4/5'];
 
-export function Details({
+export async function Details({
   tone = 'cream',
-  items = featuredDetails,
+  items,
   eyebrow = 'Детали',
   title = 'Индивидуальная мебель видна в мелочах',
   lead = 'Профиль-ручка вместо накладной, кромка столешницы, стык фактур, свет под корпусом, рифлёное стекло вместо прозрачного. Это нельзя купить готовым — это проектируется под конкретную кухню.',
@@ -28,7 +29,7 @@ export function Details({
   columns = 4,
 }: {
   tone?: 'cream' | 'bone';
-  items?: Detail[];
+  items?: DetailItem[];
   eyebrow?: string;
   title?: string;
   lead?: string;
@@ -36,7 +37,9 @@ export function Details({
   showCta?: boolean;
   columns?: 3 | 4;
 }) {
-  if (items.length === 0) return null;
+  const all = await getVisibleDetails();
+  const list = items ?? all.slice(0, 8);
+  if (list.length === 0) return null;
 
   const cols =
     columns === 3
@@ -58,7 +61,7 @@ export function Details({
         />
 
         <ul className={`mt-12 grid gap-x-4 gap-y-8 sm:gap-x-6 lg:mt-16 ${cols}`}>
-          {items.map((d, i) => (
+          {list.map((d, i) => (
             <li key={d.id}>
               <Reveal delay={Math.min(i, 5) * 40}>
                 <Link href={`/portfolio/${d.project}`} className="group block">
@@ -66,12 +69,13 @@ export function Details({
                     className={`relative overflow-hidden rounded-md bg-sand ${ratios[i % ratios.length]}`}
                   >
                     <Image
-                      src={d.image}
+                      src={d.image.src}
                       alt={d.alt}
                       fill
                       loading="lazy"
                       sizes={sizes}
-                      placeholder="blur"
+                      placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
+                      blurDataURL={d.image.blurDataURL || undefined}
                       className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
                     />
                   </div>

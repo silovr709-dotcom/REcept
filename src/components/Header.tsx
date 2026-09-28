@@ -5,15 +5,13 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Logo } from './Logo';
 import { CtaButton } from './CtaButton';
-import {
-  activeContacts,
-  hasPhone,
-  navigation,
-  phoneDisplay,
-  phoneHref,
-} from '@/data/site';
+import { useSite } from './SiteProvider';
 
 export function Header() {
+  const { navigation, contacts: activeContacts, primaryPhone } = useSite();
+  const hasPhone = Boolean(primaryPhone);
+  const phoneDisplay = primaryPhone?.display ?? '';
+  const phoneHref = primaryPhone ? `tel:${primaryPhone.raw}` : '';
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -76,7 +74,7 @@ export function Header() {
           <div className="flex items-center gap-3">
             {hasPhone ? (
               <a
-                href={phoneHref!}
+                href={phoneHref}
                 className="hidden text-[0.9375rem] font-semibold text-ink transition-colors hover:text-brass 2xl:inline"
               >
                 {phoneDisplay}
@@ -176,7 +174,7 @@ export function Header() {
 
             {hasPhone ? (
               <a
-                href={phoneHref!}
+                href={phoneHref}
                 className="flex min-h-13 items-center justify-center rounded-full border border-ink/20 text-[1rem] font-semibold text-ink"
               >
                 Позвонить {phoneDisplay}
@@ -188,7 +186,7 @@ export function Header() {
             <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-stone">
               {activeContacts.map((c) => (
                 <li key={c.id}>
-                  <a href={c.href!} className="underline decoration-brass/40 underline-offset-4">
+                  <a href={c.href} className="underline decoration-brass/40 underline-offset-4">
                     {c.label}
                   </a>
                 </li>

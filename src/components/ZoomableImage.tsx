@@ -1,6 +1,7 @@
 'use client';
 
-import Image, { type StaticImageData } from 'next/image';
+import Image from 'next/image';
+import type { ImageRef } from '@/lib/content/types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
@@ -21,7 +22,7 @@ export function ZoomableImage({
   wrapperClassName = '',
   priority = false,
 }: {
-  image: StaticImageData;
+  image: ImageRef;
   alt: string;
   caption?: string;
   sizes: string;
@@ -71,13 +72,14 @@ export function ZoomableImage({
         className={`group relative block w-full cursor-zoom-in overflow-hidden bg-sand ${wrapperClassName}`}
       >
         <Image
-          src={image}
+          src={image.src}
           alt={alt}
           fill
           sizes={sizes}
           priority={priority}
           loading={priority ? undefined : 'lazy'}
-          placeholder="blur"
+          placeholder={image.blurDataURL ? 'blur' : 'empty'}
+          blurDataURL={image.blurDataURL || undefined}
           className={`object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] ${className}`}
         />
         <span
@@ -125,10 +127,13 @@ export function ZoomableImage({
 
           <div className="animate-fade-up relative max-h-[82vh] w-full max-w-6xl cursor-default">
             <Image
-              src={image}
+              src={image.src}
               alt={alt}
+              width={image.width}
+              height={image.height}
               sizes="100vw"
-              placeholder="blur"
+              placeholder={image.blurDataURL ? 'blur' : 'empty'}
+              blurDataURL={image.blurDataURL || undefined}
               className="mx-auto h-auto max-h-[82vh] w-auto max-w-full rounded-md object-contain"
             />
           </div>

@@ -1,11 +1,12 @@
 import type { MetadataRoute } from 'next';
-import { site } from '@/data/site';
+import { getSiteView } from '@/lib/content/view';
 
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+  const site = await getSiteView();
   return {
     name: 'РЕцепт — кухни на заказ в Твери',
     short_name: 'РЕцепт',
-    description: site.description,
+    description: site.metaDescription,
     start_url: '/',
     display: 'standalone',
     background_color: '#16130F',

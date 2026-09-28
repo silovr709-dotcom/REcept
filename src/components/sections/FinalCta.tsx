@@ -1,14 +1,15 @@
 import Image from 'next/image';
 import { LeadForm } from '../LeadForm';
-import { activeContacts, hasPhone, phoneDisplay, phoneHref } from '@/data/site';
-import shot from '@public/images/kitchens/kitchen-09.webp';
+import { getVisibleProjects } from '@/lib/content/store';
+import { getSiteView } from '@/lib/content/view';
+import { pickImage } from '@/lib/content/images';
 
 /**
  * ФИНАЛЬНЫЙ ЭКРАН.
  * Это не «спасибо за внимание», а приглашение к разговору.
  * Форма здесь короткая, а рядом объяснено, что произойдёт дальше.
  */
-export function FinalCta({
+export async function FinalCta({
   title = 'Давайте разберём вашу кухню',
   lead = 'Расскажите, что у вас за помещение и чего хочется. Мы посмотрим, что реально сделать в ваших размерах, предложим варианты и посчитаем стоимость. Бесплатно и без обязательств — дальше решаете вы.',
   submitLabel = 'Обсудить мою кухню',
@@ -19,6 +20,16 @@ export function FinalCta({
   submitLabel?: string;
   source?: string;
 }) {
+  const [site, projects] = await Promise.all([
+    getSiteView(),
+    getVisibleProjects(),
+  ]);
+  const shot = pickImage(projects, 'p-obraznaya-kuhnya-bezh', 8);
+  const activeContacts = site.contacts;
+  const hasPhone = Boolean(site.primaryPhone);
+  const phoneDisplay = site.primaryPhone?.display ?? '';
+  const phoneHref = site.primaryPhone ? `tel:${site.primaryPhone.raw}` : '';
+
   return (
     <section
       id="zayavka"
@@ -26,14 +37,16 @@ export function FinalCta({
       className="relative overflow-hidden bg-ink py-(--spacing-section) text-cream"
     >
       <div aria-hidden="true" className="absolute inset-0 opacity-[0.16]">
-        <Image
-          src={shot}
-          alt=""
-          fill
-          loading="lazy"
-          sizes="100vw"
-          className="object-cover"
-        />
+        {shot ? (
+          <Image
+            src={shot.image.src}
+            alt=""
+            fill
+            loading="lazy"
+            sizes="100vw"
+            className="object-cover"
+          />
+        ) : null}
         <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/85 to-ink/60" />
       </div>
 
@@ -77,7 +90,7 @@ export function FinalCta({
                 <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
                   {hasPhone ? (
                     <a
-                      href={phoneHref!}
+                      href={phoneHref}
                       className="font-display text-[1.375rem] text-cream transition-colors hover:text-brasslight"
                     >
                       {phoneDisplay}
@@ -88,8 +101,8 @@ export function FinalCta({
                     .map((c) => (
                       <a
                         key={c.id}
-                        href={c.href!}
-                        {...(c.href!.startsWith('http')
+                        href={c.href}
+                        {...(c.href.startsWith('http')
                           ? { target: '_blank', rel: 'noopener noreferrer' }
                           : {})}
                         className="self-center text-cream/70 underline decoration-brass/50 underline-offset-4 transition-colors hover:text-cream"

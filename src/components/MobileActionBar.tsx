@@ -2,12 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useLeadModal } from './LeadModal';
-import {
-  hasPhone,
-  messengerContacts,
-  phoneDisplay,
-  phoneHref,
-} from '@/data/site';
+import { useSite } from './SiteProvider';
 
 /**
  * Фиксированная нижняя панель на мобильных.
@@ -18,6 +13,7 @@ import {
 export function MobileActionBar() {
   const [visible, setVisible] = useState(false);
   const modal = useLeadModal();
+  const { primaryPhone, messengers } = useSite();
 
   useEffect(() => {
     const onScroll = () => {
@@ -39,13 +35,17 @@ export function MobileActionBar() {
     };
   }, []);
 
-  const secondary = hasPhone
-    ? { href: phoneHref!, label: 'Позвонить', aria: `Позвонить ${phoneDisplay}` }
-    : messengerContacts[0]
+  const secondary = primaryPhone
+    ? {
+        href: `tel:${primaryPhone.raw}`,
+        label: 'Позвонить',
+        aria: `Позвонить ${primaryPhone.display}`,
+      }
+    : messengers[0]
       ? {
-          href: messengerContacts[0].href!,
+          href: messengers[0].href,
           label: 'Написать',
-          aria: `Написать в ${messengerContacts[0].label}`,
+          aria: `Написать в ${messengers[0].label}`,
         }
       : null;
 

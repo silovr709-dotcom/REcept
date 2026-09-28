@@ -1,16 +1,19 @@
 import Image from 'next/image';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { advantages } from '@/data/content';
-import { getDetailsFor } from '@/data/details';
-
-const advantageShots = getDetailsFor(['brass-gola', 'vitrine-black']);
+import { getContent, getVisibleDetails } from '@/lib/content/store';
 
 /**
  * УТП. Не 15 одинаковых иконок, а «условие → что это даёт вам».
  */
-export function Advantages({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
+export async function Advantages({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
+  const [{ advantages }, details] = await Promise.all([
+    getContent('texts'),
+    getVisibleDetails(),
+  ]);
+  const advantageShots = details.slice(1, 3);
   const [first, ...rest] = advantages;
+  if (!first) return null;
 
   return (
     <Section tone={tone} aria-labelledby="advantages-title">
@@ -74,12 +77,13 @@ export function Advantages({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
             <Reveal key={d.id} delay={i * 60} className="h-full">
               <figure className="relative h-full min-h-56 overflow-hidden rounded-lg bg-sand">
                 <Image
-                  src={d.image}
+                  src={d.image.src}
                   alt={d.alt}
                   fill
                   loading="lazy"
                   sizes="(max-width: 1023px) 100vw, 33vw"
-                  placeholder="blur"
+                  placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
+                  blurDataURL={d.image.blurDataURL || undefined}
                   className="object-cover"
                 />
                 <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-12">

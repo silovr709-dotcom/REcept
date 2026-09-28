@@ -3,8 +3,7 @@ import { CtaButton } from '../CtaButton';
 import { ButtonLink } from '../ui/Button';
 import { Eyebrow } from '../ui/Section';
 import { RatingBadge } from '../RatingBadge';
-import { terms } from '@/data/site';
-import hero from '@public/images/kitchens/kitchen-01.webp';
+import { getContent } from '@/lib/content/store';
 
 /**
  * ПЕРВЫЙ ЭКРАН — правило пяти секунд.
@@ -14,7 +13,9 @@ import hero from '@public/images/kitchens/kitchen-01.webp';
  * Порядок на мобильном специально такой: заголовок → объяснение → кнопки
  * → фотография → цифры. Кнопка не уезжает вниз за картинку.
  */
-export function Hero() {
+export async function Hero() {
+  const { hero } = await getContent('texts');
+
   return (
     <section className="relative overflow-hidden bg-cream pb-14 pt-24 lg:pb-20 lg:pt-32">
       {/* Мягкое тёплое свечение — глубина без «чёрного с золотом» */}
@@ -25,27 +26,24 @@ export function Hero() {
 
       <div className="container-page relative">
         <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_1fr] lg:gap-16 xl:gap-20">
-          {/* Текстовая колонка */}
           <div className="max-w-2xl">
-            <Eyebrow className="animate-fade-up">
-              Семейное мебельное ателье · Тверь
-            </Eyebrow>
+            <Eyebrow className="animate-fade-up">{hero.eyebrow}</Eyebrow>
 
             <h1
               className="animate-fade-up font-display mt-6 text-h1 text-ink"
               style={{ animationDelay: '60ms' }}
             >
-              Кухни на заказ <span className="block">в Твери</span>
+              {hero.title}{' '}
+              {hero.titleSecondLine ? (
+                <span className="block">{hero.titleSecondLine}</span>
+              ) : null}
             </h1>
 
             <p
               className="animate-fade-up mt-6 max-w-xl text-lead text-stone"
               style={{ animationDelay: '120ms' }}
             >
-              Роберт и Катя лично ведут проект — от первого замера до момента,
-              когда вы впервые готовите на новой кухне. Проектирование,
-              визуализация и схемы электрики{' '}
-              <span className="font-semibold text-ink">бесплатно</span>.
+              {hero.lead}
             </p>
 
             <div
@@ -60,9 +58,9 @@ export function Hero() {
                 className="w-full sm:w-auto"
                 modalTitle="Расскажите, какую кухню вы хотите"
                 modalLead="Можно даже без точного проекта и размеров — разберёмся вместе. Роберт или Катя свяжутся и подскажут, с чего начать."
-                submitLabel="Рассчитать мою кухню"
+                submitLabel={hero.primaryCta}
               >
-                Рассчитать мою кухню
+                {hero.primaryCta}
               </CtaButton>
 
               <ButtonLink
@@ -71,7 +69,7 @@ export function Hero() {
                 size="lg"
                 className="w-full sm:w-auto"
               >
-                Посмотреть проекты
+                {hero.secondaryCta}
               </ButtonLink>
             </div>
 
@@ -79,8 +77,7 @@ export function Hero() {
               className="animate-fade-up mt-4 max-w-md text-sm text-stone"
               style={{ animationDelay: '220ms' }}
             >
-              Без обязательств. Сначала обсудим задачу и поймём, что вам
-              действительно нужно.
+              {hero.reassurance}
             </p>
 
             <div className="animate-fade-up mt-7" style={{ animationDelay: '260ms' }}>
@@ -89,41 +86,38 @@ export function Hero() {
           </div>
 
           {/* Визуальное доказательство качества */}
-          <div className="animate-soft-zoom relative aspect-4/3 overflow-hidden rounded-lg bg-sand sm:aspect-3/2 lg:aspect-auto lg:h-[min(70vh,38rem)]">
-            <Image
-              src={hero}
-              alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
-              fill
-              priority
-              fetchPriority="high"
-              sizes="(max-width: 1023px) 100vw, 46vw"
-              placeholder="blur"
-              className="object-cover"
-            />
-          </div>
+          {hero.image ? (
+            <div className="animate-soft-zoom relative aspect-4/3 overflow-hidden rounded-lg bg-sand sm:aspect-3/2 lg:aspect-auto lg:h-[min(70vh,38rem)]">
+              <Image
+                src={hero.image.src}
+                alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
+                fill
+                priority
+                fetchPriority="high"
+                sizes="(max-width: 1023px) 100vw, 46vw"
+                placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
+                blurDataURL={hero.image.blurDataURL || undefined}
+                className="object-cover"
+              />
+            </div>
+          ) : null}
         </div>
 
         {/* Доказательство прямо на первом экране */}
-        <ul className="animate-fade-up mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:grid-cols-4 lg:mt-16">
-          {[
-            {
-              big: `с ${terms.furnitureSince}`,
-              small: `семья делает мебель в Твери, кухни на заказ — с ${terms.kitchensSince}`,
-            },
-            { big: '24', small: 'месяца гарантии на изделие' },
-            { big: '0 ₽', small: 'проект, визуализация и схемы электрики' },
-            { big: '50/50', small: 'оплата — без полной предоплаты' },
-          ].map((item) => (
-            <li key={item.small}>
-              <p className="font-display text-[1.625rem] leading-none text-ink">
-                {item.big}
-              </p>
-              <p className="mt-2 text-[0.8125rem] leading-snug text-stone">
-                {item.small}
-              </p>
-            </li>
-          ))}
-        </ul>
+        {hero.stats.length > 0 ? (
+          <ul className="animate-fade-up mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:grid-cols-4 lg:mt-16">
+            {hero.stats.map((item) => (
+              <li key={item.small}>
+                <p className="font-display text-[1.625rem] leading-none text-ink">
+                  {item.big}
+                </p>
+                <p className="mt-2 text-[0.8125rem] leading-snug text-stone">
+                  {item.small}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </section>
   );

@@ -2,9 +2,8 @@ import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section } from '../ui/Section';
-import { team } from '@/data/content';
-import { terms } from '@/data/site';
-import shot from '@public/images/kitchens/kitchen-04.webp';
+import { getContent, getVisibleProjects } from '@/lib/content/store';
+import { pickImage } from '@/lib/content/images';
 
 /**
  * РОБЕРТ И КАТЯ.
@@ -13,7 +12,12 @@ import shot from '@public/images/kitchens/kitchen-04.webp';
  * как только их положат в public/images/team/ и впишут в data/content.ts.
  * Выдуманных биографий и ролей мы не пишем.
  */
-export function Founders() {
+export async function Founders() {
+  const [{ team, founders }, projects] = await Promise.all([
+    getContent('texts'),
+    getVisibleProjects(),
+  ]);
+  const shot = pickImage(projects, 'kuhnya-grafit-s-ostrovom', 3);
   return (
     <Section tone="ink" id="o-nas" aria-labelledby="founders-title">
       <div className="container-page">
@@ -28,23 +32,13 @@ export function Founders() {
               id="founders-title"
               className="font-display mt-6 text-h2 text-cream"
             >
-              Вы всегда знаете, кто отвечает за вашу кухню
+              {founders.title}
             </h2>
 
             <div className="mt-7 grid gap-5 text-lead text-cream/70">
-              <p>
-                «РЕцепт» — семейное дело. Наша семья занимается мебелью в Твери
-                с {terms.furnitureSince} года, а индивидуальными кухнями — с{' '}
-                {terms.kitchensSince}-го. Здесь нет отдела продаж и менеджера,
-                который уволится через месяц: есть Роберт и Катя, которые ведут
-                проект от первого разговора до сборки и остаются на связи после.
-              </p>
-              <p>
-                Поэтому мы не можем позволить себе сделать плохо: следующий
-                заказ к нам приходит от тех, кому мы уже что-то сделали, и от их
-                знакомых. Это не маркетинговая позиция — это просто способ
-                работать, когда за каждым проектом стоит твоя фамилия.
-              </p>
+              {founders.paragraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
             </div>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -56,10 +50,12 @@ export function Founders() {
                   <div className="flex items-center gap-4">
                     {person.photo ? (
                       <Image
-                        src={person.photo}
-                        alt={`${person.name} — мебельное ателье «РЕцепт», Тверь`}
+                        src={person.photo.src}
+                        alt={`${person.fullName} — мебельное ателье «РЕцепт», Тверь`}
                         width={56}
                         height={56}
+                        placeholder={person.photo.blurDataURL ? 'blur' : 'empty'}
+                        blurDataURL={person.photo.blurDataURL || undefined}
                         className="size-14 rounded-full object-cover"
                       />
                     ) : (
@@ -104,15 +100,17 @@ export function Founders() {
             </div>
           </div>
 
+          {shot ? (
           <Reveal>
             <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-coal">
               <Image
-                src={shot}
-                alt="Графитовая кухня с островом — работа мебельного ателье «РЕцепт»"
+                src={shot.image.src}
+                alt={shot.alt}
                 fill
                 loading="lazy"
                 sizes="(max-width: 1023px) 100vw, 42vw"
-                placeholder="blur"
+                placeholder={shot.image.blurDataURL ? 'blur' : 'empty'}
+                blurDataURL={shot.image.blurDataURL || undefined}
                 className="object-cover"
               />
               <div
@@ -125,6 +123,7 @@ export function Founders() {
               </p>
             </div>
           </Reveal>
+          ) : null}
         </div>
       </div>
     </Section>
