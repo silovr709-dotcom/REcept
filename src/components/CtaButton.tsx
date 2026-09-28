@@ -3,6 +3,7 @@
 import type { ComponentProps } from 'react';
 import { Button } from './ui/Button';
 import { useLeadModal } from './LeadModal';
+import { reachGoal } from '@/lib/analytics';
 
 type Props = {
   /** Заголовок формы в модальном окне — подстраиваем под контекст кнопки */
@@ -41,14 +42,15 @@ export function CtaButton({
   return (
     <Button
       {...rest}
-      onClick={() =>
+      onClick={() => {
+        reachGoal('lead_form_open', { source });
         modal.open({
           title: modalTitle,
           lead: modalLead,
           submitLabel,
           source,
-        })
-      }
+        });
+      }}
     >
       {children}
     </Button>

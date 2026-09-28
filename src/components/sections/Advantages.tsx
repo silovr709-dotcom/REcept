@@ -6,11 +6,27 @@ import { getContent, getVisibleDetails } from '@/lib/content/store';
 /**
  * УТП. Не 15 одинаковых иконок, а «условие → что это даёт вам».
  */
-export async function Advantages({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
-  const [{ advantages }, details] = await Promise.all([
+export async function Advantages({
+  tone = 'bone',
+  limit,
+}: {
+  tone?: 'cream' | 'bone';
+  /** Сколько условий показать. Без ограничения — все */
+  limit?: number;
+}) {
+  const [{ advantages: allAdvantages }, details] = await Promise.all([
     getContent('texts'),
     getVisibleDetails(),
   ]);
+  const advantages = limit ? allAdvantages.slice(0, limit) : allAdvantages;
+
+  // Числительное словом: «6 условий» посреди живого текста выглядит как опечатка
+  const WORDS = [
+    '', 'Одно', 'Два', 'Три', 'Четыре', 'Пять', 'Шесть',
+    'Семь', 'Восемь', 'Девять', 'Десять',
+  ];
+  const count = WORDS[advantages.length] ?? String(advantages.length);
+  const noun = advantages.length === 1 ? 'условие' : 'условий';
   const advantageShots = details.slice(1, 3);
   const [first, ...rest] = advantages;
   if (!first) return null;
@@ -21,7 +37,7 @@ export async function Advantages({ tone = 'bone' }: { tone?: 'cream' | 'bone' })
         <SectionHeading
           id="advantages-title"
           eyebrow="Почему с нами спокойнее"
-          title="Восемь условий, каждое из которых что-то для вас значит"
+          title={`${count} ${noun}, каждое из которых что-то для вас значит`}
           lead="Это не «преимущества компании». Это то, что вы почувствуете на себе во время работы."
         />
 

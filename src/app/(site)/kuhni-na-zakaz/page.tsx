@@ -12,7 +12,7 @@ import { Timing } from '@/components/sections/Timing';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { BreadcrumbJsonLd, FaqJsonLd } from '@/components/JsonLd';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleProjects } from '@/lib/content/store';
 import { pickImage } from '@/lib/content/images';
 
@@ -221,7 +221,6 @@ export default async function KitchensPage() {
         submitLabel="Рассчитать мою кухню"
       />
 
-      <FaqJsonLd />
       <BreadcrumbJsonLd items={[{ name: 'Кухни', url: '/kuhni-na-zakaz' }]} />
     </>
   );

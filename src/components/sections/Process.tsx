@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
@@ -8,11 +9,20 @@ import { getContent, getVisibleDetails } from '@/lib/content/store';
  * Процесс снимает страх неизвестности: человек должен понимать,
  * что его ждёт и сколько усилий потребуется лично от него.
  */
-export async function Process({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
-  const [{ processSteps }, details] = await Promise.all([
+export async function Process({
+  tone = 'bone',
+  limit,
+}: {
+  tone?: 'cream' | 'bone';
+  /** Сколько шагов показать. Без ограничения — все */
+  limit?: number;
+}) {
+  const [{ processSteps: allSteps }, details] = await Promise.all([
     getContent('texts'),
     getVisibleDetails(),
   ]);
+  const processSteps = limit ? allSteps.slice(0, limit) : allSteps;
+  const trimmed = processSteps.length < allSteps.length;
   // Два кадра с объектов закрывают пустые ячейки сетки и разбавляют текст
   const processShots = details.slice(2, 4);
   return (
@@ -21,8 +31,16 @@ export async function Process({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
         <SectionHeading
           id="process-title"
           eyebrow="Как проходит работа"
-          title="Десять шагов, после которых у вас просто есть кухня"
-          lead="Мы описали процесс целиком — включая то, что потребуется лично от вас. Обычно этого немного."
+          title={
+            trimmed
+              ? 'С чего всё начинается'
+              : `${['','Один','Два','Три','Четыре','Пять','Шесть','Семь','Восемь','Девять','Десять'][allSteps.length] ?? allSteps.length} шагов, после которых у вас просто есть кухня`
+          }
+          lead={
+            trimmed
+              ? 'Первые шаги — те, что предстоят вам в ближайшее время. Ниже по ссылке весь процесс целиком, включая производство, доставку и сборку.'
+              : 'Мы описали процесс целиком — включая то, что потребуется лично от вас. Обычно этого немного.'
+          }
         />
 
         <div className="mt-14 grid gap-px overflow-hidden rounded-lg bg-line sm:grid-cols-2 lg:grid-cols-3">
@@ -55,7 +73,7 @@ export async function Process({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
           ))}
           </ol>
 
-          {processShots.map((d) => (
+          {(trimmed ? [] : processShots).map((d) => (
             <div key={d.id} className="relative min-h-52 bg-sand">
               <Image
                 src={d.image.src}
@@ -73,6 +91,17 @@ export async function Process({ tone = 'bone' }: { tone?: 'cream' | 'bone' }) {
             </div>
           ))}
         </div>
+
+        {trimmed ? (
+          <Reveal className="mt-8">
+            <Link
+              href="/kuhni-na-zakaz#process"
+              className="inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-brass underline decoration-brass/40 underline-offset-4"
+            >
+              Весь процесс целиком — все {allSteps.length} шагов до сборки и гарантии
+            </Link>
+          </Reveal>
+        ) : null}
 
         <Reveal className={`mt-12 flex flex-col items-start gap-5 rounded-lg p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 ${
             tone === 'bone' ? 'bg-cream' : 'bg-bone'

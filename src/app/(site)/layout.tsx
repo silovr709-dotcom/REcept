@@ -5,6 +5,7 @@ import { LeadModalProvider } from '@/components/LeadModal';
 import { MobileActionBar } from '@/components/MobileActionBar';
 import { SiteProvider } from '@/components/SiteProvider';
 import { OrganizationJsonLd } from '@/components/JsonLd';
+import { Analytics } from '@/components/Analytics';
 import { getSiteView } from '@/lib/content/view';
 
 /**
@@ -40,6 +41,7 @@ export default async function SiteLayout({
       </SiteProvider>
 
       <OrganizationJsonLd />
+      <Analytics />
     </>
   );
 }

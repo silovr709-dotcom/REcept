@@ -16,6 +16,24 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: [],
   },
+  /**
+   * Редиректы со старого сайта.
+   * Если новый сайт встаёт на домен, где уже был старый, каждый его адрес
+   * нужно перенаправить на новый — иначе накопленные позиции и внешние
+   * ссылки упрутся в 404.
+   *
+   * Формат: { source: '/старый-адрес', destination: '/новый', permanent: true }
+   * permanent: true — это код 301, «переехали навсегда»: поисковики
+   * переносят вес страницы на новый адрес.
+   */
+  async redirects() {
+    return [
+      // Пример — раскомментируйте и замените на реальные адреса:
+      // { source: '/kuhni', destination: '/kuhni-na-zakaz', permanent: true },
+      // { source: '/contacts', destination: '/kontakty', permanent: true },
+    ];
+  },
+
   async headers() {
     return [
       {

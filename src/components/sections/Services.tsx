@@ -5,12 +5,44 @@ import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleProjects } from '@/lib/content/store';
 import { pickImage } from '@/lib/content/images';
 
-export async function Services() {
+export async function Services({ compact = false }: { compact?: boolean }) {
   const [{ services }, projects] = await Promise.all([
     getContent('texts'),
     getVisibleProjects(),
   ]);
   const shot = pickImage(projects, 'uglovaya-kuhnya-do-potolka', 6);
+
+  // Компактный вид: на главной этот блок дублировал меню и съедал экран.
+  // Оставляем суть одной строкой и ссылками на разделы.
+  if (compact) {
+    return (
+      <Section tone="cream" aria-labelledby="services-title">
+        <div className="container-page">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
+            <SectionHeading
+              id="services-title"
+              eyebrow="Что мы делаем"
+              title="Кухни — основное. Но не единственное"
+              lead="Чаще всего к нам приходят за кухней, а уезжаем мы с объекта, сделав ещё гардеробную и шкаф в прихожей. В одной стилистике и с одной ответственностью."
+            />
+            <ul className="flex flex-wrap gap-2.5">
+              {services.map((s) => (
+                <li key={s.id}>
+                  <Link
+                    href={s.href}
+                    className="inline-flex items-center gap-2 rounded-full border border-line bg-bone px-4 py-2.5 text-[0.9375rem] text-ink transition-colors hover:border-brass/50 hover:text-brass"
+                  >
+                    {s.title}
+                    <span aria-hidden="true" className="text-brass">→</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Section>
+    );
+  }
 
   return (
     <Section tone="cream" aria-labelledby="services-title">

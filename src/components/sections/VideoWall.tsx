@@ -1,6 +1,7 @@
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { ButtonLink } from '../ui/Button';
+import { VideoCard } from '../VideoCard';
 import { getVisibleVideos } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
 
@@ -49,23 +50,17 @@ export async function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
           {vkVideos.map((video, i) => (
             <li key={video.id}>
               <Reveal delay={i * 60}>
-                <div
-                  className={`relative aspect-9/16 overflow-hidden rounded-lg ${
-                    light ? 'bg-coal' : 'bg-sand'
-                  }`}
-                >
-                  <iframe
-                    src={vkVideoEmbed(video.id)}
-                    title={
-                      video.title ??
-                      `Видео работы ателье «РЕцепт» от ${video.published}`
-                    }
-                    loading="lazy"
-                    allow="autoplay; encrypted-media; picture-in-picture; screen-wake-lock"
-                    allowFullScreen
-                    className="absolute inset-0 size-full border-0"
-                  />
-                </div>
+                <VideoCard
+                  embedUrl={vkVideoEmbed(video.id)}
+                  linkUrl={vkVideoLink(video.id)}
+                  title={
+                    video.title ??
+                    `Видео работы ателье «РЕцепт» от ${video.published}`
+                  }
+                  duration={video.duration}
+                  poster={video.poster ?? null}
+                  light={light}
+                />
                 <div className="mt-3 flex items-baseline justify-between gap-4">
                   <p
                     className={`text-[0.9375rem] font-medium ${
@@ -74,13 +69,6 @@ export async function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
                   >
                     {video.title ?? `Видео от ${video.published}`}
                   </p>
-                  <span
-                    className={`shrink-0 text-[0.8125rem] ${
-                      light ? 'text-cream/60' : 'text-stone'
-                    }`}
-                  >
-                    {video.duration}
-                  </span>
                 </div>
                 <a
                   href={vkVideoLink(video.id)}

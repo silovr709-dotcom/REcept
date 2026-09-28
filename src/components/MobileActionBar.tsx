@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useLeadModal } from './LeadModal';
 import { useSite } from './SiteProvider';
+import { reachGoal } from '@/lib/analytics';
 
 /**
  * Фиксированная нижняя панель на мобильных.
@@ -60,6 +61,12 @@ export function MobileActionBar() {
           <a
             href={secondary.href}
             aria-label={secondary.aria}
+            onClick={() =>
+              reachGoal(
+                secondary.label === 'Позвонить' ? 'phone_click' : 'messenger_click',
+                { place: 'mobile-bar' },
+              )
+            }
             tabIndex={visible ? 0 : -1}
             className="grid min-h-13 shrink-0 place-items-center rounded-full border border-ink/20 px-5 text-[0.9375rem] font-semibold text-ink"
           >
@@ -70,14 +77,15 @@ export function MobileActionBar() {
         <button
           type="button"
           tabIndex={visible ? 0 : -1}
-          onClick={() =>
+          onClick={() => {
+            reachGoal('lead_form_open', { source: 'mobile-bar' });
             modal?.open({
               title: 'Рассчитаем вашу кухню',
               lead: 'Оставьте контакт — Роберт или Катя свяжутся и подскажут, с чего начать. Без обязательств.',
               submitLabel: 'Получить расчёт',
               source: 'mobile-bar',
-            })
-          }
+            });
+          }}
           className="flex min-h-13 flex-1 items-center justify-center gap-2 rounded-full bg-brass px-5 text-[0.9375rem] font-semibold text-white shadow-[0_8px_24px_-10px_rgba(160,115,56,0.8)]"
         >
           Рассчитать кухню

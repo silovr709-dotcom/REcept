@@ -15,7 +15,25 @@ async function countLeads() {
   }
 }
 
+/**
+ * Пароль хранится только в переменных окружения, поэтому проверить его
+ * стойкость можно лишь косвенно — по длине и по совпадению с очевидными
+ * вариантами. Этого достаточно, чтобы не оставить панель с «123456».
+ */
+function passwordWarning(): string | null {
+  const pwd = process.env.ADMIN_PASSWORD ?? '';
+  const obvious = ['recept', 'admin', 'password', 'kuhni', 'tver', '1234'];
+  if (pwd.length < 10) {
+    return 'Пароль от админки короче 10 символов — его легко подобрать.';
+  }
+  if (obvious.some((word) => pwd.toLowerCase().includes(word))) {
+    return 'В пароле от админки есть очевидное слово — стоит заменить на случайный.';
+  }
+  return null;
+}
+
 export default async function AdminDashboard() {
+  const warning = passwordWarning();
   const [projects, details, reviews, videos, leads] = await Promise.all([
     getContent('projects'),
     getContent('details'),
@@ -84,6 +102,16 @@ export default async function AdminDashboard() {
         Любое изменение появляется на сайте сразу после сохранения — пересобирать
         ничего не нужно.
       </p>
+
+      {warning ? (
+        <div className="mt-8 rounded-xl border border-amber-300 bg-amber-50 p-5">
+          <p className="font-semibold text-ink">Смените пароль перед публикацией</p>
+          <p className="mt-1.5 text-[0.9375rem] text-stone">
+            {warning} Поменяйте значение <code className="text-ink">ADMIN_PASSWORD</code>{' '}
+            в файле <code className="text-ink">.env.local</code> и перезапустите сайт.
+          </p>
+        </div>
+      ) : null}
 
       <Link
         href="/admin/zayavki"

@@ -146,6 +146,7 @@ export async function saveSiteAction(
     whatsappRaw: strOrNull(formData, 'whatsappRaw')?.replace(/[^\d]/g, '') ?? null,
     yandexOrgId: strOrNull(formData, 'yandexOrgId'),
     yandexOrgName: strOrNull(formData, 'yandexOrgName'),
+    metrikaId: strOrNull(formData, 'metrikaId')?.replace(/\D/g, '') || null,
     warrantyMonths: Number(str(formData, 'warrantyMonths')) || current.warrantyMonths,
     payment: str(formData, 'payment') || current.payment,
     furnitureSince: Number(str(formData, 'furnitureSince')) || null,
@@ -262,6 +263,7 @@ export async function saveVideosAction(
         title: v.title ? String(v.title) : null,
         duration: String(v.duration ?? ''),
         published: String(v.published ?? ''),
+        poster: (v.poster as VideoItem['poster']) ?? null,
         hidden: Boolean(v.hidden),
       }))
       .filter((v) => v.id),

@@ -33,6 +33,7 @@ export function VideosForm({
             title: '',
             duration: '',
             published: '',
+            poster: null,
             hidden: false,
           })}
           emptyHint="Пока ни одного ролика. Блок видео на сайте не показывается."
@@ -51,6 +52,12 @@ export function VideosForm({
               hint: 'Необязательно. Пусто — подпишем датой',
             },
             { key: 'duration', label: 'Длительность', type: 'text', placeholder: '0:40' },
+            {
+              key: 'poster',
+              label: 'Обложка',
+              type: 'image',
+              hint: 'Кадр из ролика. Пока обложки нет, показывается фирменная заглушка. Плеер ВКонтакте грузится только после нажатия — так страница остаётся лёгкой',
+            },
             { key: 'published', label: 'Когда опубликовано', type: 'text', placeholder: '18 сентября' },
             { key: 'hidden', label: 'Скрыто', type: 'checkbox', hint: 'Скрыть с сайта' },
           ]}

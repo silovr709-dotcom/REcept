@@ -18,7 +18,7 @@ export function LoaderController() {
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isShort = document.documentElement.dataset.loader === 'short';
-    const minDuration = reduce ? 0 : isShort ? 500 : 1700;
+    const minDuration = reduce ? 0 : isShort ? 400 : 1100;
 
     const start = Number(document.documentElement.dataset.loaderStart) || Date.now();
     let done = false;

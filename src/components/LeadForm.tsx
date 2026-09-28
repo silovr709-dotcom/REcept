@@ -3,6 +3,7 @@
 import { useId, useRef, useState } from 'react';
 import { Button } from './ui/Button';
 import { useSite } from './SiteProvider';
+import { reachGoal } from '@/lib/analytics';
 
 type Status = 'idle' | 'sending' | 'success' | 'error';
 
@@ -73,6 +74,7 @@ export function LeadForm({
       setStatus('success');
       setFiles([]);
       form.reset();
+      reachGoal('lead_sent', { source });
       onSuccess?.();
     } catch (err) {
       setStatus('error');

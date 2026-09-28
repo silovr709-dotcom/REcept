@@ -48,14 +48,14 @@ export default async function HomePage() {
         />
       ) : null}
 
-      <Services />
+      <Services compact />
       <PortfolioPreview />
       <Details tone="cream" />
       <VideoWall />
       <Testimonials tone="cream" />
-      <Process tone="bone" />
+      <Process tone="bone" limit={5} />
       <Timing tone="cream" />
-      <Advantages tone="bone" />
+      <Advantages tone="bone" limit={6} />
 
       {bandClassic ? (
         <PhotoBand
@@ -69,7 +69,7 @@ export default async function HomePage() {
       <Price tone="cream" />
       <Founders />
       <Objections tone="bone" />
-      <Faq />
+      <Faq limit={6} />
       <FinalCta />
       <FaqJsonLd />
     </>

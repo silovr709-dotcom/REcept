@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Logo } from './Logo';
 import { CtaButton } from './CtaButton';
 import { useSite } from './SiteProvider';
+import { reachGoal } from '@/lib/analytics';
 
 export function Header() {
   const { navigation, contacts: activeContacts, primaryPhone } = useSite();
@@ -75,6 +76,7 @@ export function Header() {
             {hasPhone ? (
               <a
                 href={phoneHref}
+                onClick={() => reachGoal('phone_click', { place: 'header' })}
                 className="hidden text-[0.9375rem] font-semibold text-ink transition-colors hover:text-brass 2xl:inline"
               >
                 {phoneDisplay}

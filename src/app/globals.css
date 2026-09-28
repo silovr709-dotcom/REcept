@@ -352,11 +352,17 @@ html[data-loading='true'] body {
 }
 
 /* Повторный визит — ускоренная версия */
+/* Базовый темп подобран так, чтобы кухня успела собраться за ~1,1 с:
+   дольше держать человека перед рейтингом 5,0 нет смысла. */
+#recept-loader {
+  --loader-speed: 0.62;
+}
+
 html[data-loader='short'] .loader-piece,
 html[data-loader='short'] .loader-gola,
 html[data-loader='short'] .loader-light,
 html[data-loader='short'] .loader-text {
-  --loader-speed: 0.35;
+  --loader-speed: 0.24;
 }
 
 /* ==================================================================
