@@ -46,19 +46,23 @@
    ================================================================== */
 
 @theme {
-  /* Цвет: тёплый графит, кость, глина, латунь, мох */
-  --color-ink: #16130f;
-  --color-soot: #211d18;
-  --color-coal: #2e2a23;
-  --color-cream: #fdfbf7;
-  --color-bone: #f5f1ea;
-  --color-sand: #e9e1d4;
-  --color-line: #ded4c4;
-  --color-stone: #6e665a;
-  --color-clay: #c6a981;
-  --color-brass: #8f6530;
-  --color-brasslight: #c79a54;
-  --color-moss: #3c4a3e;
+  /* Цвет: галерейная бумага, глубокий графит, сдержанная бронза.
+     Прежняя гамма уходила в бежевый — много тёплого и мало глубины,
+     из-за чего фотографии терялись, а страница читалась «дёшево».
+     Теперь основа почти нейтральная: она не спорит с деревом и камнем
+     на снимках, а тёплый акцент остался ровно один. */
+  --color-ink: #191713;
+  --color-soot: #26231e;
+  --color-coal: #33302a;
+  --color-cream: #f7f6f2;
+  --color-bone: #edebe5;
+  --color-sand: #dfdcd3;
+  --color-line: #d6d2c9;
+  --color-stone: #6b6862;
+  --color-clay: #b99b78;
+  --color-brass: #866230;
+  --color-brasslight: #c69a5c;
+  --color-moss: #3a4034;
 
   --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
     Roboto, Arial, sans-serif;
@@ -180,7 +184,7 @@ body::after {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.028;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }

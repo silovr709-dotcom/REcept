@@ -5,6 +5,7 @@ import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Details } from '@/components/sections/Details';
+import { Textures } from '@/components/sections/Textures';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
@@ -120,6 +121,8 @@ export default async function MaterialsPage() {
           Подобрать материалы под бюджет
         </CtaButton>
       </PageHero>
+
+      <Textures />
 
       <Details
         tone="bone"
