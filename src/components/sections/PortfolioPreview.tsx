@@ -6,20 +6,39 @@ import { Section, SectionHeading } from '../ui/Section';
 import { getVisibleProjects } from '@/lib/content/store';
 
 /**
- * Портфолио на главной — это доказательство, а не каталог.
- * Шесть работ, разные задачи и бюджеты, и сразу после — возврат к действию.
+ * ПОРТФОЛИО НА ГЛАВНОЙ
+ * ====================
+ * Раньше здесь показывались шесть работ из восемнадцати — две трети
+ * портфолио оставались за кадром, хотя именно за ним на такой сайт
+ * и заходят.
+ *
+ * Теперь лента показывает всё. Чтобы длинный список не превратился в
+ * однообразную сетку, кадры идут повторяющимся ритмом из трёх рядов:
+ * широкий с узким, узкий с широким, два равных. Строки смещены по
+ * вертикали — взгляд идёт зигзагом и не устаёт.
  */
+
+// Ширина колонки и вертикальное смещение для каждого места в ритме
+const rhythm = [
+  { span: 'lg:col-span-7', offset: '', ratio: 'aspect-4/3' },
+  { span: 'lg:col-span-5', offset: 'lg:mt-24', ratio: 'aspect-4/5' },
+  { span: 'lg:col-span-5', offset: '', ratio: 'aspect-4/5' },
+  { span: 'lg:col-span-7', offset: 'lg:mt-16', ratio: 'aspect-4/3' },
+  { span: 'lg:col-span-6', offset: '', ratio: 'aspect-3/2' },
+  { span: 'lg:col-span-6', offset: 'lg:mt-20', ratio: 'aspect-3/2' },
+];
+
 export async function PortfolioPreview() {
   const projects = await getVisibleProjects();
-  const [a, b, c, d, e, f] = projects.slice(0, 6);
+  if (projects.length === 0) return null;
 
   return (
     <Section tone="bone" aria-labelledby="portfolio-title">
       <div className="container-page">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
             id="portfolio-title"
-            eyebrow="Наши работы"
+            eyebrow={`Проекты · ${projects.length}`}
             title="Разные бюджеты, разные метражи, один подход"
             lead="От компактной кухни в углу до кухни-гостиной с островом. Посмотрите, как решались задачи, похожие на вашу."
           />
@@ -28,66 +47,34 @@ export async function PortfolioPreview() {
             variant="outline"
             size="md"
             withArrow
-            className="shrink-0 max-sm:w-full"
+            className="shrink-0 max-lg:w-full"
           >
-            Все проекты
+            Открыть портфолио
           </ButtonLink>
         </div>
 
-        {/* Editorial-сетка: разные размеры кадров задают ритм */}
-        <div className="mt-12 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-12">
-          {a ? (
-            <Reveal className="lg:col-span-7">
-              <ProjectCard
-                project={a}
-                ratio="aspect-4/3"
-                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 55vw"
-              />
-            </Reveal>
-          ) : null}
-
-          {b ? (
-            <Reveal delay={60} className="lg:col-span-5 lg:mt-16">
-              <ProjectCard
-                project={b}
-                ratio="aspect-4/5"
-                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 40vw"
-              />
-            </Reveal>
-          ) : null}
-
-          {c ? (
-            <Reveal className="lg:col-span-4">
-              <ProjectCard project={c} ratio="aspect-4/5" />
-            </Reveal>
-          ) : null}
-
-          {d ? (
-            <Reveal delay={60} className="lg:col-span-8 lg:mt-14">
-              <ProjectCard
-                project={d}
-                ratio="aspect-4/3"
-                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 62vw"
-              />
-            </Reveal>
-          ) : null}
-
-          {e ? (
-            <Reveal className="lg:col-span-7">
-              <ProjectCard project={e} ratio="aspect-16/9" />
-            </Reveal>
-          ) : null}
-
-          {f ? (
-            <Reveal delay={60} className="lg:col-span-5">
-              <ProjectCard project={f} ratio="aspect-16/9" />
-            </Reveal>
-          ) : null}
+        <div className="mt-16 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-y-6">
+          {projects.map((project, i) => {
+            const slot = rhythm[i % rhythm.length];
+            return (
+              <Reveal
+                key={project.slug}
+                delay={(i % 2) * 60}
+                className={`${slot.span} ${slot.offset}`}
+              >
+                <ProjectCard
+                  project={project}
+                  priority={i < 2}
+                  ratio={slot.ratio}
+                  sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 46vw"
+                />
+              </Reveal>
+            );
+          })}
         </div>
 
-        {/* После визуального доказательства — возврат к действию */}
-        <Reveal className="mt-16 rounded-lg border border-line bg-cream p-8 sm:p-10">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        <Reveal className="mt-24 border-t border-line pt-10">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-xl">
               <h3 className="font-display text-h3 text-ink">
                 Похожая задача? Давайте посчитаем вашу
@@ -100,7 +87,7 @@ export async function PortfolioPreview() {
             </div>
             <CtaButton
               source="portfolio-preview"
-              variant="brass"
+              variant="primary"
               size="lg"
               withArrow
               className="shrink-0 max-lg:w-full"

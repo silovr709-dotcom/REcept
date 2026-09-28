@@ -9,6 +9,7 @@ import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
+import { rooms } from '@/data/rooms';
 import { pickImage } from '@/lib/content/images';
 
 export const metadata: Metadata = {
@@ -21,28 +22,7 @@ export const metadata: Metadata = {
   },
 };
 
-const rooms = [
-  {
-    title: 'Гардеробные',
-    text: 'Система хранения по вашим вещам, а не по стандартной сетке: высоты штанг, глубины полок, места под обувь, чемоданы и гладильную доску.',
-    points: ['Открытые и закрытые системы', 'Наполнение под ваш гардероб', 'Подсветка полок и штанг'],
-  },
-  {
-    title: 'Шкафы',
-    text: 'Распашные и купе, встроенные в нишу или отдельно стоящие. До потолка — чтобы не оставалось пыльной зоны сверху.',
-    points: ['Встроенные в нишу', 'До потолка, без антресольной щели', 'Двери в цвет стен или контрастом'],
-  },
-  {
-    title: 'Мебель для ванной',
-    text: 'Тумбы под раковину, пеналы и зеркальные шкафы во влагостойком исполнении, подогнанные по месту и коммуникациям.',
-    points: ['Влагостойкие материалы', 'Подрез под трубы и сифон', 'Подвесные и напольные варианты'],
-  },
-  {
-    title: 'Прихожие, детские, рабочие зоны',
-    text: 'Всё остальное, что делается из корпусной мебели: от небольшой входной группы до стола и стеллажа в кабинете.',
-    points: ['Единая стилистика с кухней', 'Нестандартные габариты', 'Подгонка по кривым стенам'],
-  },
-];
+
 
 export default async function FurniturePage() {
   const [details, projects] = await Promise.all([
@@ -83,23 +63,31 @@ export default async function FurniturePage() {
             lead="Подход тот же: сначала разбираемся, что и как вы храните, потом рисуем, потом производим."
           />
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          <div className="mt-14 grid gap-x-8 gap-y-16 lg:grid-cols-2">
             {rooms.map((room, i) => (
-              <Reveal
-                key={room.title}
-                delay={Math.min(i, 3) * 50}
-                className="flex h-full flex-col rounded-lg border border-line bg-bone p-7 sm:p-9"
-              >
-                <h3 className="font-display text-h3 text-ink">{room.title}</h3>
-                <p className="mt-4 text-stone">{room.text}</p>
+              <Reveal key={room.id} delay={Math.min(i, 3) * 60}>
+                <div className="media-reveal relative aspect-4/3 overflow-hidden bg-sand">
+                  <Image
+                    src={room.image}
+                    alt={room.alt}
+                    fill
+                    loading={i < 2 ? undefined : 'lazy'}
+                    priority={i < 2}
+                    sizes="(max-width: 1023px) 100vw, 46vw"
+                    placeholder="blur"
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="font-display mt-7 text-h3 text-ink">{room.title}</h3>
+                <p className="mt-3 max-w-lg text-stone">{room.text}</p>
                 <ul className="mt-6 grid gap-2.5 border-t border-line pt-5">
-                  {room.points.map((p) => (
-                    <li key={p} className="flex gap-3 text-[0.9375rem] text-stone">
+                  {room.points.map((point) => (
+                    <li key={point} className="flex gap-3 text-[0.9375rem] text-stone">
                       <span
                         aria-hidden="true"
-                        className="mt-2.5 size-1 shrink-0 rounded-full bg-brass"
+                        className="mt-2.5 size-1 shrink-0 rounded-full bg-ink/40"
                       />
-                      {p}
+                      {point}
                     </li>
                   ))}
                 </ul>

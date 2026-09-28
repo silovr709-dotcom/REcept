@@ -144,7 +144,7 @@ export function LeadForm({
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="m4.5 12.5 5 5 10-11"
-              stroke="#8F6530"
+              stroke="#4a4741"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"

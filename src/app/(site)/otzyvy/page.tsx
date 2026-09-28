@@ -6,6 +6,10 @@ import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { CtaButton } from '@/components/CtaButton';
 import { VideoWall } from '@/components/sections/VideoWall';
+import { PhotoBand } from '@/components/PhotoBand';
+import { ProjectCard } from '@/components/ProjectCard';
+import { getVisibleProjects } from '@/lib/content/store';
+import { pickImage } from '@/lib/content/images';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleReviews } from '@/lib/content/store';
@@ -24,10 +28,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ReviewsPage() {
-  const [{ rating, items: reviews }, site] = await Promise.all([
+  const [{ rating, items: reviews }, site, projects] = await Promise.all([
     getVisibleReviews(),
     getSiteView(),
+    getVisibleProjects(),
   ]);
+  const band = pickImage(projects, 'belaya-klassika-s-ostrovom', 1);
   const yandex = site.yandex;
   return (
     <>
@@ -89,6 +95,15 @@ export default async function ReviewsPage() {
         </div>
       </Section>
 
+      {band ? (
+        <PhotoBand
+          image={band.image}
+          alt={band.alt}
+          overlay="quote"
+          caption="Отзывы пишут о работе, а не о картинках. Поэтому мы и не прячем их за своей вёрсткой."
+        />
+      ) : null}
+
       {/* Живой первоисточник */}
       <Section tone="cream" aria-labelledby="widget-title">
         <div className="container-page">
@@ -111,6 +126,23 @@ export default async function ReviewsPage() {
             </div>
             <YandexReviewsWidget />
           </div>
+        </div>
+      </Section>
+
+      <Section tone="bone" aria-labelledby="reviews-works">
+        <div className="container-page">
+          <SectionHeading
+            id="reviews-works"
+            eyebrow="Проекты"
+            title="О чём эти отзывы"
+          />
+          <ul className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.slice(0, 6).map((project) => (
+              <li key={project.slug}>
+                <ProjectCard project={project} ratio="aspect-4/5" />
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 

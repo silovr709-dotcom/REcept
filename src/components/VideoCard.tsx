@@ -81,7 +81,7 @@ export function VideoCard({
               <rect x="68" y="8" width="38" height="26" />
               <rect x="14" y="52" width="92" height="30" />
             </g>
-            <rect x="10" y="40" width="100" height="5" rx="1" fill="#C79A54" />
+            <rect x="10" y="40" width="100" height="5" rx="1" fill="#b8b4ac" />
           </svg>
         </span>
       )}

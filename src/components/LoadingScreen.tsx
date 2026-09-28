@@ -28,8 +28,8 @@ export function LoadingScreen() {
           >
             <defs>
               <linearGradient id="loaderGlow" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#F0C98A" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="#F0C98A" stopOpacity="0" />
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
               </linearGradient>
             </defs>
 
@@ -38,12 +38,12 @@ export function LoadingScreen() {
               className="loader-piece"
               style={{ '--d': '0ms' } as React.CSSProperties}
               d="M30 222h340"
-              stroke="#5B5348"
+              stroke="#4a4741"
               strokeWidth="1"
             />
 
             {/* Нижние корпуса */}
-            <g stroke="#CFC4B2" strokeWidth="1.2">
+            <g stroke="#cfccc5" strokeWidth="1.2">
               <rect
                 className="loader-piece loader-piece--up"
                 style={{ '--d': '140ms' } as React.CSSProperties}
@@ -51,7 +51,7 @@ export function LoadingScreen() {
                 y="150"
                 width="88"
                 height="72"
-                fill="#221D18"
+                fill="#1c1b19"
               />
               <rect
                 className="loader-piece loader-piece--up"
@@ -60,7 +60,7 @@ export function LoadingScreen() {
                 y="150"
                 width="104"
                 height="72"
-                fill="#221D18"
+                fill="#1c1b19"
               />
               <rect
                 className="loader-piece loader-piece--up"
@@ -69,7 +69,7 @@ export function LoadingScreen() {
                 y="150"
                 width="88"
                 height="72"
-                fill="#221D18"
+                fill="#1c1b19"
               />
             </g>
 
@@ -82,11 +82,11 @@ export function LoadingScreen() {
               width="292"
               height="9"
               rx="1.5"
-              fill="#D9CDB8"
+              fill="#ddd9d2"
             />
 
             {/* Верхние модули */}
-            <g stroke="#CFC4B2" strokeWidth="1.2">
+            <g stroke="#cfccc5" strokeWidth="1.2">
               <rect
                 className="loader-piece loader-piece--down"
                 style={{ '--d': '700ms' } as React.CSSProperties}
@@ -94,7 +94,7 @@ export function LoadingScreen() {
                 y="40"
                 width="86"
                 height="62"
-                fill="#221D18"
+                fill="#1c1b19"
               />
               <rect
                 className="loader-piece loader-piece--down"
@@ -103,7 +103,7 @@ export function LoadingScreen() {
                 y="40"
                 width="86"
                 height="62"
-                fill="#221D18"
+                fill="#1c1b19"
               />
             </g>
 
@@ -112,8 +112,8 @@ export function LoadingScreen() {
               className="loader-piece loader-piece--down"
               style={{ '--d': '880ms' } as React.CSSProperties}
               d="M178 40h44v26l-9 22h-26l-9-22V40z"
-              fill="#2E2A23"
-              stroke="#8F6530"
+              fill="#26241f"
+              stroke="#b8b4ac"
               strokeWidth="1.2"
               strokeLinejoin="round"
             />
@@ -123,7 +123,7 @@ export function LoadingScreen() {
               className="loader-gola"
               style={{ '--d': '1020ms' } as React.CSSProperties}
               d="M60 158h280"
-              stroke="#C79A54"
+              stroke="#d6d2c9"
               strokeWidth="2"
               strokeLinecap="round"
             />
@@ -131,7 +131,7 @@ export function LoadingScreen() {
               className="loader-gola"
               style={{ '--d': '1080ms' } as React.CSSProperties}
               d="M60 104h86M254 104h86"
-              stroke="#C79A54"
+              stroke="#d6d2c9"
               strokeWidth="2"
               strokeLinecap="round"
             />
@@ -149,7 +149,7 @@ export function LoadingScreen() {
               className="loader-piece"
               style={{ '--d': '1300ms' } as React.CSSProperties}
               d="M146 141V104h108v37"
-              stroke="#3A342C"
+              stroke="#2f2d29"
               strokeWidth="1"
             />
           </svg>
@@ -159,7 +159,7 @@ export function LoadingScreen() {
               className="loader-text font-display text-[1.75rem] tracking-tight text-cream sm:text-[2rem]"
               style={{ '--d': '1380ms' } as React.CSSProperties}
             >
-              <span className="text-brasslight">РЕ</span>цепт
+              <span className="text-clay">РЕ</span>цепт
             </p>
             <p
               className="loader-text mt-2.5 text-[0.8125rem] leading-relaxed text-cream/55 sm:text-sm"
