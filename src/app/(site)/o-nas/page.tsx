@@ -112,7 +112,7 @@ export default async function AboutPage() {
           image={band.image}
           alt={band.alt}
           overlay="quote"
-          caption="Каждую кухню в портфолио Роберт и Катя проектировали, привозили и собирали сами."
+          caption="Каждый проект Роберт и Катя ведут сами — от планировки до сборки на объекте."
         />
       ) : null}
 

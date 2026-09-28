@@ -118,8 +118,8 @@ export async function Founders() {
                 className="absolute inset-0 bg-linear-to-t from-ink/60 to-transparent"
               />
               <p className="absolute inset-x-0 bottom-0 p-7 text-[0.9375rem] text-cream/75">
-                Каждая работа в портфолио — кухня, которую Роберт и Катя
-                проектировали, привозили и собирали сами.
+                Каждый проект в портфолио Роберт и Катя ведут сами — от
+                планировки до сборки на объекте.
               </p>
             </div>
           </Reveal>

@@ -88,7 +88,7 @@ export async function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-cream/10 pt-7 text-xs text-cream/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.legalName}. Фотографии — реальные работы ателье.
+            © {year} {site.legalName}. Изображения на сайте — визуализации проектов.
           </p>
           <Link
             href="/politika-konfidencialnosti"

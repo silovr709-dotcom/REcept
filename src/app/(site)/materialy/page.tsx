@@ -5,7 +5,6 @@ import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Details } from '@/components/sections/Details';
-import { Textures } from '@/components/sections/Textures';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
@@ -122,14 +121,12 @@ export default async function MaterialsPage() {
         </CtaButton>
       </PageHero>
 
-      <Textures />
-
       <Details
         tone="bone"
         items={details}
         eyebrow="Фактуры вживую"
         title="Материалы, с которыми мы уже работали"
-        lead="Это не каталог поставщика и не рендеры: каждый кадр — фрагмент кухни, которую мы сделали. Металл, стекло, камень, дерево и рельеф в реальном освещении реальных квартир."
+        lead="Металл, стекло, камень, дерево и рельеф крупным планом. Именно на таком расстоянии видна разница между эмалью и плёнкой, между шпоном и имитацией."
         footnote="Нажмите на любой фрагмент, чтобы посмотреть проект целиком."
       />
 

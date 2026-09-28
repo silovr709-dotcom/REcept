@@ -13,10 +13,12 @@ import k09 from '@public/images/kitchens/kitchen-09.webp';
 /**
  * ПОРТФОЛИО
  * =========
- * Все фотографии — реальные работы ателье «РЕцепт» из репозитория.
+ * Изображения — визуализации проектов, а не съёмка готовых объектов.
+ * Реальные фотографии выполненных кухонь лежат в
+ * public/images/originals/kitchens и ждут нормальной съёмки.
  *
  * ЧЕСТНОСТЬ ДАННЫХ:
- * — описания рассказывают о том, что действительно видно на фотографии
+ * — описания рассказывают о том, что действительно видно на изображении
  *   (тип фасадов, материалы, компоновка, решения);
  * — мы НЕ выдумываем имена заказчиков, метраж, бюджеты, сроки и истории;
  * — поля `area`, `term`, `budget`, `clientStory` намеренно пустые (null).
@@ -83,7 +85,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Прямая компоновка в нише — рабочее решение для комнаты, где нельзя «размазать» кухню по двум стенам. Вся техника, хранение и рабочая поверхность собраны в один фронт, а остальное пространство остаётся свободным.',
-    detailIds: ['brass-hood', 'stone-top-tap', 'brass-gola', 'brass-frames', 'black-column'],
+    detailIds: ['brass', 'wood-stone'],
     area: null,
     term: null,
     budget: null,
@@ -121,7 +123,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Когда кухня открыта в гостиную, она перестаёт быть «техническим» помещением. Поэтому фасады сделаны без ручек и максимально спокойными, а вся «жизнь» отдана острову и свету.',
-    detailIds: ['island-wood'],
+    detailIds: ['lacquer'],
     area: null,
     term: null,
     budget: null,
@@ -158,7 +160,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Маленькая кухня не обязана быть белой и безликой. Её можно сделать характерной, если правильно распределить массу цвета и не перегрузить верхний ярус.',
-    detailIds: ['reeded-green', 'wood-top-green'],
+    detailIds: ['reeded'],
     area: null,
     term: null,
     budget: null,
@@ -196,7 +198,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Тёмная кухня требует аккуратной работы со светом и фактурами. Матовая поверхность не бликует, а древесные элементы не дают интерьеру стать мрачным.',
-    detailIds: ['graphite-wood'],
+    detailIds: ['light'],
     area: null,
     term: null,
     budget: null,
@@ -234,7 +236,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'В большом помещении главная задача — не «залить» стену мебелью, а задать ритм. Здесь это сделано чередованием светлых и тёмных объёмов.',
-    detailIds: ['wood-grey'],
+    detailIds: ['veneer'],
     area: null,
     term: null,
     budget: null,
@@ -272,7 +274,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Неоклассика легко превращается в «тяжёлую» кухню. Спасает сдержанная фрезеровка, светлая столешница и минимум контрастных деталей.',
-    detailIds: ['fluted-white', 'vitrine-black', 'brass-handles'],
+    detailIds: ['hardware'],
     area: null,
     term: null,
     budget: null,
@@ -310,7 +312,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Когда потолки высокие, шкафы «в рост человека» оставляют мёртвую зону наверху. Второй ярус решает это и заодно делает кухню визуально выше.',
-    detailIds: ['ribbed-glass-gold', 'wood-backsplash', 'open-niche'],
+    detailIds: ['fluted-glass'],
     area: null,
     term: null,
     budget: null,
@@ -348,7 +350,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'На маленькой площади каждое решение должно быть функциональным. Здесь работает не декор, а расстановка: свет, высоты и удобные расстояния.',
-    detailIds: ['marble-splash'],
+    detailIds: ['edge'],
     area: null,
     term: null,
     budget: null,
@@ -386,7 +388,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'П-образная схема — самая ёмкая по хранению. Её сложность в точности размеров: ошибка в сантиметр по любой из трёх стен видна сразу.',
-    detailIds: ['quartz-top'],
+    detailIds: ['stone'],
     area: null,
     term: null,
     budget: null,
