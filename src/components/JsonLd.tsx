@@ -47,6 +47,16 @@ export async function OrganizationJsonLd() {
           ? { foundingDate: String(site.terms.furnitureSince) }
           : {}),
         ...(socials.length ? { sameAs: socials } : {}),
+        ...(site.geo
+          ? {
+              geo: {
+                '@type': 'GeoCoordinates',
+                latitude: site.geo.lat,
+                longitude: site.geo.lon,
+              },
+            }
+          : {}),
+        ...(site.addressMapUrl ? { hasMap: site.addressMapUrl } : {}),
         priceRange: 'Стоимость рассчитывается по проекту',
         // aggregateRating намеренно не размечаем: разметка чужих отзывов
         // на собственном сайте нарушает правила поисковиков
@@ -72,8 +82,15 @@ export async function OrganizationJsonLd() {
   );
 }
 
-export async function FaqJsonLd() {
-  const { faq } = await getContent('texts');
+/**
+ * Разметка вопросов.
+ * `limit` обязан совпадать с тем, сколько вопросов человек реально видит
+ * на странице: размечать скрытый контент — прямое нарушение правил
+ * поисковиков, за которое разметку просто перестают показывать.
+ */
+export async function FaqJsonLd({ limit }: { limit?: number } = {}) {
+  const { faq: all } = await getContent('texts');
+  const faq = limit ? all.slice(0, limit) : all;
   if (faq.length === 0) return null;
 
   return (

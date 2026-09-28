@@ -12,10 +12,13 @@ import { getVisibleProjects } from '@/lib/content/store';
 import type { ProjectItem } from '@/lib/content/types';
 
 export const metadata: Metadata = {
-  title: 'Портфолио: кухни на заказ в Твери',
+  title: 'Портфолио кухонь',
   description:
     'Реальные кухни, изготовленные мебельным ателье «РЕцепт» в Твери: компактные кухни, угловые и П-образные, кухни-гостиные с островом. Материалы, решения и подход к каждому проекту.',
   alternates: { canonical: '/portfolio' },
+  openGraph: {
+    images: [{ url: '/og-portfolio.jpg', width: 1200, height: 630, alt: 'Портфолио кухонь на заказ в Твери' }],
+  },
 };
 
 export default async function PortfolioPage() {

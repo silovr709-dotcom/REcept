@@ -12,10 +12,13 @@ import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
 import { pickImage } from '@/lib/content/images';
 
 export const metadata: Metadata = {
-  title: 'Гардеробные, шкафы и мебель на заказ в Твери',
+  title: 'Гардеробные и шкафы на заказ',
   description:
-    'Корпусная мебель на заказ в Твери: гардеробные, шкафы-купе и распашные шкафы, мебель для ванной, прихожих, детских и рабочих зон. Проект бесплатно, гарантия 24 месяца, доставка и сборка.',
+    'Корпусная мебель на заказ в Твери: гардеробные, шкафы, мебель для ванной и прихожей. Бесплатный проект, гарантия 24 месяца, доставка и сборка в Твери.',
   alternates: { canonical: '/mebel-na-zakaz' },
+  openGraph: {
+    images: [{ url: '/og-mebel.jpg', width: 1200, height: 630, alt: 'Гардеробные и шкафы на заказ в Твери' }],
+  },
 };
 
 const rooms = [

@@ -13,10 +13,13 @@ import { RatingBadge } from '@/components/RatingBadge';
 import { getSiteView } from '@/lib/content/view';
 
 export const metadata: Metadata = {
-  title: 'Контакты мебельного ателье «РЕцепт» в Твери',
+  title: 'Контакты',
   description:
     'Связаться с мебельным ателье «РЕцепт» в Твери: оставьте заявку или напишите напрямую Роберту и Кате. Обсудим задачу, запишем на замер и посчитаем стоимость кухни бесплатно.',
   alternates: { canonical: '/kontakty' },
+  openGraph: {
+    images: [{ url: '/og-kontakty.jpg', width: 1200, height: 630, alt: 'Контакты мебельного ателье «РЕцепт» в Твери' }],
+  },
 };
 
 export default async function ContactsPage() {

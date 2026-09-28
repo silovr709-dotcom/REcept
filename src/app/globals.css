@@ -67,23 +67,24 @@
 
   /* Типографическая шкала (fluid) */
   --text-display: clamp(2.5rem, 1.35rem + 5.1vw, 6.25rem);
-  --text-display--line-height: 0.98;
-  --text-display--letter-spacing: -0.025em;
+  --text-display--line-height: 0.96;
+  --text-display--letter-spacing: -0.03em;
 
-  --text-h1: clamp(2.125rem, 1.25rem + 3.9vw, 4.5rem);
-  --text-h1--line-height: 1.04;
-  --text-h1--letter-spacing: -0.022em;
+  --text-h1: clamp(2.25rem, 1.2rem + 4.4vw, 5rem);
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.028em;
 
-  --text-h2: clamp(1.75rem, 1.15rem + 2.6vw, 3.25rem);
-  --text-h2--line-height: 1.08;
-  --text-h2--letter-spacing: -0.018em;
+  --text-h2: clamp(1.8rem, 1.1rem + 3vw, 3.5rem);
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.022em;
 
   --text-h3: clamp(1.3rem, 1.05rem + 1.1vw, 1.9rem);
   --text-h3--line-height: 1.2;
   --text-h3--letter-spacing: -0.012em;
 
-  --text-lead: clamp(1.0625rem, 0.98rem + 0.42vw, 1.3125rem);
-  --text-lead--line-height: 1.55;
+  --text-lead: clamp(1.0625rem, 0.97rem + 0.5vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+  --text-lead--letter-spacing: -0.004em;
 
   --text-body: clamp(0.975rem, 0.94rem + 0.18vw, 1.0625rem);
   --text-body--line-height: 1.65;
@@ -167,6 +168,24 @@
 }
 
 /* ==================================================================
+   ФАКТУРА
+   Едва заметное зерно поверх страницы. Плоская заливка выглядит
+   «цифровой»; мебель и интерьер читаются теплее, когда у фона есть
+   микрорельеф. Это один SVG-шум в CSS — ни запроса, ни скрипта.
+   ================================================================== */
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ==================================================================
    УТИЛИТЫ
    ================================================================== */
 
@@ -192,6 +211,22 @@
   border-color: color-mix(in srgb, var(--color-line) 100%, transparent);
 }
 
+/* Ссылка с подчёркиванием, которое прочерчивается при наведении */
+@utility link-sweep {
+  background-image: linear-gradient(
+    currentColor,
+    currentColor
+  );
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.45s var(--ease-out-expo);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
 /* Тонкая «золотая» линия-разделитель */
 @utility rule-brass {
   background: linear-gradient(
@@ -210,7 +245,7 @@
 
 [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 18px, 0);
+  transform: translate3d(0, 20px, 0) scale(0.994);
   transition:
     opacity 0.7s var(--ease-out-expo),
     transform 0.7s var(--ease-out-expo);
@@ -404,6 +439,70 @@ html[data-loader='short'] .loader-text {
 }
 .mobile-bar-enter[data-visible='true'] {
   transform: none;
+}
+
+/* ==================================================================
+   АНИМАЦИИ, ПРИВЯЗАННЫЕ К ПРОКРУТКЕ
+   Считаются браузером, без единой строчки JavaScript и без обработчиков
+   скролла. Где такая привязка не поддерживается (например, Firefox),
+   правила просто игнорируются, и всё выглядит как обычно.
+   ================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Фотополоса едет медленнее страницы — глубина без «улетающей» картинки */
+    .band-parallax img {
+      animation: band-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+      will-change: transform;
+    }
+
+    @keyframes band-drift {
+      from {
+        transform: scale(1.14) translateY(-3.5%);
+      }
+      to {
+        transform: scale(1.14) translateY(3.5%);
+      }
+    }
+
+    /* Кадр раскрывается из кадрирующей рамки, а не просто проявляется */
+    .media-reveal {
+      animation: media-open linear both;
+      animation-timeline: view();
+      animation-range: entry 8% entry 70%;
+    }
+
+    @keyframes media-open {
+      from {
+        clip-path: inset(10% 8% 10% 8%);
+        opacity: 0.55;
+      }
+      to {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+      }
+    }
+  }
+
+  @supports (animation-timeline: scroll()) {
+    /* Тонкая полоса прогресса: на длинной странице помогает понять, сколько осталось */
+    .scroll-progress {
+      transform-origin: 0 50%;
+      animation: progress-grow linear both;
+      animation-timeline: scroll(root block);
+    }
+
+    @keyframes progress-grow {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
 }
 
 /* ==================================================================

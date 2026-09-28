@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(site.url),
     title: {
       default: site.metaTitle,
-      template: '%s — мебельное ателье «РЕцепт», Тверь',
+      template: '%s — РЕцепт, Тверь',
     },
     description: site.metaDescription,
     applicationName: site.name,

@@ -66,7 +66,7 @@ export async function Details({
               <Reveal delay={Math.min(i, 5) * 40}>
                 <Link href={`/portfolio/${d.project}`} className="group block">
                   <div
-                    className={`relative overflow-hidden rounded-md bg-sand ${ratios[i % ratios.length]}`}
+                    className={`media-reveal relative overflow-hidden rounded-md bg-sand ${ratios[i % ratios.length]}`}
                   >
                     <Image
                       src={d.image.src}

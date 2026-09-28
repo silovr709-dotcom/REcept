@@ -41,7 +41,7 @@ export async function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-cream/70 transition-colors hover:text-cream"
+                    className="link-sweep text-cream/70 transition-colors hover:text-cream"
                   >
                     {item.label}
                   </Link>
@@ -58,7 +58,7 @@ export async function Footer() {
                   <li key={c.id}>
                     <a
                       href={c.href}
-                      className="text-cream/70 transition-colors hover:text-cream"
+                      className="link-sweep text-cream/70 transition-colors hover:text-cream"
                       {...(c.href.startsWith('http')
                         ? { target: '_blank', rel: 'noopener noreferrer' }
                         : {})}

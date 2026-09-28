@@ -73,7 +73,7 @@ export async function Testimonials({
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             <Link
               href="/otzyvy"
-              className="font-semibold text-brass underline decoration-brass/40 underline-offset-4"
+              className="link-sweep font-semibold text-brass"
             >
               Все отзывы на сайте
             </Link>
@@ -81,7 +81,7 @@ export async function Testimonials({
               href={yandex.reviewsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-ink underline decoration-brass/40 underline-offset-4"
+              className="link-sweep font-semibold text-ink"
             >
               Проверить на Яндекс Картах
             </a>

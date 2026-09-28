@@ -14,9 +14,12 @@ import { getSiteView } from '@/lib/content/view';
 export async function generateMetadata(): Promise<Metadata> {
   const { rating } = await getVisibleReviews();
   return {
-    title: 'Отзывы о кухнях на заказ в Твери — ателье «РЕцепт»',
-    description: `Отзывы клиентов мебельного ателье «РЕцепт» в Твери: рейтинг ${rating.value} из 5 на Яндекс Картах, ${rating.reviewsCount} отзыва. Цитаты приведены дословно, рядом — живой виджет с первоисточником.`,
+    title: 'Отзывы о наших кухнях',
+    description: `Отзывы о кухнях на заказ в Твери: рейтинг ${rating.value} из 5 на Яндекс Картах, ${rating.reviewsCount} отзыва. Цитаты дословно, рядом живой виджет с первоисточником.`,
     alternates: { canonical: '/otzyvy' },
+  openGraph: {
+    images: [{ url: '/og-otzyvy.jpg', width: 1200, height: 630, alt: 'Отзывы о кухнях ателье «РЕцепт» в Твери' }],
+  },
   };
 }
 

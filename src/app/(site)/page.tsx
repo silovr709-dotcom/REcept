@@ -23,7 +23,8 @@ import { pickImage } from '@/lib/content/images';
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteView();
   return {
-    title: site.metaTitle,
+    // absolute — иначе к заголовку приклеится ещё и шаблон из корневого layout
+    title: { absolute: site.metaTitle },
     description: site.metaDescription,
     alternates: { canonical: '/' },
   };
@@ -71,7 +72,8 @@ export default async function HomePage() {
       <Objections tone="bone" />
       <Faq limit={6} />
       <FinalCta />
-      <FaqJsonLd />
+      {/* Столько же вопросов, сколько видно в блоке выше */}
+      <FaqJsonLd limit={6} />
     </>
   );
 }

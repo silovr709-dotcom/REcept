@@ -27,7 +27,9 @@ export function PhotoBand({
 
   return (
     <figure className="relative bg-ink">
-      <div className={`relative w-full overflow-hidden ${heights[height]}`}>
+      <div
+        className={`band-parallax relative w-full overflow-hidden ${heights[height]}`}
+      >
         <Image
           src={image.src}
           alt={alt}

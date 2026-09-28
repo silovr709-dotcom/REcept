@@ -24,6 +24,14 @@ export default async function SiteLayout({
     <>
       <LoadingScreen />
 
+      {/* Прогресс прокрутки: чистый CSS, без обработчиков скролла */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-x-0 top-0 z-95 h-[2px]"
+      >
+        <div className="scroll-progress h-full w-full bg-linear-to-r from-brass/0 via-brass to-brasslight" />
+      </div>
+
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-200 focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-cream"

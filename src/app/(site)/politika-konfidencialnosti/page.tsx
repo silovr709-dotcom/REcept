@@ -4,9 +4,9 @@ import { Section } from '@/components/ui/Section';
 import { getSiteView } from '@/lib/content/view';
 
 export const metadata: Metadata = {
-  title: 'Политика обработки персональных данных',
+  title: 'Политика обработки данных',
   description:
-    'Как мебельное ателье «РЕцепт» обрабатывает персональные данные, оставленные через формы на сайте.',
+    'Как мебельное ателье «РЕцепт» в Твери обрабатывает персональные данные, оставленные через формы на сайте, и как их удалить по вашему запросу.',
   alternates: { canonical: '/politika-konfidencialnosti' },
   robots: { index: false, follow: true },
 };

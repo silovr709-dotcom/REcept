@@ -27,7 +27,7 @@ export function ProjectCard({
       className={`group block ${className}`}
     >
       <div
-        className={`relative overflow-hidden rounded-md bg-sand ${ratio ?? aspect[project.shape]}`}
+        className={`media-reveal relative overflow-hidden rounded-md bg-sand ${ratio ?? aspect[project.shape]}`}
       >
         <Image
           src={project.image.src}

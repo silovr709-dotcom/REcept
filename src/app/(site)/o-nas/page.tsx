@@ -13,10 +13,13 @@ import { getVisibleProjects } from '@/lib/content/store';
 import { pickImage } from '@/lib/content/images';
 
 export const metadata: Metadata = {
-  title: 'О нас: семейное мебельное ателье «РЕцепт» в Твери',
+  title: 'О нас',
   description:
     'РЕцепт — семейное мебельное ателье в Твери. Роберт и Катя ведут каждый проект лично: от замера и проектирования до доставки, сборки и связи после установки. Гарантия 24 месяца.',
   alternates: { canonical: '/o-nas' },
+  openGraph: {
+    images: [{ url: '/og-o-nas.jpg', width: 1200, height: 630, alt: 'Роберт и Катя Шиловы — мебельное ателье «РЕцепт»' }],
+  },
 };
 
 const principles = [
