@@ -10,21 +10,25 @@ import { useCallback, useEffect, useRef } from 'react';
  * проекта) страница выдвигается ящиком, между разделами — открывается
  * фасадом на петлях, назад — задвигается обратно.
  *
- * Почему перехват кликов, а не обёртка над каждой ссылкой: ссылок на
- * сайте десятки, и любая забытая выпадала бы из общей механики. Один
- * обработчик на документ покрывает все — включая те, что появятся позже.
+ * ВАЖНО ПРО ФАЗУ ПЕРЕХВАТА.
+ * Обработчик обязан стоять именно на перехвате (capture), а не на
+ * всплытии. React вешает свои обработчики на корневой контейнер, то есть
+ * ниже документа по дереву, — и ссылка Next успевает отменить событие
+ * и увести навигацию к себе раньше, чем всплытие дойдёт до документа.
+ * На всплытии мы получали уже отменённое событие и ничего не делали.
  *
- * Механика полностью необязательная: если браузер не умеет переходы
- * представлений (сейчас это Firefox) или человек просил меньше движения,
- * навигация работает как обычно, мгновенно.
+ * Поэтому: перехватываем клик первыми, гасим его, и навигацию запускаем
+ * сами — внутри перехода представлений.
  */
 
 type NavKind = 'door' | 'drawer' | 'drawer-back';
 
 /** Вглубь текущего раздела — ящик, в сторону — дверца. */
 function kindFor(from: string, to: string): NavKind {
-  if (to.startsWith(`${from === '/' ? '' : from}/`)) return 'drawer';
-  if (from.startsWith(`${to === '/' ? '' : to}/`)) return 'drawer-back';
+  const base = from === '/' ? '' : from;
+  const target = to === '/' ? '' : to;
+  if (to.startsWith(`${base}/`)) return 'drawer';
+  if (from.startsWith(`${target}/`)) return 'drawer-back';
   return 'door';
 }
 
@@ -70,21 +74,22 @@ export function FurnitureNavigation() {
                 resolveRef.current();
                 resolveRef.current = null;
               }
-            }, 1200);
+            }, 1500);
           }),
       );
 
-      transition.finished.finally(() => {
-        delete document.documentElement.dataset.nav;
-      });
+      transition.finished
+        .catch(() => undefined)
+        .finally(() => {
+          delete document.documentElement.dataset.nav;
+        });
     },
     [router],
   );
 
   useEffect(() => {
-    function onClick(event: MouseEvent) {
+    function onClickCapture(event: MouseEvent) {
       if (
-        event.defaultPrevented ||
         event.button !== 0 ||
         event.metaKey ||
         event.ctrlKey ||
@@ -107,15 +112,18 @@ export function FurnitureNavigation() {
       // Якоря внутри той же страницы обрабатывает браузер
       if (url.pathname === window.location.pathname) return;
 
+      // Забираем клик себе: иначе ссылка Next уведёт навигацию мимо анимации
       event.preventDefault();
+      event.stopPropagation();
+
       navigate(
         url.pathname + url.search + url.hash,
         kindFor(window.location.pathname, url.pathname),
       );
     }
 
-    document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
+    document.addEventListener('click', onClickCapture, true);
+    return () => document.removeEventListener('click', onClickCapture, true);
   }, [navigate]);
 
   return null;

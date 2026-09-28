@@ -72,7 +72,7 @@ export const viewport: Viewport = {
  * заставки) и снимает класс no-js. Он крошечный и синхронный, поэтому
  * не влияет на скорость, но убирает мигание.
  */
-const bootScript = `(function(){var d=document.documentElement;d.classList.remove('no-js');d.dataset.loaderStart=Date.now();d.dataset.loading='true';try{d.dataset.loader=sessionStorage.getItem('recept:visited')?'short':'full'}catch(e){d.dataset.loader='full'}setTimeout(function(){d.removeAttribute('data-loading')},4500);})();`;
+const bootScript = `(function(){var d=document.documentElement;d.classList.remove('no-js');if(!document.startViewTransition){d.classList.add('no-vt')}d.dataset.loaderStart=Date.now();d.dataset.loading='true';try{d.dataset.loader=sessionStorage.getItem('recept:visited')?'short':'full'}catch(e){d.dataset.loader='full'}setTimeout(function(){d.removeAttribute('data-loading')},4500);})();`;
 
 export default function RootLayout({
   children,

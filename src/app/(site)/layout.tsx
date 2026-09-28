@@ -7,6 +7,7 @@ import { SiteProvider } from '@/components/SiteProvider';
 import { OrganizationJsonLd } from '@/components/JsonLd';
 import { Analytics } from '@/components/Analytics';
 import { FurnitureNavigation } from '@/components/FurnitureNavigation';
+import { PageEnter } from '@/components/PageEnter';
 import { getSiteView } from '@/lib/content/view';
 
 /**
@@ -43,7 +44,9 @@ export default async function SiteLayout({
       <SiteProvider value={site}>
         <LeadModalProvider>
           <Header />
-          <main id="main">{children}</main>
+          <main id="main">
+            <PageEnter>{children}</PageEnter>
+          </main>
           <Footer />
           <MobileActionBar />
         </LeadModalProvider>

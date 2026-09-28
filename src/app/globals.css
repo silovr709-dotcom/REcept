@@ -646,15 +646,15 @@ html[data-loader='short'] .loader-text {
       opacity: 1;
     }
     to {
-      transform: perspective(1600px) rotateY(-11deg) translateX(-4%);
+      transform: perspective(1600px) rotateY(-18deg) translateX(-7%);
       opacity: 0;
     }
   }
 
   @keyframes door-open {
     from {
-      transform: perspective(1600px) rotateY(9deg) translateX(3%);
-      opacity: 0.25;
+      transform: perspective(1600px) rotateY(14deg) translateX(6%);
+      opacity: 0.2;
     }
     to {
       transform: perspective(1600px) rotateY(0) translateX(0);
@@ -687,8 +687,8 @@ html[data-loader='short'] .loader-text {
 
   @keyframes drawer-out {
     from {
-      transform: translateX(26%);
-      box-shadow: -28px 0 60px -20px rgba(25, 23, 19, 0.45);
+      transform: translateX(38%);
+      box-shadow: -34px 0 70px -18px rgba(25, 23, 19, 0.55);
     }
     to {
       transform: translateX(0);
@@ -702,8 +702,8 @@ html[data-loader='short'] .loader-text {
       filter: brightness(1);
     }
     to {
-      transform: translateX(-7%) scale(0.985);
-      filter: brightness(0.9);
+      transform: translateX(-10%) scale(0.975);
+      filter: brightness(0.82);
     }
   }
 
@@ -712,7 +712,7 @@ html[data-loader='short'] .loader-text {
       transform: translateX(0);
     }
     to {
-      transform: translateX(26%);
+      transform: translateX(38%);
       opacity: 0;
     }
   }
@@ -788,5 +788,27 @@ html[data-loader='short'] .loader-text {
   }
   .hinge:hover .hinge-panel {
     transform: rotateY(-2.2deg);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Запасной вариант для браузеров без переходов представлений.
+   Полноценно «открыть» старую страницу там нельзя — снимка нет,
+   но новая всё равно должна въезжать, а не появляться рывком.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  html.no-vt .page-enter {
+    animation: page-enter-slide 0.62s var(--ease-soft-close) both;
+  }
+
+  @keyframes page-enter-slide {
+    from {
+      opacity: 0;
+      transform: translateX(3.5%);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
