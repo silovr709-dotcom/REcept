@@ -7,71 +7,56 @@ import { getContent } from '@/lib/content/store';
 /**
  * ПЕРВЫЙ ЭКРАН
  * ============
- * Фотография на весь экран, а не в колонке рядом с текстом. Так делают
- * студии, которым есть что показать: снимок работает как витрина, а
- * текста ровно столько, чтобы за пять секунд понять, что это, где и
- * что нажать.
+ * Разворот журнала, а не баннер с текстом поверх фотографии.
  *
- * Заголовок вынесен на нижнюю кромку кадра — взгляд идёт сверху вниз
- * по фотографии и упирается прямо в него, а следом в кнопку.
+ * Почему так. Текст на снимке всегда компромисс: его приходится
+ * затемнять, и страдают оба — и буквы, и кадр. Здесь заголовок стоит
+ * на чистой бумаге во всю ширину, а под ним фотография идёт от края
+ * до края без затемнения. Каждый элемент показан в полную силу.
+ *
+ * Заголовок набран предельно крупно и плотно: это единственное место
+ * на сайте, где размер работает как заявление.
  */
 export async function Hero() {
   const { hero } = await getContent('texts');
 
   return (
-    <section className="relative isolate flex min-h-[92svh] flex-col justify-end overflow-hidden bg-ink pb-10 pt-32 sm:pb-14 lg:min-h-svh">
-      {hero.image ? (
-        <>
-          <Image
-            src={hero.image.src}
-            alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
-            fill
-            priority
-            fetchPriority="high"
-            sizes="100vw"
-            placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
-            blurDataURL={hero.image.blurDataURL || undefined}
-            className="animate-soft-zoom -z-10 object-cover"
-          />
-          {/* Затемнение снизу: текст должен читаться на любом кадре */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 -z-10 bg-linear-to-t from-ink/92 via-ink/45 to-ink/25"
-          />
-        </>
-      ) : null}
+    <section className="relative bg-cream pt-28 lg:pt-36">
+      <div className="container-page">
+        <div className="flex items-baseline justify-between gap-6 border-b border-line pb-5">
+          <p className="label-xs text-stone">{hero.eyebrow}</p>
+          <p className="label-xs hidden text-stone sm:block">
+            Проект бесплатно
+          </p>
+        </div>
 
-      <div className="container-page relative">
-        <p
-          className="animate-fade-up label-xs text-cream/65"
-          style={{ animationDelay: '120ms' }}
-        >
-          {hero.eyebrow}
-        </p>
-
-        <h1
-          className="animate-fade-up font-display mt-6 max-w-[16ch] text-h1 text-cream"
-          style={{ animationDelay: '200ms' }}
-        >
+        <h1 className="animate-fade-up font-display mt-10 text-display text-ink">
           {hero.title}
-          {hero.titleSecondLine ? ` ${hero.titleSecondLine}` : ''}
+          {hero.titleSecondLine ? (
+            <>
+              {/* Пробел нужен, чтобы при чтении вслух и в выдаче строки
+                  не склеивались в «Кухни на заказв Твери» */}
+              {' '}
+              <span className="block text-stone">{hero.titleSecondLine}</span>
+            </>
+          ) : null}
         </h1>
 
-        <div className="mt-10 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_auto] lg:items-end lg:gap-16">
           <p
-            className="animate-fade-up max-w-xl text-lead text-cream/75"
-            style={{ animationDelay: '300ms' }}
+            className="animate-fade-up max-w-2xl text-lead text-stone"
+            style={{ animationDelay: '140ms' }}
           >
             {hero.lead}
           </p>
 
           <div
-            className="animate-fade-up flex shrink-0 flex-col items-start gap-4 sm:flex-row sm:items-center"
-            style={{ animationDelay: '380ms' }}
+            className="animate-fade-up flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+            style={{ animationDelay: '220ms' }}
           >
             <CtaButton
               source="hero"
-              variant="light-solid"
+              variant="primary"
               size="lg"
               withArrow
               className="max-sm:w-full"
@@ -84,7 +69,7 @@ export async function Hero() {
 
             <ButtonLink
               href="/portfolio"
-              variant="light"
+              variant="outline"
               size="lg"
               className="max-sm:w-full"
             >
@@ -93,14 +78,33 @@ export async function Hero() {
           </div>
         </div>
 
-        <div
-          className="animate-fade-up mt-12 flex flex-wrap items-center gap-x-10 gap-y-5 border-t border-cream/15 pt-8"
-          style={{ animationDelay: '460ms' }}
-        >
-          <RatingBadge tone="light" />
+        <p className="mt-5 max-w-md text-sm text-stone">{hero.reassurance}</p>
+      </div>
+
+      {/* Кадр во всю ширину: без затемнения и без текста поверх */}
+      {hero.image ? (
+        <div className="relative mt-14 h-[58svh] w-full overflow-hidden bg-sand sm:h-[68svh] lg:mt-20 lg:h-[78svh]">
+          <Image
+            src={hero.image.src}
+            alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={hero.image.blurDataURL || undefined}
+            className="animate-soft-zoom object-cover"
+          />
+        </div>
+      ) : null}
+
+      {/* Доказательства сразу под кадром, пока внимание ещё держится */}
+      <div className="container-page">
+        <div className="flex flex-wrap items-center gap-x-12 gap-y-6 border-b border-line py-8">
+          <RatingBadge />
           {hero.stats.slice(0, 3).map((item) => (
-            <p key={item.small} className="text-[0.8125rem] text-cream/60">
-              <span className="mr-2 font-semibold text-cream">{item.big}</span>
+            <p key={item.small} className="max-w-56 text-[0.8125rem] text-stone">
+              <span className="mr-2 font-semibold text-ink">{item.big}</span>
               {item.small}
             </p>
           ))}

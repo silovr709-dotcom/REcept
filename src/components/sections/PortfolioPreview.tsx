@@ -28,17 +28,20 @@ const rhythm = [
   { span: 'lg:col-span-6', offset: 'lg:mt-20', ratio: 'aspect-3/2' },
 ];
 
-export async function PortfolioPreview() {
-  const projects = await getVisibleProjects();
+export async function PortfolioPreview({ limit }: { limit?: number } = {}) {
+  const all = await getVisibleProjects();
+  const projects = limit ? all.slice(0, limit) : all;
   if (projects.length === 0) return null;
+  const trimmed = projects.length < all.length;
 
   return (
     <Section tone="bone" aria-labelledby="portfolio-title">
       <div className="container-page">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
+            index="03"
             id="portfolio-title"
-            eyebrow={`Проекты · ${projects.length}`}
+            eyebrow="Проекты"
             title="Разные бюджеты, разные метражи, один подход"
             lead="От компактной кухни в углу до кухни-гостиной с островом. Посмотрите, как решались задачи, похожие на вашу."
           />
@@ -49,7 +52,7 @@ export async function PortfolioPreview() {
             withArrow
             className="shrink-0 max-lg:w-full"
           >
-            Открыть портфолио
+            {trimmed ? `Все ${all.length} проектов` : 'Открыть портфолио'}
           </ButtonLink>
         </div>
 

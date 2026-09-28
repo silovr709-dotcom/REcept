@@ -19,6 +19,7 @@ export async function Price({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
         <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
           <div>
             <SectionHeading
+              index="06"
               id="price-title"
               eyebrow="Стоимость"
               title={priceExplanation.headline}

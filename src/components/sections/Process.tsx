@@ -29,6 +29,7 @@ export async function Process({
     <Section tone={tone} id="process" aria-labelledby="process-title">
       <div className="container-page">
         <SectionHeading
+          index="05"
           id="process-title"
           eyebrow="Как проходит работа"
           title={

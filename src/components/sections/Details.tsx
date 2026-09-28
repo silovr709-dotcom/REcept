@@ -27,6 +27,7 @@ export async function Details({
   footnote = 'Нажмите на любой фрагмент, чтобы посмотреть проект целиком.',
   showCta = true,
   columns = 4,
+  limit,
 }: {
   tone?: 'cream' | 'bone';
   items?: DetailItem[];
@@ -36,9 +37,10 @@ export async function Details({
   footnote?: string;
   showCta?: boolean;
   columns?: 3 | 4;
+  limit?: number;
 }) {
   const all = await getVisibleDetails();
-  const list = items ?? all.slice(0, 8);
+  const list = items ?? all.slice(0, limit ?? 8);
   if (list.length === 0) return null;
 
   const cols =
@@ -54,6 +56,7 @@ export async function Details({
     <Section tone={tone} aria-labelledby="details-title">
       <div className="container-page">
         <SectionHeading
+          index="04"
           id="details-title"
           eyebrow={eyebrow}
           title={title}

@@ -15,6 +15,7 @@ export async function Headache() {
     <Section tone="ink" aria-labelledby="headache-title">
       <div className="container-page">
         <SectionHeading
+          index="01"
           id="headache-title"
           tone="light"
           eyebrow={headache.eyebrow}

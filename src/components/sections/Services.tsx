@@ -20,6 +20,7 @@ export async function Services({ compact = false }: { compact?: boolean }) {
         <div className="container-page">
           <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
             <SectionHeading
+              index="02"
               id="services-title"
               eyebrow="Что мы делаем"
               title="Кухни — основное. Но не единственное"

@@ -31,6 +31,7 @@ export async function Testimonials({
       <div className="container-page">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
+            index="07"
             id="testimonials-title"
             eyebrow="Отзывы"
             title={`${rating.value} из 5 на Яндекс Картах`}

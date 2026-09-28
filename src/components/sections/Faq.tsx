@@ -22,6 +22,7 @@ export async function Faq({
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <div>
             <SectionHeading
+              index="09"
               id="faq-title"
               eyebrow="Вопросы"
               title="Коротко о главном"

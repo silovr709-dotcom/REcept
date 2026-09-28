@@ -65,8 +65,20 @@ export function Eyebrow({
   );
 }
 
+/**
+ * Заголовок раздела.
+ *
+ * Асимметричная раскладка: слева узкая колонка с номером и надписью,
+ * справа сам заголовок и вступление. Симметричный блок по центру
+ * контейнера — самая «сайтовая» из возможных композиций; сдвиг и
+ * сквозная нумерация сразу читаются как редакторская вёрстка.
+ *
+ * Номер не декоративный: он показывает, что разделы образуют
+ * последовательность, а не случайный набор.
+ */
 export function SectionHeading({
   eyebrow,
+  index,
   title,
   lead,
   tone = 'dark',
@@ -75,6 +87,8 @@ export function SectionHeading({
   id,
 }: {
   eyebrow?: string;
+  /** Порядковый номер раздела, например «03» */
+  index?: string;
   title: ReactNode;
   lead?: ReactNode;
   tone?: 'dark' | 'light';
@@ -82,30 +96,59 @@ export function SectionHeading({
   className?: string;
   id?: string;
 }) {
-  return (
-    <div
-      className={`${align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'} ${className}`}
-    >
-      {eyebrow ? (
-        <Eyebrow tone={tone} className={align === 'center' ? 'justify-center' : ''}>
-          {eyebrow}
-        </Eyebrow>
-      ) : null}
-      <h2
-        id={id}
-        className={`font-display mt-5 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
-      >
-        {title}
-      </h2>
-      {lead ? (
-        <div
-          className={`mt-5 text-lead ${
-            tone === 'light' ? 'text-cream/70' : 'text-stone'
-          } ${align === 'center' ? 'mx-auto' : ''}`}
+  if (align === 'center') {
+    return (
+      <div className={`mx-auto max-w-3xl text-center ${className}`}>
+        {eyebrow ? (
+          <Eyebrow tone={tone} className="justify-center">
+            {eyebrow}
+          </Eyebrow>
+        ) : null}
+        <h2
+          id={id}
+          className={`font-display mt-5 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
         >
-          {lead}
-        </div>
-      ) : null}
+          {title}
+        </h2>
+        {lead ? (
+          <div
+            className={`mx-auto mt-5 text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
+          >
+            {lead}
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  return (
+    <div className={`grid gap-6 lg:grid-cols-[10rem_1fr] lg:gap-12 ${className}`}>
+      <div className="flex items-baseline gap-4 lg:flex-col lg:gap-3">
+        {index ? (
+          <span
+            className={`label-xs ${tone === 'light' ? 'text-cream/45' : 'text-stone/70'}`}
+          >
+            {index}
+          </span>
+        ) : null}
+        {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
+      </div>
+
+      <div className="max-w-3xl">
+        <h2
+          id={id}
+          className={`font-display text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+        >
+          {title}
+        </h2>
+        {lead ? (
+          <div
+            className={`mt-6 text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
+          >
+            {lead}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

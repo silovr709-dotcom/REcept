@@ -18,6 +18,7 @@ export async function Objections({ tone = 'cream' }: { tone?: 'cream' | 'bone' }
     <Section tone={tone} aria-labelledby="objections-title">
       <div className="container-page">
         <SectionHeading
+          index="08"
           id="objections-title"
           eyebrow="Честно о сомнениях"
           title="«А если…» — нормальные вопросы, на которые есть ответы"

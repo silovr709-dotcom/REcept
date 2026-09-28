@@ -4,10 +4,7 @@ import { Headache } from '@/components/sections/Headache';
 import { Services } from '@/components/sections/Services';
 import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
 import { Details } from '@/components/sections/Details';
-import { VideoWall } from '@/components/sections/VideoWall';
 import { Process } from '@/components/sections/Process';
-import { Timing } from '@/components/sections/Timing';
-import { Advantages } from '@/components/sections/Advantages';
 import { Price } from '@/components/sections/Price';
 import { Founders } from '@/components/sections/Founders';
 import { Objections } from '@/components/sections/Objections';
@@ -30,14 +27,28 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+/**
+ * ПОСАДОЧНАЯ СТРАНИЦА
+ * ===================
+ * Порядок подчинён одному пути: внимание → доверие → снятие страха →
+ * обращение. Раньше страница пыталась быть ещё и каталогом: на ней
+ * лежали все восемнадцать проектов, сроки, преимущества и подробный
+ * процесс — к середине человек уставал раньше, чем доходил до формы.
+ *
+ * Теперь на посадочной только то, что двигает к разговору. Подробности
+ * никуда не делись: полный процесс и сроки — на странице кухонь, все
+ * проекты — в портфолио, все отзывы — на своей странице.
+ */
 export default async function HomePage() {
   const projects = await getVisibleProjects();
-  const bandHouse = pickImage(projects, 'bolshaya-kuhnya-v-dome', 4);
-  const bandClassic = pickImage(projects, 'kuhnya-neoklassika-greyzh', 5);
+  const bandHouse = pickImage(projects, 'kuhnya-gostinaya-v-dvuh-tonah', 4);
+  const bandClassic = pickImage(projects, 'chernaya-kuhnya-s-kamnem', 5);
 
   return (
     <>
       <Hero />
+
+      {/* 01 — зачем мы нужны: главная боль, ради которой к нам приходят */}
       <Headache />
 
       {bandHouse ? (
@@ -49,14 +60,14 @@ export default async function HomePage() {
         />
       ) : null}
 
+      {/* 02–04 — визуальное доказательство */}
       <Services compact />
-      <PortfolioPreview />
-      <Details tone="cream" />
-      <VideoWall />
-      <Testimonials tone="cream" />
+      <PortfolioPreview limit={6} />
+      <Details tone="cream" limit={4} />
+
+      {/* 05–06 — как это устроено и сколько стоит */}
       <Process tone="bone" limit={5} />
-      <Timing tone="cream" />
-      <Advantages tone="bone" limit={6} />
+      <Price tone="cream" />
 
       {bandClassic ? (
         <PhotoBand
@@ -67,10 +78,12 @@ export default async function HomePage() {
         />
       ) : null}
 
-      <Price tone="cream" />
+      {/* 07–09 — доверие и остаточные сомнения */}
       <Founders />
+      <Testimonials tone="cream" />
       <Objections tone="bone" />
-      <Faq limit={6} />
+      <Faq limit={6} tone="cream" />
+
       <FinalCta />
       {/* Столько же вопросов, сколько видно в блоке выше */}
       <FaqJsonLd limit={6} />
