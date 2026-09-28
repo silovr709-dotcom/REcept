@@ -212,7 +212,7 @@ export function buildSeed(): ContentShape {
 
     details: seedDetails.map((d) => ({
       id: d.id,
-      image: toRef(d.image, `/images/details/${d.id}.webp`),
+      image: toRef(d.image, `/images/textures/${imageFileName(d.image)}`),
       title: d.title,
       note: d.note,
       project: d.project,
