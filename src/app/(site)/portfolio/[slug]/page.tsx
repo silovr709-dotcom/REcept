@@ -8,9 +8,10 @@ import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { BreadcrumbJsonLd, ProjectJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
+import { projectAlt, projectDescription, projectTitle } from '@/lib/content/seo';
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -25,19 +26,19 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const project = projects.find((p) => p.slug === slug);
   if (!project) return { title: 'Проект не найден' };
 
-  const description = `${project.title} — работа мебельного ателье «РЕцепт» в Твери. ${project.summary}. ${project.rationale}`.slice(
-    0,
-    300,
-  );
+  const description = projectDescription(project);
+  const title = projectTitle(project);
 
   return {
-    title: `${project.title} — кухня на заказ в Твери`,
+    title,
     description,
     alternates: { canonical: `/portfolio/${project.slug}` },
     openGraph: {
-      title: `${project.title} — кухня на заказ в Твери`,
+      title: `${title} — кухня на заказ в Твери`,
       description,
-      images: [{ url: project.image.src, alt: project.alt }],
+      images: [
+        { url: `${site.url}${project.image.src}`, alt: projectAlt(project) },
+      ],
       url: `${site.url}/portfolio/${project.slug}`,
     },
   };
@@ -95,8 +96,8 @@ export default async function ProjectPage({ params }: Params) {
         <div className="container-page">
           <ZoomableImage
             image={project.image}
-            alt={project.alt}
-            caption={`${project.title} — работа ателье «РЕцепт», Тверь`}
+            alt={projectAlt(project)}
+            caption={`${project.title} — проект ателье «РЕцепт», Тверь`}
             sizes="(max-width: 1440px) 100vw, 1400px"
             priority
             wrapperClassName="aspect-4/3 rounded-lg sm:aspect-16/9"
@@ -261,6 +262,8 @@ export default async function ProjectPage({ params }: Params) {
         title="Давайте спроектируем вашу"
         source={`project-final-${project.slug}`}
       />
+
+      <ProjectJsonLd project={project} />
 
       <BreadcrumbJsonLd
         items={[

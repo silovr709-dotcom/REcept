@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ProjectItem } from '@/lib/content/types';
+import { projectAlt } from '@/lib/content/seo';
 
 const aspect: Record<ProjectItem['shape'], string> = {
   landscape: 'aspect-4/3',
@@ -31,7 +32,7 @@ export function ProjectCard({
       >
         <Image
           src={project.image.src}
-          alt={project.alt}
+          alt={projectAlt(project)}
           fill
           sizes={sizes}
           priority={priority}
