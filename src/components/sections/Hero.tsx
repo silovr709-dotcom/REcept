@@ -9,57 +9,91 @@ import { assetUrl } from '@/lib/content/images';
 /**
  * ПЕРВЫЙ ЭКРАН
  * ============
- * Разворот журнала, а не баннер с текстом поверх фотографии.
+ * Заголовок стоит на фотографии, а не над ней. До этого кадр лежал
+ * отдельной полосой под текстом: снимок при этом оставался чистым, но
+ * на ноутбуке человек видел сначала экран с одним текстом, а кухню —
+ * только после прокрутки. Для правила пяти секунд это плохой размен:
+ * товар должен попадать в кадр сразу вместе с обещанием.
  *
- * Почему так. Текст на снимке всегда компромисс: его приходится
- * затемнять, и страдают оба — и буквы, и кадр. Здесь заголовок стоит
- * на чистой бумаге во всю ширину, а под ним фотография идёт от края
- * до края без затемнения. Каждый элемент показан в полную силу.
- *
- * Заголовок набран предельно крупно и плотно: это единственное место
- * на сайте, где размер работает как заявление.
+ * Читаемость обеспечивает не ровное затемнение всего кадра, а два
+ * направленных градиента: плотный там, где лежит текст, и прозрачный
+ * там, где смотрят на кухню. Снизу — для мобильной раскладки, слева —
+ * для широких экранов. В худшем случае (под текстом оказался белый
+ * участок снимка) контраст светлого текста остаётся около 7:1, то
+ * есть с запасом выше требований доступности.
  */
 export async function Hero() {
   const { hero, team } = await getContent('texts');
   const names = team.map((t) => t.fullName.split(' ')[0]).join(' и ');
 
   return (
-    <section className="relative bg-cream pt-28 lg:pt-36">
-      <div className="container-page">
-        <div className="flex items-baseline justify-between gap-6 border-b border-line pb-5">
-          <p className="label-xs text-stone">{hero.eyebrow}</p>
-          <p className="label-xs hidden text-stone sm:block">
-            Проект бесплатно
-          </p>
-        </div>
+    <>
+      <section className="relative isolate flex min-h-[94svh] flex-col justify-end overflow-hidden bg-ink pb-12 pt-28 lg:min-h-svh lg:pb-16 lg:pt-32">
+        {hero.image ? (
+          <Image
+            src={assetUrl(hero.image.src)}
+            alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={hero.image.blurDataURL || undefined}
+            className="animate-soft-zoom -z-20 object-cover"
+          />
+        ) : null}
 
-        <h1 className="animate-fade-up font-display mt-10 text-display text-ink">
-          {hero.title}
-          {hero.titleSecondLine ? (
-            <>
-              {/* Пробел нужен, чтобы при чтении вслух и в выдаче строки
-                  не склеивались в «Кухни на заказв Твери» */}
-              {' '}
-              <span className="block text-stone">{hero.titleSecondLine}</span>
-            </>
-          ) : null}
-        </h1>
+        {/* Снизу вверх — работает на любой ширине */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-linear-to-t from-ink/95 via-ink/72 to-ink/45 lg:from-ink/92 lg:via-ink/55 lg:to-ink/25"
+        />
+        {/* Слева направо — только на широких, чтобы правая часть кадра
+            с кухней осталась почти нетронутой */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 hidden lg:block lg:bg-linear-to-r lg:from-ink/80 lg:via-ink/35 lg:to-transparent"
+        />
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_auto] lg:items-end lg:gap-16">
+        <div className="container-page">
+          <div className="flex items-baseline justify-between gap-6 border-b border-cream/15 pb-5">
+            <p className="label-xs text-cream/60">{hero.eyebrow}</p>
+            <p className="label-xs hidden text-cream/60 sm:block">
+              Проект бесплатно
+            </p>
+          </div>
+
+          {/* На широких экранах заголовок прижат к нижнему краю кадра,
+              поэтому его потолок ниже штатного text-h1: иначе на ноутбуке
+              с невысоким окном первый экран перестаёт помещаться целиком */}
+          <h1 className="animate-fade-up font-display mt-9 max-w-5xl text-h1 text-cream lg:text-[clamp(3.25rem,4.6vw,5.75rem)]">
+            {hero.title}
+            {hero.titleSecondLine ? (
+              <>
+                {/* Пробел нужен, чтобы при чтении вслух и в выдаче строки
+                    не склеивались в «Кухни на заказв Твери» */}
+                {' '}
+                <span className="block text-cream/55">
+                  {hero.titleSecondLine}
+                </span>
+              </>
+            ) : null}
+          </h1>
+
           <p
-            className="animate-fade-up max-w-2xl text-lead text-stone"
+            className="animate-fade-up mt-8 max-w-2xl text-lead text-cream/80"
             style={{ animationDelay: '140ms' }}
           >
             {hero.lead}
           </p>
 
           <div
-            className="animate-fade-up flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+            className="animate-fade-up mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
             style={{ animationDelay: '220ms' }}
           >
             <CtaButton
               source="hero"
-              variant="primary"
+              variant="light-solid"
               size="lg"
               withArrow
               className="max-sm:w-full"
@@ -72,61 +106,53 @@ export async function Hero() {
 
             <ButtonLink
               href="/portfolio"
-              variant="outline"
+              variant="light"
               size="lg"
               className="max-sm:w-full"
             >
               {hero.secondaryCta}
             </ButtonLink>
           </div>
+
+          <p className="mt-5 max-w-md text-sm text-cream/60">
+            {hero.reassurance}
+          </p>
+
+          {/* Доказательство и авторы — в одной строке у нижнего края кадра */}
+          <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5 border-t border-cream/15 pt-7">
+            <RatingBadge tone="light" />
+
+            {/* За мебелью на заказ идут к людям, а не в компанию */}
+            <Link
+              href="/o-nas"
+              className="group inline-flex items-baseline gap-4"
+            >
+              <span className="label-xs text-cream/50">Делаем вдвоём</span>
+              <span className="font-display text-[1.375rem] text-cream transition-colors group-hover:text-cream/70">
+                {names}
+              </span>
+              <span aria-hidden="true" className="text-cream/50">
+                →
+              </span>
+            </Link>
+          </div>
         </div>
+      </section>
 
-        <p className="mt-5 max-w-md text-sm text-stone">{hero.reassurance}</p>
-
-        {/* Подпись авторов: за мебелью на заказ идут к людям, а не в компанию */}
-        <Link
-          href="/o-nas"
-          className="group mt-10 inline-flex items-baseline gap-4 border-t border-line pt-6"
-        >
-          <span className="label-xs text-stone">Делаем вдвоём</span>
-          <span className="font-display text-h3 text-ink transition-colors group-hover:text-stone">
-            {names}
-          </span>
-          <span aria-hidden="true" className="text-stone">
-            →
-          </span>
-        </Link>
-      </div>
-
-      {/* Кадр во всю ширину: без затемнения и без текста поверх */}
-      {hero.image ? (
-        <div className="relative mt-14 h-[58svh] w-full overflow-hidden bg-sand sm:h-[68svh] lg:mt-20 lg:h-[78svh]">
-          <Image
-            src={assetUrl(hero.image.src)}
-            alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
-            fill
-            priority
-            fetchPriority="high"
-            sizes="100vw"
-            placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
-            blurDataURL={hero.image.blurDataURL || undefined}
-            className="animate-soft-zoom object-cover"
-          />
-        </div>
-      ) : null}
-
-      {/* Доказательства сразу под кадром, пока внимание ещё держится */}
-      <div className="container-page">
-        <div className="flex flex-wrap items-center gap-x-12 gap-y-6 border-b border-line py-8">
-          <RatingBadge />
-          {hero.stats.slice(0, 3).map((item) => (
-            <p key={item.small} className="max-w-56 text-[0.8125rem] text-stone">
-              <span className="mr-2 font-semibold text-ink">{item.big}</span>
-              {item.small}
-            </p>
-          ))}
+      {/* Факты вынесены из кадра: в первом экране они спорили за внимание
+          с заголовком, а здесь встречают человека сразу после прокрутки */}
+      <div className="bg-cream">
+        <div className="container-page">
+          <div className="flex flex-wrap items-center gap-x-10 gap-y-6 border-b border-line py-8">
+            {hero.stats.map((item) => (
+              <p key={item.small} className="max-w-56 text-[0.8125rem] text-stone">
+                <span className="mr-2 font-semibold text-ink">{item.big}</span>
+                {item.small}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
-    </section>
+    </>
   );
 }

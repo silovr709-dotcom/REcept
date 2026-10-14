@@ -17,6 +17,15 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  /**
+   * У шапки два состояния. В прокрученном виде она везде одинаковая —
+   * светлая плашка с тёмным текстом. А вот наверху она прозрачная, и тут
+   * важно, что под ней. На главной это тёмная фотография кухни, значит
+   * логотип, меню и кнопка должны стать светлыми. На остальных страницах
+   * сверху стоит PageHero на кремовом фоне — там тёмные.
+   */
+  const overPhoto = pathname === '/' && !scrolled && !menuOpen;
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -49,7 +58,7 @@ export function Header() {
     >
       <div className="container-page">
         <div className="flex h-16 items-center justify-between gap-6 lg:h-20">
-          <Logo />
+          <Logo tone={overPhoto ? 'light' : 'dark'} />
 
           <nav aria-label="Основная навигация" className="hidden lg:block">
             <ul className="flex items-center gap-5 xl:gap-7">
@@ -60,8 +69,14 @@ export function Header() {
                     <Link
                       href={item.href}
                       aria-current={active ? 'page' : undefined}
-                      className={`relative py-2 text-[0.9375rem] font-medium transition-colors hover:text-brass ${
-                        active ? 'text-brass' : 'text-ink/80'
+                      className={`relative py-2 text-[0.9375rem] font-medium transition-colors ${
+                        active
+                          ? overPhoto
+                            ? 'text-brasslight'
+                            : 'text-brass'
+                          : overPhoto
+                            ? 'text-cream/85 hover:text-cream'
+                            : 'text-ink/80 hover:text-brass'
                       }`}
                     >
                       {item.label}
@@ -77,7 +92,11 @@ export function Header() {
               <a
                 href={phoneHref}
                 onClick={() => reachGoal('phone_click', { place: 'header' })}
-                className="hidden text-[0.9375rem] font-semibold text-ink transition-colors hover:text-brass 2xl:inline"
+                className={`hidden text-[0.9375rem] font-semibold transition-colors 2xl:inline ${
+                  overPhoto
+                    ? 'text-cream hover:text-brasslight'
+                    : 'text-ink hover:text-brass'
+                }`}
               >
                 {phoneDisplay}
               </a>
@@ -85,7 +104,7 @@ export function Header() {
 
             <CtaButton
               source="header"
-              variant="primary"
+              variant={overPhoto ? 'light' : 'primary'}
               size="md"
               className="hidden sm:inline-flex"
               modalTitle="Рассчитаем вашу кухню"
@@ -101,7 +120,9 @@ export function Header() {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
-              className="grid size-11 place-items-center rounded-full text-ink transition-colors hover:bg-ink/5 lg:hidden"
+              className={`grid size-11 place-items-center rounded-full transition-colors lg:hidden ${
+                overPhoto ? 'text-cream hover:bg-cream/10' : 'text-ink hover:bg-ink/5'
+              }`}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 {menuOpen ? (
