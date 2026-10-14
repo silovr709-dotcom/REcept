@@ -9,6 +9,8 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
 import { assetUrl, pickImage } from '@/lib/content/images';
+import { materialFamilies, millings } from '@/data/materials';
+import { MarginNote } from '@/components/ui/MarginNote';
 
 export const metadata: Metadata = {
   title: 'Материалы для кухни',
@@ -91,6 +93,14 @@ const wisdom = [
   },
 ];
 
+/** Фрезеровки, сгруппированные по категории сложности */
+const millingGroups = Object.entries(
+  millings.reduce<Record<number, typeof millings>>((acc, m) => {
+    (acc[m.category] ||= []).push(m);
+    return acc;
+  }, {}),
+).sort(([a], [b]) => Number(a) - Number(b));
+
 export default async function MaterialsPage() {
   const [details, projects] = await Promise.all([
     getVisibleDetails(),
@@ -158,6 +168,109 @@ export default async function MaterialsPage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </Section>
+
+      {/* Реальный каталог, а не обещание «любого цвета». Цифры взяты из
+          рабочего каталога производства, на котором мы размещаем заказы,
+          и учитывают только действующие позиции. Цен здесь нет
+          сознательно: см. комментарий в src/data/materials.ts */}
+      <Section tone="ink" aria-labelledby="choice-title">
+        <div className="container-page">
+          <SectionHeading
+            tone="light"
+            id="choice-title"
+            eyebrow="Выбор"
+            title="Не «любой цвет на выбор», а конкретные цифры"
+            lead="Так выглядит ассортимент, доступный к заказу сегодня. Снятые с производства позиции мы не считаем — показывать выбор, которого уже нет, нечестно."
+          />
+
+          <div className="mt-14 grid gap-px bg-cream/12 sm:grid-cols-2">
+            {materialFamilies.map((f, i) => (
+              <Reveal key={f.id} delay={Math.min(i, 4) * 50} className="bg-ink p-7 sm:p-9">
+                <p className="font-display text-h2 leading-none text-cream">
+                  {f.count > 0 ? f.count : 'RAL'}
+                </p>
+                <p className="label-xs mt-3 text-cream/45">
+                  {f.count > 0 ? 'вариантов отделки' : 'любой цвет по вееру'}
+                </p>
+                <h3 className="font-display mt-7 text-[1.1875rem] text-cream">
+                  {f.title}
+                </h3>
+                <p className="mt-3 text-[0.9375rem] leading-relaxed text-cream/65">
+                  {f.text}
+                </p>
+                {f.brands.length > 0 ? (
+                  <p className="mt-4 text-[0.875rem] text-cream/45">
+                    Производители: {f.brands.join(', ')}
+                  </p>
+                ) : null}
+                {f.caveat ? (
+                  <p className="mt-4 border-t border-cream/12 pt-4 text-[0.875rem] leading-relaxed text-cream/55">
+                    {f.caveat}
+                  </p>
+                ) : null}
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Каталог фрезеровок: имена, а не картинки. Превью в исходнике —
+          развороты каталога производства, их публикация требует
+          отдельного разрешения правообладателя. */}
+      <Section tone="cream" aria-labelledby="millings-title">
+        <div className="container-page">
+          <SectionHeading
+            id="millings-title"
+            eyebrow="Фрезеровки"
+            title={`${millings.length} рисунков фасада — и все можно посмотреть вживую`}
+            lead="Фрезеровка — это рельеф, выбранный на плите МДФ. Она определяет характер кухни сильнее, чем цвет: одна и та же белая кухня с «Аркой» и со «Стрит» выглядит как мебель из разных эпох. Образцы привозим на замер."
+          />
+
+          <div className="mt-14 grid gap-10 lg:grid-cols-2">
+            {millingGroups.map(([category, items]) => (
+              <Reveal key={category}>
+                <div className="flex items-baseline justify-between border-b border-line pb-3">
+                  <h3 className="font-display text-[1.1875rem] text-ink">
+                    {category} категория
+                  </h3>
+                  <span className="label-xs text-stone">{items.length} шт</span>
+                </div>
+                <ul className="mt-5 flex flex-wrap gap-x-2.5 gap-y-2">
+                  {items.map((m) => (
+                    <li
+                      key={m.slug}
+                      className="border border-line bg-bone px-3 py-1.5 text-[0.9375rem] text-ink"
+                    >
+                      {m.name}
+                      {m.coatings.length === 1 ? (
+                        <span className="ml-2 text-[0.75rem] text-stone">
+                          только {m.coatings[0]}
+                        </span>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-12">
+            <p className="max-w-2xl text-[0.9375rem] leading-relaxed text-stone">
+              Категория — это сложность рисунка: чем она выше, тем дороже
+              обходится фасад. Разброс между первой и четвёртой заметный, и
+              на большой кухне выбор фрезеровки влияет на смету не меньше,
+              чем выбор цвета. Что именно вы выиграете или потеряете в
+              деньгах на своём метраже — посчитаем на замере.
+            </p>
+          </Reveal>
+
+          <MarginNote author="Катя" className="mt-12">
+            Названия вам ничего не скажут, и это нормально. На замере мы
+            привозим образцы и прикладываем их к стене — выбирать по
+            картинке в интернете бессмысленно.
+          </MarginNote>
         </div>
       </Section>
 
