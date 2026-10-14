@@ -162,6 +162,15 @@ export function LeadForm({
           с разговора. Ничего оплачивать и ни на что соглашаться на этом этапе
           не нужно.
         </p>
+        <p
+          className={`mt-5 font-(family-name:--font-hand) text-[1.3125rem] leading-snug ${
+            light ? 'text-cream/80' : 'text-ink/75'
+          }`}
+          style={{ transform: 'rotate(-0.6deg)' }}
+        >
+          Спасибо. Теперь мяч на нашей стороне.
+        </p>
+
         {activeContacts.length > 0 ? (
           <p className={`mt-4 text-sm ${light ? 'text-cream/55' : 'text-stone'}`}>
             Если удобнее написать первым — вот прямые контакты:{' '}
@@ -332,7 +341,13 @@ export function LeadForm({
       ) : null}
 
       {NO_RECEIVER ? (
-        <p className="mt-5 border-l-2 border-brass bg-brass/10 px-4 py-3 text-xs leading-relaxed text-ink">
+        <p
+          className={`mt-5 border-l-2 px-4 py-3 text-xs leading-relaxed ${
+            light
+              ? 'border-brasslight bg-cream/10 text-cream/85'
+              : 'border-brass bg-brass/10 text-ink'
+          }`}
+        >
           Демонстрационная версия: показывает дизайн и переходы, но заявки
           не принимает — здесь нет сервера.
         </p>

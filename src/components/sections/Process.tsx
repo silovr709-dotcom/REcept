@@ -5,6 +5,7 @@ import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleDetails } from '@/lib/content/store';
 import { assetUrl } from '@/lib/content/images';
+import { MarginNote } from '../ui/MarginNote';
 
 /**
  * Процесс снимает страх неизвестности: человек должен понимать,
@@ -98,6 +99,14 @@ export async function Process({
             </div>
           ))}
         </div>
+
+        {!trimmed ? (
+          <MarginNote author="Роберт" className="mt-12">
+            Десять шагов выглядят внушительно, но восемь из них — наша
+            работа, а не ваша. От вас по-настоящему нужны два: впустить
+            на замер и один раз сказать «да, вот так».
+          </MarginNote>
+        ) : null}
 
         {trimmed ? (
           <Reveal className="mt-8">

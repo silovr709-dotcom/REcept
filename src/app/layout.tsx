@@ -74,7 +74,7 @@ export const viewport: Viewport = {
  * заставки) и снимает класс no-js. Он крошечный и синхронный, поэтому
  * не влияет на скорость, но убирает мигание.
  */
-const bootScript = `(function(){var d=document.documentElement;d.classList.remove('no-js');if(!document.startViewTransition){d.classList.add('no-vt')}d.dataset.loaderStart=Date.now();d.dataset.loading='true';try{d.dataset.loader=sessionStorage.getItem('recept:visited')?'short':'full'}catch(e){d.dataset.loader='full'}setTimeout(function(){d.removeAttribute('data-loading')},4500);})();`;
+const bootScript = `(function(){var d=document.documentElement;d.classList.remove('no-js');if(!document.startViewTransition){d.classList.add('no-vt')}d.dataset.loaderStart=Date.now();d.dataset.loading='true';try{d.dataset.loader=sessionStorage.getItem('recept:visited')?'short':'full'}catch(e){d.dataset.loader='full'}setTimeout(function(){d.removeAttribute('data-loading')},4500);try{console.log('%cРЕцепт','font:700 32px/1.1 Manrope,sans-serif;color:#121110;background:#faf9f7;padding:14px 18px');console.log('%cКухни на заказ в Твери. Открыли консоль — значит, вы либо разработчик, либо очень любопытный человек. И то и другое нам нравится.\n\nЭтот сайт собран руками, без конструктора и шаблона. Кухни, кстати, тоже.','color:#6f6c66;font:14px/1.6 Manrope,sans-serif')}catch(e){}})();`;
 
 export default function RootLayout({
   children,

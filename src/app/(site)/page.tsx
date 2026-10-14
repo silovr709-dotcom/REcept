@@ -8,6 +8,7 @@ import { Process } from '@/components/sections/Process';
 import { Price } from '@/components/sections/Price';
 import { Founders } from '@/components/sections/Founders';
 import { Objections } from '@/components/sections/Objections';
+import { Cliches } from '@/components/sections/Cliches';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
@@ -84,6 +85,11 @@ export default async function HomePage() {
       {/* Доверие и остаточные сомнения */}
       <Testimonials index="08" tone="cream" />
       <Objections index="09" tone="bone" />
+
+      {/* Интерлюдия без номера: это не ещё один раздел, а слом ритма
+          перед последним блоком вопросов */}
+      <Cliches tone="ink" />
+
       <Faq index="10" limit={6} tone="cream" />
 
       <FinalCta />
