@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { getSiteView } from '@/lib/content/view';
+import { assetUrl } from '@/lib/content/images';
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteView();
@@ -43,8 +44,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     icons: {
       icon: [
-        { url: '/favicon.svg', type: 'image/svg+xml' },
-        { url: '/favicon.ico', sizes: '32x32' },
+        { url: assetUrl('/favicon.svg'), type: 'image/svg+xml' },
+        { url: assetUrl('/favicon.ico'), sizes: '32x32' },
       ],
       apple: '/apple-touch-icon.png',
     },

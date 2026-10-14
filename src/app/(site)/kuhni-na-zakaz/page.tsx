@@ -14,7 +14,7 @@ import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleProjects } from '@/lib/content/store';
-import { pickImage } from '@/lib/content/images';
+import { assetUrl, pickImage } from '@/lib/content/images';
 
 export const metadata: Metadata = {
   title: 'Кухни на заказ в Твери',
@@ -90,7 +90,7 @@ export default async function KitchensPage() {
         <div className="container-page">
           <div className="relative aspect-16/9 overflow-hidden rounded-lg bg-sand sm:aspect-21/9">
             <Image
-              src={shot.image.src}
+              src={assetUrl(shot.image.src)}
               alt={shot.alt}
               fill
               priority

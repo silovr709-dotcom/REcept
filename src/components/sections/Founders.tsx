@@ -2,9 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
+
+const IS_DEMO = process.env.NEXT_PUBLIC_DEMO === '1';
 import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleReviews } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * РОБЕРТ И КАТЯ
@@ -54,7 +57,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                 {person.photo ? (
                   <div className="media-reveal relative mb-8 aspect-4/5 max-w-sm overflow-hidden bg-coal">
                     <Image
-                      src={person.photo.src}
+                      src={assetUrl(person.photo.src)}
                       alt={`${person.fullName} — мебельное ателье «РЕцепт», Тверь`}
                       fill
                       loading="lazy"
@@ -63,6 +66,19 @@ export async function Founders({ index }: { index?: string } = {}) {
                       blurDataURL={person.photo.blurDataURL || undefined}
                       className="object-cover"
                     />
+                  </div>
+                ) : IS_DEMO ? (
+                  // Портреты Роберта и Кати — реальные люди, поэтому
+                  // «похожую» картинку сюда подставлять нельзя. На витрине
+                  // показываем слот, чтобы было видно место и размер кадра.
+                  <div className="mb-8 flex aspect-4/5 max-w-sm flex-col justify-end border border-dashed border-cream/20 bg-coal p-6">
+                    <p className="label-xs text-cream/40">Место для фотографии</p>
+                    <p className="mt-2 text-[0.875rem] leading-relaxed text-cream/35">
+                      Вертикальный портрет — {person.fullName.split(' ')[0]}.
+                      Положите файл в{' '}
+                      <span className="text-cream/55">public/images/team/</span> — и он
+                      встанет сюда сам.
+                    </p>
                   </div>
                 ) : null}
 

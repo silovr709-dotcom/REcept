@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { LeadForm } from '../LeadForm';
 import { getVisibleProjects } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
-import { pickImage } from '@/lib/content/images';
+import { assetUrl, pickImage } from '@/lib/content/images';
 
 /**
  * ФИНАЛЬНЫЙ ЭКРАН.
@@ -39,7 +39,7 @@ export async function FinalCta({
       <div aria-hidden="true" className="absolute inset-0 opacity-[0.16]">
         {shot ? (
           <Image
-            src={shot.image.src}
+            src={assetUrl(shot.image.src)}
             alt=""
             fill
             loading="lazy"

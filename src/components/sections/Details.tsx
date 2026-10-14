@@ -5,6 +5,7 @@ import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { getVisibleDetails } from '@/lib/content/store';
 import type { DetailItem } from '@/lib/content/types';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * ДЕТАЛИ.
@@ -74,7 +75,7 @@ export async function Details({
                     className={`media-reveal relative overflow-hidden rounded-md bg-sand ${ratios[i % ratios.length]}`}
                   >
                     <Image
-                      src={d.image.src}
+                      src={assetUrl(d.image.src)}
                       alt={d.alt}
                       fill
                       loading="lazy"

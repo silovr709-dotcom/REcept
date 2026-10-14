@@ -3,6 +3,7 @@ import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleDetails } from '@/lib/content/store';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * Снимаем главные страхи до того, как человек успеет закрыть вкладку.
@@ -52,7 +53,7 @@ export async function Objections({
             <Reveal key={d.id} delay={i * 50} className="h-full">
               <figure className="relative h-full min-h-64 overflow-hidden bg-sand">
                 <Image
-                  src={d.image.src}
+                  src={assetUrl(d.image.src)}
                   alt={d.alt}
                   fill
                   loading="lazy"

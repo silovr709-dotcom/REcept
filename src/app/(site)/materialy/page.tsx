@@ -8,7 +8,7 @@ import { Details } from '@/components/sections/Details';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
-import { pickImage } from '@/lib/content/images';
+import { assetUrl, pickImage } from '@/lib/content/images';
 
 export const metadata: Metadata = {
   title: 'Материалы для кухни',
@@ -168,7 +168,7 @@ export default async function MaterialsPage() {
               <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-sand">
                 {shot ? (
                   <Image
-                    src={shot.image.src}
+                    src={assetUrl(shot.image.src)}
                     alt={shot.alt}
                     fill
                     loading="lazy"
@@ -257,7 +257,7 @@ export default async function MaterialsPage() {
               <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-coal">
                 {shot2 ? (
                   <Image
-                    src={shot2.image.src}
+                    src={assetUrl(shot2.image.src)}
                     alt={shot2.alt}
                     fill
                     loading="lazy"

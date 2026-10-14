@@ -10,7 +10,7 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
 import { rooms } from '@/data/rooms';
-import { pickImage } from '@/lib/content/images';
+import { assetUrl, pickImage } from '@/lib/content/images';
 
 export const metadata: Metadata = {
   title: 'Гардеробные и шкафы на заказ',
@@ -115,7 +115,7 @@ export default async function FurniturePage() {
               <div className="relative aspect-16/10 overflow-hidden rounded-lg bg-coal">
                 {shot ? (
                   <Image
-                    src={shot.image.src}
+                    src={assetUrl(shot.image.src)}
                     alt={shot.alt}
                     fill
                     loading="lazy"

@@ -4,6 +4,7 @@ import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleDetails } from '@/lib/content/store';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * Процесс снимает страх неизвестности: человек должен понимать,
@@ -25,8 +26,11 @@ export async function Process({
   ]);
   const processSteps = limit ? allSteps.slice(0, limit) : allSteps;
   const trimmed = processSteps.length < allSteps.length;
-  // Два кадра с объектов закрывают пустые ячейки сетки и разбавляют текст
-  const processShots = details.slice(2, 4);
+  // Кадры закрывают пустые ячейки сетки и разбавляют текст.
+  // Пять шагов в сетке из трёх колонок оставляют одну свободную ячейку,
+  // десять шагов — две. Раньше в сокращённом виде блок оставался
+  // полностью без изображений, и это был самый «текстовый» экран главной.
+  const processShots = details.slice(2, 4).slice(0, trimmed ? 1 : 2);
   return (
     <Section tone={tone} id="process" aria-labelledby="process-title">
       <div className="container-page">
@@ -76,10 +80,10 @@ export async function Process({
           ))}
           </ol>
 
-          {(trimmed ? [] : processShots).map((d) => (
+          {processShots.map((d) => (
             <div key={d.id} className="relative min-h-52 bg-sand">
               <Image
-                src={d.image.src}
+                src={assetUrl(d.image.src)}
                 alt={d.alt}
                 fill
                 loading="lazy"

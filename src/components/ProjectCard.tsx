@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ProjectItem } from '@/lib/content/types';
 import { projectAlt } from '@/lib/content/seo';
+import { assetUrl } from '@/lib/content/images';
 
 const aspect: Record<ProjectItem['shape'], string> = {
   landscape: 'aspect-4/3',
@@ -31,7 +32,7 @@ export function ProjectCard({
         className={`media-reveal hinge-panel relative overflow-hidden rounded-md bg-sand ${ratio ?? aspect[project.shape]}`}
       >
         <Image
-          src={project.image.src}
+          src={assetUrl(project.image.src)}
           alt={projectAlt(project)}
           fill
           sizes={sizes}

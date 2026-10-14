@@ -3,7 +3,38 @@ import Image from 'next/image';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleProjects } from '@/lib/content/store';
-import { pickImage } from '@/lib/content/images';
+import { assetUrl, pickImage } from '@/lib/content/images';
+import { rooms } from '@/data/rooms';
+import type { ImageRef } from '@/lib/content/types';
+
+/**
+ * Кадр под направление. Кухни иллюстрируем проектом, остальные
+ * направления — визуализациями соответствующих помещений, которые уже
+ * лежат в src/data/rooms.ts. Когда появится своя съёмка, достаточно
+ * заменить файлы в public/images/rooms/.
+ */
+function serviceVisual(
+  id: string,
+  kitchen: { image: ImageRef; alt: string } | null,
+) {
+  const room = (roomId: string) => {
+    const r = rooms.find((x) => x.id === roomId);
+    return r ? { src: r.image.src, alt: r.alt, blurDataURL: r.image.blurDataURL } : null;
+  };
+  if (id === 'kitchens') {
+    return kitchen
+      ? {
+          src: assetUrl(kitchen.image.src),
+          alt: kitchen.alt,
+          blurDataURL: kitchen.image.blurDataURL || undefined,
+        }
+      : null;
+  }
+  if (id === 'wardrobes') return room('wardrobe');
+  if (id === 'bathroom') return room('bathroom');
+  return room('hall');
+}
+
 
 export async function Services({
   index,
@@ -18,34 +49,60 @@ export async function Services({
   ]);
   const shot = pickImage(projects, 'uglovaya-kuhnya-do-potolka', 6);
 
-  // Компактный вид: на главной этот блок дублировал меню и съедал экран.
-  // Оставляем суть одной строкой и ссылками на разделы.
+  // Компактный вид на главной. Раньше это был список текстовых ссылок —
+  // единственный блок страницы вообще без изображений, и направления в нём
+  // приходилось домысливать. Теперь каждое направление показано кадром.
   if (compact) {
+    const cards = services.map((s) => ({
+      ...s,
+      visual: serviceVisual(s.id, shot),
+    }));
+
     return (
       <Section tone="cream" aria-labelledby="services-title">
         <div className="container-page">
-          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
-            <SectionHeading
-              index={index}
-              id="services-title"
-              eyebrow="Что мы делаем"
-              title="Кухни — основное. Но не единственное"
-              lead="Чаще всего к нам приходят за кухней, а уезжаем мы с объекта, сделав ещё гардеробную и шкаф в прихожей. В одной стилистике и с одной ответственностью."
-            />
-            <ul className="flex flex-wrap gap-2.5">
-              {services.map((s) => (
-                <li key={s.id}>
-                  <Link
-                    href={s.href}
-                    className="inline-flex items-center gap-2 rounded-full border border-line bg-bone px-4 py-2.5 text-[0.9375rem] text-ink transition-colors hover:border-brass/50 hover:text-brass"
-                  >
-                    {s.title}
-                    <span aria-hidden="true" className="text-brass">→</span>
+          <SectionHeading
+            index={index}
+            id="services-title"
+            eyebrow="Что мы делаем"
+            title="Кухни — основное. Но не единственное"
+            lead="Чаще всего к нам приходят за кухней, а уезжаем мы с объекта, сделав ещё гардеробную и шкаф в прихожей. В одной стилистике и с одной ответственностью."
+          />
+
+          <ul className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {cards.map((s, i) => (
+              <li key={s.id}>
+                <Reveal delay={i * 60}>
+                  <Link href={s.href} className="group block">
+                    {s.visual ? (
+                      <div className="media-reveal relative aspect-4/5 overflow-hidden bg-sand">
+                        <Image
+                          src={s.visual.src}
+                          alt={s.visual.alt}
+                          fill
+                          loading="lazy"
+                          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
+                          placeholder={s.visual.blurDataURL ? 'blur' : 'empty'}
+                          blurDataURL={s.visual.blurDataURL}
+                          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        />
+                      </div>
+                    ) : null}
+                    <p className="font-display mt-5 text-[1.375rem] leading-tight text-ink transition-colors group-hover:text-brass">
+                      {s.title}
+                    </p>
+                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink/60">
+                      {s.text}
+                    </p>
+                    <span className="label-xs mt-4 inline-flex items-center gap-2 text-brass">
+                      Смотреть
+                      <span aria-hidden="true">→</span>
+                    </span>
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
     );
@@ -59,7 +116,7 @@ export async function Services({
             <Reveal>
               <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-sand sm:aspect-16/10 lg:aspect-4/5">
                 <Image
-                  src={shot.image.src}
+                  src={assetUrl(shot.image.src)}
                   alt={shot.alt}
                   fill
                   loading="lazy"

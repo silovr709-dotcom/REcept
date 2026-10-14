@@ -4,6 +4,7 @@ import { ButtonLink } from '../ui/Button';
 import { RatingBadge } from '../RatingBadge';
 import Link from 'next/link';
 import { getContent } from '@/lib/content/store';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * ПЕРВЫЙ ЭКРАН
@@ -101,7 +102,7 @@ export async function Hero() {
       {hero.image ? (
         <div className="relative mt-14 h-[58svh] w-full overflow-hidden bg-sand sm:h-[68svh] lg:mt-20 lg:h-[78svh]">
           <Image
-            src={hero.image.src}
+            src={assetUrl(hero.image.src)}
             alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
             fill
             priority

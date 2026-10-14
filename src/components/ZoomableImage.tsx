@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import type { ImageRef } from '@/lib/content/types';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * Фотография, которую можно рассмотреть.
@@ -72,7 +73,7 @@ export function ZoomableImage({
         className={`group relative block w-full cursor-zoom-in overflow-hidden bg-sand ${wrapperClassName}`}
       >
         <Image
-          src={image.src}
+          src={assetUrl(image.src)}
           alt={alt}
           fill
           sizes={sizes}
@@ -127,7 +128,7 @@ export function ZoomableImage({
 
           <div className="animate-fade-up relative max-h-[82vh] w-full max-w-6xl cursor-default">
             <Image
-              src={image.src}
+              src={assetUrl(image.src)}
               alt={alt}
               width={image.width}
               height={image.height}

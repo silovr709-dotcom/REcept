@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { reachGoal } from '@/lib/analytics';
 import type { ImageRef } from '@/lib/content/types';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * Видео с отложенной загрузкой плеера.
@@ -61,7 +62,7 @@ export function VideoCard({
     >
       {poster ? (
         <Image
-          src={poster.src}
+          src={assetUrl(poster.src)}
           alt=""
           fill
           loading="lazy"

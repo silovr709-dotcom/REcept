@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { ImageRef } from '@/lib/content/types';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * Широкая фотополоса между текстовыми блоками.
@@ -31,7 +32,7 @@ export function PhotoBand({
         className={`band-parallax relative w-full overflow-hidden ${heights[height]}`}
       >
         <Image
-          src={image.src}
+          src={assetUrl(image.src)}
           alt={alt}
           fill
           loading="lazy"
