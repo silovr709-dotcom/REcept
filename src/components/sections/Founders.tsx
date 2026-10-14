@@ -4,6 +4,17 @@ import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { atelierShots } from '@/data/atelier';
 
+/**
+ * Подписи поверх снимков — по одной на человека, в том же порядке, что
+ * и карточки. Короткие намеренно: это реплика, брошенная читателю,
+ * а не ещё один абзац текста. Обе опираются на то, что уже заявлено
+ * на сайте, — личный замер и правки проекта без счёта.
+ */
+const handNotes = [
+  'На замер приеду я сам',
+  'Проект нарисую я. И перерисую, если не понравится',
+];
+
 import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleReviews } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
@@ -65,18 +76,39 @@ export async function Founders({ index }: { index?: string } = {}) {
                     ? `${person.fullName} — мебельное ателье «РЕцепт», Тверь`
                     : fallback.alt;
                   const blur = portrait ? portrait.blurDataURL : fallback.image.blurDataURL;
+                  const note = handNotes[i % handNotes.length];
+
                   return (
-                    <div className="media-reveal relative mb-8 aspect-4/5 max-w-sm overflow-hidden bg-coal">
-                      <Image
-                        src={src}
-                        alt={alt}
-                        fill
-                        loading="lazy"
-                        sizes="(max-width: 1023px) 100vw, 40vw"
-                        placeholder={blur ? 'blur' : 'empty'}
-                        blurDataURL={blur || undefined}
-                        className="object-cover"
-                      />
+                    // Обёртка нужна, чтобы подпись могла выйти за край
+                    // снимка. Сам снимок обрезает содержимое, поэтому
+                    // текст лежит рядом с ним, а не внутри.
+                    <div className="relative mb-12 max-w-sm">
+                      <div className="media-reveal relative aspect-4/5 overflow-hidden bg-coal">
+                        <Image
+                          src={src}
+                          alt={alt}
+                          fill
+                          loading="lazy"
+                          sizes="(max-width: 1023px) 100vw, 40vw"
+                          placeholder={blur ? 'blur' : 'empty'}
+                          blurDataURL={blur || undefined}
+                          className="object-cover"
+                        />
+                      </div>
+
+                      {/* «Четвёртая стена»: человек со снимка обращается
+                          к читателю поверх собственной фотографии —
+                          как будто расписался на отпечатке. Это текст,
+                          а не часть картинки: он читается экранными
+                          дикторами и переводится вместе со страницей. */}
+                      <p
+                        className="absolute -bottom-7 left-4 right-0 origin-left font-(family-name:--font-hand) text-[1.375rem] leading-snug text-cream sm:left-6 sm:text-[1.5rem]"
+                        style={{ transform: 'rotate(-1.2deg)' }}
+                      >
+                        <span className="bg-ink/85 box-decoration-clone px-2 py-0.5">
+                          {note}
+                        </span>
+                      </p>
                     </div>
                   );
                 })()}
