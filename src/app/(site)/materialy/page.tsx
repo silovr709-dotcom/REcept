@@ -9,7 +9,12 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
 import { assetUrl, pickImage } from '@/lib/content/images';
-import { materialFamilies, millings } from '@/data/materials';
+import {
+  materialFamilies,
+  millings,
+  hardwareGroups,
+  countertopLines,
+} from '@/data/materials';
 import { MarginNote } from '@/components/ui/MarginNote';
 
 export const metadata: Metadata = {
@@ -216,6 +221,53 @@ export default async function MaterialsPage() {
         </div>
       </Section>
 
+      {/* Фурнитура — то, из-за чего кухня живёт десять лет или три.
+          Снаружи её не видно, поэтому про неё и молчат. */}
+      <Section tone="bone" aria-labelledby="hardware-title">
+        <div className="container-page">
+          <SectionHeading
+            id="hardware-title"
+            eyebrow="Что внутри"
+            title="Разницу между кухнями видно не снаружи, а через год"
+            lead="Два одинаковых с виду фасада могут висеть на петле за сто рублей и на петле за тысячу. Разницу вы обнаружите не в салоне, а когда дверца начнёт провисать. Здесь есть выбор, и мы говорим вслух, из чего он состоит."
+          />
+
+          <div className="mt-14 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:grid-cols-3">
+            {hardwareGroups.map((h, i) => (
+              <Reveal
+                key={h.id}
+                delay={Math.min(i, 5) * 40}
+                className="flex h-full flex-col bg-bone p-7 sm:p-8"
+              >
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-display text-[1.1875rem] text-ink">
+                    {h.title}
+                  </h3>
+                  <span className="label-xs shrink-0 text-stone">
+                    {h.count}
+                  </span>
+                </div>
+                <p className="mt-3 grow text-[0.9375rem] leading-relaxed text-stone">
+                  {h.text}
+                </p>
+                {h.brands.length > 0 ? (
+                  <p className="mt-5 border-t border-line pt-4 text-[0.875rem] text-stone">
+                    <span className="text-ink">От базовых к верхним:</span>{' '}
+                    {h.brands.join(' → ')}
+                  </p>
+                ) : null}
+              </Reveal>
+            ))}
+          </div>
+
+          <MarginNote author="Роберт" className="mt-12">
+            Мы не ставим всем подряд самую дорогую фурнитуру и не делаем
+            вид, что ставим. На замере честно скажем, где переплата
+            окупится, а где вы просто заплатите за название.
+          </MarginNote>
+        </div>
+      </Section>
+
       {/* Каталог фрезеровок: имена, а не картинки. Превью в исходнике —
           развороты каталога производства, их публикация требует
           отдельного разрешения правообладателя. */}
@@ -300,6 +352,25 @@ export default async function MaterialsPage() {
                 title="То, с чем вы контактируете каждый день"
                 lead="Столешница принимает на себя воду, нагрев, ножи и вес. Здесь разница между материалами чувствуется быстрее всего."
               />
+              <div className="mt-9 grid gap-5 sm:grid-cols-2">
+                {countertopLines.map((c) => (
+                  <div key={c.id} className="bg-cream p-5">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <h3 className="font-display text-[1.0625rem] text-ink">
+                        {c.title}
+                      </h3>
+                      <span className="label-xs text-stone">{c.count}</span>
+                    </div>
+                    <p className="mt-2.5 text-[0.875rem] leading-relaxed text-stone">
+                      {c.text}
+                    </p>
+                    <p className="mt-3 text-[0.8125rem] text-stone">
+                      {c.brands.join(', ')}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
               <dl className="mt-9 grid gap-6">
                 {tops.map((t) => (
                   <div key={t.title} className="border-l-2 border-brass/30 pl-5">
