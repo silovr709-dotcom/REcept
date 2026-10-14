@@ -1,7 +1,10 @@
+import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { getContent } from '@/lib/content/store';
+import { MarginNote } from '../ui/MarginNote';
+import { getContent, getVisibleProjects } from '@/lib/content/store';
+import { assetUrl, pickImage } from '@/lib/content/images';
 
 /**
  * ЦЕНТРАЛЬНЫЙ ПРОДАЮЩИЙ БЛОК.
@@ -9,10 +12,37 @@ import { getContent } from '@/lib/content/store';
  * становиться специалистом по кухням и координатором стройки.
  */
 export async function Headache({ index }: { index?: string } = {}) {
-  const { headache } = await getContent('texts');
+  const [{ headache }, projects] = await Promise.all([
+    getContent('texts'),
+    getVisibleProjects(),
+  ]);
+  const backdrop = pickImage(projects, 'temno-siniaya-kuhnya-latun', 9);
 
   return (
-    <Section tone="ink" aria-labelledby="headache-title">
+    <Section
+      tone="ink"
+      aria-labelledby="headache-title"
+      className="relative isolate overflow-hidden"
+    >
+      {/* Кадр не иллюстрирует текст, а снимает «однотон»: на длинном
+          тёмном блоке без него остаётся только плоская заливка.
+          Плотность завала сверху максимальная — там лежит заголовок,
+          ниже кадр проступает сильнее, но контраст светлого текста
+          даже в худшем случае держится выше 8:1 */}
+      {backdrop ? (
+        <div aria-hidden="true" className="absolute inset-0 -z-10">
+          <Image
+            src={assetUrl(backdrop.image.src)}
+            alt=""
+            fill
+            loading="lazy"
+            sizes="100vw"
+            className="object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-linear-to-b from-ink/95 via-ink/82 to-ink/68" />
+        </div>
+      ) : null}
+
       <div className="container-page">
         <SectionHeading
           index={index}
@@ -85,11 +115,15 @@ export async function Headache({ index }: { index?: string } = {}) {
           </Reveal>
         </div>
 
-        <Reveal className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-lg text-lead text-cream/70">
-            Ваша задача — рассказать, как вы живёте. Всё остальное мы возьмём на
-            себя.
-          </p>
+        {/* Главная мысль блока сказана не от лица ателье, а голосом Кати:
+            после двух колонок списков человеку нужен живой человек,
+            а не ещё один абзац корпоративного текста */}
+        <Reveal className="mt-14 flex flex-col items-start gap-8 sm:flex-row sm:items-end sm:justify-between">
+          <MarginNote author="Катя" tone="light">
+            Вам не нужно разбираться в петлях, доводчиках и углах открывания
+            двери холодильника. Расскажите, как вы живёте и что вас бесит на
+            нынешней кухне, — остальное правда наша работа.
+          </MarginNote>
           <CtaButton
             source="headache"
             variant="light"

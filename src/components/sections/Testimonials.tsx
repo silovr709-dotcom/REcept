@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { RatingBadge } from '../RatingBadge';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
+import { MarginNote } from '../ui/MarginNote';
 import { getVisibleReviews } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
 
@@ -67,11 +68,21 @@ export async function Testimonials({
           ))}
         </ul>
 
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-stone">
-            Цитаты приведены дословно, сокращения отмечены многоточием.
-          </p>
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
+        {/* Блок состоит из трёх колонок чужого текста — без живого голоса
+            он читается как витрина отобранных похвал. Пометка от руки
+            сразу называет это подозрение вслух */}
+        <div className="mt-12 grid gap-10 border-t border-line pt-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-16">
+          <MarginNote author="Катя">
+            Отзывы на сайтах обычно выбирает сам сайт. Эти выбирать нельзя: они
+            лежат в карточке на Яндекс Картах, мы не можем их ни поправить, ни
+            снять. Откройте и сверьте — так спокойнее и вам, и нам.
+          </MarginNote>
+
+          <div className="flex flex-col gap-4 lg:items-end lg:text-right">
+            <p className="text-sm text-stone">
+              Цитаты приведены дословно, сокращения отмечены многоточием.
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 lg:justify-end">
             <Link
               href="/otzyvy"
               className="link-sweep font-semibold text-brass"
@@ -86,6 +97,7 @@ export async function Testimonials({
             >
               Проверить на Яндекс Картах
             </a>
+            </div>
           </div>
         </div>
       </div>

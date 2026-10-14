@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { getContent } from '@/lib/content/store';
+import { getContent, getVisibleDetails } from '@/lib/content/store';
+import { assetUrl } from '@/lib/content/images';
 import { MarginNote } from '../ui/MarginNote';
 
 /**
@@ -17,9 +19,17 @@ export async function Price({
   index?: string;
   tone?: 'cream' | 'bone';
 }) {
-  const { price } = await getContent('texts');
+  const [{ price }, details] = await Promise.all([
+    getContent('texts'),
+    getVisibleDetails(),
+  ]);
   const priceExplanation = price;
   const priceFactors = price.factors;
+  // Разговор про деньги — самый текстовый экран страницы, и в сетке
+  // из двух колонок правая ячейка второго ряда оставалась пустой.
+  // Туда встаёт макро-кадр того, за что в этой смете и платят:
+  // фурнитура и то, как сходятся детали.
+  const priceShot = details[8] ?? details.at(-1) ?? null;
   return (
     <Section tone={tone} id="price" aria-labelledby="price-title">
       <div className="container-page">
@@ -111,6 +121,27 @@ export async function Price({
               остальное — гадание, за которое потом неловко.
             </MarginNote>
           </Reveal>
+
+          {priceShot ? (
+            <Reveal>
+              <figure className="relative aspect-4/3 overflow-hidden bg-sand lg:aspect-16/10">
+                <Image
+                  src={assetUrl(priceShot.image.src)}
+                  alt={priceShot.alt}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 1023px) 100vw, 50vw"
+                  placeholder={priceShot.image.blurDataURL ? 'blur' : 'empty'}
+                  blurDataURL={priceShot.image.blurDataURL || undefined}
+                  className="object-cover"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-12 text-[0.9375rem] font-medium text-cream">
+                  Разницу в смете видно вот здесь — в фурнитуре и в том, как
+                  сходятся детали
+                </figcaption>
+              </figure>
+            </Reveal>
+          ) : null}
         </div>
       </div>
     </Section>
