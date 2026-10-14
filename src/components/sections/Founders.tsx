@@ -2,8 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
+import { atelierShots } from '@/data/atelier';
 
-const IS_DEMO = process.env.NEXT_PUBLIC_DEMO === '1';
 import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleReviews } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
@@ -50,37 +50,36 @@ export async function Founders({ index }: { index?: string } = {}) {
         />
 
         <div className="mt-16 grid gap-px bg-cream/12 lg:grid-cols-2">
-          {team.map((person) => {
+          {team.map((person, i) => {
             const phone = phoneFor(person.fullName);
             return (
               <Reveal key={person.name} className="bg-ink p-8 sm:p-12">
-                {person.photo ? (
-                  <div className="media-reveal relative mb-8 aspect-4/5 max-w-sm overflow-hidden bg-coal">
-                    <Image
-                      src={assetUrl(person.photo.src)}
-                      alt={`${person.fullName} — мебельное ателье «РЕцепт», Тверь`}
-                      fill
-                      loading="lazy"
-                      sizes="(max-width: 1023px) 100vw, 40vw"
-                      placeholder={person.photo.blurDataURL ? 'blur' : 'empty'}
-                      blurDataURL={person.photo.blurDataURL || undefined}
-                      className="object-cover"
-                    />
-                  </div>
-                ) : IS_DEMO ? (
-                  // Портреты Роберта и Кати — реальные люди, поэтому
-                  // «похожую» картинку сюда подставлять нельзя. На витрине
-                  // показываем слот, чтобы было видно место и размер кадра.
-                  <div className="mb-8 flex aspect-4/5 max-w-sm flex-col justify-end border border-dashed border-cream/20 bg-coal p-6">
-                    <p className="label-xs text-cream/40">Место для фотографии</p>
-                    <p className="mt-2 text-[0.875rem] leading-relaxed text-cream/35">
-                      Вертикальный портрет — {person.fullName.split(' ')[0]}.
-                      Положите файл в{' '}
-                      <span className="text-cream/55">public/images/team/</span> — и он
-                      встанет сюда сам.
-                    </p>
-                  </div>
-                ) : null}
+                {(() => {
+                  // Настоящий портрет, если он уже загружен. Иначе —
+                  // кадр работы: лица на нём нет, поэтому никто не выдаёт
+                  // себя за Роберта или Катю (см. src/data/atelier.ts).
+                  const portrait = person.photo;
+                  const fallback = atelierShots[i % atelierShots.length];
+                  const src = portrait ? assetUrl(portrait.src) : fallback.image.src;
+                  const alt = portrait
+                    ? `${person.fullName} — мебельное ателье «РЕцепт», Тверь`
+                    : fallback.alt;
+                  const blur = portrait ? portrait.blurDataURL : fallback.image.blurDataURL;
+                  return (
+                    <div className="media-reveal relative mb-8 aspect-4/5 max-w-sm overflow-hidden bg-coal">
+                      <Image
+                        src={src}
+                        alt={alt}
+                        fill
+                        loading="lazy"
+                        sizes="(max-width: 1023px) 100vw, 40vw"
+                        placeholder={blur ? 'blur' : 'empty'}
+                        blurDataURL={blur || undefined}
+                        className="object-cover"
+                      />
+                    </div>
+                  );
+                })()}
 
                 <p className="font-display text-h2 leading-none text-cream">
                   {person.fullName.split(' ')[0]}
