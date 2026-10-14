@@ -4,6 +4,7 @@ import { ProjectCard } from '../ProjectCard';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { getVisibleProjects } from '@/lib/content/store';
+import { MarginNote } from '../ui/MarginNote';
 
 /**
  * ПОРТФОЛИО НА ГЛАВНОЙ
@@ -107,6 +108,14 @@ export async function PortfolioPreview({
               Обсудить похожую задачу
             </CtaButton>
           </div>
+        </Reveal>
+
+        <Reveal className="mt-14">
+          <MarginNote author="Катя">
+            Сейчас у вас наверняка открыты ещё две-три вкладки с кухнями.
+            Это правильно. Только сравнивайте одно и то же: материалы,
+            фурнитуру и то, кто приедет собирать.
+          </MarginNote>
         </Reveal>
       </div>
     </Section>

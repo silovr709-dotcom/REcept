@@ -64,12 +64,8 @@ const nextConfig: NextConfig = {
 
   async headers() {
     return [
-      {
-        source: '/fonts/:path*',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-        ],
-      },
+      // Отдельное правило для /fonts/ больше не нужно: файлы отдаёт
+      // next/font из /_next/static, где вечный кэш проставлен самим Next.
       {
         source: '/:path*',
         headers: [

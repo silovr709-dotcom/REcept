@@ -2,6 +2,7 @@ import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { getContent } from '@/lib/content/store';
+import { MarginNote } from '../ui/MarginNote';
 
 /**
  * ЦЕНА И ПРОЗРАЧНОСТЬ.
@@ -101,6 +102,14 @@ export async function Price({
                 ))}
               </dl>
             </div>
+          </Reveal>
+
+          <Reveal>
+            <MarginNote author="Роберт">
+              Знаю, зачем вы открыли этот раздел — за цифрой. Я бы тоже её
+              искал. Но честная цифра появляется только после замера, всё
+              остальное — гадание, за которое потом неловко.
+            </MarginNote>
           </Reveal>
         </div>
       </div>

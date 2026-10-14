@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { getSiteView } from '@/lib/content/view';
 import { assetUrl } from '@/lib/content/images';
+import { fontVariables } from './fonts';
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteView();
@@ -79,15 +80,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru" className="no-js">
+    <html lang="ru" className={`no-js ${fontVariables}`}>
       <head>
-        <link
-          rel="preload"
-          href="/fonts/manrope-cyrillic.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <noscript>
           <style>{`#recept-loader{display:none!important}`}</style>

@@ -3,6 +3,7 @@ import { LeadForm } from '../LeadForm';
 import { getVisibleProjects } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
 import { assetUrl, pickImage } from '@/lib/content/images';
+import { MarginNote } from '../ui/MarginNote';
 
 /**
  * ФИНАЛЬНЫЙ ЭКРАН.
@@ -125,6 +126,12 @@ export async function FinalCta({
             <div className="mt-7">
               <LeadForm tone="light" submitLabel={submitLabel} source={source} />
             </div>
+
+            <MarginNote author="Роберт и Катя" tone="light" className="mt-9">
+              Вы дочитали до самого низа. Обычно так делают, когда вопрос
+              серьёзный и решение ещё не принято. Напишите — разберём вашу
+              кухню, ни к чему вас это не обязывает.
+            </MarginNote>
           </div>
         </div>
       </div>

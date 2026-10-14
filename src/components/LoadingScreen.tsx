@@ -162,10 +162,21 @@ export function LoadingScreen() {
               <span className="text-clay">РЕ</span>цепт
             </p>
             <p
-              className="loader-text mt-2.5 text-[0.8125rem] leading-relaxed text-cream/55 sm:text-sm"
+              className="loader-text loader-tagline mt-2.5 text-[0.8125rem] leading-relaxed text-cream/55 sm:text-sm"
               style={{ '--d': '1520ms' } as React.CSSProperties}
             >
               Собираем пространство для вашей жизни
+            </p>
+
+            {/* Повторный визит: сайт узнаёт, что вы уже здесь были.
+                Показом управляет CSS по атрибуту data-loader, который
+                выставлен до первой отрисовки — поэтому строка не мигает
+                и не зависит от гидратации. */}
+            <p
+              className="loader-text loader-return mt-2.5 font-(family-name:--font-hand) text-[1.25rem] leading-snug text-cream/70 sm:text-[1.375rem]"
+              style={{ '--d': '1520ms' } as React.CSSProperties}
+            >
+              С возвращением
             </p>
           </div>
         </div>
