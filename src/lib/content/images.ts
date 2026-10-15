@@ -43,3 +43,41 @@ export function pickImage(
 export function ratioOf(image: ImageRef) {
   return image.width / image.height;
 }
+
+/**
+ * ПОДБОР ПРОПОРЦИИ ПЛИТКИ ПОД САМ ФАЙЛ
+ * ====================================
+ * Сетки просили «все карточки 4:5» — так ряды выглядят ровно. Но половина
+ * фотографий в портфолио горизонтальные (3:2), и в вертикальной рамке у них
+ * уезжало за край почти 47 % кадра: ровно тот край кухни, ради которого
+ * снимок и сделан.
+ *
+ * Поэтому запрошенная пропорция теперь считается пожеланием. Если она не
+ * спорит с ориентацией файла — остаётся как есть. Если спорит и обрезка
+ * выходит больше трети кадра — берём ближайшую пропорцию той же ориентации.
+ * Ряды становятся чуть разной высоты, зато кухня видна целиком.
+ */
+const RATIO_AR: Record<string, number> = {
+  'aspect-4/5': 0.8,
+  'aspect-3/4': 0.75,
+  'aspect-square': 1,
+  'aspect-4/3': 4 / 3,
+  'aspect-3/2': 1.5,
+  'aspect-16/10': 1.6,
+  'aspect-16/9': 16 / 9,
+};
+
+/** Доля площади, уезжающая за край при object-fit: cover */
+export function hiddenShare(frameAr: number, fileAr: number) {
+  return 1 - Math.min(frameAr, fileAr) / Math.max(frameAr, fileAr);
+}
+
+export function fitRatio(image: ImageRef, preferred?: string) {
+  const file = ratioOf(image);
+  const natural =
+    file < 0.9 ? 'aspect-4/5' : file < 1.15 ? 'aspect-square' : 'aspect-4/3';
+  if (!preferred) return natural;
+  const frame = RATIO_AR[preferred];
+  if (!frame) return preferred;
+  return hiddenShare(frame, file) > 0.33 ? natural : preferred;
+}

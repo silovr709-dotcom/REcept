@@ -108,6 +108,10 @@ const millingGroups = Object.entries(
 ).sort(([a], [b]) => Number(a) - Number(b));
 
 export default async function MaterialsPage() {
+  const heroProjects = await getVisibleProjects();
+  // Снимок в шапку страницы: тот же приём, что на первом экране
+  // главной и на карточке ссылки в мессенджере
+  const heroShot = pickImage(heroProjects, 'temno-siniaya-kuhnya-latun', 9);
   const [details, projects] = await Promise.all([
     getVisibleDetails(),
     getVisibleProjects(),
@@ -122,6 +126,9 @@ export default async function MaterialsPage() {
         title="Из чего делается кухня — и что из этого важно именно вам"
         lead="Мы не продаём «лучший материал». Мы объясняем разницу, чтобы вы понимали, за что платите и где разумно сэкономить. Конкретный набор подбираем под ваш проект и бюджет."
         breadcrumbs={[{ name: 'Материалы' }]}
+        image={heroShot?.image}
+        imageAlt=""
+        imagePosition="object-[50%_55%]"
       >
         <CtaButton
           source="materials-top"

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleProjects } from '@/lib/content/store';
-import { assetUrl, pickImage } from '@/lib/content/images';
+import { assetUrl, pickImage, ratioOf } from '@/lib/content/images';
 import { rooms } from '@/data/rooms';
 import type { ImageRef } from '@/lib/content/types';
 
@@ -114,7 +114,15 @@ export async function Services({
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
           {shot ? (
             <Reveal>
-              <div className="relative aspect-4/5 overflow-hidden rounded-lg bg-sand sm:aspect-16/10 lg:aspect-4/5">
+              <div
+                /* Вертикальная рамка хороша для вертикального кадра;
+                   горизонтальный в ней терял почти половину кухни */
+                className={`relative overflow-hidden rounded-lg bg-sand ${
+                  ratioOf(shot.image) > 1.2
+                    ? 'aspect-4/3 sm:aspect-16/10 lg:aspect-4/3'
+                    : 'aspect-4/5 sm:aspect-16/10 lg:aspect-4/5'
+                }`}
+              >
                 <Image
                   src={assetUrl(shot.image.src)}
                   alt={shot.alt}

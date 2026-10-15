@@ -13,12 +13,20 @@ export function PhotoBand({
   caption,
   overlay = 'none',
   height = 'md',
+  objectPosition = 'object-center',
 }: {
   image: ImageRef;
   alt: string;
   caption?: string;
   overlay?: 'none' | 'quote';
   height?: 'sm' | 'md' | 'lg';
+  /**
+   * Полоса очень широкая — до 3:1, — а кадры приходят в 3:2 или 16:9.
+   * По умолчанию кадрируем по центру, но если на снимке человек,
+   * центр приходится на грудь и голову срезает. Для таких кадров
+   * сюда передаётся класс вроде `object-[50%_20%]`.
+   */
+  objectPosition?: string;
 }) {
   const heights = {
     sm: 'h-[42vw] max-h-[22rem] min-h-[13rem]',
@@ -39,7 +47,7 @@ export function PhotoBand({
           sizes="100vw"
           placeholder={image.blurDataURL ? 'blur' : 'empty'}
           blurDataURL={image.blurDataURL || undefined}
-          className="object-cover"
+          className={`object-cover ${objectPosition}`}
         />
         {overlay === 'quote' ? (
           <div

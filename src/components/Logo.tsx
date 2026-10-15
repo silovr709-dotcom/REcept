@@ -18,7 +18,15 @@ export function Logo({
           tone === 'light' ? 'text-cream' : 'text-ink'
         }`}
       >
-        <span className="text-brass transition-colors group-hover:text-brasslight">
+        {/* На тёмной фотографии тёмно-оливковый «РЕ» просто пропадал,
+            и в шапке читалось «цепт». Над фото берём светлый тон. */}
+        <span
+          className={`transition-colors ${
+            tone === 'light'
+              ? 'text-brasslight group-hover:text-cream'
+              : 'text-brass group-hover:text-brasslight'
+          }`}
+        >
           РЕ
         </span>
         цепт

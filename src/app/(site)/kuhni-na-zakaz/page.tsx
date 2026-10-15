@@ -59,6 +59,9 @@ const includes = [
 
 export default async function KitchensPage() {
   const projects = await getVisibleProjects();
+  // Снимок в шапку страницы: тот же приём, что на первом экране
+  // главной и на карточке ссылки в мессенджере
+  const heroShot = pickImage(projects, 'kuhnya-v-nishe-latun', 0);
   const featuredProjects = projects.slice(0, 6);
   const shot = pickImage(projects, 'bolshaya-kuhnya-v-dome', 4);
 
@@ -69,6 +72,9 @@ export default async function KitchensPage() {
         title="Кухня, спроектированная под вашу квартиру и ваши привычки"
         lead="Не «подбор из каталога под ваши размеры», а проект с нуля: где что стоит, что куда открывается, где розетка для чайника и почему именно здесь. Проектирование бесплатное."
         breadcrumbs={[{ name: 'Кухни' }]}
+        image={heroShot?.image}
+        imageAlt=""
+        imagePosition="object-[50%_50%]"
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <CtaButton

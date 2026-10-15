@@ -23,6 +23,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactsPage() {
+  const heroProjects = await getVisibleProjects();
+  // Снимок в шапку страницы: тот же приём, что на первом экране
+  // главной и на карточке ссылки в мессенджере
+  const heroShot = pickImage(heroProjects, 'terrakotovaya-kuhnya', 13);
   const [site, details, projects] = await Promise.all([
     getSiteView(),
     getVisibleDetails(),
@@ -36,7 +40,7 @@ export default async function ContactsPage() {
     workingHours: WORKING_HOURS,
   } = site;
   const contactDetails = details.slice(0, 4);
-  const band = pickImage(projects, 'uglovaya-kuhnya-do-potolka', 6);
+  const band = pickImage(projects, 'kuhnya-gostinaya-v-dvuh-tonah', 16);
 
   return (
     <>
@@ -45,6 +49,9 @@ export default async function ContactsPage() {
         title="Давайте обсудим вашу кухню"
         lead="Мы отвечаем и тем, кто готов заказывать, и тем, кто пока просто прицениваемся. Второе — совершенно нормально."
         breadcrumbs={[{ name: 'Контакты' }]}
+        image={heroShot?.image}
+        imageAlt=""
+        imagePosition="object-[50%_55%]"
       />
 
       <Section tone="bone" id="zayavka" className="pt-0! lg:pt-0!">
@@ -244,6 +251,7 @@ export default async function ContactsPage() {
           image={band.image}
           alt={band.alt}
           overlay="quote"
+          height="lg"
           caption="Начните с простого вопроса. Дальше разберёмся вместе."
         />
       ) : null}

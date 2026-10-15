@@ -1,11 +1,10 @@
-import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { ButtonLink } from '../ui/Button';
 import { RatingBadge } from '../RatingBadge';
 import Link from 'next/link';
 import { getContent } from '@/lib/content/store';
 import { assetUrl } from '@/lib/content/images';
-import { teamShotAlt } from '@/data/team-shots';
+import { teamShots, teamShotAlt } from '@/data/team-shots';
 
 /**
  * ПЕРВЫЙ ЭКРАН
@@ -29,32 +28,59 @@ export async function Hero() {
 
   return (
     <>
-      <section className="relative isolate flex min-h-[94svh] flex-col justify-end overflow-hidden bg-ink pb-12 pt-28 lg:min-h-svh lg:pb-16 lg:pt-32">
-        {hero.image ? (
-          <Image
-            src={assetUrl(hero.image.src)}
-            alt={teamShotAlt.hero}
-            fill
-            priority
-            fetchPriority="high"
-            sizes="100vw"
-            placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
-            blurDataURL={hero.image.blurDataURL || undefined}
-            // Кадр снят под эту раскладку: кухня слева, Роберт и Катя
-            // в правой трети. На узком экране от широкого кадра остаётся
-            // вертикальная полоса по центру — и люди уехали бы за край,
-            // поэтому точка привязки сдвинута вправо и тем сильнее,
-            // чем уже экран. По вертикали смещение вверх: внизу кадр
-            // всё равно уходит под плашку с текстом.
-            className="animate-soft-zoom -z-20 object-cover object-[72%_38%] md:object-[62%_45%] 2xl:object-[56%_50%]"
-          />
-        ) : null}
+      <section
+        data-hero="dark"
+        className="relative isolate flex min-h-[94svh] flex-col justify-end overflow-hidden bg-ink pb-12 pt-28 lg:min-h-svh lg:pb-16 lg:pt-32"
+      >
+        {/*
+          Два кадра вместо одного. На телефоне экран почти в два раза
+          выше своей ширины: от широкого снимка остаётся вертикальная
+          полоса в четверть кадра, кухня пропадает, а от людей остаётся
+          половина лица — именно так первый экран и выглядел. Поэтому
+          для узких экранов подставляется отдельный вертикальный кадр.
 
-        {/* Снизу вверх — работает на любой ширине */}
+          Это <picture> с media, а не два <Image>: браузер скачивает
+          ровно один файл из двух, а у первого экрана каждый лишний
+          запрос стоит времени до отрисовки.
+        */}
+        <picture>
+          <source
+            media="(min-width: 1024px)"
+            srcSet={assetUrl(teamShots.heroWide.src)}
+            width={teamShots.heroWide.width}
+            height={teamShots.heroWide.height}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={assetUrl(teamShots.heroPortrait.src)}
+            alt={teamShotAlt.hero}
+            width={teamShots.heroPortrait.width}
+            height={teamShots.heroPortrait.height}
+            fetchPriority="high"
+            decoding="async"
+            className="animate-soft-zoom absolute inset-0 -z-20 size-full object-cover object-center brightness-110 lg:object-right lg:brightness-100"
+          />
+        </picture>
+
+        {/* Основная шторка — снизу вверх. Заголовок и кнопки лежат в
+            нижней половине кадра, и именно там нужна плотность: на
+            телефоне текст приходится на светлую одежду и столешницу.
+            Кверху шторка расступается, чтобы кухня осталась видна */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-linear-to-t from-ink/95 via-ink/72 to-ink/45 lg:from-ink/92 lg:via-ink/55 lg:to-ink/25"
+          className="absolute inset-0 -z-10 bg-linear-to-t from-ink/96 via-ink/80 via-58% to-ink/22 lg:from-ink/90 lg:via-ink/45 lg:via-50% lg:to-ink/12"
         />
+
+        {/* Подсветка там, где лица. На телефоне текст физически
+            не может не лежать на людях: экран вдвое выше своей
+            ширины. Шторка держит контраст, а это мягкое пятно
+            возвращает Роберту и Кате лица, чтобы первый экран не
+            выглядел как тёмное пятно с буквами */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-[radial-gradient(70%_26%_at_52%_30%,rgba(243,240,234,0.22),transparent_70%)] lg:hidden"
+        />
+
         {/* Отдельный завал под шапку. Наверху главной она прозрачная
             и светлая, а кадр в этом месте самый яркий — без этой полосы
             меню и кнопка в правой части растворялись в белых фасадах.
@@ -68,7 +94,7 @@ export async function Hero() {
             с кухней осталась почти нетронутой */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 hidden lg:block lg:bg-linear-to-r lg:from-ink/80 lg:via-ink/35 lg:to-transparent"
+          className="absolute inset-0 -z-10 hidden lg:block lg:bg-linear-to-r lg:from-ink/82 lg:via-ink/30 lg:to-transparent"
         />
 
         <div className="container-page">

@@ -1,6 +1,6 @@
 import type { StaticImageData } from 'next/image';
 
-import heroImage from '@public/images/team/hero-rob-kate.webp';
+import heroImage from '@public/images/team/hero-rob-kate-portrait.webp';
 import { teamShots } from '@/data/team-shots';
 import { projects as seedProjects } from '@/data/projects';
 import { details as seedDetails } from '@/data/details';
@@ -100,7 +100,7 @@ export function buildSeed(): ContentShape {
 
     texts: {
       hero: {
-        image: toRef(heroImage, '/images/team/hero-rob-kate.webp'),
+        image: toRef(heroImage, '/images/team/hero-rob-kate-portrait.webp'),
         eyebrow: 'Семейное мебельное ателье · Тверь',
         title: 'Кухни на заказ',
         titleSecondLine: 'в Твери',

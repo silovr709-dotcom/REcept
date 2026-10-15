@@ -63,6 +63,10 @@ export default async function HomePage() {
         image={teamShots.robertSite}
         alt={teamShotAlt.robertSite}
         overlay="quote"
+        height="lg"
+        /* На полосе 3:1 центр кадра приходится на грудь, и голову
+           срезало по самые брови. Привязка к верхней трети */
+        objectPosition="object-[50%_22%]"
         caption="Эти звонки — прорабу, электрику, сборщикам — Роберт делает сам. Это и есть та головная боль, которую мы забираем."
       />
 

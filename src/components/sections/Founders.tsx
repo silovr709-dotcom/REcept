@@ -82,7 +82,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                     // Обёртка нужна, чтобы подпись могла выйти за край
                     // снимка. Сам снимок обрезает содержимое, поэтому
                     // текст лежит рядом с ним, а не внутри.
-                    <div className="relative mb-12 max-w-sm">
+                    <div className="relative mb-16 max-w-sm">
                       <div className="media-reveal relative aspect-4/5 overflow-hidden bg-coal">
                         <Image
                           src={src}
@@ -102,7 +102,11 @@ export async function Founders({ index }: { index?: string } = {}) {
                           а не часть картинки: он читается экранными
                           дикторами и переводится вместе со страницей. */}
                       <p
-                        className="absolute -bottom-7 left-4 right-0 origin-left font-(family-name:--font-hand) text-[1.375rem] leading-snug text-cream sm:left-6 sm:text-[1.5rem]"
+                        // Привязка к верхнему краю, а не к нижнему:
+                        // подпись Кати не влезает в одну строку, и при
+                        // якоре снизу вторая строка уезжала вверх,
+                        // на лицо. Теперь она растёт вниз, в поле.
+                        className="absolute left-4 right-0 top-[calc(100%-1.75rem)] origin-left font-(family-name:--font-hand) text-[1.375rem] leading-snug text-cream sm:left-6 sm:text-[1.5rem]"
                         style={{ transform: 'rotate(-1.2deg)' }}
                       >
                         <span className="bg-ink/85 box-decoration-clone px-2 py-0.5">

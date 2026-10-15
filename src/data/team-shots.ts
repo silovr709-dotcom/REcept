@@ -1,10 +1,11 @@
 import type { StaticImageData } from 'next/image';
 import type { ImageRef } from '@/lib/content/types';
 
-import heroShot from '@public/images/team/hero-rob-kate.webp';
+import heroWide from '@public/images/team/hero-rob-kate-wide.webp';
+import heroPortrait from '@public/images/team/hero-rob-kate-portrait.webp';
 import measureShot from '@public/images/team/robert-measure.webp';
 import planShot from '@public/images/team/katya-plan.webp';
-import eveningShot from '@public/images/team/rob-kate-evening.webp';
+import eveningShot from '@public/images/team/rob-kate-evening-2.webp';
 import sampleShot from '@public/images/team/katya-sample.webp';
 import siteShot from '@public/images/team/robert-site.webp';
 
@@ -39,14 +40,22 @@ function ref(img: StaticImageData, publicPath: string): ImageRef {
 }
 
 export const teamShots = {
-  /** Первый экран: оба в готовой кухне, кухня слева, люди справа */
-  hero: ref(heroShot, '/images/team/hero-rob-kate.webp'),
+  /**
+   * Первый экран снят дважды, и это не прихоть. На ноутбуке в кадр
+   * помещается кухня слева и люди справа, а на телефоне от широкого
+   * снимка остаётся вертикальная полоса в четверть ширины — кухня
+   * пропадает, а от людей остаётся половина лица. Поэтому для узких
+   * экранов снят отдельный вертикальный кадр: оба в верхней половине,
+   * внизу пустая столешница под текст.
+   */
+  heroWide: ref(heroWide, '/images/team/hero-rob-kate-wide.webp'),
+  heroPortrait: ref(heroPortrait, '/images/team/hero-rob-kate-portrait.webp'),
   /** Роберт на замере в квартире на стадии ремонта */
   robertMeasure: ref(measureShot, '/images/team/robert-measure.webp'),
   /** Катя за проектом: чертёж, образцы, профиль-ручка */
   katyaPlan: ref(planShot, '/images/team/katya-plan.webp'),
   /** Оба вечером у острова — тёплый кадр для финального экрана */
-  evening: ref(eveningShot, '/images/team/rob-kate-evening.webp'),
+  evening: ref(eveningShot, '/images/team/rob-kate-evening-2.webp'),
   /** Катя протягивает образец прямо в объектив — «четвёртая стена» */
   katyaSample: ref(sampleShot, '/images/team/katya-sample.webp'),
   /** Роберт на объекте с чертежом и телефоном — координация подрядчиков */

@@ -28,6 +28,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ReviewsPage() {
+  const heroProjects = await getVisibleProjects();
+  // Снимок в шапку страницы: тот же приём, что на первом экране
+  // главной и на карточке ссылки в мессенджере
+  const heroShot = pickImage(heroProjects, 'belaya-klassika-s-ostrovom', 10);
   const [{ rating, items: reviews }, site, projects] = await Promise.all([
     getVisibleReviews(),
     getSiteView(),
@@ -42,6 +46,9 @@ export default async function ReviewsPage() {
         title={`${rating.value} из 5 на Яндекс Картах`}
         lead={`${rating.reviewsCount} отзыва и ${rating.scoresCount} оценки в карточке организации. Отзывы на Яндекс Картах мы не можем ни отредактировать, ни удалить — поэтому показываем их как есть и ставим рядом живой виджет, чтобы вы могли проверить каждое слово.`}
         breadcrumbs={[{ name: 'Отзывы' }]}
+        image={heroShot?.image}
+        imageAlt=""
+        imagePosition="object-[50%_55%]"
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <RatingBadge />
@@ -100,6 +107,7 @@ export default async function ReviewsPage() {
           image={band.image}
           alt={band.alt}
           overlay="quote"
+          height="lg"
           caption="Отзывы пишут о работе, а не о картинках. Поэтому мы и не прячем их за своей вёрсткой."
         />
       ) : null}

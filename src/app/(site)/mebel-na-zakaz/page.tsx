@@ -25,6 +25,10 @@ export const metadata: Metadata = {
 
 
 export default async function FurniturePage() {
+  const heroProjects = await getVisibleProjects();
+  // Снимок в шапку страницы: тот же приём, что на первом экране
+  // главной и на карточке ссылки в мессенджере
+  const heroShot = pickImage(heroProjects, 'skandinavskaya-kuhnya-dub', 11);
   const [details, projects] = await Promise.all([
     getVisibleDetails(),
     getVisibleProjects(),
@@ -39,6 +43,9 @@ export default async function FurniturePage() {
         title="Не только кухни: гардеробные, шкафы и мебель для остальных комнат"
         lead="Чаще всего это заказывают вместе с кухней — в одной стилистике, из тех же материалов и с одной ответственностью. Но можно и отдельно."
         breadcrumbs={[{ name: 'Другие помещения' }]}
+        image={heroShot?.image}
+        imageAlt=""
+        imagePosition="object-[50%_55%]"
       >
         <CtaButton
           source="furniture-top"

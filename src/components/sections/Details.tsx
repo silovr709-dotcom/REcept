@@ -5,7 +5,7 @@ import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { getVisibleDetails } from '@/lib/content/store';
 import type { DetailItem } from '@/lib/content/types';
-import { assetUrl } from '@/lib/content/images';
+import { assetUrl, fitRatio } from '@/lib/content/images';
 
 /**
  * ДЕТАЛИ.
@@ -16,8 +16,21 @@ import { assetUrl } from '@/lib/content/images';
  * Все кадры — фрагменты реальных фотографий наших работ.
  */
 
-// Разные пропорции задают editorial-ритм вместо скучной сетки квадратов
-const ratios = ['aspect-4/5', 'aspect-square', 'aspect-square', 'aspect-4/5'];
+/**
+ * Пропорции плиток.
+ *
+ * Ритм в сетке нужен, но раньше он был жёстко прошит: каждая вторая
+ * плитка — 4:5, и в неё насильно загонялся горизонтальный кадр 3:2.
+ * Почти половина фотографии уезжала за край — профиль-ручка или
+ * стык фактур, то есть ровно то, ради чего кадр и сняли.
+ *
+ * Теперь пропорция подбирается под сам файл: вертикальный кадр
+ * получает вертикальную плитку, горизонтальный — горизонтальную.
+ * Ритм остаётся, потому что кадры в каталоге разные, а обрезка
+ * падает с 47 % до ~10 %. И это само собой учтёт новые фотографии,
+ * которые добавят в папку позже.
+ */
+const wishlist = ['aspect-4/5', 'aspect-square', 'aspect-square', 'aspect-4/5'];
 
 export async function Details({
   index,
@@ -72,7 +85,7 @@ export async function Details({
               <Reveal delay={Math.min(i, 5) * 40}>
                 <Link href={`/portfolio/${d.project}`} className="group block">
                   <div
-                    className={`media-reveal relative overflow-hidden rounded-md bg-sand ${ratios[i % ratios.length]}`}
+                    className={`media-reveal relative overflow-hidden rounded-md bg-sand ${fitRatio(d.image, wishlist[i % wishlist.length])}`}
                   >
                     <Image
                       src={assetUrl(d.image.src)}

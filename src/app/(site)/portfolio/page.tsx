@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/PageHero';
+import { pickImage } from '@/lib/content/images';
 import { PortfolioGrid } from '@/components/PortfolioGrid';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
@@ -23,6 +24,9 @@ export const metadata: Metadata = {
 
 export default async function PortfolioPage() {
   const projects = await getVisibleProjects();
+  // Снимок в шапку страницы: тот же приём, что на первом экране
+  // главной и на карточке ссылки в мессенджере
+  const heroShot = pickImage(projects, 'kuhnya-grafit-s-ostrovom', 3);
   const projectLayouts = Array.from(
     new Set(projects.map((p) => p.layout)),
   ) as ProjectItem['layout'][];
@@ -34,6 +38,9 @@ export default async function PortfolioPage() {
         title="Проекты кухонь для квартир и домов Твери"
         lead="Визуализации проектов: планировка, материалы и решения показаны так, как они будут выглядеть вживую. Откройте любой проект — внутри логика, по которой выбрано каждое решение."
         breadcrumbs={[{ name: 'Портфолио' }]}
+        image={heroShot?.image}
+        imageAlt=""
+        imagePosition="object-[50%_55%]"
       >
         <CtaButton
           source="portfolio-top"

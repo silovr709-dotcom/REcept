@@ -49,6 +49,9 @@ export default async function AboutPage() {
         title="«РЕцепт» — это Роберт и Катя, а не отдел продаж"
         lead="Семейное мебельное ателье в Твери. Мы делаем кухни и корпусную мебель на заказ и ведём каждый проект вдвоём — от первого разговора до сборки."
         breadcrumbs={[{ name: 'О нас' }]}
+        image={teamShots.evening}
+        imageAlt=""
+        imagePosition="object-[50%_35%]"
       />
 
       <Section tone="bone" aria-labelledby="story-title">
@@ -108,9 +111,11 @@ export default async function AboutPage() {
           эта страница: подпись говорит «ведут сами» — значит, видно,
           кто именно */}
       <PhotoBand
-        image={teamShots.hero}
+        image={teamShots.heroWide}
         alt={teamShotAlt.hero}
         overlay="quote"
+        height="lg"
+        objectPosition="object-[58%_28%]"
         caption="Каждый проект Роберт и Катя ведут сами — от планировки до сборки на объекте."
       />
 
