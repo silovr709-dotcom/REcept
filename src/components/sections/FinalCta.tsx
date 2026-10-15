@@ -1,7 +1,6 @@
-import Image from 'next/image';
 import { LeadForm } from '../LeadForm';
 import { getSiteView } from '@/lib/content/view';
-import { assetUrl } from '@/lib/content/images';
+import { Photo } from '../ui/Photo';
 import { teamShots } from '@/data/team-shots';
 import { MarginNote } from '../ui/MarginNote';
 
@@ -37,11 +36,10 @@ export async function FinalCta({
       className="relative overflow-hidden bg-ink py-(--spacing-section) text-cream"
     >
       <div aria-hidden="true" className="absolute inset-0 opacity-[0.28]">
-        <Image
-          src={assetUrl(shot.src)}
+        <Photo
+          image={shot}
           alt=""
           fill
-          loading="lazy"
           sizes="100vw"
           className="object-cover object-[60%_30%]"
         />

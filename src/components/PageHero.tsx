@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import type { ReactNode } from 'react';
 import type { ImageRef } from '@/lib/content/types';
-import { assetUrl } from '@/lib/content/images';
+import { Photo } from './ui/Photo';
 
 export function Breadcrumbs({
   items,
@@ -104,14 +103,12 @@ export function PageHero({
       data-hero="dark"
       className="relative isolate overflow-hidden bg-ink pb-16 pt-28 lg:pb-24 lg:pt-40"
     >
-      <Image
-        src={assetUrl(image.src)}
+      <Photo
+        image={image}
         alt={imageAlt}
         fill
         priority
         sizes="100vw"
-        placeholder={image.blurDataURL ? 'blur' : 'empty'}
-        blurDataURL={image.blurDataURL || undefined}
         className={`-z-20 object-cover ${imagePosition}`}
       />
       {/* Снизу плотно — там лежит заголовок; сверху ровно столько,

@@ -24,7 +24,13 @@ export type Goal =
   /** Нажали на номер телефона */
   | 'phone_click'
   /** Перешли в мессенджер или соцсеть */
-  | 'messenger_click';
+  | 'messenger_click'
+  /** Ответили на очередной вопрос брифа — видно, где люди застревают */
+  | 'brief_step'
+  /** Дошли до конца брифа */
+  | 'brief_complete'
+  /** Пропустили вопросы и перешли сразу к контактам */
+  | 'brief_skip';
 
 export function reachGoal(goal: Goal, params?: Record<string, unknown>) {
   if (typeof window === 'undefined') return;

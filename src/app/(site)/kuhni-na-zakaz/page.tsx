@@ -9,6 +9,7 @@ import { Details } from '@/components/sections/Details';
 import { Process } from '@/components/sections/Process';
 import { Price } from '@/components/sections/Price';
 import { Timing } from '@/components/sections/Timing';
+import { Brief } from '@/components/sections/Brief';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
@@ -221,9 +222,12 @@ export default async function KitchensPage() {
       <Details tone="cream" />
       <Process tone="bone" />
       <Timing tone="cream" />
-      <Price tone="bone" />
-      <Testimonials tone="cream" />
-      <Faq limit={6} tone="bone" />
+
+      {/* Человек дочитал до сроков — значит задача у него реальная */}
+      <Brief tone="bone" />
+      <Price tone="cream" />
+      <Testimonials tone="bone" />
+      <Faq limit={6} tone="cream" />
       <FinalCta
         title="Посчитаем вашу кухню"
         source="kitchens-final"

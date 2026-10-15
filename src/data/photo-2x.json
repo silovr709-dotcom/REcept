@@ -1,0 +1,188 @@
+{
+  "/images/kitchens/kitchen-01.webp": {
+    "src": "/images/kitchens/kitchen-01@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/kitchens/kitchen-02.webp": {
+    "src": "/images/kitchens/kitchen-02@2x.webp",
+    "width": 1600,
+    "height": 2400,
+    "base": 1024
+  },
+  "/images/kitchens/kitchen-03.webp": {
+    "src": "/images/kitchens/kitchen-03@2x.webp",
+    "width": 1600,
+    "height": 2400,
+    "base": 1024
+  },
+  "/images/kitchens/kitchen-04.webp": {
+    "src": "/images/kitchens/kitchen-04@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/kitchens/kitchen-05.webp": {
+    "src": "/images/kitchens/kitchen-05@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/kitchens/kitchen-06.webp": {
+    "src": "/images/kitchens/kitchen-06@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/kitchens/kitchen-07.webp": {
+    "src": "/images/kitchens/kitchen-07@2x.webp",
+    "width": 1600,
+    "height": 2400,
+    "base": 1024
+  },
+  "/images/kitchens/kitchen-08.webp": {
+    "src": "/images/kitchens/kitchen-08@2x.webp",
+    "width": 1600,
+    "height": 2400,
+    "base": 1024
+  },
+  "/images/kitchens/kitchen-09.webp": {
+    "src": "/images/kitchens/kitchen-09@2x.webp",
+    "width": 1600,
+    "height": 2400,
+    "base": 1024
+  },
+  "/images/kitchens/kitchen-10.webp": {
+    "src": "/images/kitchens/kitchen-10@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/kitchens/kitchen-11.webp": {
+    "src": "/images/kitchens/kitchen-11@2x.webp",
+    "width": 2400,
+    "height": 1601,
+    "base": 1535
+  },
+  "/images/kitchens/kitchen-12.webp": {
+    "src": "/images/kitchens/kitchen-12@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/kitchens/kitchen-13.webp": {
+    "src": "/images/kitchens/kitchen-13@2x.webp",
+    "width": 1600,
+    "height": 2400,
+    "base": 1024
+  },
+  "/images/kitchens/kitchen-14.webp": {
+    "src": "/images/kitchens/kitchen-14@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/kitchens/kitchen-15.webp": {
+    "src": "/images/kitchens/kitchen-15@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/kitchens/kitchen-16.webp": {
+    "src": "/images/kitchens/kitchen-16@2x.webp",
+    "width": 1600,
+    "height": 2400,
+    "base": 1024
+  },
+  "/images/kitchens/kitchen-17.webp": {
+    "src": "/images/kitchens/kitchen-17@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/kitchens/kitchen-18.webp": {
+    "src": "/images/kitchens/kitchen-18@2x.webp",
+    "width": 1600,
+    "height": 2400,
+    "base": 1024
+  },
+  "/images/rooms/bathroom.webp": {
+    "src": "/images/rooms/bathroom@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/rooms/closet.webp": {
+    "src": "/images/rooms/closet@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/rooms/hall.webp": {
+    "src": "/images/rooms/hall@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/rooms/wardrobe.webp": {
+    "src": "/images/rooms/wardrobe@2x.webp",
+    "width": 2400,
+    "height": 1601,
+    "base": 1535
+  },
+  "/images/team/hero-rob-kate-portrait.webp": {
+    "src": "/images/team/hero-rob-kate-portrait@2x.webp",
+    "width": 1792,
+    "height": 2400,
+    "base": 896
+  },
+  "/images/team/hero-rob-kate-wide.webp": {
+    "src": "/images/team/hero-rob-kate-wide@2x.webp",
+    "width": 2400,
+    "height": 1340,
+    "base": 1376
+  },
+  "/images/team/katya-plan.webp": {
+    "src": "/images/team/katya-plan@2x.webp",
+    "width": 1933,
+    "height": 2400,
+    "base": 928
+  },
+  "/images/team/katya-sample.webp": {
+    "src": "/images/team/katya-sample@2x.webp",
+    "width": 1933,
+    "height": 2400,
+    "base": 928
+  },
+  "/images/team/rob-kate-evening-2.webp": {
+    "src": "/images/team/rob-kate-evening-2@2x.webp",
+    "width": 2400,
+    "height": 1340,
+    "base": 1376
+  },
+  "/images/team/robert-measure.webp": {
+    "src": "/images/team/robert-measure@2x.webp",
+    "width": 1933,
+    "height": 2400,
+    "base": 928
+  },
+  "/images/team/robert-site.webp": {
+    "src": "/images/team/robert-site@2x.webp",
+    "width": 2400,
+    "height": 1340,
+    "base": 1376
+  },
+  "/images/team/work-measure.webp": {
+    "src": "/images/team/work-measure@2x.webp",
+    "width": 1921,
+    "height": 2400,
+    "base": 1122
+  },
+  "/images/team/work-plan.webp": {
+    "src": "/images/team/work-plan@2x.webp",
+    "width": 1921,
+    "height": 2400,
+    "base": 1122
+  }
+}

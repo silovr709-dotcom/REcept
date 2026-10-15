@@ -1,9 +1,8 @@
 'use client';
 
-import Image from 'next/image';
+import { Photo } from './ui/Photo';
 import type { ImageRef } from '@/lib/content/types';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { assetUrl } from '@/lib/content/images';
 
 /**
  * Фотография, которую можно рассмотреть.
@@ -72,15 +71,12 @@ export function ZoomableImage({
         aria-label={`Рассмотреть фотографию: ${alt}`}
         className={`group relative block w-full cursor-zoom-in overflow-hidden bg-sand ${wrapperClassName}`}
       >
-        <Image
-          src={assetUrl(image.src)}
+        <Photo
+          image={image}
           alt={alt}
           fill
-          sizes={sizes}
           priority={priority}
-          loading={priority ? undefined : 'lazy'}
-          placeholder={image.blurDataURL ? 'blur' : 'empty'}
-          blurDataURL={image.blurDataURL || undefined}
+          sizes={sizes}
           className={`object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] ${className}`}
         />
         <span
@@ -127,14 +123,11 @@ export function ZoomableImage({
           </button>
 
           <div className="animate-fade-up relative max-h-[82vh] w-full max-w-6xl cursor-default">
-            <Image
-              src={assetUrl(image.src)}
+            <Photo
+              image={image}
               alt={alt}
-              width={image.width}
-              height={image.height}
               sizes="100vw"
-              placeholder={image.blurDataURL ? 'blur' : 'empty'}
-              blurDataURL={image.blurDataURL || undefined}
+              priority
               className="mx-auto h-auto max-h-[82vh] w-auto max-w-full rounded-md object-contain"
             />
           </div>

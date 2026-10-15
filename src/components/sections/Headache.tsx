@@ -1,10 +1,10 @@
-import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { MarginNote } from '../ui/MarginNote';
 import { getContent, getVisibleProjects } from '@/lib/content/store';
-import { assetUrl, pickImage } from '@/lib/content/images';
+import { pickImage } from '@/lib/content/images';
+import { Photo } from '../ui/Photo';
 
 /**
  * ЦЕНТРАЛЬНЫЙ ПРОДАЮЩИЙ БЛОК.
@@ -31,11 +31,10 @@ export async function Headache({ index }: { index?: string } = {}) {
           даже в худшем случае держится выше 8:1 */}
       {backdrop ? (
         <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <Image
-            src={assetUrl(backdrop.image.src)}
+          <Photo
+            image={backdrop.image}
             alt=""
             fill
-            loading="lazy"
             sizes="100vw"
             className="object-cover opacity-40"
           />

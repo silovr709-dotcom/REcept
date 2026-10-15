@@ -35,12 +35,19 @@ export function LeadForm({
   submitLabel = 'Обсудить мою кухню',
   source = 'site',
   onSuccess,
+  hiddenFields,
 }: {
   tone?: 'dark' | 'light';
   compact?: boolean;
   submitLabel?: string;
   source?: string;
   onSuccess?: () => void;
+  /**
+   * Ответы, собранные до формы (например, в брифе на расчёт).
+   * Уезжают вместе с заявкой, чтобы Роберту не пришлось выяснять
+   * заново то, что человек уже один раз выбрал.
+   */
+  hiddenFields?: Record<string, string>;
 }) {
   const { contacts: activeContacts } = useSite();
   const [status, setStatus] = useState<Status>('idle');
@@ -207,6 +214,12 @@ export function LeadForm({
       noValidate={false}
       className="relative w-full"
     >
+      {hiddenFields
+        ? Object.entries(hiddenFields).map(([k, v]) => (
+            <input key={k} type="hidden" name={k} value={v} readOnly />
+          ))
+        : null}
+
       {/* Ловушка для ботов — скрыта от людей и скринридеров */}
       <div className="absolute left-[-9999px] h-px w-px overflow-hidden" aria-hidden="true">
         <label htmlFor={`${id}-company`}>Не заполняйте это поле</label>

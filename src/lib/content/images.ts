@@ -1,4 +1,5 @@
 import type { ImageRef, ProjectItem } from './types';
+import retina from '@/data/photo-2x.json';
 
 /**
  * Путь к загруженному изображению.
@@ -80,4 +81,23 @@ export function fitRatio(image: ImageRef, preferred?: string) {
   const frame = RATIO_AR[preferred];
   if (!frame) return preferred;
   return hiddenShare(frame, file) > 0.33 ? natural : preferred;
+}
+
+/**
+ * ВТОРОЙ РАЗМЕР ДЛЯ ЧЁТКОСТИ
+ * ==========================
+ * `srcset` с описателями ширины: браузер сам считает, сколько
+ * физических точек нужно блоку (ширина блока × плотность экрана),
+ * и берёт подходящий файл. Телефон с узким экраном останется на
+ * лёгком исходнике, ноутбук с retina возьмёт крупный.
+ *
+ * Список готовит `scripts/photo-2x.mjs`; если кадра в нём нет,
+ * возвращаем undefined — тогда это обычная картинка с одним файлом.
+ */
+export function srcSetOf(image: ImageRef): string | undefined {
+  const two = (retina as Record<string, { src: string; width: number }>)[
+    image.src
+  ];
+  if (!two) return undefined;
+  return `${assetUrl(image.src)} ${image.width}w, ${assetUrl(two.src)} ${two.width}w`;
 }

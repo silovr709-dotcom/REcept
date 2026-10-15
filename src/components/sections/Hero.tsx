@@ -3,7 +3,8 @@ import { ButtonLink } from '../ui/Button';
 import { RatingBadge } from '../RatingBadge';
 import Link from 'next/link';
 import { getContent } from '@/lib/content/store';
-import { assetUrl } from '@/lib/content/images';
+import { getSiteView } from '@/lib/content/view';
+import { assetUrl, srcSetOf } from '@/lib/content/images';
 import { teamShots, teamShotAlt } from '@/data/team-shots';
 
 /**
@@ -24,6 +25,7 @@ import { teamShots, teamShotAlt } from '@/data/team-shots';
  */
 export async function Hero() {
   const { hero, team } = await getContent('texts');
+  const { primaryPhone } = await getSiteView();
   const names = team.map((t) => t.fullName.split(' ')[0]).join(' и ');
 
   return (
@@ -46,13 +48,18 @@ export async function Hero() {
         <picture>
           <source
             media="(min-width: 1024px)"
-            srcSet={assetUrl(teamShots.heroWide.src)}
+            srcSet={
+              srcSetOf(teamShots.heroWide) ?? assetUrl(teamShots.heroWide.src)
+            }
+            sizes="100vw"
             width={teamShots.heroWide.width}
             height={teamShots.heroWide.height}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={assetUrl(teamShots.heroPortrait.src)}
+            srcSet={srcSetOf(teamShots.heroPortrait)}
+            sizes="100vw"
             alt={teamShotAlt.hero}
             width={teamShots.heroPortrait.width}
             height={teamShots.heroPortrait.height}
@@ -159,6 +166,21 @@ export async function Hero() {
           <p className="mt-5 max-w-md text-sm text-cream/60">
             {hero.reassurance}
           </p>
+
+          {/* Третья дверь. Форма — не единственный способ до нас
+              добраться, и для части людей она худший: им проще
+              один раз позвонить. На телефоне это одно касание */}
+          {primaryPhone ? (
+            <p className="mt-4 text-sm text-cream/60">
+              Или просто позвоните:{' '}
+              <a
+                href={`tel:${primaryPhone.raw}`}
+                className="font-semibold text-cream underline decoration-brasslight/50 underline-offset-4 transition-colors hover:text-brasslight"
+              >
+                {primaryPhone.display}
+              </a>
+            </p>
+          ) : null}
 
           {/* Доказательство и авторы — в одной строке у нижнего края кадра */}
           <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5 border-t border-cream/15 pt-7">

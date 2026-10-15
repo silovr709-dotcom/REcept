@@ -6,6 +6,7 @@ import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
 import { Details } from '@/components/sections/Details';
 import { Process } from '@/components/sections/Process';
 import { Price } from '@/components/sections/Price';
+import { Brief } from '@/components/sections/Brief';
 import { Founders } from '@/components/sections/Founders';
 import { Objections } from '@/components/sections/Objections';
 import { Cliches } from '@/components/sections/Cliches';
@@ -79,6 +80,11 @@ export default async function HomePage() {
       <Process index="06" tone="bone" limit={5} />
       <Price index="07" tone="cream" />
 
+      {/* Сразу после цены: вопрос «а сколько у меня» уже возник,
+          и вместо формы «имя и телефон» человеку предлагается
+          самое дешёвое действие — рассказать про свою кухню */}
+      <Brief index="08" tone="bone" />
+
       {bandClassic ? (
         <PhotoBand
           image={bandClassic.image}
@@ -89,14 +95,14 @@ export default async function HomePage() {
       ) : null}
 
       {/* Доверие и остаточные сомнения */}
-      <Testimonials index="08" tone="cream" />
-      <Objections index="09" tone="bone" />
+      <Testimonials index="09" tone="cream" />
+      <Objections index="10" tone="bone" />
 
       {/* Интерлюдия без номера: это не ещё один раздел, а слом ритма
           перед последним блоком вопросов */}
       <Cliches tone="ink" />
 
-      <Faq index="10" limit={6} tone="cream" />
+      <Faq index="11" limit={6} tone="cream" />
 
       <FinalCta />
       {/* Столько же вопросов, сколько видно в блоке выше */}

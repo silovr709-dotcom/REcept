@@ -1,6 +1,5 @@
-import Image from 'next/image';
 import type { ImageRef } from '@/lib/content/types';
-import { assetUrl } from '@/lib/content/images';
+import { Photo } from './ui/Photo';
 
 /**
  * Широкая фотополоса между текстовыми блоками.
@@ -39,14 +38,11 @@ export function PhotoBand({
       <div
         className={`band-parallax relative w-full overflow-hidden ${heights[height]}`}
       >
-        <Image
-          src={assetUrl(image.src)}
+        <Photo
+          image={image}
           alt={alt}
           fill
-          loading="lazy"
           sizes="100vw"
-          placeholder={image.blurDataURL ? 'blur' : 'empty'}
-          blurDataURL={image.blurDataURL || undefined}
           className={`object-cover ${objectPosition}`}
         />
         {overlay === 'quote' ? (
