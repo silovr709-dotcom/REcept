@@ -5,6 +5,7 @@ import { RatingBadge } from '../RatingBadge';
 import Link from 'next/link';
 import { getContent } from '@/lib/content/store';
 import { assetUrl } from '@/lib/content/images';
+import { teamShotAlt } from '@/data/team-shots';
 
 /**
  * ПЕРВЫЙ ЭКРАН
@@ -32,14 +33,20 @@ export async function Hero() {
         {hero.image ? (
           <Image
             src={assetUrl(hero.image.src)}
-            alt="Кухня на заказ от ателье «РЕцепт»: светлые матовые фасады, латунный профиль-ручка, деревянная ниша и каменная столешница"
+            alt={teamShotAlt.hero}
             fill
             priority
             fetchPriority="high"
             sizes="100vw"
             placeholder={hero.image.blurDataURL ? 'blur' : 'empty'}
             blurDataURL={hero.image.blurDataURL || undefined}
-            className="animate-soft-zoom -z-20 object-cover"
+            // Кадр снят под эту раскладку: кухня слева, Роберт и Катя
+            // в правой трети. На узком экране от широкого кадра остаётся
+            // вертикальная полоса по центру — и люди уехали бы за край,
+            // поэтому точка привязки сдвинута вправо и тем сильнее,
+            // чем уже экран. По вертикали смещение вверх: внизу кадр
+            // всё равно уходит под плашку с текстом.
+            className="animate-soft-zoom -z-20 object-cover object-[72%_38%] md:object-[62%_45%] 2xl:object-[56%_50%]"
           />
         ) : null}
 
@@ -48,6 +55,15 @@ export async function Hero() {
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-linear-to-t from-ink/95 via-ink/72 to-ink/45 lg:from-ink/92 lg:via-ink/55 lg:to-ink/25"
         />
+        {/* Отдельный завал под шапку. Наверху главной она прозрачная
+            и светлая, а кадр в этом месте самый яркий — без этой полосы
+            меню и кнопка в правой части растворялись в белых фасадах.
+            Полоса короткая: саму кухню она не трогает */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 -z-10 h-40 bg-linear-to-b from-ink/85 via-ink/45 to-transparent lg:h-48"
+        />
+
         {/* Слева направо — только на широких, чтобы правая часть кадра
             с кухней осталась почти нетронутой */}
         <div
@@ -127,7 +143,7 @@ export async function Hero() {
               href="/o-nas"
               className="group inline-flex items-baseline gap-4"
             >
-              <span className="label-xs text-cream/50">Делаем вдвоём</span>
+              <span className="label-xs text-cream/50">Это мы</span>
               <span className="font-display text-[1.375rem] text-cream transition-colors group-hover:text-cream/70">
                 {names}
               </span>

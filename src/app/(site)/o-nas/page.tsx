@@ -9,8 +9,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
 import { PhotoBand } from '@/components/PhotoBand';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
-import { getVisibleProjects } from '@/lib/content/store';
-import { pickImage } from '@/lib/content/images';
+import { teamShots, teamShotAlt } from '@/data/team-shots';
 
 export const metadata: Metadata = {
   title: 'О нас',
@@ -42,8 +41,6 @@ const principles = [
 ];
 
 export default async function AboutPage() {
-  const projects = await getVisibleProjects();
-  const band = pickImage(projects, 'kuhnya-grafit-s-ostrovom', 3);
 
   return (
     <>
@@ -107,14 +104,15 @@ export default async function AboutPage() {
         </div>
       </Section>
 
-      {band ? (
-        <PhotoBand
-          image={band.image}
-          alt={band.alt}
-          overlay="quote"
-          caption="Каждый проект Роберт и Катя ведут сами — от планировки до сборки на объекте."
-        />
-      ) : null}
+      {/* На странице «О нас» полосу занимает не кухня, а те, про кого
+          эта страница: подпись говорит «ведут сами» — значит, видно,
+          кто именно */}
+      <PhotoBand
+        image={teamShots.hero}
+        alt={teamShotAlt.hero}
+        overlay="quote"
+        caption="Каждый проект Роберт и Катя ведут сами — от планировки до сборки на объекте."
+      />
 
       <Founders />
       <Advantages tone="cream" />

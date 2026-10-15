@@ -16,6 +16,7 @@ import {
   countertopLines,
 } from '@/data/materials';
 import { MarginNote } from '@/components/ui/MarginNote';
+import { teamShots, teamShotAlt } from '@/data/team-shots';
 
 export const metadata: Metadata = {
   title: 'Материалы для кухни',
@@ -318,11 +319,33 @@ export default async function MaterialsPage() {
             </p>
           </Reveal>
 
-          <MarginNote author="Катя" className="mt-12">
-            Названия вам ничего не скажут, и это нормально. На замере мы
-            привозим образцы и прикладываем их к стене — выбирать по
-            картинке в интернете бессмысленно.
-          </MarginNote>
+          {/* Шестьдесят названий фрезеровок подряд — самая «списочная»
+              часть сайта. Ответ на неё и буквальный, и зрительный:
+              Катя протягивает образец прямо в объектив */}
+          <div className="mt-14 grid gap-10 border-t border-line pt-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-16">
+            <Reveal>
+              <figure className="relative aspect-4/5 overflow-hidden bg-sand">
+                <Image
+                  src={assetUrl(teamShots.katyaSample.src)}
+                  alt={teamShotAlt.katyaSample}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 1023px) 100vw, 34vw"
+                  placeholder={
+                    teamShots.katyaSample.blurDataURL ? 'blur' : 'empty'
+                  }
+                  blurDataURL={teamShots.katyaSample.blurDataURL || undefined}
+                  className="object-cover"
+                />
+              </figure>
+            </Reveal>
+
+            <MarginNote author="Катя">
+              Названия вам ничего не скажут, и это нормально. На замере мы
+              привозим образцы и прикладываем их к стене — выбирать по
+              картинке в интернете бессмысленно.
+            </MarginNote>
+          </div>
         </div>
       </Section>
 

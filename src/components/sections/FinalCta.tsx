@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { LeadForm } from '../LeadForm';
-import { getVisibleProjects } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
-import { assetUrl, pickImage } from '@/lib/content/images';
+import { assetUrl } from '@/lib/content/images';
+import { teamShots } from '@/data/team-shots';
 import { MarginNote } from '../ui/MarginNote';
 
 /**
@@ -21,11 +21,10 @@ export async function FinalCta({
   submitLabel?: string;
   source?: string;
 }) {
-  const [site, projects] = await Promise.all([
-    getSiteView(),
-    getVisibleProjects(),
-  ]);
-  const shot = pickImage(projects, 'p-obraznaya-kuhnya-bezh', 8);
+  const site = await getSiteView();
+  // За формой стоят те, кто на неё ответит. Надзаголовок рядом говорит
+  // «Пишет вам не робот» — кадр договаривает это без единого слова.
+  const shot = teamShots.evening;
   const activeContacts = site.contacts;
   const hasPhone = Boolean(site.primaryPhone);
   const phoneDisplay = site.primaryPhone?.display ?? '';
@@ -37,18 +36,16 @@ export async function FinalCta({
       aria-labelledby="final-cta-title"
       className="relative overflow-hidden bg-ink py-(--spacing-section) text-cream"
     >
-      <div aria-hidden="true" className="absolute inset-0 opacity-[0.16]">
-        {shot ? (
-          <Image
-            src={assetUrl(shot.image.src)}
-            alt=""
-            fill
-            loading="lazy"
-            sizes="100vw"
-            className="object-cover"
-          />
-        ) : null}
-        <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/85 to-ink/60" />
+      <div aria-hidden="true" className="absolute inset-0 opacity-[0.28]">
+        <Image
+          src={assetUrl(shot.src)}
+          alt=""
+          fill
+          loading="lazy"
+          sizes="100vw"
+          className="object-cover object-[60%_30%]"
+        />
+        <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/88 to-ink/65" />
       </div>
 
       <div className="container-page relative">

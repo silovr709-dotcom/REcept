@@ -1,6 +1,7 @@
 import type { StaticImageData } from 'next/image';
 
-import heroImage from '@public/images/kitchens/kitchen-01.webp';
+import heroImage from '@public/images/team/hero-rob-kate.webp';
+import { teamShots } from '@/data/team-shots';
 import { projects as seedProjects } from '@/data/projects';
 import { details as seedDetails } from '@/data/details';
 import { vkVideos } from '@/data/videos';
@@ -99,7 +100,7 @@ export function buildSeed(): ContentShape {
 
     texts: {
       hero: {
-        image: toRef(heroImage, '/images/kitchens/kitchen-01.webp'),
+        image: toRef(heroImage, '/images/team/hero-rob-kate.webp'),
         eyebrow: 'Семейное мебельное ателье · Тверь',
         title: 'Кухни на заказ',
         titleSecondLine: 'в Твери',
@@ -177,7 +178,14 @@ export function buildSeed(): ContentShape {
         fullName: t.fullName,
         role: t.role,
         bio: t.bio,
-        photo: null,
+        // Портрет привязан к человеку по имени, а не к порядку в массиве:
+        // если кого-то поменять местами, Катя не окажется подписана
+        // кадром Роберта.
+        photo: t.fullName.startsWith('Роберт')
+          ? teamShots.robertMeasure
+          : t.fullName.startsWith('Екатерина')
+            ? teamShots.katyaPlan
+            : null,
         vk: t.vk,
       })),
 

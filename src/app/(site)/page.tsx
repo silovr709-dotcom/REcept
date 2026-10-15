@@ -17,6 +17,7 @@ import { FaqJsonLd } from '@/components/JsonLd';
 import { getVisibleProjects } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
 import { pickImage } from '@/lib/content/images';
+import { teamShots, teamShotAlt } from '@/data/team-shots';
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteView();
@@ -42,7 +43,6 @@ export async function generateMetadata(): Promise<Metadata> {
  */
 export default async function HomePage() {
   const projects = await getVisibleProjects();
-  const bandHouse = pickImage(projects, 'kuhnya-gostinaya-v-dvuh-tonah', 4);
   const bandClassic = pickImage(projects, 'chernaya-kuhnya-s-kamnem', 5);
 
   return (
@@ -55,14 +55,16 @@ export default async function HomePage() {
 
       <Headache index="02" />
 
-      {bandHouse ? (
-        <PhotoBand
-          image={bandHouse.image}
-          alt={bandHouse.alt}
-          overlay="quote"
-          caption="Хорошая кухня — та, о которой вы перестаёте думать. Всё лежит там, где удобно, и ничего не мешает."
-        />
-      ) : null}
+      {/* Сразу после блока про головную боль — тот, кто её на себя
+          забирает. Кухня здесь была бы красивее, но слабее: обещание
+          «мы разберёмся с вашими подрядчиками» подтверждает человек
+          с чертежом и телефоном, а не фасады */}
+      <PhotoBand
+        image={teamShots.robertSite}
+        alt={teamShotAlt.robertSite}
+        overlay="quote"
+        caption="Эти звонки — прорабу, электрику, сборщикам — Роберт делает сам. Это и есть та головная боль, которую мы забираем."
+      />
 
       {/* Визуальное доказательство */}
       <Services index="03" compact />
