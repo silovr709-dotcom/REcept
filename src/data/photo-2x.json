@@ -119,8 +119,32 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/belladzho.webp": {
+    "src": "/images/millings/rooms/belladzho@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/klassika.webp": {
     "src": "/images/millings/rooms/klassika@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/kvadrat.webp": {
+    "src": "/images/millings/rooms/kvadrat@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/luchi.webp": {
+    "src": "/images/millings/rooms/luchi@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/marokko.webp": {
+    "src": "/images/millings/rooms/marokko@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
@@ -131,14 +155,38 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/mylo.webp": {
+    "src": "/images/millings/rooms/mylo@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/neo.webp": {
+    "src": "/images/millings/rooms/neo@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/piramida.webp": {
     "src": "/images/millings/rooms/piramida@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/pompeya.webp": {
+    "src": "/images/millings/rooms/pompeya@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/romb.webp": {
     "src": "/images/millings/rooms/romb@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/sofiya.webp": {
+    "src": "/images/millings/rooms/sofiya@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536

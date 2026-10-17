@@ -148,7 +148,7 @@ export default async function MillingsPage() {
                 lead={category.text}
               />
 
-              <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
+              <ul className="mt-14 grid grid-flow-row-dense gap-5 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
                 {items.map((m) => {
                   const room = millingRoom(m.slug);
 

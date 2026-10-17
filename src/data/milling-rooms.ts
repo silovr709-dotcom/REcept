@@ -3,8 +3,16 @@ import arina from '@public/images/millings/rooms/arina.webp';
 import arka from '@public/images/millings/rooms/arka.webp';
 import klassika from '@public/images/millings/rooms/klassika.webp';
 import modern from '@public/images/millings/rooms/modern.webp';
+import belladzho from '@public/images/millings/rooms/belladzho.webp';
+import kvadrat from '@public/images/millings/rooms/kvadrat.webp';
+import luchi from '@public/images/millings/rooms/luchi.webp';
+import marokko from '@public/images/millings/rooms/marokko.webp';
+import mylo from '@public/images/millings/rooms/mylo.webp';
+import neo from '@public/images/millings/rooms/neo.webp';
 import piramida from '@public/images/millings/rooms/piramida.webp';
+import pompeya from '@public/images/millings/rooms/pompeya.webp';
 import romb from '@public/images/millings/rooms/romb.webp';
+import sofiya from '@public/images/millings/rooms/sofiya.webp';
 import volna from '@public/images/millings/rooms/volna.webp';
 import zhalyuzi from '@public/images/millings/rooms/zhalyuzi.webp';
 
@@ -31,6 +39,54 @@ export type MillingRoom = {
 };
 
 export const millingRooms: Record<string, MillingRoom> = {
+  kvadrat: {
+    image: kvadrat,
+    alt: 'Кухня с фрезеровкой «Квадрат»: тёмно-зелёные фасады со ступенчатой прямоугольной филёнкой, латунные ручки',
+    caption:
+      'Только прямые углы и две ступени между рамкой и филёнкой: классическая логика без единой кривой линии — поэтому рисунок уживается и с современной техникой.',
+  },
+  mylo: {
+    image: mylo,
+    alt: 'Кухня с фрезеровкой «Мыло»: гладкие фасады в сером древесном ПВХ со скруглёнными кромками',
+    caption:
+      'Рисунка на полотне нет вовсе — работают скруглённые кромки: зазор между фасадами читается мягкой линией, а не острым швом.',
+  },
+  neo: {
+    image: neo,
+    alt: 'Кухня с фрезеровкой «Нео»: гладкие молочно-белые фасады с фрезерованной кромкой-ручкой',
+    caption:
+      'Плоский фасад с фрезерованным скосом сверху: скос и есть ручка. Вся графика кухни — это ровные трёхмиллиметровые зазоры.',
+  },
+  luchi: {
+    image: luchi,
+    alt: 'Кухня с фрезеровкой «Лучи»: пыльно-синие фасады с филёнкой и мягким профилем, никелевая фурнитура',
+    caption:
+      'Профиль вокруг филёнки скруглён, поэтому тень не обрывается, а растушёвывается — кухня выглядит мягче любой «строгой» классики.',
+  },
+  marokko: {
+    image: marokko,
+    alt: 'Кухня с фрезеровкой «Марокко»: терракотовые фасады с широкой фаской вокруг филёнки, бронзовые ручки',
+    caption:
+      'Широкая фаска под 45 градусов ловит свет четырьмя разными гранями: на цветной эмали это заметнее, чем любой декор.',
+  },
+  sofiya: {
+    image: sofiya,
+    alt: 'Кухня с фрезеровкой «София»: белые фасады с прямой рамкой и плоской филёнкой, чёрные ручки',
+    caption:
+      'Самая сдержанная рамка каталога: одна прямая ступень по контуру. Именно её чаще всего имеют в виду, когда говорят «хочу просто, но не скучно».',
+  },
+  pompeya: {
+    image: pompeya,
+    alt: 'Кухня с фрезеровкой «Помпея»: шалфейные фасады с тонким выпуклым контуром, латунные ручки',
+    caption:
+      'Тонкий выпуклый контур внутри полотна даёт двойную линию: светлую сверху и теневую снизу. Работает как рамка картины — и на приглушённом цвете особенно.',
+  },
+  belladzho: {
+    image: belladzho,
+    alt: 'Кухня с фрезеровкой «Белладжо»: фасады цвета слоновой кости с многоступенчатым профилем, карниз, латунь',
+    caption:
+      'Самый сложный рисунок каталога: несколько профилей подряд вокруг филёнки. Четвёртая категория — это про количество проходов фрезы, которое вы видите в тенях.',
+  },
   arina: {
     image: arina,
     alt: 'Кухня с фрезеровкой «Арина»: рамочные фасады в тёплом белом с латунными ручками, светлая каменная столешница',
