@@ -125,6 +125,18 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/dublin.webp": {
+    "src": "/images/millings/rooms/dublin@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/kapella.webp": {
+    "src": "/images/millings/rooms/kapella@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/klassika.webp": {
     "src": "/images/millings/rooms/klassika@2x.webp",
     "width": 2400,
@@ -139,6 +151,12 @@
   },
   "/images/millings/rooms/luchi.webp": {
     "src": "/images/millings/rooms/luchi@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/luidzhi.webp": {
+    "src": "/images/millings/rooms/luidzhi@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
@@ -167,6 +185,12 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/paola.webp": {
+    "src": "/images/millings/rooms/paola@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/piramida.webp": {
     "src": "/images/millings/rooms/piramida@2x.webp",
     "width": 2400,
@@ -179,14 +203,44 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/retro.webp": {
+    "src": "/images/millings/rooms/retro@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/romb.webp": {
     "src": "/images/millings/rooms/romb@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/sitro.webp": {
+    "src": "/images/millings/rooms/sitro@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/sofiya.webp": {
     "src": "/images/millings/rooms/sofiya@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/strit.webp": {
+    "src": "/images/millings/rooms/strit@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/toskana.webp": {
+    "src": "/images/millings/rooms/toskana@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/veneciya.webp": {
+    "src": "/images/millings/rooms/veneciya@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536

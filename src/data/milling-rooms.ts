@@ -4,6 +4,15 @@ import arka from '@public/images/millings/rooms/arka.webp';
 import klassika from '@public/images/millings/rooms/klassika.webp';
 import modern from '@public/images/millings/rooms/modern.webp';
 import belladzho from '@public/images/millings/rooms/belladzho.webp';
+import dublin from '@public/images/millings/rooms/dublin.webp';
+import kapella from '@public/images/millings/rooms/kapella.webp';
+import luidzhi from '@public/images/millings/rooms/luidzhi.webp';
+import paola from '@public/images/millings/rooms/paola.webp';
+import retro from '@public/images/millings/rooms/retro.webp';
+import sitro from '@public/images/millings/rooms/sitro.webp';
+import strit from '@public/images/millings/rooms/strit.webp';
+import toskana from '@public/images/millings/rooms/toskana.webp';
+import veneciya from '@public/images/millings/rooms/veneciya.webp';
 import kvadrat from '@public/images/millings/rooms/kvadrat.webp';
 import luchi from '@public/images/millings/rooms/luchi.webp';
 import marokko from '@public/images/millings/rooms/marokko.webp';
@@ -39,6 +48,60 @@ export type MillingRoom = {
 };
 
 export const millingRooms: Record<string, MillingRoom> = {
+  strit: {
+    image: strit,
+    alt: 'Кухня с фрезеровкой «Стрит»: тёмно-синие гладкие фасады с тонкой угловой насечкой, латунные ручки',
+    caption:
+      'Гладкое полотно и короткая насечка из пересекающихся линий в двух углах — вся графика. На тёмной эмали она видна только при боковом свете, и в этом весь смысл.',
+  },
+  kapella: {
+    image: kapella,
+    alt: 'Кухня с фрезеровкой «Капелла»: кофейно-коричневые фасады с широкой фаской по периметру, латунные ручки',
+    caption:
+      'Широкая фаска по всему периметру превращает каждый фасад в четыре плоскости с разной яркостью: кухня меняется в течение дня сама.',
+  },
+  luidzhi: {
+    image: luidzhi,
+    alt: 'Кухня с фрезеровкой «Луиджи»: фасады цвета капучино с двойным контуром, латунные ручки-кнопки',
+    caption:
+      'Два контура подряд: тонкий валик у края и ступень внутри. Двойная линия держит крупные фасады, не превращая их в плиту.',
+  },
+  paola: {
+    image: paola,
+    alt: 'Кухня с фрезеровкой «Паола»: тёплые белые фасады с тонким валиком по контуру, дубовая столешница и остров',
+    caption:
+      'Один тонкий валик вместо филёнки: классика считывается, но фасад остаётся почти гладким — удобно, когда рядом остров из дуба.',
+  },
+  retro: {
+    image: retro,
+    alt: 'Кухня с фрезеровкой «Ретро»: горчичные фасады с глубокой филёнкой и бронзовой фурнитурой',
+    caption:
+      'Глубокий профиль старого образца: тень вокруг филёнки получается плотной. С цветной эмалью кухня выглядит как мебель, а не как гарнитур.',
+  },
+  sitro: {
+    image: sitro,
+    alt: 'Кухня с фрезеровкой «Ситро»: жемчужно-серые фасады с рамкой и вертикальной бороздой по центру',
+    caption:
+      'Рамка плюс вертикальная борозда посередине: широкая дверца читается как две узкие, и ряд фасадов перестаёт выглядеть глухим.',
+  },
+  dublin: {
+    image: dublin,
+    alt: 'Кухня с фрезеровкой «Дублин»: тёмно-бирюзовые фасады с широкой ступенчатой рамкой, чёрные ручки',
+    caption:
+      'Широкая рамка в две ступени — самая «архитектурная» геометрия каталога: две параллельные тени по контуру каждого фасада.',
+  },
+  veneciya: {
+    image: veneciya,
+    alt: 'Кухня с фрезеровкой «Венеция»: серо-голубиные фасады со скошенной верхней планкой, мраморный фартук',
+    caption:
+      'Верхняя планка рамки срезана под углом: она ловит больше света, чем остальные три стороны, и ряд фасадов получает ритм сверху.',
+  },
+  toskana: {
+    image: toskana,
+    alt: 'Кухня с фрезеровкой «Тоскана»: оливково-бежевые фасады с мягкой филёнкой, дубовая столешница',
+    caption:
+      'Мягко скруглённый край филёнки даёт размытую тень вместо чёткой линии — отсюда ощущение тепла, которого не даёт прямая рамка.',
+  },
   kvadrat: {
     image: kvadrat,
     alt: 'Кухня с фрезеровкой «Квадрат»: тёмно-зелёные фасады со ступенчатой прямоугольной филёнкой, латунные ручки',
