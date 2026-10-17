@@ -28,11 +28,24 @@ export async function Hero() {
   const { primaryPhone } = await getSiteView();
   const names = team.map((t) => t.fullName.split(' ')[0]).join(' и ');
 
+  /*
+    Подзаголовок на телефоне короче на одно предложение. Причина
+    арифметическая: на экране 390×844 блок текста с полным лидом
+    занимает около семисот точек, и лица Роберта и Кати неизбежно
+    оказываются под буквами — как бы мы ни кадрировали снимок.
+    Убирая второе предложение и поджимая отступы, мы освобождаем
+    сверху примерно сто семьдесят точек: ровно столько, чтобы лица
+    оказались выше первой строки. На ширине от 640 точек место есть,
+    там лид показывается целиком.
+  */
+  const [leadFirst, ...leadRest] = hero.lead.split(/(?<=\.)\s+/);
+  const leadTail = leadRest.join(' ');
+
   return (
     <>
       <section
         data-hero="dark"
-        className="relative isolate flex min-h-[94svh] flex-col justify-end overflow-hidden bg-ink pb-12 pt-28 lg:min-h-svh lg:pb-16 lg:pt-32"
+        className="relative isolate flex min-h-[94svh] flex-col justify-end overflow-hidden bg-ink pb-9 pt-24 sm:pb-12 sm:pt-28 lg:min-h-svh lg:pb-16 lg:pt-32"
       >
         {/*
           Два кадра вместо одного. На телефоне экран почти в два раза
@@ -83,7 +96,7 @@ export async function Hero() {
             Контраст светлого текста при этом остаётся выше 10:1 */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-linear-to-t from-ink/96 via-ink/80 via-58% to-ink/22 lg:from-ink/74 lg:via-ink/30 lg:via-50% lg:to-ink/8"
+          className="absolute inset-0 -z-10 bg-linear-to-t from-ink/97 via-ink/88 via-46% to-ink/10 lg:from-ink/74 lg:via-ink/30 lg:via-50% lg:to-ink/8"
         />
 
         {/* Подсветка там, где лица. На телефоне текст физически
@@ -93,7 +106,7 @@ export async function Hero() {
             выглядел как тёмное пятно с буквами */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(70%_26%_at_52%_30%,rgba(243,240,234,0.22),transparent_70%)] lg:hidden"
+          className="absolute inset-0 -z-10 bg-[radial-gradient(74%_20%_at_50%_16%,rgba(243,240,234,0.18),transparent_72%)] lg:hidden"
         />
 
         {/* Отдельный завал под шапку. Наверху главной она прозрачная
@@ -113,7 +126,7 @@ export async function Hero() {
         />
 
         <div className="container-page">
-          <div className="flex items-baseline justify-between gap-6 border-b border-cream/15 pb-5">
+          <div className="flex items-baseline justify-between gap-6 border-b border-cream/15 pb-4 sm:pb-5">
             <p className="label-xs text-cream/60">{hero.eyebrow}</p>
             <p className="label-xs hidden text-cream/60 sm:block">
               Проект бесплатно
@@ -123,7 +136,7 @@ export async function Hero() {
           {/* На широких экранах заголовок прижат к нижнему краю кадра,
               поэтому его потолок ниже штатного text-h1: иначе на ноутбуке
               с невысоким окном первый экран перестаёт помещаться целиком */}
-          <h1 className="animate-fade-up font-display mt-9 max-w-5xl text-h1 text-cream lg:text-[clamp(3.25rem,4.6vw,5.75rem)]">
+          <h1 className="animate-fade-up font-display mt-6 max-w-5xl text-h1 text-cream sm:mt-9 lg:text-[clamp(3.25rem,4.6vw,5.75rem)]">
             {hero.title}
             {hero.titleSecondLine ? (
               <>
@@ -138,14 +151,17 @@ export async function Hero() {
           </h1>
 
           <p
-            className="animate-fade-up mt-8 max-w-2xl text-lead text-cream/80"
+            className="animate-fade-up mt-5 max-w-2xl text-lead text-cream/80 sm:mt-8"
             style={{ animationDelay: '140ms' }}
           >
-            {hero.lead}
+            {leadFirst}
+            {leadTail ? (
+              <span className="hidden sm:inline"> {leadTail}</span>
+            ) : null}
           </p>
 
           <div
-            className="animate-fade-up mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+            className="animate-fade-up mt-6 flex flex-col items-start gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-4"
             style={{ animationDelay: '220ms' }}
           >
             <CtaButton
@@ -171,7 +187,7 @@ export async function Hero() {
             </ButtonLink>
           </div>
 
-          <p className="mt-5 max-w-md text-sm text-cream/60">
+          <p className="mt-4 max-w-md text-sm text-cream/60 sm:mt-5">
             {hero.reassurance}
           </p>
 
@@ -179,7 +195,7 @@ export async function Hero() {
               добраться, и для части людей она худший: им проще
               один раз позвонить. На телефоне это одно касание */}
           {primaryPhone ? (
-            <p className="mt-4 text-sm text-cream/60">
+            <p className="mt-3 text-sm text-cream/60 sm:mt-4">
               Или просто позвоните:{' '}
               <a
                 href={`tel:${primaryPhone.raw}`}
@@ -190,8 +206,11 @@ export async function Hero() {
             </p>
           ) : null}
 
-          {/* Доказательство и авторы — в одной строке у нижнего края кадра */}
-          <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5 border-t border-cream/15 pt-7">
+          {/* Доказательство и авторы — в одной строке у нижнего края кадра.
+              На телефоне эта строка уезжает в светлую полосу под кадром:
+              каждая её строка здесь стоила бы полусотни точек высоты,
+              а именно их не хватает, чтобы лица оказались выше заголовка */}
+          <div className="mt-7 hidden flex-wrap items-center gap-x-10 gap-y-5 border-t border-cream/15 pt-6 sm:mt-10 sm:flex sm:pt-7">
             <RatingBadge tone="light" />
 
             {/* За мебелью на заказ идут к людям, а не в компанию */}
@@ -215,6 +234,23 @@ export async function Hero() {
           с заголовком, а здесь встречают человека сразу после прокрутки */}
       <div className="bg-cream">
         <div className="container-page">
+          {/* Мобильный дубль строки доказательств из кадра */}
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-b border-line py-5 sm:hidden">
+            <RatingBadge tone="dark" />
+            <Link
+              href="/o-nas"
+              className="group inline-flex items-baseline gap-3"
+            >
+              <span className="label-xs text-stone">Это мы</span>
+              <span className="font-display text-[1.125rem] text-ink">
+                {names}
+              </span>
+              <span aria-hidden="true" className="text-stone">
+                →
+              </span>
+            </Link>
+          </div>
+
           <div className="flex flex-wrap items-center gap-x-10 gap-y-6 border-b border-line py-8">
             {hero.stats.map((item) => (
               <p key={item.small} className="max-w-56 text-[0.8125rem] text-stone">

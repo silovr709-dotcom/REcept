@@ -1,5 +1,8 @@
+import Image from 'next/image';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
+import { getVisibleDetails } from '@/lib/content/store';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * ЧЕГО ВЫ ЗДЕСЬ НЕ НАЙДЁТЕ
@@ -52,8 +55,16 @@ const pairs: { cliche: string; truth: string }[] = [
   },
 ];
 
-export function Cliches({ tone = 'ink' }: { tone?: 'ink' | 'cream' }) {
+export async function Cliches({ tone = 'ink' }: { tone?: 'ink' | 'cream' }) {
   const dark = tone === 'ink';
+  /*
+    Шесть зачёркнутых фраз подряд — шесть одинаковых прямоугольников
+    с текстом, и на тёмном фоне это читается как сплошная стена.
+    Две ячейки сетки отдаём фотографиям: они и ломают ритм, и
+    показывают то самое «вместо слов» — нашу работу вблизи.
+  */
+  const details = await getVisibleDetails();
+  const shots = details.slice(0, 2);
 
   return (
     <Section tone={tone} aria-labelledby="cliches-title">
@@ -97,6 +108,24 @@ export function Cliches({ tone = 'ink' }: { tone?: 'ink' | 'cream' }) {
                   {p.truth}
                 </p>
               </Reveal>
+            </li>
+          ))}
+
+          {shots.map((d) => (
+            <li key={d.id} className="relative min-h-56">
+              <Image
+                src={assetUrl(d.image.src)}
+                alt={d.alt}
+                fill
+                loading="lazy"
+                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 50vw"
+                placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
+                blurDataURL={d.image.blurDataURL || undefined}
+                className="object-cover"
+              />
+              <p className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-12 text-[0.9375rem] font-medium text-cream">
+                {d.title}
+              </p>
             </li>
           ))}
         </ul>

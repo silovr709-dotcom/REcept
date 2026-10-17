@@ -2,7 +2,11 @@ import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { getContent, getVisibleDetails } from '@/lib/content/store';
+import {
+  getContent,
+  getVisibleDetails,
+  getVisibleProjects,
+} from '@/lib/content/store';
 import { assetUrl } from '@/lib/content/images';
 import { MarginNote } from '../ui/MarginNote';
 
@@ -19,9 +23,10 @@ export async function Price({
   index?: string;
   tone?: 'cream' | 'bone';
 }) {
-  const [{ price }, details] = await Promise.all([
+  const [{ price }, details, projects] = await Promise.all([
     getContent('texts'),
     getVisibleDetails(),
+    getVisibleProjects(),
   ]);
   const priceExplanation = price;
   const priceFactors = price.factors;
@@ -30,6 +35,34 @@ export async function Price({
   // Туда встаёт макро-кадр того, за что в этой смете и платят:
   // фурнитура и то, как сходятся детали.
   const priceShot = details[8] ?? details.at(-1) ?? null;
+
+  /*
+    Список «из чего складывается стоимость» был самым плотным
+    текстовым куском страницы: шесть абзацев подряд без единой
+    зацепки для глаза. Теперь у каждого пункта свой кадр — ровно то,
+    за что в этой строке сметы и платят. Снимки не придуманы под
+    текст: это наши же макро-кадры и проекты, просто поставленные
+    рядом со строкой, которую они объясняют.
+  */
+  const byId = (id: string) => details.find((d) => d.id === id);
+  const factorShots = [
+    projects[0]
+      ? { src: projects[0].image.src, alt: projects[0].title }
+      : null,
+    byId('lacquer') ?? byId('reeded'),
+    byId('stone') ?? byId('wood-stone'),
+    byId('hardware'),
+    byId('brass') ?? byId('veneer'),
+    projects[1]
+      ? { src: projects[1].image.src, alt: projects[1].title }
+      : null,
+  ].map((item) =>
+    item
+      ? 'image' in item
+        ? { src: item.image.src, alt: item.alt }
+        : item
+      : null,
+  );
   return (
     <Section tone={tone} id="price" aria-labelledby="price-title">
       <div className="container-page">
@@ -96,20 +129,41 @@ export async function Price({
               <h3 className="text-eyebrow font-bold uppercase text-brass">
                 Из чего складывается стоимость
               </h3>
-              <dl className="mt-7 grid gap-6">
-                {priceFactors.map((f, i) => (
-                  <div key={f.title} className="flex gap-5">
-                    <span className="shrink-0 pt-1 text-[0.6875rem] font-bold tracking-[0.16em] text-stone">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <div>
-                      <dt className="font-semibold text-ink">{f.title}</dt>
-                      <dd className="mt-1 text-[0.9375rem] leading-relaxed text-stone">
-                        {f.text}
-                      </dd>
+              <dl className="mt-7 grid gap-7">
+                {priceFactors.map((f, i) => {
+                  const shot = factorShots[i];
+                  return (
+                    <div key={f.title} className="flex items-start gap-5">
+                      {shot ? (
+                        <span className="relative block size-20 shrink-0 overflow-hidden bg-sand sm:size-24">
+                          <Image
+                            src={assetUrl(shot.src)}
+                            alt={shot.alt}
+                            fill
+                            loading="lazy"
+                            sizes="96px"
+                            className="object-cover"
+                          />
+                        </span>
+                      ) : (
+                        <span className="shrink-0 pt-1 text-[0.6875rem] font-bold tracking-[0.16em] text-stone">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                      )}
+                      <div>
+                        <dt className="flex items-baseline gap-3 font-semibold text-ink">
+                          <span className="text-[0.6875rem] font-bold tracking-[0.16em] text-stone">
+                            {String(i + 1).padStart(2, '0')}
+                          </span>
+                          {f.title}
+                        </dt>
+                        <dd className="mt-1 text-[0.9375rem] leading-relaxed text-stone">
+                          {f.text}
+                        </dd>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </dl>
             </div>
           </Reveal>

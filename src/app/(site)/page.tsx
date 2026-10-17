@@ -45,6 +45,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const projects = await getVisibleProjects();
   const bandClassic = pickImage(projects, 'chernaya-kuhnya-s-kamnem', 5);
+  /*
+    Самый длинный текстовый перегон страницы — отзывы, возражения и
+    зачёркнутые штампы подряд. Между ним и вопросами нужна пауза,
+    на которой глаз отдыхает и вспоминает, ради чего он всё это читает.
+  */
+  const bandBeforeFaq = pickImage(projects, 'kuhnya-gostinaya-s-ostrovom', 1);
 
   return (
     <>
@@ -101,6 +107,14 @@ export default async function HomePage() {
       {/* Интерлюдия без номера: это не ещё один раздел, а слом ритма
           перед последним блоком вопросов */}
       <Cliches tone="ink" />
+
+      {bandBeforeFaq ? (
+        <PhotoBand
+          image={bandBeforeFaq.image}
+          alt={bandBeforeFaq.alt}
+          height="md"
+        />
+      ) : null}
 
       <Faq index="11" limit={6} tone="cream" />
 

@@ -31,7 +31,18 @@ export async function Process({
   // Пять шагов в сетке из трёх колонок оставляют одну свободную ячейку,
   // десять шагов — две. Раньше в сокращённом виде блок оставался
   // полностью без изображений, и это был самый «текстовый» экран главной.
-  const processShots = details.slice(2, 4).slice(0, trimmed ? 1 : 2);
+  //
+  // Сколько кадров ставить, считаем от сетки, а не на глаз: в три
+  // колонки шаги почти никогда не укладываются ровно, и пустые ячейки
+  // раньше просто оставались серым полем. Теперь каждая свободная
+  // ячейка — это фотография, а если ряд сошёлся ровно, добавляем целый
+  // ряд кадров: этот блок был самым текстовым экраном главной.
+  const emptyCells = (3 - (processSteps.length % 3)) % 3;
+  const shotCount =
+    processSteps.length <= 6 ? emptyCells + 3 : emptyCells || 3;
+  const processShots = [...details.slice(2), ...details]
+    .filter((d, i, arr) => arr.findIndex((x) => x.id === d.id) === i)
+    .slice(0, shotCount);
   return (
     <Section tone={tone} id="process" aria-labelledby="process-title">
       <div className="container-page">
