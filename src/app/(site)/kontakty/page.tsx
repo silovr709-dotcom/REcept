@@ -58,7 +58,7 @@ export default async function ContactsPage() {
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             {/* Форма — главный способ связи */}
-            <Reveal className="rounded-lg border border-line bg-cream p-7 sm:p-10">
+            <Reveal className="rounded-lg border border-line bg-cream p-8 sm:p-10">
               <h2 className="font-display text-h3 text-ink">
                 Расскажите, какую кухню вы хотите
               </h2>
@@ -73,7 +73,7 @@ export default async function ContactsPage() {
 
             {/* Прямые каналы */}
             <div>
-              <div className="rounded-lg border border-line bg-cream p-7 sm:p-9">
+              <div className="rounded-lg border border-line bg-cream p-8 sm:p-10">
                 <p className="text-eyebrow font-bold uppercase text-brass">
                   Позвонить
                 </p>
@@ -145,7 +145,7 @@ export default async function ContactsPage() {
                 </ul>
               ) : null}
 
-              <div className="mt-6 rounded-lg bg-ink p-7 text-cream sm:p-9">
+              <div className="mt-6 rounded-lg bg-ink p-8 text-cream sm:p-10">
                 <p className="text-eyebrow font-bold uppercase text-clay">
                   Что будет дальше
                 </p>
@@ -169,7 +169,7 @@ export default async function ContactsPage() {
                 </p>
               </div>
 
-              <div className="mt-6 grid gap-3 rounded-lg border border-line bg-cream p-7 text-sm text-stone">
+              <div className="mt-6 grid gap-3 rounded-lg border border-line bg-cream p-8 text-sm text-stone">
                 <p>
                   <span className="font-semibold text-ink">Адрес: </span>
                   <a

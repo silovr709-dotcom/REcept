@@ -28,9 +28,9 @@ export function PhotoBand({
   objectPosition?: string;
 }) {
   const heights = {
-    sm: 'h-[42vw] max-h-[22rem] min-h-[13rem]',
-    md: 'h-[52vw] max-h-[30rem] min-h-[15rem]',
-    lg: 'h-[62vw] max-h-[38rem] min-h-[18rem]',
+    sm: 'h-[46vw] max-h-[26rem] min-h-[14rem]',
+    md: 'h-[58vw] max-h-[34rem] min-h-[17rem]',
+    lg: 'h-[70vw] max-h-[44rem] min-h-[20rem]',
   } as const;
 
   return (

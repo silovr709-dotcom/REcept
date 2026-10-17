@@ -84,7 +84,7 @@ export default async function ReviewsPage() {
               <li>
                 <Reveal
                   delay={Math.min(i, 3) * 50}
-                  className="flex h-full flex-col rounded-lg border border-line bg-cream p-7 sm:p-9"
+                  className="flex h-full flex-col rounded-lg border border-line bg-cream p-8 sm:p-10"
                 >
                   <p className="font-display text-h3 text-ink">{t.highlight}</p>
                   <div aria-hidden="true" className="rule-brass my-6 w-full" />
@@ -167,7 +167,7 @@ export default async function ReviewsPage() {
             eyebrow="Проекты"
             title="О чём эти отзывы"
           />
-          <ul className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-16 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
             {projects.slice(0, 6).map((project) => (
               <li key={project.slug}>
                 <ProjectCard project={project} ratio="aspect-4/5" />

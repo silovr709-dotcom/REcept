@@ -32,7 +32,7 @@ export async function Objections({
           lead="Кухня — дорогая и долгая покупка. Сомневаться перед ней логично. Вот что обычно беспокоит людей больше всего."
         />
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
           {objections.map((o, i) => (
             <Reveal
               key={o.fear}

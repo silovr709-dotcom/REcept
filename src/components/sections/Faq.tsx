@@ -30,9 +30,10 @@ export async function Faq({
   return (
     <Section tone={tone} id="faq" aria-labelledby="faq-title">
       <div className="container-page">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <div>
             <SectionHeading
+              stacked
               index={index}
               id="faq-title"
               eyebrow="Вопросы"

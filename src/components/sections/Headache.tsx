@@ -52,8 +52,8 @@ export async function Headache({ index }: { index?: string } = {}) {
           lead={headache.lead}
         />
 
-        <div className="mt-14 grid gap-6 lg:mt-16 lg:grid-cols-2 lg:gap-8">
-          <Reveal className="rounded-lg border border-cream/12 bg-cream/[0.03] p-7 sm:p-9">
+        <div className="mt-14 grid gap-6 lg:mt-24 lg:grid-cols-2 lg:gap-8">
+          <Reveal className="rounded-lg border border-cream/12 bg-cream/[0.03] p-8 sm:p-10">
             <h3 className="text-eyebrow font-bold uppercase text-cream/60">
               Как это обычно происходит
             </h3>
@@ -83,7 +83,7 @@ export async function Headache({ index }: { index?: string } = {}) {
 
           <Reveal
             delay={80}
-            className="rounded-lg border border-brass/35 bg-linear-to-b from-brass/12 to-transparent p-7 sm:p-9"
+            className="rounded-lg border border-brass/35 bg-linear-to-b from-brass/12 to-transparent p-8 sm:p-10"
           >
             <h3 className="text-eyebrow font-bold uppercase text-brasslight">
               Как это происходит с «РЕцептом»

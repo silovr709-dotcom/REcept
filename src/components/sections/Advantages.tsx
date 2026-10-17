@@ -42,7 +42,7 @@ export async function Advantages({
           lead="Это не «преимущества компании». Это то, что вы почувствуете на себе во время работы."
         />
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 lg:mt-24 lg:grid-cols-3">
           {/* Главное преимущество — крупным планом */}
           <Reveal className="lg:col-span-3">
             <div className="relative overflow-hidden bg-ink p-10 text-cream sm:p-16">

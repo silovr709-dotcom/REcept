@@ -56,7 +56,7 @@ export async function Testimonials({
           <RatingBadge className="shrink-0" />
         </div>
 
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
+        <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-8">
           {items.map((t, i) => (
             <li key={`${t.author ?? 'anon'}-${i}`}>
               <Reveal

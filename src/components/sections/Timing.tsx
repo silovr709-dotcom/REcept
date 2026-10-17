@@ -35,7 +35,7 @@ export async function Timing({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
           lead={timing.lead}
         />
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 lg:mt-24 lg:grid-cols-3 lg:gap-10">
           {stages.map((s, i) => (
             <Reveal
               key={s.stage}

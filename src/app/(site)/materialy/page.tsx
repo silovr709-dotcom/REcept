@@ -5,6 +5,7 @@ import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Details } from '@/components/sections/Details';
+import { PhotoBand } from '@/components/PhotoBand';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
@@ -136,6 +137,7 @@ export default async function MaterialsPage() {
   ]);
   const shot = pickImage(projects, 'kompaktnaya-kuhnya-zelenye-reyki', 2);
   const shot2 = pickImage(projects, 'kuhnya-grafit-i-belye-reyki', 7);
+  const band = pickImage(projects, 'kuhnya-s-moykoy-u-okna', 13);
 
   return (
     <>
@@ -180,7 +182,7 @@ export default async function MaterialsPage() {
             lead="Именно фасады формируют и внешний вид, и значительную долю стоимости. Разброс цен здесь самый большой."
           />
 
-          <div className="mt-12 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
             {facades.map((f, i) => {
               const texture = f.texture
                 ? details.find((d) => d.id === f.texture)
@@ -210,7 +212,7 @@ export default async function MaterialsPage() {
                     <CropFrame crop={crops[f.shot]} />
                   ) : null}
 
-                  <div className="flex grow flex-col p-7">
+                  <div className="flex grow flex-col p-8 sm:p-9">
                     <span className="self-start border-l border-brass pl-2.5 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-brass">
                       {f.tag}
                     </span>
@@ -242,9 +244,9 @@ export default async function MaterialsPage() {
             lead="Так выглядит ассортимент, доступный к заказу сегодня. Снятые с производства позиции мы не считаем — показывать выбор, которого уже нет, нечестно."
           />
 
-          <div className="mt-14 grid gap-px bg-cream/12 sm:grid-cols-2">
+          <div className="mt-16 grid gap-px bg-cream/12 sm:grid-cols-2 lg:mt-24">
             {materialFamilies.map((f, i) => (
-              <Reveal key={f.id} delay={Math.min(i, 4) * 50} className="bg-ink p-7 sm:p-9">
+              <Reveal key={f.id} delay={Math.min(i, 4) * 50} className="bg-ink p-8 sm:p-10 lg:p-12">
                 <p className="font-display text-h2 leading-none text-cream">
                   {f.count > 0 ? f.count : 'RAL'}
                 </p>
@@ -284,12 +286,12 @@ export default async function MaterialsPage() {
             lead="Два одинаковых с виду фасада могут висеть на петле за сто рублей и на петле за тысячу. Разницу вы обнаружите не в салоне, а когда дверца начнёт провисать. Здесь есть выбор, и мы говорим вслух, из чего он состоит."
           />
 
-          <div className="mt-14 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
             {hardwareGroups.map((h, i) => (
               <Reveal
                 key={h.id}
                 delay={Math.min(i, 5) * 40}
-                className="flex h-full flex-col bg-bone p-7 sm:p-8"
+                className="flex h-full flex-col bg-bone p-8 sm:p-10"
               >
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-display text-[1.1875rem] text-ink">
@@ -334,6 +336,18 @@ export default async function MaterialsPage() {
         </div>
       </Section>
 
+      {/* После двух подряд разделов с мелкими карточками глазу нужен
+          один большой кадр — иначе страница читается как таблица */}
+      {band ? (
+        <PhotoBand
+          image={band.image}
+          alt={band.alt}
+          overlay="quote"
+          height="lg"
+          caption="Материалы выбираются не по названию в прайсе, а по тому, как они выглядят вместе в вашем свете."
+        />
+      ) : null}
+
       {/* Каталог фрезеровок: имена, а не картинки. Превью в исходнике —
           развороты каталога производства, их публикация требует
           отдельного разрешения правообладателя. */}
@@ -346,7 +360,7 @@ export default async function MaterialsPage() {
             lead="Фрезеровка — это рельеф, выбранный на плите МДФ. Она определяет характер кухни сильнее, чем цвет: одна и та же белая кухня с «Аркой» и со «Стрит» выглядит как мебель из разных эпох. Образцы привозим на замер."
           />
 
-          <div className="mt-14 grid gap-10 lg:grid-cols-2">
+          <div className="mt-16 grid gap-12 lg:mt-24 lg:grid-cols-2 lg:gap-16">
             {millingGroups.map(([category, items]) => (
               <Reveal key={category}>
                 <div className="flex items-baseline justify-between border-b border-line pb-3">
@@ -436,6 +450,7 @@ export default async function MaterialsPage() {
 
             <div>
               <SectionHeading
+                stacked
                 eyebrow="Столешницы"
                 title="То, с чем вы контактируете каждый день"
                 lead="Столешница принимает на себя воду, нагрев, ножи и вес. Здесь разница между материалами чувствуется быстрее всего."

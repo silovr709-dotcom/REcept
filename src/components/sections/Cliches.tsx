@@ -77,12 +77,12 @@ export async function Cliches({ tone = 'ink' }: { tone?: 'ink' | 'cream' }) {
           lead="Вы наверняка уже открыли несколько сайтов кухонь подряд и читаете их по диагонали — потому что текст везде один. Вот фразы, которых у нас не будет, и то, что мы говорим вместо них."
         />
 
-        <ul className="mt-14 grid gap-px bg-current/10 sm:grid-cols-2">
+        <ul className="mt-16 grid gap-px bg-current/10 sm:grid-cols-2 lg:mt-24">
           {pairs.map((p, i) => (
             <li key={p.cliche}>
               <Reveal
                 delay={Math.min(i, 5) * 40}
-                className={`flex h-full flex-col p-7 sm:p-9 ${
+                className={`flex h-full flex-col p-8 sm:p-10 lg:p-12 ${
                   dark ? 'bg-ink' : 'bg-cream'
                 }`}
               >

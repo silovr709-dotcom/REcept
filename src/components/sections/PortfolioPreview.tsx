@@ -110,7 +110,7 @@ export async function PortfolioPreview({
           </div>
         </Reveal>
 
-        <Reveal className="mt-14">
+        <Reveal className="mt-16 lg:mt-24">
           <MarginNote author="Катя">
             Сейчас у вас наверняка открыты ещё две-три вкладки с кухнями.
             Это правильно. Только сравнивайте одно и то же: материалы,

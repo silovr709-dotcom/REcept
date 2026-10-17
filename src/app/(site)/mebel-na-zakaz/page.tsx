@@ -4,6 +4,7 @@ import { PageHero } from '@/components/PageHero';
 import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
+import { PhotoBand } from '@/components/PhotoBand';
 import { Details } from '@/components/sections/Details';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
@@ -35,6 +36,7 @@ export default async function FurniturePage() {
   ]);
   const craftDetails = details.slice(0, 6);
   const shot = pickImage(projects, 'kuhnya-neoklassika-greyzh', 5);
+  const band = pickImage(projects, 'kuhnya-gostinaya-v-dvuh-tonah', 8);
 
   return (
     <>
@@ -70,7 +72,7 @@ export default async function FurniturePage() {
             lead="Подход тот же: сначала разбираемся, что и как вы храните, потом рисуем, потом производим."
           />
 
-          <div className="mt-14 grid gap-x-8 gap-y-16 lg:grid-cols-2">
+          <div className="mt-16 grid gap-x-10 gap-y-20 lg:mt-24 lg:grid-cols-2">
             {rooms.map((room, i) => (
               <Reveal key={room.id} delay={Math.min(i, 3) * 60}>
                 <div className="media-reveal relative aspect-4/3 overflow-hidden bg-sand">
@@ -103,6 +105,19 @@ export default async function FurniturePage() {
           </div>
         </div>
       </Section>
+
+      {/* Пауза между перечислением комнат и фактурами: страница
+          про «не только кухни» должна и выглядеть как разворот,
+          а не как список услуг */}
+      {band ? (
+        <PhotoBand
+          image={band.image}
+          alt={band.alt}
+          overlay="quote"
+          height="lg"
+          caption="Кухня, гардеробная и шкаф в прихожей, сделанные одними руками, в итоге выглядят как одна квартира, а не как три заказа."
+        />
+      ) : null}
 
       <Details
         tone="bone"

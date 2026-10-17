@@ -62,7 +62,7 @@ export async function Process({
           }
         />
 
-        <div className="mt-14 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
           <ol className="contents">
           {processSteps.map((step, i) => (
             <li key={step.n}>

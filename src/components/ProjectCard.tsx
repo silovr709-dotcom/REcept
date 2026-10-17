@@ -51,7 +51,7 @@ export function ProjectCard({
         </span>
       </div>
 
-      <div className="mt-4 flex items-start justify-between gap-4">
+      <div className="mt-5 flex items-start justify-between gap-4">
         <div>
           <h3 className="font-display text-[1.125rem] text-ink transition-colors group-hover:text-brass sm:text-[1.25rem]">
             {project.title}

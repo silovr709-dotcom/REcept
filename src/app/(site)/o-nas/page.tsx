@@ -113,7 +113,7 @@ export default async function AboutPage() {
               <Reveal
                 key={p.title}
                 delay={Math.min(i, 3) * 50}
-                className="rounded-lg border border-line bg-cream p-7 sm:p-8"
+                className="rounded-lg border border-line bg-cream p-8 sm:p-10"
               >
                 <h3 className="font-display text-[1.1875rem] leading-snug text-ink">
                   {p.title}

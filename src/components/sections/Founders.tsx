@@ -82,7 +82,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                     // Обёртка нужна, чтобы подпись могла выйти за край
                     // снимка. Сам снимок обрезает содержимое, поэтому
                     // текст лежит рядом с ним, а не внутри.
-                    <div className="relative mb-16 max-w-sm">
+                    <div className="relative mb-16 max-w-sm sm:max-w-md lg:max-w-lg">
                       <div className="media-reveal relative aspect-4/5 overflow-hidden bg-coal">
                         <Image
                           src={src}

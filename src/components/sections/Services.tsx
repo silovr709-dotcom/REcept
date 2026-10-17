@@ -69,7 +69,7 @@ export async function Services({
             lead="Чаще всего к нам приходят за кухней, а уезжаем мы с объекта, сделав ещё гардеробную и шкаф в прихожей. В одной стилистике и с одной ответственностью."
           />
 
-          <ul className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-16 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:mt-24 lg:grid-cols-4 lg:gap-x-8">
             {cards.map((s, i) => (
               <li key={s.id}>
                 <Reveal delay={i * 60}>
@@ -150,7 +150,7 @@ export async function Services({
                 <li key={s.id}>
                   <Link
                     href={s.href}
-                    className="group flex h-full flex-col bg-cream p-6 transition-colors hover:bg-bone sm:p-7"
+                    className="group flex h-full flex-col bg-cream p-7 transition-colors hover:bg-bone sm:p-8"
                   >
                     <span className="text-eyebrow font-bold uppercase text-stone">
                       {String(i + 1).padStart(2, '0')}

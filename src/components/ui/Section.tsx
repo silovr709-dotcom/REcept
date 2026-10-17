@@ -83,6 +83,7 @@ export function SectionHeading({
   lead,
   tone = 'dark',
   align = 'left',
+  stacked = false,
   className = '',
   id,
 }: {
@@ -93,6 +94,13 @@ export function SectionHeading({
   lead?: ReactNode;
   tone?: 'dark' | 'light';
   align?: 'left' | 'center';
+  /**
+   * Заголовок в узкой колонке. Боковая колонка с номером занимает
+   * 10rem, и в половине экрана на сам заголовок остаётся полоска
+   * в несколько букв — слова начинают переноситься по одному.
+   * В таком месте номер и надпись встают над заголовком.
+   */
+  stacked?: boolean;
   className?: string;
   id?: string;
 }) {
@@ -112,7 +120,37 @@ export function SectionHeading({
         </h2>
         {lead ? (
           <div
-            className={`mx-auto mt-5 text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
+            className={`mx-auto mt-6 max-w-[40rem] text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
+          >
+            {lead}
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  if (stacked) {
+    return (
+      <div className={className}>
+        <div className="flex items-baseline gap-4">
+          {index ? (
+            <span
+              className={`label-xs ${tone === 'light' ? 'text-cream/45' : 'text-stone/70'}`}
+            >
+              {index}
+            </span>
+          ) : null}
+          {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
+        </div>
+        <h2
+          id={id}
+          className={`font-display mt-6 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+        >
+          {title}
+        </h2>
+        {lead ? (
+          <div
+            className={`mt-6 max-w-[38rem] text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
           >
             {lead}
           </div>
@@ -142,8 +180,10 @@ export function SectionHeading({
           {title}
         </h2>
         {lead ? (
+          /* Строка подводки держится в 42rem: длинная строка читается
+             тяжелее и съедает тот самый воздух вокруг текста */
           <div
-            className={`mt-6 text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
+            className={`mt-7 max-w-[42rem] text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
           >
             {lead}
           </div>

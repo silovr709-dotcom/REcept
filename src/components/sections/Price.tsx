@@ -69,12 +69,13 @@ export async function Price({
         <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
           <div>
             <SectionHeading
+              stacked
               index={index}
               id="price-title"
               eyebrow="Стоимость"
               title={priceExplanation.headline}
             />
-            <div className="mt-6 grid gap-4 text-lead text-stone">
+            <div className="mt-7 grid gap-5 text-lead text-stone">
               {priceExplanation.body.map((p) => (
                 <p key={p}>{p}</p>
               ))}

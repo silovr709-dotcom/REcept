@@ -46,7 +46,7 @@ export async function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
           </ButtonLink>
         </div>
 
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
+        <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
           {vkVideos.map((video, i) => (
             <li key={video.id}>
               <Reveal delay={i * 60}>

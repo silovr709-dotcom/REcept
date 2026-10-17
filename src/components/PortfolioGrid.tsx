@@ -71,7 +71,7 @@ export function PortfolioGrid({
         Показано работ: {visible.length}
       </p>
 
-      <ul className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-12 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-x-8">
         {visible.map((project, i) => (
           <li
             key={project.slug}

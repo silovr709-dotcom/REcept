@@ -127,12 +127,12 @@ export default async function KitchensPage() {
             lead="Форма кухни определяется не вкусом, а геометрией комнаты, окнами, коммуникациями и тем, сколько людей готовит одновременно."
           />
 
-          <div className="mt-12 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-16 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:mt-24 lg:grid-cols-4">
             {layouts.map((l, i) => (
               <Reveal
                 key={l.title}
                 delay={i * 50}
-                className="flex h-full flex-col bg-cream p-7"
+                className="flex h-full flex-col bg-cream p-8 sm:p-9"
               >
                 {/* Схема формы кухни: про геометрию проще показать */}
                 <div className="mb-6 max-w-44 text-ink/90">
@@ -249,7 +249,7 @@ export default async function KitchensPage() {
             eyebrow="Наши кухни"
             title="Как это выглядит в жизни"
           />
-          <ul className="mt-12 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-16 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
             {featuredProjects.slice(0, 6).map((p) => (
               <li key={p.slug}>
                 <ProjectCard project={p} ratio="aspect-4/5" />

@@ -98,7 +98,7 @@ export async function Details({
           lead={lead}
         />
 
-        <ul className={`mt-12 grid gap-x-4 gap-y-8 sm:gap-x-6 lg:mt-16 ${cols}`}>
+        <ul className={`mt-14 grid gap-x-5 gap-y-12 sm:gap-x-8 lg:mt-24 ${cols}`}>
           {list.map((d, i) => {
             const big = isFeature(i, list.length);
             return (
@@ -123,7 +123,7 @@ export async function Details({
                     />
                   </div>
                   <p
-                    className={`mt-3 font-semibold leading-snug text-ink transition-colors group-hover:text-brass ${
+                    className={`mt-4 font-semibold leading-snug text-ink transition-colors group-hover:text-brass ${
                       big ? 'text-base sm:text-lg' : 'text-[0.9375rem]'
                     }`}
                   >

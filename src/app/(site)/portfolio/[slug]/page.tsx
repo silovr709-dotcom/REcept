@@ -163,7 +163,7 @@ export default async function ProjectPage({ params }: Params) {
                   </div>
                 ) : null}
 
-                <div className="mt-12 rounded-lg border-l-2 border-brass bg-bone p-7">
+                <div className="mt-12 rounded-lg border-l-2 border-brass bg-bone p-8">
                   <p className="text-eyebrow font-bold uppercase text-brass">
                     Почему так
                   </p>
@@ -171,7 +171,7 @@ export default async function ProjectPage({ params }: Params) {
                 </div>
 
                 {project.clientStory ? (
-                  <div className="mt-8 rounded-lg bg-bone p-7">
+                  <div className="mt-8 rounded-lg bg-bone p-8">
                     <p className="text-eyebrow font-bold uppercase text-brass">
                       Что получил заказчик
                     </p>
@@ -181,7 +181,7 @@ export default async function ProjectPage({ params }: Params) {
               </div>
 
               <aside>
-                <div className="rounded-lg border border-line bg-bone p-7 sm:p-8">
+                <div className="rounded-lg border border-line bg-bone p-8 sm:p-10">
                   <h2 className="text-eyebrow font-bold uppercase text-brass">
                     Материалы и фурнитура
                   </h2>
@@ -210,7 +210,7 @@ export default async function ProjectPage({ params }: Params) {
                 </div>
 
                 {/* Возврат к действию сразу после доказательства */}
-                <div className="mt-6 rounded-lg bg-ink p-7 text-cream sm:p-8">
+                <div className="mt-6 rounded-lg bg-ink p-8 text-cream sm:p-10">
                   <h2 className="font-display text-h3 text-cream">
                     Хотите обсудить похожую задачу?
                   </h2>
