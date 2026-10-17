@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="РЕцепт">
+  <rect width="64" height="64" rx="12" fill="#16130F"/>
+  <g stroke="#EDE5D6" stroke-width="3" fill="none" stroke-linecap="square">
+    <rect x="12" y="13" width="16" height="15"/>
+    <rect x="36" y="13" width="16" height="15"/>
+    <rect x="12" y="38" width="40" height="15"/>
+  </g>
+  <rect x="10" y="32" width="44" height="4" rx="1" fill="#C79A54"/>
+</svg>
