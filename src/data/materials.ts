@@ -67,80 +67,15 @@ export const materialFamilies: MaterialFamily[] = [
   },
 ];
 
-export type Milling = {
-  name: string;
-  slug: string;
-  /** Категория сложности: чем выше, тем дороже фрезеровка */
-  category: 1 | 2 | 3 | 4;
-  /** В каких покрытиях изготавливается */
-  coatings: string[];
-  /** Толщина плиты МДФ, мм */
-  thickness: string;
-};
-
-/** 60 действующих фрезеровок фасадов, каталог 2026 */
-export const millings: Milling[] = [
-  { name: 'Арина', slug: 'arina', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Арка', slug: 'arka', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Арка 2', slug: 'arka-2', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Арка Р', slug: 'arka-r', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Валенсия', slug: 'valensiya', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Дали', slug: 'dali', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Дуэт', slug: 'duet', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Квадрат', slug: 'kvadrat', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Квадро', slug: 'kvadro', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Классика', slug: 'klassika', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Классика 2', slug: 'klassika-2', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Лучи', slug: 'luchi', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Модерн', slug: 'modern', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Мыло', slug: 'mylo', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Мюнхен', slug: 'myunhen', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Ницца', slug: 'nicca', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Петра', slug: 'petra', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Пирамида', slug: 'piramida', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Ретро', slug: 'retro', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Ромб', slug: 'romb', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Рондо', slug: 'rondo', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Симпа', slug: 'simpa', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Ситро', slug: 'sitro', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Ситро Р', slug: 'sitro-r', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Стрит', slug: 'strit', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Флоренция', slug: 'florenciya', category: 1, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Византия', slug: 'vizantiya', category: 2, coatings: ['эмаль'], thickness: '19' },
-  { name: 'Византия 2', slug: 'vizantiya-2', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Джулия', slug: 'dzhuliya', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Лжевыборка', slug: 'lzhevyborka', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Лорето', slug: 'loreto', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Марко', slug: 'marko', category: 2, coatings: ['эмаль'], thickness: '19' },
-  { name: 'Марокко', slug: 'marokko', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Марокко 2', slug: 'marokko-2', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Монако', slug: 'monako', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Нео', slug: 'neo', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Паллада', slug: 'pallada', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Рим', slug: 'rim', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Римини', slug: 'rimini', category: 2, coatings: ['эмаль'], thickness: '19' },
-  { name: 'Тоскана', slug: 'toskana', category: 2, coatings: ['ПВХ', 'эмаль'], thickness: '19' },
-  { name: 'Фостер', slug: 'foster', category: 2, coatings: ['эмаль'], thickness: '19' },
-  { name: 'Арецио', slug: 'arecio', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '22' },
-  { name: 'Барнео', slug: 'barneo', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '22' },
-  { name: 'Бергамо', slug: 'bergamo', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '22' },
-  { name: 'Бридж', slug: 'bridzh', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '22' },
-  { name: 'Венеция', slug: 'veneciya', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '22' },
-  { name: 'Волна', slug: 'volna', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '22' },
-  { name: 'Дублин', slug: 'dublin', category: 3, coatings: ['эмаль'], thickness: '22' },
-  { name: 'Жалюзи', slug: 'zhalyuzi', category: 3, coatings: ['эмаль'], thickness: '16-19' },
-  { name: 'Мадрид', slug: 'madrid', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Мальта', slug: 'malta', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '22' },
-  { name: 'Олимпия', slug: 'olimpiya', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '16' },
-  { name: 'Палермо', slug: 'palermo', category: 3, coatings: ['эмаль'], thickness: '22' },
-  { name: 'София', slug: 'sofiya', category: 3, coatings: ['эмаль'], thickness: '22' },
-  { name: 'Фабио', slug: 'fabio', category: 3, coatings: ['ПВХ', 'эмаль'], thickness: '22' },
-  { name: 'Белладжо', slug: 'belladzho', category: 4, coatings: ['эмаль'], thickness: '25' },
-  { name: 'Капелла', slug: 'kapella', category: 4, coatings: ['эмаль'], thickness: '25' },
-  { name: 'Луиджи', slug: 'luidzhi', category: 4, coatings: ['ПВХ', 'эмаль'], thickness: '25' },
-  { name: 'Паола', slug: 'paola', category: 4, coatings: ['эмаль'], thickness: '25' },
-  { name: 'Помпея', slug: 'pompeya', category: 4, coatings: ['ПВХ', 'эмаль'], thickness: '25' },
-];
+/**
+ * Фрезеровки переехали в отдельный справочник: там к каждому рисунку
+ * добавились выкраска из каталога, толщина плиты, фаска и габариты,
+ * а у страницы «Фрезеровки» появился свой адрес. Здесь оставлен
+ * реэкспорт, чтобы страница «Материалы» продолжала работать с одним
+ * и тем же списком и два источника не разъезжались.
+ */
+export type { Milling } from './millings';
+export { millings, millingCategories, millingsByCategory, millingImage } from './millings';
 
 /* ====================================================================
    ЧТО ВНУТРИ: ФУРНИТУРА, МЕХАНИЗМЫ, СВЕТ

@@ -41,7 +41,11 @@ import sharp from 'sharp';
 
 const APPLY = process.argv.includes('--apply');
 const FORCE = process.argv.includes('--force');
-const DIRS = ['public/images/kitchens', 'public/images/rooms'];
+const DIRS = [
+  'public/images/kitchens',
+  'public/images/rooms',
+  'public/images/millings/rooms',
+];
 const STATE = 'scripts/photo-grade.state.json';
 
 /** Насколько сильно тянем кадр к общей точке: 0 — не трогать, 1 — до упора */

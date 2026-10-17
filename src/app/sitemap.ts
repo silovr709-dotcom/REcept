@@ -86,6 +86,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       images: detailImages,
     },
     {
+      url: abs('/frezerovki'),
+      priority: 0.7,
+      changeFrequency: 'monthly',
+      lastModified: textsAt,
+    },
+    {
       url: abs('/otzyvy'),
       priority: 0.8,
       changeFrequency: 'weekly',

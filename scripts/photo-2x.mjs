@@ -42,7 +42,12 @@ const MANIFEST = path.join(ROOT, 'src', 'data', 'photo-2x.json');
  * Мелочи вроде текстур в сетке 167 px сюда не входят — им второй
  * размер не нужен, он только утяжелил бы страницу.
  */
-const DIRS = ['images/kitchens', 'images/team', 'images/rooms'];
+const DIRS = [
+  'images/kitchens',
+  'images/team',
+  'images/rooms',
+  'images/millings/rooms',
+];
 
 /** Длинная сторона увеличенного файла */
 const TARGET = 2400;

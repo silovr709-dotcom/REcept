@@ -107,6 +107,54 @@
     "height": 2400,
     "base": 1024
   },
+  "/images/millings/rooms/arina.webp": {
+    "src": "/images/millings/rooms/arina@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/arka.webp": {
+    "src": "/images/millings/rooms/arka@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/klassika.webp": {
+    "src": "/images/millings/rooms/klassika@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/modern.webp": {
+    "src": "/images/millings/rooms/modern@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/piramida.webp": {
+    "src": "/images/millings/rooms/piramida@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/romb.webp": {
+    "src": "/images/millings/rooms/romb@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/volna.webp": {
+    "src": "/images/millings/rooms/volna@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/zhalyuzi.webp": {
+    "src": "/images/millings/rooms/zhalyuzi@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/rooms/bathroom.webp": {
     "src": "/images/rooms/bathroom@2x.webp",
     "width": 2400,

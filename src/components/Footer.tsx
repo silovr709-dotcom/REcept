@@ -11,6 +11,13 @@ export async function Footer() {
     workingHours: WORKING_HOURS,
     terms,
   } = site;
+  /* В шапке семь пунктов — предел читаемого меню, поэтому каталог
+     фрезеровок живёт подразделом материалов. В подвале место есть,
+     и с любой страницы до него должен быть один клик. */
+  const footerLinks = [
+    ...navigation,
+    { href: '/frezerovki', label: 'Фрезеровки' },
+  ];
   const phoneDisplay = site.primaryPhone?.display ?? '';
   const phoneHref = site.primaryPhone ? `tel:${site.primaryPhone.raw}` : '';
   const year = new Date().getFullYear();
@@ -37,7 +44,7 @@ export async function Footer() {
           <nav aria-label="Разделы сайта">
             <h2 className="text-eyebrow font-bold uppercase text-clay">Разделы</h2>
             <ul className="mt-5 grid gap-3">
-              {navigation.map((item) => (
+              {footerLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}

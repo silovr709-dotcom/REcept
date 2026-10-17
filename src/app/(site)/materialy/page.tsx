@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { PageHero } from '@/components/PageHero';
 import { CtaButton } from '@/components/CtaButton';
+import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Details } from '@/components/sections/Details';
@@ -13,6 +14,7 @@ import { assetUrl, pickImage } from '@/lib/content/images';
 import {
   materialFamilies,
   millings,
+  millingImage,
   hardwareGroups,
   countertopLines,
 } from '@/data/materials';
@@ -118,13 +120,11 @@ const wisdom = [
   },
 ];
 
-/** Фрезеровки, сгруппированные по категории сложности */
-const millingGroups = Object.entries(
-  millings.reduce<Record<number, typeof millings>>((acc, m) => {
-    (acc[m.category] ||= []).push(m);
-    return acc;
-  }, {}),
-).sort(([a], [b]) => Number(a) - Number(b));
+/* Шесть рисунков для превью: по одному из каждой категории и пара
+   самых узнаваемых — остальные ждут на странице «Фрезеровки» */
+const millingPreview = ['arka', 'volna', 'romb', 'zhalyuzi', 'piramida', 'modern']
+  .map((slug) => millings.find((m) => m.slug === slug))
+  .filter((m): m is (typeof millings)[number] => Boolean(m));
 
 export default async function MaterialsPage() {
   const heroProjects = await getVisibleProjects();
@@ -360,33 +360,48 @@ export default async function MaterialsPage() {
             lead="Фрезеровка — это рельеф, выбранный на плите МДФ. Она определяет характер кухни сильнее, чем цвет: одна и та же белая кухня с «Аркой» и со «Стрит» выглядит как мебель из разных эпох. Образцы привозим на замер."
           />
 
-          <div className="mt-16 grid gap-12 lg:mt-24 lg:grid-cols-2 lg:gap-16">
-            {millingGroups.map(([category, items]) => (
-              <Reveal key={category}>
-                <div className="flex items-baseline justify-between border-b border-line pb-3">
-                  <h3 className="font-display text-[1.1875rem] text-ink">
-                    {category} категория
-                  </h3>
-                  <span className="label-xs text-stone">{items.length} шт</span>
-                </div>
-                <ul className="mt-5 flex flex-wrap gap-x-2.5 gap-y-2">
-                  {items.map((m) => (
-                    <li
-                      key={m.slug}
-                      className="border border-line bg-bone px-3 py-1.5 text-[0.9375rem] text-ink"
-                    >
+          {/* Раньше здесь были только названия — шестьдесят слов подряд.
+              Теперь шесть выкрасок из каталога ведут на отдельную
+              страницу, где лежит весь каталог и кадры целых кухонь */}
+          <ul className="mt-16 grid gap-5 sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
+            {millingPreview.map((m) => (
+              <li key={m.slug}>
+                <Reveal className="flex h-full flex-col border border-line bg-bone">
+                  <div className="p-4">
+                    <Image
+                      src={assetUrl(millingImage(m.slug))}
+                      alt={`Фрезеровка «${m.name}»: витрина и глухой фасад`}
+                      width={440}
+                      height={362}
+                      loading="lazy"
+                      sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 30vw"
+                      className="h-auto w-full"
+                    />
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4 px-6 pb-6">
+                    <h3 className="font-display text-[1.1875rem] text-ink">
                       {m.name}
-                      {m.coatings.length === 1 ? (
-                        <span className="ml-2 text-[0.75rem] text-stone">
-                          только {m.coatings[0]}
-                        </span>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
+                    </h3>
+                    <span className="label-xs shrink-0 text-stone">
+                      {m.category} кат.
+                    </span>
+                  </div>
+                </Reveal>
+              </li>
             ))}
-          </div>
+          </ul>
+
+          <Reveal className="mt-10">
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-line pt-8">
+              <ButtonLink href="/frezerovki" variant="outline" size="md" withArrow>
+                Весь каталог фрезеровок
+              </ButtonLink>
+              <p className="text-[0.9375rem] text-stone">
+                {millings.length} рисунков в четырёх категориях — с выкрасками и
+                кадрами целых кухонь.
+              </p>
+            </div>
+          </Reveal>
 
           <Reveal className="mt-12">
             <p className="max-w-2xl text-[0.9375rem] leading-relaxed text-stone">
