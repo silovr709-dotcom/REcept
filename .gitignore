@@ -47,3 +47,5 @@ next-env.d.ts
 # — а без исходника новый кадр с Робертом и Катей сделать нельзя.
 # На сайт файл не попадает: он лежит вне public/ и в сборку не включён.
 !/reference/team/rob-kate-main.jpg
+!/reference/team/rob-face-main.jpg
+!/reference/team/kate-face-main.jpg
