@@ -8,6 +8,7 @@ import { LayoutDiagram } from '@/components/ui/LayoutDiagram';
 import { teamShots, teamShotAlt } from '@/data/team-shots';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Details } from '@/components/sections/Details';
+import { PhotoBand } from '@/components/PhotoBand';
 import { Process } from '@/components/sections/Process';
 import { Price } from '@/components/sections/Price';
 import { Timing } from '@/components/sections/Timing';
@@ -71,6 +72,7 @@ export default async function KitchensPage() {
   const heroShot = pickImage(projects, 'kuhnya-v-nishe-latun', 0);
   const featuredProjects = projects.slice(0, 6);
   const shot = pickImage(projects, 'bolshaya-kuhnya-v-dome', 4);
+  const band = pickImage(projects, 'terrakotovaya-kuhnya', 12);
 
   return (
     <>
@@ -261,6 +263,18 @@ export default async function KitchensPage() {
 
       <Details tone="cream" />
       <Process tone="bone" />
+      {/* Между «десятью шагами» и разговором про сроки — пауза
+          в полный экран: дальше идут четыре текстовых раздела подряд */}
+      {band ? (
+        <PhotoBand
+          image={band.image}
+          alt={band.alt}
+          overlay="quote"
+          height="lg"
+          caption="Между первым разговором и этой фотографией — десять шагов выше. Восемь из них наши."
+        />
+      ) : null}
+
       <Timing tone="cream" />
 
       {/* Человек дочитал до сроков — значит задача у него реальная */}

@@ -38,8 +38,7 @@ export async function Process({
   // ячейка — это фотография, а если ряд сошёлся ровно, добавляем целый
   // ряд кадров: этот блок был самым текстовым экраном главной.
   const emptyCells = (3 - (processSteps.length % 3)) % 3;
-  const shotCount =
-    processSteps.length <= 6 ? emptyCells + 3 : emptyCells || 3;
+  const shotCount = emptyCells + 3;
   const processShots = [...details.slice(2), ...details]
     .filter((d, i, arr) => arr.findIndex((x) => x.id === d.id) === i)
     .slice(0, shotCount);

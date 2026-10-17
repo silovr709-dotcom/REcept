@@ -96,7 +96,7 @@ export async function Hero() {
             Контраст светлого текста при этом остаётся выше 10:1 */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-linear-to-t from-ink/97 via-ink/88 via-46% to-ink/10 lg:from-ink/74 lg:via-ink/30 lg:via-50% lg:to-ink/8"
+          className="absolute inset-0 -z-10 bg-linear-to-t from-ink/97 via-ink/88 via-46% to-ink/10 lg:from-ink/66 lg:via-ink/24 lg:via-50% lg:to-ink/5"
         />
 
         {/* Подсветка там, где лица. На телефоне текст физически
@@ -122,7 +122,7 @@ export async function Hero() {
             с кухней осталась почти нетронутой */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 hidden lg:block lg:bg-linear-to-r lg:from-ink/62 lg:via-ink/18 lg:to-transparent"
+          className="absolute inset-0 -z-10 hidden lg:block lg:bg-linear-to-r lg:from-ink/54 lg:via-ink/14 lg:to-transparent"
         />
 
         <div className="container-page">

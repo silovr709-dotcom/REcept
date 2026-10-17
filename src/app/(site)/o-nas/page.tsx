@@ -10,6 +10,8 @@ import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
 import { PhotoBand } from '@/components/PhotoBand';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { getVisibleProjects } from '@/lib/content/store';
+import { pickImage } from '@/lib/content/images';
 import { teamShots, teamShotAlt } from '@/data/team-shots';
 import { assetUrl } from '@/lib/content/images';
 
@@ -43,6 +45,8 @@ const principles = [
 ];
 
 export default async function AboutPage() {
+  const projects = await getVisibleProjects();
+  const band = pickImage(projects, 'belaya-klassika-s-ostrovom', 10);
 
   return (
     <>
@@ -141,6 +145,13 @@ export default async function AboutPage() {
 
       <Founders />
       <Advantages tone="cream" />
+
+      {/* Восемь условий, отзывы и возражения идут подряд — три
+          текстовых раздела. Между ними нужен выдох */}
+      {band ? (
+        <PhotoBand image={band.image} alt={band.alt} height="md" />
+      ) : null}
+
       <Testimonials tone="cream" photoIndex={11} />
       <Objections tone="bone" />
 
