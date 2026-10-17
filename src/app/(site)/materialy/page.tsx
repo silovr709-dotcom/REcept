@@ -16,6 +16,8 @@ import {
   countertopLines,
 } from '@/data/materials';
 import { MarginNote } from '@/components/ui/MarginNote';
+import { CropFrame } from '@/components/ui/CropFrame';
+import { crops } from '@/data/crops';
 import { teamShots, teamShotAlt } from '@/data/team-shots';
 
 export const metadata: Metadata = {
@@ -28,33 +30,45 @@ export const metadata: Metadata = {
   },
 };
 
+/*
+  У каждого типа фасада — свой кадр. Раньше здесь шли шесть абзацев
+  подряд, и разница между плёнкой, эмалью и шпоном, о которой весь
+  текст, оставалась словами. Половина кадров — макро из блока
+  «Фактуры вживую», половина — фрагменты реальных объектов.
+*/
 const facades = [
   {
+    shot: 'woodGrey' as const,
     title: 'Плёночные (МДФ в плёнке ПВХ)',
     text: 'Самый доступный вариант с большим выбором цветов и фрезеровок. Чувствительны к перегреву рядом с духовкой — этот момент решается на этапе проекта.',
     tag: 'Бюджет',
   },
   {
+    texture: 'lacquer',
     title: 'Эмаль по МДФ',
     text: 'Любой цвет, глубокая матовость, аккуратные кромки и радиусы. Даёт то самое ощущение цельного предмета мебели, а не набора дверок.',
     tag: 'Средний+',
   },
   {
+    shot: 'graphiteWood' as const,
     title: 'Пластик и HPL',
     text: 'Практичная поверхность: устойчива к истиранию и влаге. Хороший компромисс для семей с детьми и активной готовкой.',
     tag: 'Средний',
   },
   {
+    texture: 'veneer',
     title: 'Шпон и массив',
     text: 'Натуральная текстура дерева, уникальный рисунок. Требует аккуратного подбора и стоит дороже — зато со временем выглядит только лучше.',
     tag: 'Премиум',
   },
   {
+    texture: 'reeded',
     title: 'Рифлёные и фрезерованные',
     text: 'Рельеф вместо декора: фактура работает сама по себе и делает даже маленькую кухню характерной.',
     tag: 'Акцент',
   },
   {
+    shot: 'ribbedGlassGold' as const,
     title: 'Стекло в рамке',
     text: 'Прозрачное, тонированное или рифлёное в алюминиевой либо латунной рамке. Разбивает сплошной фронт верхних шкафов.',
     tag: 'Акцент',
@@ -63,18 +77,22 @@ const facades = [
 
 const tops = [
   {
+    shot: 'woodTopGreen' as const,
     title: 'ЛДСП / постформинг',
     text: 'Разумный выбор, когда бюджет ограничен. Главное — правильно обработать стыки и зоны у мойки.',
   },
   {
+    shot: 'graphiteWood' as const,
     title: 'Компакт-плита',
     text: 'Тонкая, прочная, влагостойкая, без видимой кромки. Хорошо смотрится в современных кухнях.',
   },
   {
+    shot: 'quartzTop' as const,
     title: 'Искусственный камень (акрил, кварц)',
     text: 'Бесшовные стыки, интегрированная мойка, ремонтопригодность. Кварц твёрже и устойчивее к царапинам.',
   },
   {
+    shot: 'marbleSplash' as const,
     title: 'Натуральный камень',
     text: 'Уникальный рисунок и ощущение веса. Требует понимания особенностей: пористость, уход, стыки.',
   },
@@ -163,23 +181,49 @@ export default async function MaterialsPage() {
           />
 
           <div className="mt-12 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:grid-cols-3">
-            {facades.map((f, i) => (
-              <Reveal
-                key={f.title}
-                delay={Math.min(i, 5) * 40}
-                className="flex h-full flex-col bg-bone p-7"
-              >
-                <span className="self-start border-l border-brass pl-2.5 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-brass">
-                  {f.tag}
-                </span>
-                <h3 className="font-display mt-4 text-[1.1875rem] text-ink">
-                  {f.title}
-                </h3>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-stone">
-                  {f.text}
-                </p>
-              </Reveal>
-            ))}
+            {facades.map((f, i) => {
+              const texture = f.texture
+                ? details.find((d) => d.id === f.texture)
+                : undefined;
+              return (
+                <Reveal
+                  key={f.title}
+                  delay={Math.min(i, 5) * 40}
+                  className="flex h-full flex-col bg-bone"
+                >
+                  {texture ? (
+                    <div className="relative aspect-16/10 overflow-hidden bg-sand">
+                      <Image
+                        src={assetUrl(texture.image.src)}
+                        alt={texture.alt}
+                        fill
+                        loading="lazy"
+                        sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                        placeholder={
+                          texture.image.blurDataURL ? 'blur' : 'empty'
+                        }
+                        blurDataURL={texture.image.blurDataURL || undefined}
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : f.shot ? (
+                    <CropFrame crop={crops[f.shot]} />
+                  ) : null}
+
+                  <div className="flex grow flex-col p-7">
+                    <span className="self-start border-l border-brass pl-2.5 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-brass">
+                      {f.tag}
+                    </span>
+                    <h3 className="font-display mt-4 text-[1.1875rem] text-ink">
+                      {f.title}
+                    </h3>
+                    <p className="mt-3 text-[0.9375rem] leading-relaxed text-stone">
+                      {f.text}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </Section>
@@ -266,6 +310,20 @@ export default async function MaterialsPage() {
                 ) : null}
               </Reveal>
             ))}
+
+            {/* Шесть карточек ровно закрывают два ряда по три — третий
+                ряд отдан самой фурнитуре. Подписи честные: это кадры
+                с наших объектов, а не иллюстрации к конкретной марке */}
+            {(['brassGola', 'openNiche', 'woodBacksplash'] as const).map(
+              (id) => (
+                <CropFrame
+                  key={id}
+                  crop={crops[id]}
+                  ratio="aspect-16/10 sm:aspect-4/3"
+                  caption
+                />
+              ),
+            )}
           </div>
 
           <MarginNote author="Роберт" className="mt-12">
@@ -403,11 +461,19 @@ export default async function MaterialsPage() {
 
               <dl className="mt-9 grid gap-6">
                 {tops.map((t) => (
-                  <div key={t.title} className="border-l-2 border-brass/30 pl-5">
-                    <dt className="font-semibold text-ink">{t.title}</dt>
-                    <dd className="mt-1.5 text-[0.9375rem] leading-relaxed text-stone">
-                      {t.text}
-                    </dd>
+                  <div key={t.title} className="flex items-start gap-5">
+                    <CropFrame
+                      crop={crops[t.shot]}
+                      ratio="aspect-square"
+                      sizes="80px"
+                      className="w-20 shrink-0"
+                    />
+                    <div>
+                      <dt className="font-semibold text-ink">{t.title}</dt>
+                      <dd className="mt-1.5 text-[0.9375rem] leading-relaxed text-stone">
+                        {t.text}
+                      </dd>
+                    </div>
                   </div>
                 ))}
               </dl>

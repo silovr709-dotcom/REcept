@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import { Fragment } from 'react';
 import { PageHero } from '@/components/PageHero';
 import { RatingBadge } from '@/components/RatingBadge';
 import { YandexReviewsWidget } from '@/components/YandexWidgets';
 import { Reveal } from '@/components/ui/Reveal';
+import { CropFrame } from '@/components/ui/CropFrame';
+import { crops } from '@/data/crops';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { CtaButton } from '@/components/CtaButton';
 import { VideoWall } from '@/components/sections/VideoWall';
@@ -69,9 +72,16 @@ export default async function ReviewsPage() {
 
       <Section tone="bone" className="pt-0! lg:pt-0!">
         <div className="container-page">
+          {/*
+            Шесть отзывов подряд — шесть одинаковых прямоугольников
+            текста. После второго и пятого в сетку встаёт фрагмент
+            работы: это не иллюстрация к конкретному отзыву (связывать
+            их мы не вправе), а напоминание, о чём вообще речь.
+          */}
           <ul className="grid gap-6 lg:grid-cols-2">
             {reviews.map((t, i) => (
-              <li key={`${t.author ?? 'anon'}-${i}`}>
+              <Fragment key={`${t.author ?? 'anon'}-${i}`}>
+              <li>
                 <Reveal
                   delay={Math.min(i, 3) * 50}
                   className="flex h-full flex-col rounded-lg border border-line bg-cream p-7 sm:p-9"
@@ -91,6 +101,19 @@ export default async function ReviewsPage() {
                   </footer>
                 </Reveal>
               </li>
+
+              {i === 1 || i === 4 ? (
+                <li>
+                  <CropFrame
+                    crop={i === 1 ? crops.islandWood : crops.brassHood}
+                    ratio="aspect-16/10"
+                    sizes="(max-width: 1023px) 100vw, 46vw"
+                    caption
+                    className="h-full rounded-lg"
+                  />
+                </li>
+              ) : null}
+              </Fragment>
             ))}
           </ul>
 

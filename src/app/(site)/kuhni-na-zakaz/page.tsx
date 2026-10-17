@@ -4,6 +4,8 @@ import { PageHero } from '@/components/PageHero';
 import { ProjectCard } from '@/components/ProjectCard';
 import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
+import { LayoutDiagram } from '@/components/ui/LayoutDiagram';
+import { teamShots, teamShotAlt } from '@/data/team-shots';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Details } from '@/components/sections/Details';
 import { Process } from '@/components/sections/Process';
@@ -29,18 +31,22 @@ export const metadata: Metadata = {
 
 const layouts = [
   {
+    variant: 'straight',
     title: 'Прямые кухни',
     text: 'Один фронт вдоль стены. Подходит для узких помещений и кухонь-гостиных, где важно не занимать комнату мебелью.',
   },
   {
+    variant: 'corner',
     title: 'Угловые кухни',
     text: 'Самое частое решение для типовых квартир: короткие расстояния между мойкой, плитой и холодильником.',
   },
   {
+    variant: 'u',
     title: 'П-образные кухни',
     text: 'Максимум рабочей поверхности и хранения. Требует точности в размерах — ошибка видна сразу.',
   },
   {
+    variant: 'island',
     title: 'Кухни с островом',
     text: 'Для просторных помещений и кухонь-гостиных. Остров работает как рабочая зона, бар и место общения.',
   },
@@ -128,6 +134,10 @@ export default async function KitchensPage() {
                 delay={i * 50}
                 className="flex h-full flex-col bg-cream p-7"
               >
+                {/* Схема формы кухни: про геометрию проще показать */}
+                <div className="mb-6 max-w-44 text-ink/90">
+                  <LayoutDiagram variant={l.variant} />
+                </div>
                 <h3 className="font-display text-[1.1875rem] text-ink">
                   {l.title}
                 </h3>
@@ -162,14 +172,44 @@ export default async function KitchensPage() {
       <Section tone="ink" aria-labelledby="includes-title">
         <div className="container-page">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-            <SectionHeading
-              id="includes-title"
-              tone="light"
-              eyebrow="Что входит в работу"
-              title="Всё, что между «хочу новую кухню» и «кухня стоит»"
-              lead="Отдельно за проект, визуализацию и схемы электрики мы не берём денег. Это часть работы, а не платная опция."
-            />
-            <ul className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <SectionHeading
+                id="includes-title"
+                tone="light"
+                eyebrow="Что входит в работу"
+                title="Всё, что между «хочу новую кухню» и «кухня стоит»"
+                lead="Отдельно за проект, визуализацию и схемы электрики мы не берём денег. Это часть работы, а не платная опция."
+              />
+
+              {/* Список из десяти строк — самая «перечислительная» часть
+                  страницы. Рядом тот, кто эти десять строк выполняет:
+                  первая из них — выезд на замер */}
+              <Reveal className="mt-10">
+                <figure className="relative aspect-4/5 overflow-hidden bg-ink/60 sm:aspect-3/2 lg:aspect-4/5">
+                  <Image
+                    src={assetUrl(teamShots.robertMeasure.src)}
+                    alt={teamShotAlt.robertMeasure}
+                    fill
+                    loading="lazy"
+                    sizes="(max-width: 1023px) 100vw, 40vw"
+                    placeholder={
+                      teamShots.robertMeasure.blurDataURL ? 'blur' : 'empty'
+                    }
+                    blurDataURL={
+                      teamShots.robertMeasure.blurDataURL || undefined
+                    }
+                    className="object-cover"
+                  />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-14 text-[0.9375rem] text-cream/90">
+                    Пункт первый из списка: Роберт на замере. Остальные
+                    девять — тоже наша работа, а не ваша.
+                  </figcaption>
+                </figure>
+              </Reveal>
+            </div>
+            {/* content-start: иначе сетка растягивает десять строк
+                на всю высоту соседней колонки с фотографией */}
+            <ul className="grid auto-rows-min content-start gap-4 sm:grid-cols-2">
               {includes.map((item, i) => (
                 <li key={item}>
                   <Reveal
@@ -226,7 +266,7 @@ export default async function KitchensPage() {
       {/* Человек дочитал до сроков — значит задача у него реальная */}
       <Brief tone="bone" />
       <Price tone="cream" />
-      <Testimonials tone="bone" />
+      <Testimonials tone="bone" photoIndex={6} />
       <Faq limit={6} tone="cream" />
       <FinalCta
         title="Посчитаем вашу кухню"

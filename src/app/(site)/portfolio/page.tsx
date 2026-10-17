@@ -85,7 +85,7 @@ export default async function PortfolioPage() {
       </Section>
 
       <VideoWall />
-      <Testimonials tone="cream" />
+      <Testimonials tone="cream" photoIndex={14} />
 
       <FinalCta
         title="С какой из этих кухонь начнём вашу?"

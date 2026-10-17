@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
-import { getContent } from '@/lib/content/store';
+import { getContent, getVisibleDetails } from '@/lib/content/store';
+import { assetUrl } from '@/lib/content/images';
 
 /**
  * ЧЕСТНАЯ ПРИЧИНА НЕ ОТКЛАДЫВАТЬ.
@@ -11,8 +13,18 @@ import { getContent } from '@/lib/content/store';
 
 
 export async function Timing({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
-  const { timing } = await getContent('texts');
+  const [{ timing }, details] = await Promise.all([
+    getContent('texts'),
+    getVisibleDetails(),
+  ]);
   const stages = timing.stages;
+  /*
+    Этапы ремонта редко укладываются в три колонки ровно, и хвост
+    строки раньше оставался пустым полем. Свободные ячейки занимает
+    работа: разговор про сроки всё равно про неё.
+  */
+  const emptyCells = (3 - (stages.length % 3)) % 3;
+  const timingShots = details.slice(5, 5 + emptyCells);
   return (
     <Section tone={tone} aria-labelledby="timing-title">
       <div className="container-page">
@@ -43,6 +55,26 @@ export async function Timing({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
               <p className="mt-4 text-[0.9375rem] leading-relaxed text-stone">
                 {s.text}
               </p>
+            </Reveal>
+          ))}
+
+          {timingShots.map((d, i) => (
+            <Reveal key={d.id} delay={(stages.length + i) * 60} className="h-full">
+              <figure className="relative h-full min-h-56 overflow-hidden bg-sand">
+                <Image
+                  src={assetUrl(d.image.src)}
+                  alt={d.alt}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 1023px) 100vw, 33vw"
+                  placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
+                  blurDataURL={d.image.blurDataURL || undefined}
+                  className="object-cover"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/80 to-transparent p-5 pt-12 text-[0.8125rem] font-medium text-cream">
+                  {d.title}
+                </figcaption>
+              </figure>
             </Reveal>
           ))}
         </div>

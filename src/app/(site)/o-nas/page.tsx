@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { PageHero } from '@/components/PageHero';
 import { Founders } from '@/components/sections/Founders';
 import { Advantages } from '@/components/sections/Advantages';
@@ -10,6 +11,7 @@ import { Section } from '@/components/ui/Section';
 import { PhotoBand } from '@/components/PhotoBand';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { teamShots, teamShotAlt } from '@/data/team-shots';
+import { assetUrl } from '@/lib/content/images';
 
 export const metadata: Metadata = {
   title: 'О нас',
@@ -57,12 +59,30 @@ export default async function AboutPage() {
       <Section tone="bone" aria-labelledby="story-title">
         <div className="container-page">
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-            <h2
-              id="story-title"
-              className="font-display text-h2 text-ink lg:sticky lg:top-28 lg:self-start"
-            >
-              Почему семейное дело — это другое качество разговора
-            </h2>
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <h2 id="story-title" className="font-display text-h2 text-ink">
+                Почему семейное дело — это другое качество разговора
+              </h2>
+
+              {/* Три абзаца про «участок один — весь» рядом с тем, как
+                  этот участок выглядит: Катя за проектом вашей кухни */}
+              <Reveal className="mt-10">
+                <figure className="relative aspect-4/5 overflow-hidden bg-sand">
+                  <Image
+                    src={assetUrl(teamShots.katyaPlan.src)}
+                    alt={teamShotAlt.katyaPlan}
+                    fill
+                    loading="lazy"
+                    sizes="(max-width: 1023px) 100vw, 36vw"
+                    placeholder={
+                      teamShots.katyaPlan.blurDataURL ? 'blur' : 'empty'
+                    }
+                    blurDataURL={teamShots.katyaPlan.blurDataURL || undefined}
+                    className="object-cover"
+                  />
+                </figure>
+              </Reveal>
+            </div>
 
             <div className="grid gap-6 text-lead text-stone">
               <p>
@@ -121,7 +141,7 @@ export default async function AboutPage() {
 
       <Founders />
       <Advantages tone="cream" />
-      <Testimonials tone="cream" />
+      <Testimonials tone="cream" photoIndex={11} />
       <Objections tone="bone" />
 
       <FinalCta

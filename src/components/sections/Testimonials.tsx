@@ -3,7 +3,9 @@ import { RatingBadge } from '../RatingBadge';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { MarginNote } from '../ui/MarginNote';
-import { getVisibleReviews } from '@/lib/content/store';
+import { getVisibleProjects, getVisibleReviews } from '@/lib/content/store';
+import { assetUrl } from '@/lib/content/images';
+import Image from 'next/image';
 import { getSiteView } from '@/lib/content/view';
 
 /**
@@ -16,18 +18,29 @@ export async function Testimonials({
   index,
   tone = 'bone',
   limit = 3,
+  photoIndex = 3,
 }: {
   index?: string;
   tone?: 'cream' | 'bone';
   limit?: number;
+  /** Какой проект поставить в фотоколонку: на разных страницах разный */
+  photoIndex?: number;
 }) {
-  const [{ rating, items: all }, site] = await Promise.all([
+  const [{ rating, items: all }, site, projects] = await Promise.all([
     getVisibleReviews(),
     getSiteView(),
+    getVisibleProjects(),
   ]);
   if (all.length === 0 || !site.yandex) return null;
   const items = all.slice(0, limit);
   const yandex = site.yandex;
+  /*
+    Три колонки чужого текста подряд читаются как стена. Четвёртая
+    колонка — работа, подписанная своим названием: это кадр проекта,
+    а не «фотография к отзыву». Связывать конкретный отзыв с
+    конкретной кухней мы не вправе — люди не давали на это согласия.
+  */
+  const sideShot = projects[photoIndex % Math.max(projects.length, 1)] ?? null;
 
   return (
     <Section tone={tone} aria-labelledby="testimonials-title">
@@ -43,7 +56,7 @@ export async function Testimonials({
           <RatingBadge className="shrink-0" />
         </div>
 
-        <ul className="mt-12 grid gap-6 lg:mt-14 lg:grid-cols-3">
+        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
           {items.map((t, i) => (
             <li key={`${t.author ?? 'anon'}-${i}`}>
               <Reveal
@@ -66,6 +79,41 @@ export async function Testimonials({
               </Reveal>
             </li>
           ))}
+
+          {sideShot ? (
+            <li className="max-sm:order-first">
+              <Reveal
+                delay={Math.min(items.length, 3) * 60}
+                className="h-full"
+              >
+                <Link
+                  href={`/portfolio/${sideShot.slug}`}
+                  className="group relative block h-full min-h-72 overflow-hidden bg-sand"
+                >
+                  <Image
+                    src={assetUrl(sideShot.image.src)}
+                    alt={sideShot.alt}
+                    fill
+                    loading="lazy"
+                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
+                    placeholder={
+                      sideShot.image.blurDataURL ? 'blur' : 'empty'
+                    }
+                    blurDataURL={sideShot.image.blurDataURL || undefined}
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  />
+                  <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-16">
+                    <span className="block text-[0.9375rem] font-medium text-cream">
+                      {sideShot.title}
+                    </span>
+                    <span className="label-xs mt-1.5 block text-cream/60">
+                      Смотреть проект
+                    </span>
+                  </span>
+                </Link>
+              </Reveal>
+            </li>
+          ) : null}
         </ul>
 
         {/* Блок состоит из трёх колонок чужого текста — без живого голоса
