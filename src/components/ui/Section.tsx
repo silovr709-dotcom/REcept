@@ -135,7 +135,7 @@ export function SectionHeading({
         <div className="flex items-baseline gap-4">
           {index ? (
             <span
-              className={`label-xs ${tone === 'light' ? 'text-cream/45' : 'text-stone/70'}`}
+              className={`label-xs ${tone === 'light' ? 'text-cream/60' : 'text-stone'}`}
             >
               {index}
             </span>
@@ -164,7 +164,7 @@ export function SectionHeading({
       <div className="flex items-baseline gap-4 lg:flex-col lg:gap-3">
         {index ? (
           <span
-            className={`label-xs ${tone === 'light' ? 'text-cream/45' : 'text-stone/70'}`}
+            className={`label-xs ${tone === 'light' ? 'text-cream/60' : 'text-stone'}`}
           >
             {index}
           </span>

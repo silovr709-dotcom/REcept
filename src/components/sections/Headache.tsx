@@ -66,7 +66,7 @@ export async function Headache({ index }: { index?: string } = {}) {
                     viewBox="0 0 24 24"
                     fill="none"
                     aria-hidden="true"
-                    className="mt-1 shrink-0 text-cream/25"
+                    className="mt-1 shrink-0 text-cream/40"
                   >
                     <path
                       d="M7 7l10 10M17 7L7 17"

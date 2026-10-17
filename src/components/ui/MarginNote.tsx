@@ -43,7 +43,7 @@ export function MarginNote({
 }) {
   const ink = tone === 'light' ? 'text-cream/75' : 'text-stone';
   const line = tone === 'light' ? 'bg-cream/25' : 'bg-clay/60';
-  const sign = tone === 'light' ? 'text-cream/55' : 'text-clay';
+  const sign = tone === 'light' ? 'text-cream/60' : 'text-stone';
 
   return (
     <aside

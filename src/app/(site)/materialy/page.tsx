@@ -250,7 +250,7 @@ export default async function MaterialsPage() {
                 <p className="font-display text-h2 leading-none text-cream">
                   {f.count > 0 ? f.count : 'RAL'}
                 </p>
-                <p className="label-xs mt-3 text-cream/45">
+                <p className="label-xs mt-3 text-cream/60">
                   {f.count > 0 ? 'вариантов отделки' : 'любой цвет по вееру'}
                 </p>
                 <h3 className="font-display mt-7 text-[1.1875rem] text-cream">
@@ -260,7 +260,7 @@ export default async function MaterialsPage() {
                   {f.text}
                 </p>
                 {f.brands.length > 0 ? (
-                  <p className="mt-4 text-[0.875rem] text-cream/45">
+                  <p className="mt-4 text-[0.875rem] text-cream/60">
                     Производители: {f.brands.join(', ')}
                   </p>
                 ) : null}

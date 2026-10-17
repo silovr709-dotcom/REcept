@@ -5,6 +5,8 @@ import { ProjectCard } from '@/components/ProjectCard';
 import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { LayoutDiagram } from '@/components/ui/LayoutDiagram';
+import { CropFrame } from '@/components/ui/CropFrame';
+import { crops } from '@/data/crops';
 import { teamShots, teamShotAlt } from '@/data/team-shots';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Details } from '@/components/sections/Details';
@@ -258,6 +260,66 @@ export default async function KitchensPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </Section>
+
+      {/* Макро-ряд: кадры с объектов, снятые вблизи. Именно по ним
+          человек понимает, что мебель существует в реальности,
+          а не только на рендерах. Восьмая ячейка — не фотография,
+          а следующий шаг: ряд заканчивается предложением, а не точкой */}
+      <Section tone="ink" aria-labelledby="closeups-title">
+        <div className="container-page">
+          <SectionHeading
+            tone="light"
+            id="closeups-title"
+            eyebrow="Вблизи"
+            title="Детали, которые видно только вживую"
+            lead="Стыки, кромки, профиль-ручка, подсветка в нише. Это снято на наших объектах после сборки — без студийного света и ретуши."
+          />
+          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+            {(
+              [
+                'reededGreen',
+                'flutedWhite',
+                'brassHandles',
+                'stoneTopTap',
+                'vitrineBlack',
+                'brassFrames',
+                'blackColumn',
+              ] as const
+            ).map((id) => (
+              <CropFrame
+                key={id}
+                crop={crops[id]}
+                ratio="aspect-4/3"
+                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
+                caption
+              />
+            ))}
+
+            <div className="flex flex-col justify-between border border-cream/15 p-6">
+              <p className="font-display text-[1.1875rem] leading-snug text-cream">
+                Хотите рассмотреть такие детали вживую?
+              </p>
+              <div className="mt-6">
+                <p className="mb-5 text-[0.875rem] leading-relaxed text-cream/70">
+                  Привезём образцы фасадов и фурнитуры на замер — трогать
+                  руками полезнее, чем смотреть на экран.
+                </p>
+                <CtaButton
+                  source="kitchens-closeups"
+                  variant="light-solid"
+                  size="md"
+                  withArrow
+                  modalTitle="Записаться на замер"
+                  modalLead="Приедем вдвоём, привезём образцы фасадов и фурнитуры. Замер и проект — бесплатно, без обязательств."
+                  submitLabel="Записаться на замер"
+                >
+                  Записаться на замер
+                </CtaButton>
+              </div>
+            </div>
+          </div>
         </div>
       </Section>
 

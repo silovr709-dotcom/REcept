@@ -103,6 +103,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       lastModified: siteAt,
     },
+    // Политика нужна в карте сайта не ради трафика, а чтобы поисковик
+    // видел её как обычную страницу сайта, а не как «висящую» ссылку
+    {
+      url: abs('/politika-konfidencialnosti'),
+      priority: 0.2,
+      changeFrequency: 'yearly',
+      lastModified: siteAt,
+    },
   ];
 
   const projectPages: MetadataRoute.Sitemap = projects.map((project) => {

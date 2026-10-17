@@ -91,8 +91,8 @@ export async function Cliches({ tone = 'ink' }: { tone?: 'ink' | 'cream' }) {
                 <s
                   className={`font-display text-[1.25rem] leading-snug decoration-2 sm:text-[1.4375rem] ${
                     dark
-                      ? 'text-cream/35 decoration-cream/40'
-                      : 'text-ink/35 decoration-ink/35'
+                      ? 'text-cream/60 decoration-cream/50'
+                      : 'text-ink/65 decoration-ink/45'
                   }`}
                 >
                   {p.cliche}

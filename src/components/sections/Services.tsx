@@ -91,7 +91,7 @@ export async function Services({
                     <p className="font-display mt-5 text-[1.375rem] leading-tight text-ink transition-colors group-hover:text-brass">
                       {s.title}
                     </p>
-                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink/60">
+                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-stone">
                       {s.text}
                     </p>
                     <span className="label-xs mt-4 inline-flex items-center gap-2 text-brass">

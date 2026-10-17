@@ -218,11 +218,11 @@ export async function Hero() {
               href="/o-nas"
               className="group inline-flex items-baseline gap-4"
             >
-              <span className="label-xs text-cream/50">Это мы</span>
+              <span className="label-xs text-cream/70">Это мы</span>
               <span className="font-display text-[1.375rem] text-cream transition-colors group-hover:text-cream/70">
                 {names}
               </span>
-              <span aria-hidden="true" className="text-cream/50">
+              <span aria-hidden="true" className="text-cream/70">
                 →
               </span>
             </Link>

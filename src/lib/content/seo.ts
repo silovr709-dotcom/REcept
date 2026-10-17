@@ -35,7 +35,7 @@ export function projectDescription(project: ProjectItem) {
 
   // Если вышло слишком коротко — добавляем объяснение решения
   const full = base.length < 110 ? `${base} ${project.rationale}` : base;
-  return trimToWord(full, 178);
+  return trimToWord(full, 158);
 }
 
 /** Заголовок страницы. Шаблон сайта добавит «— РЕцепт, Тверь». */

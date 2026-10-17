@@ -125,7 +125,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                 </p>
 
                 {person.role ? (
-                  <p className="label-xs mt-6 text-cream/50">{person.role}</p>
+                  <p className="label-xs mt-6 text-cream/60">{person.role}</p>
                 ) : null}
 
                 {person.bio ? (
@@ -160,12 +160,12 @@ export async function Founders({ index }: { index?: string } = {}) {
         {/* Отзыв, где их зовут по именам, — доказательство личного участия */}
         {namedReview ? (
           <Reveal className="mt-16 grid gap-6 border-t border-cream/12 pt-10 lg:grid-cols-[10rem_1fr] lg:gap-12">
-            <p className="label-xs text-cream/45">Из отзывов</p>
+            <p className="label-xs text-cream/60">Из отзывов</p>
             <blockquote className="max-w-3xl">
               <p className="font-display text-h3 leading-snug text-cream">
                 «{namedReview.text.split('.').slice(0, 2).join('.').trim()}.»
               </p>
-              <footer className="mt-4 text-sm text-cream/50">
+              <footer className="mt-4 text-sm text-cream/60">
                 {namedReview.author ?? 'Без подписи'} · {namedReview.date} ·{' '}
                 <Link href="/otzyvy" className="link-sweep text-cream/70">
                   все отзывы

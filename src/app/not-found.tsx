@@ -1,5 +1,14 @@
+import type { Metadata } from 'next';
 import { ButtonLink } from '@/components/ui/Button';
 import { MarginNote } from '@/components/ui/MarginNote';
+import { SiteChrome } from '@/components/SiteChrome';
+
+export const metadata: Metadata = {
+  title: 'Страница не найдена',
+  description:
+    'Такой страницы на сайте мебельного ателье «РЕцепт» нет. Посмотрите наши кухни на заказ в Твери или напишите Роберту и Кате напрямую.',
+  robots: { index: false, follow: true },
+};
 
 /**
  * СТРАНИЦА «НЕ НАЙДЕНО»
@@ -14,7 +23,8 @@ import { MarginNote } from '@/components/ui/MarginNote';
  */
 export default function NotFound() {
   return (
-    <section className="flex min-h-[70vh] items-center bg-cream pt-24">
+    <SiteChrome>
+      <section className="flex min-h-[70vh] items-center bg-cream pt-24">
       <div className="container-page">
         <p className="text-eyebrow font-bold uppercase text-brass">
           Ошибка 404
@@ -51,6 +61,7 @@ export default function NotFound() {
           вы, а не мы вам.
         </MarginNote>
       </div>
-    </section>
+      </section>
+    </SiteChrome>
   );
 }
