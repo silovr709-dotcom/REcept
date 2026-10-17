@@ -133,15 +133,15 @@
   },
   "/images/team/hero-rob-kate-portrait.webp": {
     "src": "/images/team/hero-rob-kate-portrait@2x.webp",
-    "width": 1792,
+    "width": 1610,
     "height": 2400,
-    "base": 896
+    "base": 848
   },
   "/images/team/hero-rob-kate-wide.webp": {
     "src": "/images/team/hero-rob-kate-wide@2x.webp",
     "width": 2400,
-    "height": 1340,
-    "base": 1376
+    "height": 1610,
+    "base": 1264
   },
   "/images/team/katya-plan.webp": {
     "src": "/images/team/katya-plan@2x.webp",

@@ -32,6 +32,21 @@ import { assetUrl, fitRatio } from '@/lib/content/images';
  */
 const wishlist = ['aspect-4/5', 'aspect-square', 'aspect-square', 'aspect-4/5'];
 
+/**
+ * Крупная плитка.
+ *
+ * Все восемь фрагментов одного размера читались как ровный коврик:
+ * глазу не за что зацепиться, и макросъёмка — самое сильное, что
+ * есть у мебельщика, — проходит мимо. Поэтому каждая пятая плитка
+ * занимает две колонки: получается ритм «крупное — мелкое», в
+ * котором видно и фактуру, и количество решений.
+ *
+ * Работает только когда плиток хотя бы шесть: на четырёх крупная
+ * оставила бы в строке дырку.
+ */
+const isFeature = (index: number, total: number) =>
+  total >= 6 && index % 5 === 0;
+
 export async function Details({
   index,
   tone = 'cream',
@@ -56,7 +71,7 @@ export async function Details({
   limit?: number;
 }) {
   const all = await getVisibleDetails();
-  const list = items ?? all.slice(0, limit ?? 8);
+  const list = items ?? all.slice(0, limit ?? 6);
   if (list.length === 0) return null;
 
   const cols =
@@ -67,6 +82,10 @@ export async function Details({
     columns === 3
       ? '(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 30vw'
       : '(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 22vw';
+  const bigSizes =
+    columns === 3
+      ? '(max-width: 1023px) 94vw, 60vw'
+      : '(max-width: 1023px) 94vw, 45vw';
 
   return (
     <Section tone={tone} aria-labelledby="details-title">
@@ -80,25 +99,34 @@ export async function Details({
         />
 
         <ul className={`mt-12 grid gap-x-4 gap-y-8 sm:gap-x-6 lg:mt-16 ${cols}`}>
-          {list.map((d, i) => (
-            <li key={d.id}>
+          {list.map((d, i) => {
+            const big = isFeature(i, list.length);
+            return (
+            <li key={d.id} className={big ? 'col-span-2' : undefined}>
               <Reveal delay={Math.min(i, 5) * 40}>
                 <Link href={`/portfolio/${d.project}`} className="group block">
                   <div
-                    className={`media-reveal relative overflow-hidden rounded-md bg-sand ${fitRatio(d.image, wishlist[i % wishlist.length])}`}
+                    className={`media-reveal relative overflow-hidden rounded-md bg-sand ${fitRatio(
+                      d.image,
+                      big ? 'aspect-3/2' : wishlist[i % wishlist.length],
+                    )}`}
                   >
                     <Image
                       src={assetUrl(d.image.src)}
                       alt={d.alt}
                       fill
                       loading="lazy"
-                      sizes={sizes}
+                      sizes={big ? bigSizes : sizes}
                       placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
                       blurDataURL={d.image.blurDataURL || undefined}
                       className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
                     />
                   </div>
-                  <p className="mt-3 text-[0.9375rem] font-semibold leading-snug text-ink transition-colors group-hover:text-brass">
+                  <p
+                    className={`mt-3 font-semibold leading-snug text-ink transition-colors group-hover:text-brass ${
+                      big ? 'text-base sm:text-lg' : 'text-[0.9375rem]'
+                    }`}
+                  >
                     {d.title}
                   </p>
                   <p className="mt-1 text-[0.8125rem] leading-snug text-stone">
@@ -107,7 +135,8 @@ export async function Details({
                 </Link>
               </Reveal>
             </li>
-          ))}
+            );
+          })}
         </ul>
 
         {showCta ? (

@@ -74,7 +74,7 @@ export default async function HomePage() {
       {/* Визуальное доказательство */}
       <Services index="03" compact />
       <PortfolioPreview index="04" limit={6} />
-      <Details index="05" tone="cream" limit={4} />
+      <Details index="05" tone="cream" limit={6} />
 
       {/* Как это устроено и сколько стоит */}
       <Process index="06" tone="bone" limit={5} />

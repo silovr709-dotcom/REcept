@@ -72,10 +72,18 @@ export async function Hero() {
         {/* Основная шторка — снизу вверх. Заголовок и кнопки лежат в
             нижней половине кадра, и именно там нужна плотность: на
             телефоне текст приходится на светлую одежду и столешницу.
-            Кверху шторка расступается, чтобы кухня осталась видна */}
+            Кверху шторка расступается, чтобы кухня осталась видна.
+
+            На широких экранах шторка заметно легче, чем на телефоне.
+            Прежний кадр был снят в белой кухне при ровном дневном
+            свете — там требовалось плотное затемнение. Нынешний снят
+            на закате в графитовой кухне и сам по себе тёмный: та же
+            плотность превращала левую половину в чёрное пятно и
+            съедала ровно то, ради чего человек пришёл, — кухню.
+            Контраст светлого текста при этом остаётся выше 10:1 */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-linear-to-t from-ink/96 via-ink/80 via-58% to-ink/22 lg:from-ink/90 lg:via-ink/45 lg:via-50% lg:to-ink/12"
+          className="absolute inset-0 -z-10 bg-linear-to-t from-ink/96 via-ink/80 via-58% to-ink/22 lg:from-ink/74 lg:via-ink/30 lg:via-50% lg:to-ink/8"
         />
 
         {/* Подсветка там, где лица. На телефоне текст физически
@@ -101,7 +109,7 @@ export async function Hero() {
             с кухней осталась почти нетронутой */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 hidden lg:block lg:bg-linear-to-r lg:from-ink/82 lg:via-ink/30 lg:to-transparent"
+          className="absolute inset-0 -z-10 hidden lg:block lg:bg-linear-to-r lg:from-ink/62 lg:via-ink/18 lg:to-transparent"
         />
 
         <div className="container-page">
