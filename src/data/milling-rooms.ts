@@ -1,4 +1,13 @@
 import type { StaticImageData } from 'next/image';
+import arecio from '@public/images/millings/rooms/arecio.webp';
+import barneo from '@public/images/millings/rooms/barneo.webp';
+import bergamo from '@public/images/millings/rooms/bergamo.webp';
+import bridzh from '@public/images/millings/rooms/bridzh.webp';
+import fabio from '@public/images/millings/rooms/fabio.webp';
+import madrid from '@public/images/millings/rooms/madrid.webp';
+import malta from '@public/images/millings/rooms/malta.webp';
+import olimpiya from '@public/images/millings/rooms/olimpiya.webp';
+import palermo from '@public/images/millings/rooms/palermo.webp';
 import arina from '@public/images/millings/rooms/arina.webp';
 import arka from '@public/images/millings/rooms/arka.webp';
 import klassika from '@public/images/millings/rooms/klassika.webp';
@@ -57,6 +66,60 @@ export type MillingRoom = {
 };
 
 export const millingRooms: Record<string, MillingRoom> = {
+  arecio: {
+    image: arecio,
+    alt: 'Кухня с фрезеровкой «Арецио»: матовые чёрные фасады с рифлёной рамкой, латунная фурнитура',
+    caption:
+      'Рамка собрана из восьми тонких рёбер подряд. На чёрной эмали это единственный источник блика — кухня выглядит глубокой, а не плоской.',
+  },
+  bergamo: {
+    image: bergamo,
+    alt: 'Кухня с фрезеровкой «Бергамо»: дубовые фасады с рамкой и фаской по краю филёнки, чёрные ручки',
+    caption:
+      'Прямая рамка плюс узкая фаска по краю филёнки. На древесном фасаде фаска подсвечивается светлее рамки — рисунок виден даже без цвета.',
+  },
+  bridzh: {
+    image: bridzh,
+    alt: 'Кухня с фрезеровкой «Бридж»: сливовые фасады с широкой плоской рамкой и приподнятой филёнкой',
+    caption:
+      'Всего две плоскости и одна ступень между ними. Широкая рамка держит насыщенный цвет, не давая ему выглядеть «покрашенной плитой».',
+  },
+  barneo: {
+    image: barneo,
+    alt: 'Кухня с фрезеровкой «Барнео»: ванильные фасады с мягким скруглённым профилем, латунные ручки',
+    caption:
+      'Внутренний край рамки скруглён, а не срезан ступенью: тень получается плавной, и кухня читается тёплой, а не строгой.',
+  },
+  madrid: {
+    image: madrid,
+    alt: 'Кухня с фрезеровкой «Мадрид»: лавандово-серые фасады с витым канатиком вокруг филёнки, латунь',
+    caption:
+      'Витой канатик по периметру филёнки: он дробит свет на десятки мелких бликов. Самый «разговорчивый» декор из классических.',
+  },
+  malta: {
+    image: malta,
+    alt: 'Кухня с фрезеровкой «Мальта»: серые агатовые фасады с вогнутой выемкой вокруг филёнки, дубовая столешница',
+    caption:
+      'Вместо ступени — вогнутая выемка. Она ловит светлую дугу сверху и тень снизу: двойная мягкая линия вокруг каждого фасада.',
+  },
+  olimpiya: {
+    image: olimpiya,
+    alt: 'Кухня с фрезеровкой «Олимпия»: бежевые фасады с мелким бисером по контуру филёнки, мрамор, латунь',
+    caption:
+      'Ряд мелких полукруглых бусин по контуру. Вблизи — украшение, с другого конца комнаты — просто аккуратная линия.',
+  },
+  palermo: {
+    image: palermo,
+    alt: 'Кухня с фрезеровкой «Палермо»: тёмные хаки-фасады с глубокой прямоугольной выборкой',
+    caption:
+      'Глубокая выборка вместо филёнки: фасад выглядит вырезанным из куска плиты. Тень по двум сторонам плотная — объём читается сразу.',
+  },
+  fabio: {
+    image: fabio,
+    alt: 'Кухня с фрезеровкой «Фабио»: дубовые фасады со сплошным вертикальным рифлением, профиль-ручка',
+    caption:
+      'Крупная рейка по всему полотну на древесном фасаде: рельеф и текстура работают вместе, и кухня не нуждается ни в ручках, ни в декоре.',
+  },
   lzhevyborka: {
     image: lzhevyborka,
     alt: 'Кухня с фрезеровкой «Лжевыборка»: фасады в ореховой плёнке с ложным швом, чёрные профили-ручки',

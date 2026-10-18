@@ -107,6 +107,12 @@
     "height": 2400,
     "base": 1024
   },
+  "/images/millings/rooms/arecio.webp": {
+    "src": "/images/millings/rooms/arecio@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/arina.webp": {
     "src": "/images/millings/rooms/arina@2x.webp",
     "width": 2400,
@@ -119,14 +125,38 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/barneo.webp": {
+    "src": "/images/millings/rooms/barneo@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/belladzho.webp": {
     "src": "/images/millings/rooms/belladzho@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/bergamo.webp": {
+    "src": "/images/millings/rooms/bergamo@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/bridzh.webp": {
+    "src": "/images/millings/rooms/bridzh@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/dublin.webp": {
     "src": "/images/millings/rooms/dublin@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/fabio.webp": {
+    "src": "/images/millings/rooms/fabio@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
@@ -179,6 +209,18 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/madrid.webp": {
+    "src": "/images/millings/rooms/madrid@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/malta.webp": {
+    "src": "/images/millings/rooms/malta@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/marko.webp": {
     "src": "/images/millings/rooms/marko@2x.webp",
     "width": 2400,
@@ -211,6 +253,18 @@
   },
   "/images/millings/rooms/neo.webp": {
     "src": "/images/millings/rooms/neo@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/olimpiya.webp": {
+    "src": "/images/millings/rooms/olimpiya@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/palermo.webp": {
+    "src": "/images/millings/rooms/palermo@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
