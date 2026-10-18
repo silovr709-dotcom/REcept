@@ -119,6 +119,18 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/arka-2.webp": {
+    "src": "/images/millings/rooms/arka-2@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/arka-r.webp": {
+    "src": "/images/millings/rooms/arka-r@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/arka.webp": {
     "src": "/images/millings/rooms/arka@2x.webp",
     "width": 2400,
@@ -149,8 +161,26 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/dali.webp": {
+    "src": "/images/millings/rooms/dali@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/dublin.webp": {
     "src": "/images/millings/rooms/dublin@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/duet.webp": {
+    "src": "/images/millings/rooms/duet@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/dzhuliya.webp": {
+    "src": "/images/millings/rooms/dzhuliya@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
@@ -181,6 +211,12 @@
   },
   "/images/millings/rooms/kvadrat.webp": {
     "src": "/images/millings/rooms/kvadrat@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/kvadro.webp": {
+    "src": "/images/millings/rooms/kvadro@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
@@ -223,6 +259,12 @@
   },
   "/images/millings/rooms/marko.webp": {
     "src": "/images/millings/rooms/marko@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/marokko-2.webp": {
+    "src": "/images/millings/rooms/marokko-2@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
@@ -341,8 +383,20 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/valensiya.webp": {
+    "src": "/images/millings/rooms/valensiya@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/veneciya.webp": {
     "src": "/images/millings/rooms/veneciya@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/vizantiya-2.webp": {
+    "src": "/images/millings/rooms/vizantiya-2@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536

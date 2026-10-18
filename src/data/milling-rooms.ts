@@ -1,4 +1,13 @@
 import type { StaticImageData } from 'next/image';
+import arka2 from '@public/images/millings/rooms/arka-2.webp';
+import arkaR from '@public/images/millings/rooms/arka-r.webp';
+import dali from '@public/images/millings/rooms/dali.webp';
+import duet from '@public/images/millings/rooms/duet.webp';
+import dzhuliya from '@public/images/millings/rooms/dzhuliya.webp';
+import kvadro from '@public/images/millings/rooms/kvadro.webp';
+import marokko2 from '@public/images/millings/rooms/marokko-2.webp';
+import valensiya from '@public/images/millings/rooms/valensiya.webp';
+import vizantiya2 from '@public/images/millings/rooms/vizantiya-2.webp';
 import arecio from '@public/images/millings/rooms/arecio.webp';
 import barneo from '@public/images/millings/rooms/barneo.webp';
 import bergamo from '@public/images/millings/rooms/bergamo.webp';
@@ -66,6 +75,60 @@ export type MillingRoom = {
 };
 
 export const millingRooms: Record<string, MillingRoom> = {
+  'arka-2': {
+    image: arka2,
+    alt: 'Кухня с фрезеровкой «Арка 2»: кремовые фасады с арочной филёнкой, дубовая столешница, латунь',
+    caption:
+      'Верх филёнки — дуга вместо прямой. Тень по арке мягче, чем по боковым рёбрам, и весь ряд фасадов перестаёт выглядеть казённым.',
+  },
+  'arka-r': {
+    image: arkaR,
+    alt: 'Кухня с фрезеровкой «Арка Р»: голубые фасады с арочной филёнкой в вертикальную рейку',
+    caption:
+      'Та же арка, но филёнка набрана вертикальной рейкой. Получается деревенский мотив, который хорошо живёт в доме и на даче.',
+  },
+  valensiya: {
+    image: valensiya,
+    alt: 'Кухня с фрезеровкой «Валенсия»: кобальтово-синие фасады с рамкой в рамке, латунная фурнитура',
+    caption:
+      'Рамка внутри рамки: два контура профиля вокруг филёнки. На густом синем именно они высветляют цвет и не дают фасаду стать «пятном».',
+  },
+  dali: {
+    image: dali,
+    alt: 'Кухня с фрезеровкой «Дали»: фасады цвета слоновой кости с фигурной филёнкой и серебряной патиной',
+    caption:
+      'Контур филёнки фигурный: срезанные углы и плавные дуги вместо прямоугольника. Патина собирается в канавке и делает рисунок читаемым издалека.',
+  },
+  duet: {
+    image: duet,
+    alt: 'Кухня с фрезеровкой «Дуэт»: фасады из белёного дуба с тремя тонкими прорезями, без ручек',
+    caption:
+      'Три тонкие прорези по гладкому полотну, выставленные в одну линию через все фасады. Весь рисунок держится на точности стыковки.',
+  },
+  kvadro: {
+    image: kvadro,
+    alt: 'Кухня с фрезеровкой «Квадро»: фасады цвета белёного ясеня с прямоугольной выборкой',
+    caption:
+      'Одна прямоугольная выборка со скруглёнными углами. Нейтральный рисунок, который одинаково уместен и в классике, и в современной кухне.',
+  },
+  'vizantiya-2': {
+    image: vizantiya2,
+    alt: 'Кухня с фрезеровкой «Византия 2»: фисташковые фасады с узкой рамкой и филёнкой с бусиной',
+    caption:
+      'Спокойная версия «Византии»: одна ступень вместо трёх и тонкая бусина по филёнке. Классика, которая не спорит с цветом.',
+  },
+  dzhuliya: {
+    image: dzhuliya,
+    alt: 'Кухня с фрезеровкой «Джулия»: белоснежные фасады с едва заметной рамкой, графитовая столешница',
+    caption:
+      'Рельеф всего пара миллиметров: на белой эмали рамка видна как светло-серая линия. Тот случай, когда классика нужна только намёком.',
+  },
+  'marokko-2': {
+    image: marokko2,
+    alt: 'Кухня с фрезеровкой «Марокко 2»: изумрудные фасады с филёнкой на широкой фаске, латунь',
+    caption:
+      'Филёнка поднята на широкой фаске — её скос ловит свет отдельной плоскостью, и фасад выглядит объёмным, а не покрашенной плитой.',
+  },
   arecio: {
     image: arecio,
     alt: 'Кухня с фрезеровкой «Арецио»: матовые чёрные фасады с рифлёной рамкой, латунная фурнитура',
