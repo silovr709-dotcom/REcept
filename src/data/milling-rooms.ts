@@ -1,4 +1,12 @@
 import type { StaticImageData } from 'next/image';
+import florenciya from '@public/images/millings/rooms/florenciya.webp';
+import klassika2 from '@public/images/millings/rooms/klassika-2.webp';
+import myunhen from '@public/images/millings/rooms/myunhen.webp';
+import nicca from '@public/images/millings/rooms/nicca.webp';
+import petra from '@public/images/millings/rooms/petra.webp';
+import rondo from '@public/images/millings/rooms/rondo.webp';
+import simpa from '@public/images/millings/rooms/simpa.webp';
+import sitroR from '@public/images/millings/rooms/sitro-r.webp';
 import arka2 from '@public/images/millings/rooms/arka-2.webp';
 import arkaR from '@public/images/millings/rooms/arka-r.webp';
 import dali from '@public/images/millings/rooms/dali.webp';
@@ -75,6 +83,54 @@ export type MillingRoom = {
 };
 
 export const millingRooms: Record<string, MillingRoom> = {
+  'klassika-2': {
+    image: klassika2,
+    alt: 'Двухцветная кухня с фрезеровкой «Классика 2»: фасады цвета слоновой кости сверху и тёмно-синие снизу с фигурной филёнкой',
+    caption:
+      'Верх и низ филёнки выгнуты мягкой дугой, и тень по контуру то утолщается, то сходит на нет. Один и тот же рисунок на светлом верхе и тёмном низе читается по-разному.',
+  },
+  myunhen: {
+    image: myunhen,
+    alt: 'Кухня с фрезеровкой «Мюнхен»: табачно-коричневые фасады с широкой ступенчатой рамкой, дубовая столешница',
+    caption:
+      'Широкая рамка с толстой ступенью и глубокая филёнка. Самый «тяжёлый» рисунок каталога: фасад выглядит не дверцей, а крышкой сундука.',
+  },
+  nicca: {
+    image: nicca,
+    alt: 'Кухня с фрезеровкой «Нисса»: белые матовые фасады с узкой рамкой и фаской, медная фурнитура',
+    caption:
+      'Узкая рамка 45 мм с фаской по внешнему краю. Фаска ловит светлую нитку по контуру — классика, которая почти не занимает места.',
+  },
+  petra: {
+    image: petra,
+    alt: 'Кухня с фрезеровкой «Петра»: каменно-серые фасады с двойной ступенью, чёрная гранитная столешница',
+    caption:
+      'Две прямые ступени к филёнке — две параллельные тени вокруг фасада. Никаких дуг и бусин: рисунок держится только на геометрии.',
+  },
+  rondo: {
+    image: rondo,
+    alt: 'Кухня с фрезеровкой «Рондо»: кремовые фасады с выгнутой филёнкой и ореховой патиной',
+    caption:
+      'Бока филёнки втянуты внутрь, верх и низ выпуклые — контур получается «с талией». Патина в канавке делает эту форму видимой с другого конца комнаты.',
+  },
+  simpa: {
+    image: simpa,
+    alt: 'Кухня с фрезеровкой «Симпа»: графитовые матовые фасады с арочной филёнкой и скруглённым профилем',
+    caption:
+      'Арка и скруглённый профиль без единой острой грани. На тёмно-сером рельеф работает мягкой растяжкой света, а не контрастной линией.',
+  },
+  'sitro-r': {
+    image: sitroR,
+    alt: 'Кухня с фрезеровкой «Ситро Р»: молочно-белые фасады с филёнкой в вертикальную рейку, терракотовый пол',
+    caption:
+      'Прямоугольная рамка, а внутри — вертикальная рейка. То же деревенское настроение, что у «Арки Р», но без арки: строже и спокойнее.',
+  },
+  florenciya: {
+    image: florenciya,
+    alt: 'Кухня с фрезеровкой «Флоренция»: фасады цвета слоновой кости с резным декором и золотой патиной',
+    caption:
+      'Самый декоративный рисунок каталога: арка, резной цветок сверху и снизу и витой шнур по центру полотна. Золотая патина нужна здесь не для блеска, а чтобы резьба вообще читалась.',
+  },
   'arka-2': {
     image: arka2,
     alt: 'Кухня с фрезеровкой «Арка 2»: кремовые фасады с арочной филёнкой, дубовая столешница, латунь',

@@ -191,6 +191,12 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/florenciya.webp": {
+    "src": "/images/millings/rooms/florenciya@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/foster.webp": {
     "src": "/images/millings/rooms/foster@2x.webp",
     "width": 2400,
@@ -199,6 +205,12 @@
   },
   "/images/millings/rooms/kapella.webp": {
     "src": "/images/millings/rooms/kapella@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/klassika-2.webp": {
+    "src": "/images/millings/rooms/klassika-2@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
@@ -293,8 +305,20 @@
     "height": 1600,
     "base": 1536
   },
+  "/images/millings/rooms/myunhen.webp": {
+    "src": "/images/millings/rooms/myunhen@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/neo.webp": {
     "src": "/images/millings/rooms/neo@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/nicca.webp": {
+    "src": "/images/millings/rooms/nicca@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
@@ -319,6 +343,12 @@
   },
   "/images/millings/rooms/paola.webp": {
     "src": "/images/millings/rooms/paola@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/petra.webp": {
+    "src": "/images/millings/rooms/petra@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
@@ -355,6 +385,24 @@
   },
   "/images/millings/rooms/romb.webp": {
     "src": "/images/millings/rooms/romb@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/rondo.webp": {
+    "src": "/images/millings/rooms/rondo@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/simpa.webp": {
+    "src": "/images/millings/rooms/simpa@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
+  "/images/millings/rooms/sitro-r.webp": {
+    "src": "/images/millings/rooms/sitro-r@2x.webp",
     "width": 2400,
     "height": 1600,
     "base": 1536
