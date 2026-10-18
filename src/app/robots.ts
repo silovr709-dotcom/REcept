@@ -14,7 +14,9 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin'],
+        // Личный кабинет — закрытая часть: ни индексации, ни попадания
+        // в карту сайта. Страницы дополнительно помечены noindex.
+        disallow: ['/api/', '/admin', '/kabinet'],
       },
     ],
     sitemap: `${site.url}/sitemap.xml`,

@@ -96,6 +96,18 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
+            {/* Кабинет нужен действующим заказчикам, а не случайному
+                посетителю: пункт есть всегда, но не спорит с основным
+                меню за внимание. */}
+            <Link
+              href="/kabinet"
+              className={`hidden text-[0.9375rem] font-medium transition-colors lg:inline ${
+                overPhoto ? 'text-cream/85 hover:text-cream' : 'text-ink/80 hover:text-brass'
+              }`}
+            >
+              Личный кабинет
+            </Link>
+
             {hasPhone ? (
               <a
                 href={phoneHref}
@@ -215,6 +227,13 @@ export function Header() {
                 Позвонить {phoneDisplay}
               </a>
             ) : null}
+
+            <Link
+              href="/kabinet"
+              className="flex min-h-13 items-center justify-center text-[0.75rem] font-semibold uppercase tracking-[0.13em] text-stone"
+            >
+              Личный кабинет
+            </Link>
           </div>
 
           {activeContacts.length > 0 ? (

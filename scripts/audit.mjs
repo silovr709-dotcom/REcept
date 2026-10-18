@@ -55,6 +55,15 @@ const pages = htmlFiles
   .filter((f) => f.endsWith('index.html'))
   .map((f) => ({ file: f, route: routeOf(f), html: readFileSync(f, 'utf8') }));
 
+/**
+ * Личный кабинет — закрытая часть витрины. К нему неприменимы правила
+ * продающей страницы: там нет призывов «оставить заявку», он не должен
+ * попадать в карту сайта, а содержимое рисуется уже в браузере, после
+ * проверки прав, — поэтому в статическом файле нет и заголовка H1.
+ * Зато у кабинета есть свои обязательные проверки, они ниже, пункт 13.
+ */
+const isCabinet = (route) => route === '/kabinet' || route.startsWith('/kabinet/');
+
 const strip = (html) =>
   html
     .replace(/<script[\s\S]*?<\/script>/g, ' ')
@@ -71,6 +80,7 @@ const strip = (html) =>
 const titles = new Map();
 
 for (const { route, html } of pages) {
+  const cabinet = isCabinet(route);
   const title = /<title>([\s\S]*?)<\/title>/.exec(html)?.[1]?.trim();
   const desc = /<meta name="description" content="([^"]*)"/.exec(html)?.[1];
 
@@ -88,7 +98,7 @@ for (const { route, html } of pages) {
     fail('description', `${route} — ${desc.length} знаков (норма 70–165)`);
 
   const h1 = html.match(/<h1[\s>]/g)?.length ?? 0;
-  if (h1 !== 1) fail('h1', `${route} — H1 на странице: ${h1} (норма 1)`);
+  if (!cabinet && h1 !== 1) fail('h1', `${route} — H1 на странице: ${h1} (норма 1)`);
 
   if (!/rel="canonical"/.test(html)) fail('canonical', `${route} — нет canonical`);
   if (!/property="og:image"/.test(html)) fail('open-graph', `${route} — нет og:image`);
@@ -122,12 +132,14 @@ for (const { route, html } of pages) {
   }
 
   // телефон кликабельный
-  if (!/href="tel:/.test(html)) fail('телефон', `${route} — нет ссылки tel:`);
+  if (!cabinet && !/href="tel:/.test(html)) fail('телефон', `${route} — нет ссылки tel:`);
 
   // призывы к действию
-  const ctaHrefs = [...html.matchAll(/href="([^"]*(?:#zayavka|\/kontakty)[^"]*)"/g)].length;
-  if (ctaHrefs < 2)
-    fail('CTA', `${route} — ссылок на заявку/контакты: ${ctaHrefs} (норма ≥ 2)`);
+  if (!cabinet) {
+    const ctaHrefs = [...html.matchAll(/href="([^"]*(?:#zayavka|\/kontakty)[^"]*)"/g)].length;
+    if (ctaHrefs < 2)
+      fail('CTA', `${route} — ссылок на заявку/контакты: ${ctaHrefs} (норма ≥ 2)`);
+  }
 
   // запрещённые приёмы. Клише в зачёркнутом теге <s> — это наш же блок
   // «чего у нас не будет», он проверке не подлежит.
@@ -182,7 +194,9 @@ else {
     new URL(m[1]).pathname.replace(/\/$/, '') || '/',
   );
   const set = new Set(locs);
-  const publicRoutes = pages.map((p) => p.route).filter((r) => r !== '/404');
+  const publicRoutes = pages
+    .map((p) => p.route)
+    .filter((r) => r !== '/404' && !isCabinet(r));
   for (const r of publicRoutes)
     if (!set.has(r)) fail('sitemap', `страница ${r} не попала в карту сайта`);
   notes.push(`адресов в карте сайта: ${locs.length}`);
@@ -195,7 +209,12 @@ if (!existsSync(path.join(OUT, '404.html'))) fail('404', 'нет страниц�
 /* ------------------------------------------------------------------ */
 
 const JS_LIMIT = 600 * 1024;
+// Кабинет — приложение для вошедшего заказчика, а не страница захвата:
+// там неизбежен клиент базы данных. Скорость первой встречи с сайтом он
+// не портит, потому что публичные страницы его не загружают.
+const JS_LIMIT_CABINET = 1000 * 1024;
 let heaviest = 0;
+let heaviestCabinet = 0;
 for (const { route, html } of pages) {
   const srcs = new Set([...html.matchAll(/src="([^"]+\.js)"/g)].map((m) => m[1]));
   let total = 0;
@@ -203,11 +222,15 @@ for (const { route, html } of pages) {
     const p = path.join(OUT, s.slice(BASE.length));
     if (existsSync(p)) total += statSync(p).size;
   }
-  heaviest = Math.max(heaviest, total);
-  if (total > JS_LIMIT)
-    fail('скрипты', `${route} — ${Math.round(total / 1024)} КБ (лимит ${JS_LIMIT / 1024} КБ)`);
+  const limit = isCabinet(route) ? JS_LIMIT_CABINET : JS_LIMIT;
+  if (isCabinet(route)) heaviestCabinet = Math.max(heaviestCabinet, total);
+  else heaviest = Math.max(heaviest, total);
+  if (total > limit)
+    fail('скрипты', `${route} — ${Math.round(total / 1024)} КБ (лимит ${limit / 1024} КБ)`);
 }
 notes.push(`самая «тяжёлая» страница по JS: ${Math.round(heaviest / 1024)} КБ без сжатия`);
+if (heaviestCabinet)
+  notes.push(`самая «тяжёлая» страница кабинета: ${Math.round(heaviestCabinet / 1024)} КБ без сжатия`);
 
 /* ------------------------------------------------------------------ */
 /* 10. лишние файлы в публикации                                       */
@@ -311,6 +334,62 @@ for (const f of srcFiles) {
       fail('контраст', `${where} — ${m[0]} даёт ${r.toFixed(2)}:1`);
     }
   });
+}
+
+/* ------------------------------------------------------------------ */
+/* 13. личный кабинет: закрытость и отсутствие секретов                */
+/* ------------------------------------------------------------------ */
+
+const cabinetPages = pages.filter((p) => isCabinet(p.route));
+if (cabinetPages.length === 0) {
+  warn('кабинет', 'в витрине нет ни одной страницы кабинета');
+} else {
+  for (const { route, html } of cabinetPages) {
+    if (!/<meta name="robots"[^>]*noindex/i.test(html))
+      fail('кабинет', `${route} — нет запрета индексации (noindex)`);
+  }
+  notes.push(`страниц кабинета: ${cabinetPages.length} (все закрыты от индексации)`);
+
+  if (existsSync(smPath)) {
+    const sm = readFileSync(smPath, 'utf8');
+    for (const { route } of cabinetPages)
+      if (sm.includes(`${route}/</loc>`) || sm.includes(`${route}</loc>`))
+        fail('кабинет', `${route} попал в карту сайта`);
+  }
+
+  const robots = existsSync(path.join(OUT, 'robots.txt'))
+    ? readFileSync(path.join(OUT, 'robots.txt'), 'utf8')
+    : '';
+  if (!/Disallow:\s*\/kabinet/.test(robots))
+    fail('кабинет', 'в robots.txt нет запрета на /kabinet');
+
+  // Ключ доступа к базе кабинета подкладывается файлом рядом с витриной.
+  const cfg = path.join(OUT, 'kabinet-config.js');
+  if (!existsSync(cfg)) fail('кабинет', 'в витрине нет kabinet-config.js');
+
+  // Служебный ключ Supabase обходит все правила доступа. В браузер он не
+  // попадает никогда — ни в конфиг, ни в собранные скрипты.
+  const secretish = [
+    [/service_role/i, 'строка service_role'],
+    [/SUPABASE_SERVICE[_A-Z]*KEY/i, 'имя служебного ключа'],
+    [/\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}/, 'похоже на JWT-ключ'],
+  ];
+  const jsFiles = files.filter((f) => /\.(js|json)$/.test(f));
+  // Комментарии не исполняются: предупреждение «service_role сюда нельзя»
+  // в шапке конфига — это не утечка, а инструкция владельцам.
+  const dropComments = (code) =>
+    code.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/^\s*\/\/.*$/gm, ' ');
+  for (const f of jsFiles) {
+    const src = dropComments(readFileSync(f, 'utf8'));
+    for (const [re, what] of secretish) {
+      const hit = re.exec(src);
+      if (!hit) continue;
+      // Анонимный ключ — публичный по замыслу, он и должен лежать в конфиге.
+      if (what.startsWith('похоже') && /anon/i.test(src.slice(Math.max(0, hit.index - 200), hit.index)))
+        continue;
+      fail('кабинет', `${path.relative(OUT, f)} — ${what}`);
+    }
+  }
 }
 
 /* ------------------------------------------------------------------ */

@@ -12,6 +12,7 @@
     "audit": "node scripts/audit.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
     "next": "15.5.26",
     "nodemailer": "^7.0.0",
     "react": "19.1.0",

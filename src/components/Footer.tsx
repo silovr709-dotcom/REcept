@@ -17,6 +17,7 @@ export async function Footer() {
   const footerLinks = [
     ...navigation,
     { href: '/frezerovki', label: 'Фрезеровки' },
+    { href: '/kabinet', label: 'Личный кабинет' },
   ];
   const phoneDisplay = site.primaryPhone?.display ?? '';
   const phoneHref = site.primaryPhone ? `tel:${site.primaryPhone.raw}` : '';
