@@ -5,6 +5,15 @@ import klassika from '@public/images/millings/rooms/klassika.webp';
 import modern from '@public/images/millings/rooms/modern.webp';
 import belladzho from '@public/images/millings/rooms/belladzho.webp';
 import dublin from '@public/images/millings/rooms/dublin.webp';
+import foster from '@public/images/millings/rooms/foster.webp';
+import loreto from '@public/images/millings/rooms/loreto.webp';
+import lzhevyborka from '@public/images/millings/rooms/lzhevyborka.webp';
+import marko from '@public/images/millings/rooms/marko.webp';
+import monako from '@public/images/millings/rooms/monako.webp';
+import pallada from '@public/images/millings/rooms/pallada.webp';
+import rim from '@public/images/millings/rooms/rim.webp';
+import rimini from '@public/images/millings/rooms/rimini.webp';
+import vizantiya from '@public/images/millings/rooms/vizantiya.webp';
 import kapella from '@public/images/millings/rooms/kapella.webp';
 import luidzhi from '@public/images/millings/rooms/luidzhi.webp';
 import paola from '@public/images/millings/rooms/paola.webp';
@@ -48,6 +57,60 @@ export type MillingRoom = {
 };
 
 export const millingRooms: Record<string, MillingRoom> = {
+  lzhevyborka: {
+    image: lzhevyborka,
+    alt: 'Кухня с фрезеровкой «Лжевыборка»: фасады в ореховой плёнке с ложным швом, чёрные профили-ручки',
+    caption:
+      'Ложный шов: фреза рисует стык там, где его нет. Высокий фасад выглядит как два, а дверца остаётся цельной — меньше щелей, меньше поводов для перекоса.',
+  },
+  rim: {
+    image: rim,
+    alt: 'Кухня с фрезеровкой «Рим»: бордовые фасады со сплошным мелким рифлением, профиль-ручка',
+    caption:
+      'Мелкая вертикальная рифлёнка по всему полотну, без рамки и гладких участков. На насыщенном цвете она даёт ровный ритм света и тени вдоль всей линии.',
+  },
+  rimini: {
+    image: rimini,
+    alt: 'Кухня с фрезеровкой «Римини»: миндальные фасады с рифлёной рамкой вокруг гладкой филёнки, тёмная столешница',
+    caption:
+      'Рифлёнка идёт только по периметру и обрамляет гладкий центр: рельеф есть, но фасад не выглядит перегруженным.',
+  },
+  loreto: {
+    image: loreto,
+    alt: 'Кухня с фрезеровкой «Лорето»: пудрово-бежевые фасады с широкими мягкими волнами, латунные ручки',
+    caption:
+      'Волны шире обычной рейки, поэтому тень получается мягкой растяжкой, а не полосой. Приглушённый цвет такой рельеф любит больше всего.',
+  },
+  vizantiya: {
+    image: vizantiya,
+    alt: 'Кухня с фрезеровкой «Византия»: фасады цвета мокко с трёхступенчатой рамкой, латунная фурнитура',
+    caption:
+      'Три ступени от края к филёнке — три параллельные тени вокруг каждого фасада. Рисунок, который держит крупную классическую кухню.',
+  },
+  monako: {
+    image: monako,
+    alt: 'Кухня с фрезеровкой «Монако»: белые верхние и антрацитовые нижние фасады с фрезерованной планкой-ручкой',
+    caption:
+      'Гладкое полотно и одна фрезерованная планка по верхней кромке: она же ручка. Ряд фасадов собирается в одну непрерывную линию тени.',
+  },
+  pallada: {
+    image: pallada,
+    alt: 'Кухня с фрезеровкой «Паллада»: кремовые фасады и тёмно-зелёный остров с классической рамкой, латунные ручки',
+    caption:
+      'Универсальная классическая рамка: одинаково спокойно работает и на кремовом корпусе, и на тёмном острове — поэтому её часто берут для двухцветных кухонь.',
+  },
+  marko: {
+    image: marko,
+    alt: 'Кухня с фрезеровкой «Марко»: светлые серо-бежевые гладкие фасады с тонкой прорезью по контуру',
+    caption:
+      'Самая тихая фрезеровка каталога: одна тонкая прорезь по контуру гладкого фасада. Линия есть, объёма нет — для тех, кому «совсем гладко» скучно.',
+  },
+  foster: {
+    image: foster,
+    alt: 'Кухня с фрезеровкой «Фостер»: джинсово-синие фасады с узкой рамкой, мраморный фартук',
+    caption:
+      'Рамка уже классической — 45 мм. За счёт этого фасад читается современным, а тень по контуру всё равно есть.',
+  },
   strit: {
     image: strit,
     alt: 'Кухня с фрезеровкой «Стрит»: тёмно-синие гладкие фасады с тонкой угловой насечкой, латунные ручки',
