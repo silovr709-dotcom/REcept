@@ -80,11 +80,11 @@ export function Header() {
                       className={`relative py-2 text-[0.9375rem] font-medium transition-colors ${
                         active
                           ? overPhoto
-                            ? 'text-navylight'
-                            : 'text-navy'
+                            ? 'text-goldsoft'
+                            : 'text-gold'
                           : overPhoto
                             ? 'text-cream/85 hover:text-cream'
-                            : 'text-ink/80 hover:text-navy'
+                            : 'text-ink/80 hover:text-gold'
                       }`}
                     >
                       {item.label}
@@ -102,7 +102,7 @@ export function Header() {
             <Link
               href="/kabinet"
               className={`hidden text-[0.9375rem] font-medium transition-colors lg:inline ${
-                overPhoto ? 'text-cream/85 hover:text-cream' : 'text-ink/80 hover:text-navy'
+                overPhoto ? 'text-cream/85 hover:text-cream' : 'text-ink/80 hover:text-gold'
               }`}
             >
               Личный кабинет
@@ -114,8 +114,8 @@ export function Header() {
                 onClick={() => reachGoal('phone_click', { place: 'header' })}
                 className={`hidden text-[0.9375rem] font-semibold transition-colors 2xl:inline ${
                   overPhoto
-                    ? 'text-cream hover:text-navylight'
-                    : 'text-ink hover:text-navy'
+                    ? 'text-cream hover:text-goldsoft'
+                    : 'text-ink hover:text-gold'
                 }`}
               >
                 {phoneDisplay}
@@ -209,7 +209,7 @@ export function Header() {
           <div className="mt-6 grid gap-3">
             <CtaButton
               source="mobile-menu"
-              variant="navy"
+              variant="gold"
               size="lg"
               className="w-full"
               modalTitle="Рассчитаем вашу кухню"
@@ -240,7 +240,7 @@ export function Header() {
             <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-stone">
               {activeContacts.map((c) => (
                 <li key={c.id}>
-                  <a href={c.href} className="underline decoration-navy/40 underline-offset-4">
+                  <a href={c.href} className="underline decoration-gold/40 underline-offset-4">
                     {c.label}
                   </a>
                 </li>

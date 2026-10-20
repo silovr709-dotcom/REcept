@@ -83,9 +83,9 @@ export async function Headache({ index }: { index?: string } = {}) {
 
           <Reveal
             delay={80}
-            className="rounded-lg border border-navy/35 bg-linear-to-b from-navy/12 to-transparent p-8 sm:p-10"
+            className="rounded-lg border border-gold/35 bg-linear-to-b from-gold/12 to-transparent p-8 sm:p-10"
           >
-            <h3 className="text-eyebrow font-bold uppercase text-navylight">
+            <h3 className="text-eyebrow font-medium uppercase tracking-[0.18em] text-goldsoft">
               Как это происходит с «РЕцептом»
             </h3>
             <ul className="mt-7 grid gap-5">
@@ -97,7 +97,7 @@ export async function Headache({ index }: { index?: string } = {}) {
                     viewBox="0 0 24 24"
                     fill="none"
                     aria-hidden="true"
-                    className="mt-1 shrink-0 text-navylight"
+                    className="mt-1 shrink-0 text-goldsoft"
                   >
                     <path
                       d="m5 12.5 4.5 4.5L19 7"

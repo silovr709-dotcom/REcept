@@ -59,7 +59,7 @@ export function Brief({
                   ],
                 ].map(([t, d], i) => (
                   <li key={t} className="flex gap-4">
-                    <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-navy/40 text-[0.75rem] font-semibold text-navy">
+                    <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-gold/40 text-[0.75rem] font-semibold text-gold">
                       {i + 1}
                     </span>
                     <span>

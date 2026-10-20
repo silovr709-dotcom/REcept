@@ -90,7 +90,7 @@ export default async function KitchensPage() {
         <div className="flex flex-col gap-3 sm:flex-row">
           <CtaButton
             source="kitchens-top"
-            variant="navy"
+            variant="gold"
             size="lg"
             withArrow
             className="max-sm:w-full"
@@ -226,7 +226,7 @@ export default async function KitchensPage() {
                       viewBox="0 0 24 24"
                       fill="none"
                       aria-hidden="true"
-                      className="mt-0.5 shrink-0 text-navylight"
+                      className="mt-0.5 shrink-0 text-goldsoft"
                     >
                       <path
                         d="m5 12.5 4.5 4.5L19 7"

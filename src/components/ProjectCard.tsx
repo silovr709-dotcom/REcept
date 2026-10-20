@@ -53,7 +53,7 @@ export function ProjectCard({
 
       <div className="mt-5 flex items-start justify-between gap-4">
         <div>
-          <h3 className="font-display text-[1.125rem] text-ink transition-colors group-hover:text-navy sm:text-[1.25rem]">
+          <h3 className="font-display text-[1.125rem] text-ink transition-colors group-hover:text-gold sm:text-[1.25rem]">
             {project.title}
           </h3>
           <p className="mt-1 text-[0.875rem] leading-snug text-stone">
@@ -62,7 +62,7 @@ export function ProjectCard({
         </div>
         <span
           aria-hidden="true"
-          className="mt-1.5 shrink-0 text-navy opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className="mt-1.5 shrink-0 text-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         >
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
             <path

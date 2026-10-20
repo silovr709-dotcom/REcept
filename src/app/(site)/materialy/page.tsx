@@ -152,7 +152,7 @@ export default async function MaterialsPage() {
       >
         <CtaButton
           source="materials-top"
-          variant="navy"
+          variant="gold"
           size="lg"
           withArrow
           className="max-sm:w-full"
@@ -213,7 +213,7 @@ export default async function MaterialsPage() {
                   ) : null}
 
                   <div className="flex grow flex-col p-8 sm:p-9">
-                    <span className="self-start border-l border-navy pl-2.5 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-navy">
+                    <span className="self-start border-l border-gold pl-2.5 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-gold">
                       {f.tag}
                     </span>
                     <h3 className="font-display mt-4 text-[1.1875rem] text-ink">
@@ -247,7 +247,7 @@ export default async function MaterialsPage() {
           <div className="mt-16 grid gap-px bg-cream/12 sm:grid-cols-2 lg:mt-24">
             {materialFamilies.map((f, i) => (
               <Reveal key={f.id} delay={Math.min(i, 4) * 50} className="bg-ink p-8 sm:p-10 lg:p-12">
-                <p className="font-display text-h2 leading-none text-cream">
+                <p className="font-display-light text-h2 leading-none text-cream">
                   {f.count > 0 ? f.count : 'RAL'}
                 </p>
                 <p className="label-xs mt-3 text-cream/60">
@@ -539,7 +539,7 @@ export default async function MaterialsPage() {
                         >
                           <span
                             aria-hidden="true"
-                            className="mt-2.5 size-1 shrink-0 rounded-full bg-navylight"
+                            className="mt-2.5 size-1 shrink-0 rounded-full bg-goldsoft"
                           />
                           {item}
                         </li>
@@ -597,7 +597,7 @@ export default async function MaterialsPage() {
             </p>
             <CtaButton
               source="materials-samples"
-              variant="navy"
+              variant="gold"
               size="lg"
               withArrow
               className="mt-7 max-sm:w-full"

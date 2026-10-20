@@ -122,7 +122,7 @@ export async function Process({
           <Reveal className="mt-8">
             <Link
               href="/kuhni-na-zakaz#process"
-              className="inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-navy underline decoration-navy/40 underline-offset-4"
+              className="inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-gold underline decoration-gold/40 underline-offset-4"
             >
               Весь процесс целиком — все {allSteps.length} шагов до сборки и гарантии
             </Link>

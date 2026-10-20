@@ -74,7 +74,7 @@ export async function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
                   href={vkVideoLink(video.id)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`mt-1 inline-block text-[0.8125rem] underline decoration-navy/50 underline-offset-4 ${
+                  className={`mt-1 inline-block text-[0.8125rem] underline decoration-gold/50 underline-offset-4 ${
                     light ? 'text-cream/60 hover:text-cream' : 'text-stone hover:text-ink'
                   }`}
                 >

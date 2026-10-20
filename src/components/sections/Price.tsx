@@ -90,7 +90,7 @@ export async function Price({
                     viewBox="0 0 24 24"
                     fill="none"
                     aria-hidden="true"
-                    className="mt-1 shrink-0 text-navy"
+                    className="mt-1 shrink-0 text-gold"
                   >
                     <path
                       d="m5 12.5 4.5 4.5L19 7"
@@ -108,7 +108,7 @@ export async function Price({
             <div className="mt-10">
               <CtaButton
                 source="price"
-                variant="navy"
+                variant="gold"
                 size="lg"
                 withArrow
                 className="max-sm:w-full"
@@ -127,7 +127,7 @@ export async function Price({
 
           <Reveal>
             <div className="border-t border-line pt-9">
-              <h3 className="text-eyebrow font-bold uppercase text-navy">
+              <h3 className="text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
                 Из чего складывается стоимость
               </h3>
               <dl className="mt-7 grid gap-7">

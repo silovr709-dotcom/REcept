@@ -18,7 +18,7 @@ export function Breadcrumbs({
         }`}
       >
         <li>
-          <Link href="/" className="transition-colors hover:text-navy">
+          <Link href="/" className="transition-colors hover:text-gold">
             Главная
           </Link>
         </li>
@@ -28,7 +28,7 @@ export function Breadcrumbs({
               /
             </span>
             {item.href ? (
-              <Link href={item.href} className="transition-colors hover:text-navy">
+              <Link href={item.href} className="transition-colors hover:text-gold">
                 {item.name}
               </Link>
             ) : (
@@ -82,11 +82,11 @@ export function PageHero({
       <section className="bg-cream pb-14 pt-28 lg:pb-20 lg:pt-36">
         <div className="container-page">
           <Breadcrumbs items={breadcrumbs} />
-          <p className="mt-8 flex items-center gap-3 text-eyebrow font-bold uppercase text-navy">
-            <span aria-hidden="true" className="h-px w-6 bg-navy/60" />
+          <p className="mt-8 flex items-center gap-3 text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
+            <span aria-hidden="true" className="h-px w-6 bg-gold/60" />
             {eyebrow}
           </p>
-          <h1 className="font-display mt-5 max-w-4xl text-h1 text-ink">
+          <h1 className="font-display-light mt-5 max-w-4xl text-h1 text-ink">
             {title}
           </h1>
           {lead ? (
@@ -124,11 +124,11 @@ export function PageHero({
 
       <div className="container-page">
         <Breadcrumbs items={breadcrumbs} tone="light" />
-        <p className="mt-8 flex items-center gap-3 text-eyebrow font-bold uppercase text-navylight">
-          <span aria-hidden="true" className="h-px w-6 bg-navylight/60" />
+        <p className="mt-8 flex items-center gap-3 text-eyebrow font-medium uppercase tracking-[0.18em] text-goldsoft">
+          <span aria-hidden="true" className="h-px w-6 bg-goldsoft/60" />
           {eyebrow}
         </p>
-        <h1 className="font-display mt-5 max-w-4xl text-h1 text-cream">
+        <h1 className="font-display-light mt-5 max-w-4xl text-h1 text-cream">
           {title}
         </h1>
         {lead ? (

@@ -152,7 +152,7 @@ export function KitchenBrief({
           className={`h-1 flex-1 overflow-hidden rounded-full ${dark ? 'bg-cream/15' : 'bg-line'}`}
         >
           <div
-            className="h-full rounded-full bg-navy transition-[width] duration-500 ease-out"
+            className="h-full rounded-full bg-gold transition-[width] duration-500 ease-out"
             style={{
               // Пустая полоса на первом шаге читается как сломанная,
               // поэтому минимум — заметный кусочек
@@ -180,8 +180,8 @@ export function KitchenBrief({
                   onClick={() => pick(o.value)}
                   className={`group flex min-h-14 w-full flex-col justify-center rounded-md border px-4 py-3 text-left transition-colors ${
                     dark
-                      ? 'border-cream/20 hover:border-navylight hover:bg-cream/[0.07]'
-                      : 'border-line bg-white hover:border-navy hover:bg-bone'
+                      ? 'border-cream/20 hover:border-goldsoft hover:bg-cream/[0.07]'
+                      : 'border-line bg-white hover:border-gold hover:bg-bone'
                   }`}
                 >
                   <span className={`text-[0.9375rem] font-semibold ${head}`}>
@@ -202,7 +202,7 @@ export function KitchenBrief({
               <button
                 type="button"
                 onClick={() => setStep(step - 1)}
-                className={`text-sm font-semibold underline decoration-navy/40 underline-offset-4 ${soft}`}
+                className={`text-sm font-semibold underline decoration-gold/40 underline-offset-4 ${soft}`}
               >
                 ← Назад
               </button>
@@ -215,7 +215,7 @@ export function KitchenBrief({
                 reachGoal('brief_skip', { step: current.id });
                 setStep(STEPS.length);
               }}
-              className={`text-sm font-semibold underline decoration-navy/40 underline-offset-4 ${soft}`}
+              className={`text-sm font-semibold underline decoration-gold/40 underline-offset-4 ${soft}`}
             >
               Пропустить вопросы и просто оставить контакт
             </button>
@@ -242,8 +242,8 @@ export function KitchenBrief({
                       title="Изменить ответ"
                       className={`rounded-full border px-3 py-1.5 text-[0.8125rem] transition-colors ${
                         dark
-                          ? 'border-cream/20 text-cream/80 hover:border-navylight'
-                          : 'border-line text-ink hover:border-navy'
+                          ? 'border-cream/20 text-cream/80 hover:border-goldsoft'
+                          : 'border-line text-ink hover:border-gold'
                       }`}
                     >
                       <span className={soft}>{s.short}: </span>
@@ -275,7 +275,7 @@ export function KitchenBrief({
             <button
               type="button"
               onClick={() => setStep(0)}
-              className={`mt-4 text-sm font-semibold underline decoration-navy/40 underline-offset-4 ${soft}`}
+              className={`mt-4 text-sm font-semibold underline decoration-gold/40 underline-offset-4 ${soft}`}
             >
               Пройти вопросы заново
             </button>

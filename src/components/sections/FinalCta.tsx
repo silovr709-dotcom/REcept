@@ -33,7 +33,7 @@ export async function FinalCta({
     <section
       id="zayavka"
       aria-labelledby="final-cta-title"
-      className="relative overflow-hidden bg-ink py-(--spacing-section) text-cream"
+      className="grain relative overflow-hidden bg-ink py-(--spacing-section) text-cream"
     >
       <div aria-hidden="true" className="absolute inset-0 opacity-[0.28]">
         <Photo
@@ -56,7 +56,7 @@ export async function FinalCta({
 
             <h2
               id="final-cta-title"
-              className="font-display mt-6 text-h2 text-cream"
+              className="font-display-light mt-6 text-h2 text-cream"
             >
               {title}
             </h2>
@@ -70,7 +70,7 @@ export async function FinalCta({
                 'Вместе решаем, с чего начать: с замера, с планировки или просто с разговора.',
               ].map((step, i) => (
                 <li key={step} className="flex gap-4">
-                  <span className="font-display shrink-0 text-[1.125rem] leading-tight text-navylight">
+                  <span className="font-display shrink-0 text-[1.125rem] leading-tight text-goldsoft">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="text-cream/70">{step}</span>
@@ -87,7 +87,7 @@ export async function FinalCta({
                   {hasPhone ? (
                     <a
                       href={phoneHref}
-                      className="font-display text-[1.375rem] text-cream transition-colors hover:text-navylight"
+                      className="font-display text-[1.375rem] text-cream transition-colors hover:text-goldsoft"
                     >
                       {phoneDisplay}
                     </a>
@@ -101,7 +101,7 @@ export async function FinalCta({
                         {...(c.href.startsWith('http')
                           ? { target: '_blank', rel: 'noopener noreferrer' }
                           : {})}
-                        className="self-center text-cream/70 underline decoration-navy/50 underline-offset-4 transition-colors hover:text-cream"
+                        className="self-center text-cream/70 underline decoration-gold/50 underline-offset-4 transition-colors hover:text-cream"
                       >
                         {c.label}
                       </a>

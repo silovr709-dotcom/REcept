@@ -64,7 +64,7 @@ export default async function AboutPage() {
         <div className="container-page">
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
             <div className="lg:sticky lg:top-28 lg:self-start">
-              <h2 id="story-title" className="font-display text-h2 text-ink">
+              <h2 id="story-title" className="font-display-light text-h2 text-ink">
                 Почему семейное дело — это другое качество разговора
               </h2>
 

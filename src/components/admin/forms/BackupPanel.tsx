@@ -59,7 +59,7 @@ export function BackupPanel({
             role="status"
             className={`mb-4 rounded-lg border px-4 py-3 text-[0.9375rem] ${
               importState.ok
-                ? 'border-navy/40 bg-navy/10 text-ink'
+                ? 'border-gold/40 bg-gold/10 text-ink'
                 : 'border-red-300 bg-red-50 text-red-800'
             }`}
           >
@@ -93,7 +93,7 @@ export function BackupPanel({
             role="status"
             className={`mb-4 rounded-lg border px-4 py-3 text-[0.9375rem] ${
               resetState.ok
-                ? 'border-navy/40 bg-navy/10 text-ink'
+                ? 'border-gold/40 bg-gold/10 text-ink'
                 : 'border-red-300 bg-red-50 text-red-800'
             }`}
           >

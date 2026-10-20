@@ -115,10 +115,10 @@ export default async function AdminDashboard() {
 
       <Link
         href="/admin/zayavki"
-        className="mt-8 flex items-center justify-between gap-4 rounded-xl border border-navy/40 bg-navy/10 p-5 transition-colors hover:border-navy sm:p-6"
+        className="mt-8 flex items-center justify-between gap-4 rounded-xl border border-gold/40 bg-gold/10 p-5 transition-colors hover:border-gold sm:p-6"
       >
         <div>
-          <p className="text-eyebrow font-bold uppercase text-navy">Заявки</p>
+          <p className="text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">Заявки</p>
           <p className="font-display mt-2 text-[1.5rem] text-ink">
             {leads > 0
               ? `${leads} ${leads === 1 ? 'заявка' : leads < 5 ? 'заявки' : 'заявок'} в журнале`
@@ -128,7 +128,7 @@ export default async function AdminDashboard() {
             Резервная копия на случай, если письмо не дошло
           </p>
         </div>
-        <span aria-hidden="true" className="shrink-0 text-2xl text-navy">
+        <span aria-hidden="true" className="shrink-0 text-2xl text-gold">
           →
         </span>
       </Link>
@@ -140,7 +140,7 @@ export default async function AdminDashboard() {
             href={tile.href}
             className="group rounded-xl border border-line bg-cream p-5 transition-colors hover:border-ink/30"
           >
-            <p className="font-display text-[1.125rem] text-ink group-hover:text-navy">
+            <p className="font-display text-[1.125rem] text-ink group-hover:text-gold">
               {tile.title}
             </p>
             <p className="mt-1.5 text-[0.9375rem] font-medium text-ink">

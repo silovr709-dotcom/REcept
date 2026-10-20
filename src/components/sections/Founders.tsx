@@ -117,7 +117,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                   );
                 })()}
 
-                <p className="font-display text-h2 leading-none text-cream">
+                <p className="font-display-light text-h2 leading-none text-cream">
                   {person.fullName.split(' ')[0]}
                 </p>
                 <p className="font-display mt-1 text-h3 text-cream/45">

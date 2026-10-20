@@ -167,7 +167,7 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
                     Не любите формы?{' '}
                     <a
                       href={phoneHref}
-                      className="font-semibold text-ink underline decoration-navy/50 underline-offset-4"
+                      className="font-semibold text-ink underline decoration-gold/50 underline-offset-4"
                     >
                       {phoneDisplay}
                     </a>
@@ -180,7 +180,7 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
                         {i > 0 ? ' · ' : ''}
                         <a
                           href={c.href}
-                          className="font-semibold text-ink underline decoration-navy/50 underline-offset-4"
+                          className="font-semibold text-ink underline decoration-gold/50 underline-offset-4"
                         >
                           {c.label}
                         </a>

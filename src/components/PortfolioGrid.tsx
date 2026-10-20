@@ -41,7 +41,7 @@ export function PortfolioGrid({
   return (
     <div>
       <div className="flex flex-wrap items-center gap-2.5">
-        <span className="mr-1 text-eyebrow font-bold uppercase text-navy">
+        <span className="mr-1 text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
           Компоновка
         </span>
         {chips.map((chip) => {

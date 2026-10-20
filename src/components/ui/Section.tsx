@@ -6,7 +6,9 @@ const tones: Record<Tone, string> = {
   cream: 'bg-cream text-ink',
   bone: 'bg-bone text-ink',
   sand: 'bg-sand text-ink',
-  ink: 'bg-ink text-cream',
+  /* Зерно на тёмном поле: ровная цифровая заливка выглядит дёшево,
+     слабый шум возвращает плоскости материальность */
+  ink: 'bg-ink text-cream grain',
 };
 
 /**
@@ -51,14 +53,17 @@ export function Eyebrow({
 }) {
   return (
     <p
-      className={`flex items-center gap-3 text-eyebrow font-bold uppercase ${
-        tone === 'dark' ? 'text-stone' : 'text-cream/60'
+      className={`flex items-center gap-3.5 text-eyebrow font-medium uppercase tracking-[0.18em] ${
+        tone === 'dark' ? 'text-gold' : 'text-goldsoft'
       } ${className}`}
     >
-      {/* Засечка как на обмерном чертеже, а не декоративная линия */}
+      {/* Горизонтальный штрих в один пиксель вместо вертикальной
+          засечки. Он отбивает надзаголовок от края колонки и задаёт
+          ту же линию, по которой дальше идёт заголовок — приём
+          книжной полосы, а не карточки интерфейса */}
       <span
         aria-hidden="true"
-        className={`inline-block h-3 w-px ${tone === 'dark' ? 'bg-navy' : 'bg-navylight'}`}
+        className="inline-block h-px w-[34px] shrink-0 bg-current opacity-75"
       />
       {children}
     </p>
@@ -114,7 +119,7 @@ export function SectionHeading({
         ) : null}
         <h2
           id={id}
-          className={`font-display mt-5 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+          className={`font-display-light mt-5 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
         >
           {title}
         </h2>
@@ -144,7 +149,7 @@ export function SectionHeading({
         </div>
         <h2
           id={id}
-          className={`font-display mt-6 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+          className={`font-display-light mt-6 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
         >
           {title}
         </h2>
@@ -175,7 +180,7 @@ export function SectionHeading({
       <div className="max-w-3xl">
         <h2
           id={id}
-          className={`font-display text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+          className={`font-display-light text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
         >
           {title}
         </h2>

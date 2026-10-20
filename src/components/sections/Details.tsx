@@ -123,7 +123,7 @@ export async function Details({
                     />
                   </div>
                   <p
-                    className={`mt-4 font-semibold leading-snug text-ink transition-colors group-hover:text-navy ${
+                    className={`mt-4 font-semibold leading-snug text-ink transition-colors group-hover:text-gold ${
                       big ? 'text-base sm:text-lg' : 'text-[0.9375rem]'
                     }`}
                   >

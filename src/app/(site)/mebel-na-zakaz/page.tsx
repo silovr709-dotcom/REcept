@@ -51,7 +51,7 @@ export default async function FurniturePage() {
       >
         <CtaButton
           source="furniture-top"
-          variant="navy"
+          variant="gold"
           size="lg"
           withArrow
           className="max-sm:w-full"
@@ -155,7 +155,7 @@ export default async function FurniturePage() {
             </Reveal>
 
             <div>
-              <h2 className="font-display text-h2 text-cream">
+              <h2 className="font-display-light text-h2 text-cream">
                 Одна бригада на всю квартиру
               </h2>
               <div className="mt-6 grid gap-4 text-lead text-cream/70">

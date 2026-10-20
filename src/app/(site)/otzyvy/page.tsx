@@ -57,7 +57,7 @@ export default async function ReviewsPage() {
           <RatingBadge />
           <CtaButton
             source="reviews-top"
-            variant="navy"
+            variant="gold"
             size="lg"
             withArrow
             className="max-sm:w-full"
@@ -87,7 +87,7 @@ export default async function ReviewsPage() {
                   className="flex h-full flex-col rounded-lg border border-line bg-cream p-8 sm:p-10"
                 >
                   <p className="font-display text-h3 text-ink">{t.highlight}</p>
-                  <div aria-hidden="true" className="rule-navy my-6 w-full" />
+                  <div aria-hidden="true" className="rule-gold my-6 w-full" />
                   <blockquote className="grow leading-relaxed text-stone">
                     {t.text}
                   </blockquote>
@@ -150,7 +150,7 @@ export default async function ReviewsPage() {
                 href={yandex?.reviewsUrl ?? '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 font-semibold text-navy underline decoration-navy/40 underline-offset-4"
+                className="mt-8 inline-flex items-center gap-2 font-semibold text-gold underline decoration-gold/40 underline-offset-4"
               >
                 Открыть карточку «{yandex?.orgName}» на Яндекс Картах
               </a>

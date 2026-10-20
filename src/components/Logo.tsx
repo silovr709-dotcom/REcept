@@ -23,8 +23,8 @@ export function Logo({
         <span
           className={`transition-colors ${
             tone === 'light'
-              ? 'text-navylight group-hover:text-cream'
-              : 'text-navy group-hover:text-navylight'
+              ? 'text-goldsoft group-hover:text-cream'
+              : 'text-gold group-hover:text-goldsoft'
           }`}
         >
           РЕ

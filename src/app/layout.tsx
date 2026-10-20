@@ -1,4 +1,31 @@
 import type { Metadata, Viewport } from 'next';
+
+/*
+  ШРИФТЫ ИЗДАНИЯ
+  ==============
+  Антиква Cormorant Garamond для заголовков и Golos Text для текста.
+  Берутся из пакетов @fontsource: файлы попадают в сборку, хэшируются
+  и отдаются с того же домена — никаких запросов к Google Fonts, из-за
+  которых первый экран ждал бы чужой сервер.
+
+  Подключены только кириллица и латиница нужных начертаний: антиква
+  в светлом (300), обычном (400), его курсиве и среднем (500), текст
+  в 400, 500 и 600. Каждый лишний файл — это задержка перед первой
+  буквой, поэтому жирных и экзотических начертаний здесь нет.
+*/
+import '@fontsource/cormorant-garamond/cyrillic-300.css';
+import '@fontsource/cormorant-garamond/cyrillic-400.css';
+import '@fontsource/cormorant-garamond/cyrillic-400-italic.css';
+import '@fontsource/cormorant-garamond/cyrillic-500.css';
+import '@fontsource/cormorant-garamond/latin-300.css';
+import '@fontsource/cormorant-garamond/latin-400.css';
+import '@fontsource/cormorant-garamond/latin-400-italic.css';
+import '@fontsource/golos-text/cyrillic-400.css';
+import '@fontsource/golos-text/cyrillic-500.css';
+import '@fontsource/golos-text/cyrillic-600.css';
+import '@fontsource/golos-text/latin-400.css';
+import '@fontsource/golos-text/latin-500.css';
+
 import './globals.css';
 import { getSiteView } from '@/lib/content/view';
 import { assetUrl } from '@/lib/content/images';

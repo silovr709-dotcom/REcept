@@ -99,7 +99,7 @@ export default async function PrivacyPage() {
                       {i > 0 ? ', ' : ''}
                       <a
                         href={c.href}
-                        className="text-ink underline decoration-navy/50 underline-offset-4"
+                        className="text-ink underline decoration-gold/50 underline-offset-4"
                       >
                         {c.value}
                       </a>
@@ -113,7 +113,7 @@ export default async function PrivacyPage() {
                   напишите нам через форму на странице{' '}
                   <a
                     href="/kontakty"
-                    className="text-ink underline decoration-navy/50 underline-offset-4"
+                    className="text-ink underline decoration-gold/50 underline-offset-4"
                   >
                     «Контакты»
                   </a>

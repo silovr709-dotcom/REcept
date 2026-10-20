@@ -74,7 +74,7 @@ export default async function ContactsPage() {
             {/* Прямые каналы */}
             <div>
               <div className="rounded-lg border border-line bg-cream p-8 sm:p-10">
-                <p className="text-eyebrow font-bold uppercase text-navy">
+                <p className="text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
                   Позвонить
                 </p>
                 <ul className="mt-5 grid gap-4">
@@ -82,7 +82,7 @@ export default async function ContactsPage() {
                     <li key={phone.raw}>
                       <a
                         href={`tel:${phone.raw}`}
-                        className="font-display block text-[1.5rem] leading-tight text-ink transition-colors hover:text-navy sm:text-[1.75rem]"
+                        className="font-display block text-[1.5rem] leading-tight text-ink transition-colors hover:text-gold sm:text-[1.75rem]"
                       >
                         {phone.display}
                       </a>
@@ -111,7 +111,7 @@ export default async function ContactsPage() {
                           className="flex items-center justify-between gap-4 bg-cream p-6 transition-colors hover:bg-bone"
                         >
                           <span>
-                            <span className="block text-eyebrow font-bold uppercase text-navy">
+                            <span className="block text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
                               {c.label}
                             </span>
                             <span className="mt-1.5 block font-medium text-ink">
@@ -129,7 +129,7 @@ export default async function ContactsPage() {
                             viewBox="0 0 16 16"
                             fill="none"
                             aria-hidden="true"
-                            className="shrink-0 text-navy"
+                            className="shrink-0 text-gold"
                           >
                             <path
                               d="M2.5 8h11m0 0L9 3.5M13.5 8 9 12.5"
@@ -156,7 +156,7 @@ export default async function ContactsPage() {
                     'Предложат, с чего начать: с замера, с планировки или просто с разговора.',
                   ].map((s, i) => (
                     <li key={s} className="flex gap-4">
-                      <span className="font-display shrink-0 text-[1.0625rem] text-navylight">
+                      <span className="font-display shrink-0 text-[1.0625rem] text-goldsoft">
                         {String(i + 1).padStart(2, '0')}
                       </span>
                       <span className="text-cream/70">{s}</span>
@@ -176,7 +176,7 @@ export default async function ContactsPage() {
                     href={addressMapUrl ?? '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-navy/40 underline-offset-4"
+                    className="underline decoration-gold/40 underline-offset-4"
                   >
                     {addressValue}
                   </a>
@@ -214,7 +214,7 @@ export default async function ContactsPage() {
             <div>
               <h2
                 id="map-title"
-                className="font-display text-h2 text-ink"
+                className="font-display-light text-h2 text-ink"
               >
                 Нас можно найти на проспекте Калинина
               </h2>
@@ -227,7 +227,7 @@ export default async function ContactsPage() {
                 href={addressMapUrl ?? '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-7 inline-flex items-center gap-2 font-semibold text-navy underline decoration-navy/40 underline-offset-4"
+                className="mt-7 inline-flex items-center gap-2 font-semibold text-gold underline decoration-gold/40 underline-offset-4"
               >
                 Построить маршрут на Яндекс Картах
               </a>

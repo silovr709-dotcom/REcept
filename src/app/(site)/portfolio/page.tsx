@@ -44,7 +44,7 @@ export default async function PortfolioPage() {
       >
         <CtaButton
           source="portfolio-top"
-          variant="navy"
+          variant="gold"
           size="lg"
           withArrow
           className="max-sm:w-full"
@@ -70,7 +70,7 @@ export default async function PortfolioPage() {
             </p>
             <CtaButton
               source="portfolio-bottom"
-              variant="navy"
+              variant="gold"
               size="lg"
               withArrow
               className="mt-7 max-sm:w-full"

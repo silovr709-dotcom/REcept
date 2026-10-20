@@ -26,11 +26,11 @@ export default function NotFound() {
     <SiteChrome>
       <section className="flex min-h-[70vh] items-center bg-cream pt-24">
       <div className="container-page">
-        <p className="text-eyebrow font-bold uppercase text-navy">
+        <p className="text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
           Ошибка 404
         </p>
 
-        <h1 className="font-display mt-5 max-w-3xl text-h1 text-ink">
+        <h1 className="font-display-light mt-5 max-w-3xl text-h1 text-ink">
           Такой страницы нет
         </h1>
 

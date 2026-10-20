@@ -4,19 +4,24 @@ import type { ComponentProps, ReactNode } from 'react';
 /**
  * КНОПКИ
  * ======
- * Скруглённые «таблетки» — самый узнаваемый признак шаблонного сайта:
- * так выглядит любой лендинг, собранный из готовых блоков. Мастерская,
- * которая делает мебель по миллиметровым размерам, не может общаться
- * с человеком языком типовых элементов.
+ * Кнопка — то место, где сайт чаще всего выдаёт свою цену. Скруглённая
+ * «таблетка» с градиентом стоит ноль рублей и выглядит ровно на столько
+ * же. Поэтому геометрия здесь чертёжная: прямой угол, тонкая линия,
+ * спокойный кегль.
  *
- * Поэтому геометрия здесь чертёжная: прямой угол, тонкая линия, крупный
- * межбуквенный интервал и капитель — как подпись на техническом листе.
- * Заливка при наведении наезжает снизу, а не «подсвечивается».
+ * Надписи набраны обычными буквами, а не капителью в разрядку. Это
+ * сознательная смена тона: КАПС В РАЗРЯДКУ кричит, а дорогая вещь не
+ * повышает голос. Капитель осталась там, где она уместна по смыслу, —
+ * в надзаголовках разделов.
+ *
+ * Поведение при наведении — смена плотности цвета и сдвиг стрелки на
+ * три точки. Никаких заливок, которые наезжают снизу: движение должно
+ * быть в мебели на фотографиях, а не в интерфейсе вокруг них.
  */
 
 type Variant =
   | 'primary'
-  | 'navy'
+  | 'gold'
   | 'outline'
   | 'ghost'
   | 'light'
@@ -24,44 +29,30 @@ type Variant =
 type Size = 'md' | 'lg';
 
 const base =
-  'group relative inline-flex items-center justify-center gap-3 overflow-hidden ' +
-  'rounded-none font-semibold uppercase leading-none ' +
-  'transition-colors duration-300 active:translate-y-px ' +
+  'group relative inline-flex items-center justify-center gap-3 ' +
+  'rounded-none border font-medium leading-tight tracking-[0.01em] ' +
+  'transition-[background-color,border-color,color] duration-400 ' +
+  'ease-[cubic-bezier(0.22,0.61,0.36,1)] active:translate-y-px ' +
   'disabled:pointer-events-none disabled:opacity-55 text-center';
 
-/**
- * Слой заливки, который наезжает снизу при наведении.
- *
- * Движение намеренно сделано как у доводчика ящика: быстрый старт и
- * заметное замедление в самом конце, без отскока. Это тот же язык, на
- * котором говорит сама мебель, и он читается даже на одной кнопке.
- * Уход — короче входа: кнопка «отпускает» быстрее, чем «закрывается».
- */
-const sweep =
-  'before:absolute before:inset-0 before:-z-0 before:origin-bottom ' +
-  'before:scale-y-0 before:transition-transform before:duration-200 ' +
-  'before:ease-out hover:before:scale-y-100 focus-visible:before:scale-y-100 ' +
-  'hover:before:duration-[560ms] focus-visible:before:duration-[560ms] ' +
-  'hover:before:ease-[cubic-bezier(0.12,0.9,0.08,1)] ' +
-  'focus-visible:before:ease-[cubic-bezier(0.12,0.9,0.08,1)]';
-
 const variants: Record<Variant, string> = {
-  // Основное действие: самая тёмная синь, заливка наезжает снизу
-  primary: `bg-ink text-cream ${sweep} before:bg-coal`,
-  // Фирменная: открытый нави. Берётся там, где кнопка стоит одна на
-  // светлой странице и должна звучать цветом, а не только контрастом.
-  navy: `bg-navy text-cream ${sweep} before:bg-ink`,
-  outline: `border border-ink/25 text-ink ${sweep} before:bg-ink hover:text-cream hover:border-ink`,
-  ghost: 'text-ink hover:opacity-60',
-  // На фотографии: тонкая светлая рамка
-  light: `border border-cream/40 text-cream ${sweep} before:bg-cream hover:text-ink hover:border-cream`,
+  // Основное действие: плотная синь
+  primary: 'border-ink bg-ink text-cream hover:border-soot hover:bg-soot',
+  // Второе по силе на светлой странице: та же синь, но контуром
+  gold: 'border-gold/45 bg-transparent text-ink hover:border-gold hover:bg-gold/6',
+  outline:
+    'border-ink/22 bg-transparent text-ink hover:border-ink hover:bg-ink/4',
+  ghost: 'border-transparent bg-transparent text-ink hover:text-gold',
+  // На фотографии и на тёмном поле: тонкая светлая рамка
+  light:
+    'border-cream/40 bg-transparent text-cream hover:border-goldsoft hover:bg-cream/8',
   // На фотографии: плотная светлая плашка — главное действие первого экрана
-  'light-solid': `bg-cream text-ink ${sweep} before:bg-sand`,
+  'light-solid': 'border-bone bg-bone text-ink hover:border-sand hover:bg-sand',
 };
 
 const sizes: Record<Size, string> = {
-  md: 'min-h-11 px-6 py-3 text-[0.6875rem] tracking-[0.14em]',
-  lg: 'min-h-14 px-8 py-4 text-[0.75rem] tracking-[0.13em]',
+  md: 'min-h-12 px-6 py-3 text-[0.9375rem]',
+  lg: 'min-h-14 px-8 py-4 text-[1rem]',
 };
 
 type CommonProps = {
@@ -84,7 +75,7 @@ function Inner({ children, withArrow }: { children: ReactNode; withArrow?: boole
           height="8"
           viewBox="0 0 18 8"
           fill="none"
-          className="relative z-10 shrink-0 transition-transform duration-[560ms] ease-[cubic-bezier(0.12,0.9,0.08,1)] group-hover:translate-x-1.5 group-hover:delay-[70ms]"
+          className="relative z-10 shrink-0 transition-transform duration-400 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:translate-x-[3px]"
         >
           <path
             d="M0 4h16.5M13 1l3.5 3L13 7"
