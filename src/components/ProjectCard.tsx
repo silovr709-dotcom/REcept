@@ -40,23 +40,24 @@ export function ProjectCard({
           loading={priority ? undefined : 'lazy'}
           placeholder={project.image.blurDataURL ? 'blur' : 'empty'}
           blurDataURL={project.image.blurDataURL || undefined}
-          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.035]"
+          className="photo-calm object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.035]"
         />
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-linear-to-t from-ink/45 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
-        <span className="absolute left-0 top-0 bg-cream/95 px-3 py-1.5 text-[0.625rem] font-bold uppercase tracking-[0.16em] text-ink backdrop-blur-sm">
-          {project.layout}
-        </span>
       </div>
 
-      <div className="mt-5 flex items-start justify-between gap-4">
+      {/* Компоновка раньше лежала белой наклейкой прямо на кадре —
+          приём каталога распродаж. Теперь это подпись под снимком,
+          как номер работы в выставочном листе. */}
+      <div className="mt-4 flex items-start justify-between gap-4 border-t border-line pt-4">
         <div>
-          <h3 className="font-display text-[1.125rem] text-ink transition-colors group-hover:text-gold sm:text-[1.25rem]">
+          <p className="label-xs text-clay">{project.layout}</p>
+          <h3 className="font-display mt-2 text-[1.125rem] text-ink transition-colors group-hover:text-gold sm:text-[1.25rem]">
             {project.title}
           </h3>
-          <p className="mt-1 text-[0.875rem] leading-snug text-stone">
+          <p className="mt-1.5 text-[0.875rem] leading-snug text-stone">
             {project.summary}
           </p>
         </div>

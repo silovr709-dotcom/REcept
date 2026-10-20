@@ -56,65 +56,73 @@ export async function Testimonials({
           <RatingBadge className="shrink-0" />
         </div>
 
-        <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-8">
-          {items.map((t, i) => (
-            <li key={`${t.author ?? 'anon'}-${i}`}>
-              <Reveal
-                delay={Math.min(i, 3) * 60}
-                className="flex h-full flex-col border-t border-line pt-7"
-              >
-                <p className="font-display text-[1.0625rem] leading-snug text-ink">
-                  {t.highlight}
-                </p>
-                <div className="my-4" />
-                <blockquote className="grow text-[0.9375rem] leading-relaxed text-stone">
-                  {t.text}
-                </blockquote>
-                <footer className="mt-6 flex items-baseline justify-between gap-4 border-t border-line pt-4">
-                  <p className="font-semibold text-ink">
-                    {t.author ?? 'Без подписи'}
+        {/*
+          Было четыре равные колонки мелкого текста — так верстают
+          ленту объявлений, а не разворот. Стало две неравные полосы:
+          слева цитаты, набранные как цитаты (врезка антиквой, тело
+          письма ниже), справа — одна работа во всю высоту. Глазу есть
+          за что зацепиться, и чужая речь не превращается в стену.
+        */}
+        <div className="mt-12 grid gap-x-16 gap-y-12 lg:mt-16 lg:grid-cols-[1.5fr_1fr]">
+          <ul className="grid gap-12">
+            {items.map((t, i) => (
+              <li key={`${t.author ?? 'anon'}-${i}`}>
+                <Reveal
+                  delay={Math.min(i, 3) * 60}
+                  className="border-t border-goldline/50 pt-7"
+                >
+                  <p className="font-display text-[clamp(1.3rem,0.95rem+0.9vw,1.6rem)] leading-[1.3] text-ink">
+                    {t.highlight}
                   </p>
-                  <p className="shrink-0 text-sm text-stone">{t.date}</p>
-                </footer>
-              </Reveal>
-            </li>
-          ))}
+                  <blockquote className="mt-5 max-w-[62ch] text-[0.9375rem] leading-[1.7] text-stone">
+                    {t.text}
+                  </blockquote>
+                  <footer className="mt-5 flex items-baseline gap-4">
+                    <p className="label-xs text-ink">
+                      {t.author ?? 'Без подписи'}
+                    </p>
+                    <span aria-hidden="true" className="h-px grow bg-line" />
+                    <p className="shrink-0 font-display text-[0.9375rem] text-stone">
+                      {t.date}
+                    </p>
+                  </footer>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
 
           {sideShot ? (
-            <li className="max-sm:order-first">
-              <Reveal
-                delay={Math.min(items.length, 3) * 60}
-                className="h-full"
+            <Reveal delay={120} className="lg:sticky lg:top-28 lg:self-start">
+              <Link
+                href={`/portfolio/${sideShot.slug}`}
+                className="group block"
               >
-                <Link
-                  href={`/portfolio/${sideShot.slug}`}
-                  className="group relative block h-full min-h-72 overflow-hidden bg-sand"
-                >
-                  <Image
-                    src={assetUrl(sideShot.image.src)}
-                    alt={sideShot.alt}
-                    fill
-                    loading="lazy"
-                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
-                    placeholder={
-                      sideShot.image.blurDataURL ? 'blur' : 'empty'
-                    }
-                    blurDataURL={sideShot.image.blurDataURL || undefined}
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  />
-                  <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-16">
-                    <span className="block text-[0.9375rem] font-medium text-cream">
-                      {sideShot.title}
-                    </span>
-                    <span className="label-xs mt-1.5 block text-cream/60">
-                      Смотреть проект
-                    </span>
+                <span className="mat-light block">
+                  <span className="relative block aspect-4/5 overflow-hidden bg-sand">
+                    <Image
+                      src={assetUrl(sideShot.image.src)}
+                      alt={sideShot.alt}
+                      fill
+                      loading="lazy"
+                      sizes="(max-width: 1023px) 100vw, 32vw"
+                      placeholder={
+                        sideShot.image.blurDataURL ? 'blur' : 'empty'
+                      }
+                      blurDataURL={sideShot.image.blurDataURL || undefined}
+                      className="photo-calm object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                    />
                   </span>
-                </Link>
-              </Reveal>
-            </li>
+                </span>
+                <span className="mt-4 block font-display text-[1.125rem] text-ink transition-colors group-hover:text-gold">
+                  {sideShot.title}
+                </span>
+                <span className="label-xs mt-1.5 block text-stone">
+                  Смотреть проект
+                </span>
+              </Link>
+            </Reveal>
           ) : null}
-        </ul>
+        </div>
 
         {/* Блок состоит из трёх колонок чужого текста — без живого голоса
             он читается как витрина отобранных похвал. Пометка от руки
@@ -131,20 +139,20 @@ export async function Testimonials({
               Цитаты приведены дословно, сокращения отмечены многоточием.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 lg:justify-end">
-            <Link
-              href="/otzyvy"
-              className="link-sweep font-semibold text-gold"
-            >
-              Все отзывы на сайте
-            </Link>
-            <a
-              href={yandex.reviewsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-sweep font-semibold text-ink"
-            >
-              Проверить на Яндекс Картах
-            </a>
+              <Link
+                href="/otzyvy"
+                className="link-sweep font-semibold text-gold"
+              >
+                Все отзывы на сайте
+              </Link>
+              <a
+                href={yandex.reviewsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-sweep font-semibold text-ink"
+              >
+                Проверить на Яндекс Картах
+              </a>
             </div>
           </div>
         </div>

@@ -152,7 +152,7 @@ export default async function MaterialsPage() {
       >
         <CtaButton
           source="materials-top"
-          variant="gold"
+          variant="light-solid"
           size="lg"
           withArrow
           className="max-sm:w-full"

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Logo } from './Logo';
-import { RatingBadge } from './RatingBadge';
 import { getSiteView } from '@/lib/content/view';
 
 export async function Footer() {
@@ -26,25 +25,51 @@ export async function Footer() {
   return (
     <footer className="grain relative bg-soot pb-24 pt-(--spacing-section) text-cream lg:pb-14">
       <div className="container-page">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr]">
+        {/* Подвал начинается не со списка ссылок, а с подписи: имя
+            ателье крупной антиквой и телефон рядом. Так низ страницы
+            выглядит как колофон книги, а не как служебная зона. */}
+        <div className="grid gap-8 border-b border-cream/12 pb-12 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+          <p className="font-display-light max-w-[16ch] text-[clamp(1.9rem,1rem+2.6vw,3rem)] leading-[1.06] text-cream">
+            Мебельное ателье{' '}
+            <span className="accent-italic text-goldsoft">«РЕцепт»</span>,
+            Тверь
+          </p>
+          {phoneDisplay ? (
+            <a
+              href={phoneHref}
+              className="font-display shrink-0 text-[clamp(1.5rem,1rem+1.5vw,2.25rem)] text-cream transition-colors hover:text-goldsoft"
+            >
+              {phoneDisplay}
+            </a>
+          ) : null}
+        </div>
+
+        <div className="grid gap-12 pt-12 lg:grid-cols-[1.2fr_1fr_1fr] lg:gap-16">
           <div>
             <Logo tone="light" />
             <p className="mt-5 max-w-sm text-cream/55">
               Семейное мебельное ателье в Твери. Кухни, гардеробные и корпусная
               мебель на заказ. Роберт и Катя ведут каждый проект лично.
             </p>
-            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-cream/60">
-              <li>Гарантия {terms.warrantyMonths} месяца</li>
-              <li aria-hidden="true">·</li>
-              <li>Оплата {terms.payment}</li>
-              <li aria-hidden="true">·</li>
-              <li>Проект бесплатно</li>
+            <ul className="mt-7 grid gap-2.5 text-sm text-cream/60">
+              <li className="flex items-baseline gap-3">
+                <span aria-hidden="true" className="h-px w-5 shrink-0 bg-goldline/60" />
+                Гарантия {terms.warrantyMonths} месяца
+              </li>
+              <li className="flex items-baseline gap-3">
+                <span aria-hidden="true" className="h-px w-5 shrink-0 bg-goldline/60" />
+                Оплата {terms.payment}
+              </li>
+              <li className="flex items-baseline gap-3">
+                <span aria-hidden="true" className="h-px w-5 shrink-0 bg-goldline/60" />
+                Проект бесплатно
+              </li>
             </ul>
           </div>
 
-          <nav aria-label="Разделы сайта">
-            <h2 className="text-eyebrow font-bold uppercase text-clay">Разделы</h2>
-            <ul className="mt-5 grid gap-3">
+          <nav aria-label="Разделы сайта" className="lg:border-l lg:border-cream/10 lg:pl-16">
+            <h2 className="label-xs text-goldsoft">Разделы</h2>
+            <ul className="mt-6 grid gap-3">
               {footerLinks.map((item) => (
                 <li key={item.href}>
                   <Link
@@ -58,49 +83,53 @@ export async function Footer() {
             </ul>
           </nav>
 
-          <div>
-            <h2 className="text-eyebrow font-bold uppercase text-clay">Связаться</h2>
+          <div className="lg:border-l lg:border-cream/10 lg:pl-16">
+            <h2 className="label-xs text-goldsoft">Связаться</h2>
             {activeContacts.length > 0 ? (
-              <ul className="mt-5 grid gap-3">
+              <ul className="mt-6 grid gap-4">
                 {activeContacts.map((c) => (
                   <li key={c.id}>
                     <a
                       href={c.href}
-                      className="link-sweep text-cream/70 transition-colors hover:text-cream"
+                      className="group block"
                       {...(c.href.startsWith('http')
                         ? { target: '_blank', rel: 'noopener noreferrer' }
                         : {})}
                     >
-                      <span className="text-cream">{c.value}</span>
-                      <span className="block text-xs text-cream/60">{c.label}</span>
+                      <span className="block text-cream transition-colors group-hover:text-goldsoft">
+                        {c.value}
+                      </span>
+                      <span className="label-xs mt-1 block text-cream/55">
+                        {c.label}
+                      </span>
                     </a>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="mt-5 text-cream/55">
+              <p className="mt-6 text-cream/55">
                 Оставьте заявку в форме — Роберт или Катя свяжутся с вами удобным
                 для вас способом.
               </p>
             )}
 
             {WORKING_HOURS ? (
-              <p className="mt-5 text-sm text-cream/60">{WORKING_HOURS}</p>
+              <p className="mt-6 text-sm text-cream/60">{WORKING_HOURS}</p>
             ) : null}
 
-            <p className="mt-5 text-sm text-cream/60">
+            <p className="mt-2 text-sm text-cream/60">
               {site.city} и {site.region}
             </p>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-cream/10 pt-7 text-xs text-cream/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-4 border-t border-cream/10 pt-7 text-xs text-cream/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.legalName}. Изображения на сайте — визуализации проектов.
           </p>
           <Link
             href="/politika-konfidencialnosti"
-            className="transition-colors hover:text-cream/70"
+            className="transition-colors hover:text-cream/80"
           >
             Политика обработки персональных данных
           </Link>

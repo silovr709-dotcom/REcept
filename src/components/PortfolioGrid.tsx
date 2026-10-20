@@ -40,10 +40,12 @@ export function PortfolioGrid({
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-2.5">
-        <span className="mr-1 text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
-          Компоновка
-        </span>
+      {/* Фильтр набран строкой, а не плашками: ряд серых «таблеток»
+          с цифрами выглядит как панель интерфейса, а здесь нужен
+          указатель раздела. Выбранное помечено золотой линией снизу —
+          тем же приёмом, что и текущий пункт меню. */}
+      <div className="flex flex-wrap items-baseline gap-x-7 gap-y-3 border-b border-line pb-4">
+        <span className="label-xs mr-1 text-gold">Компоновка</span>
         {chips.map((chip) => {
           const isActive = active === chip.id;
           return (
@@ -52,14 +54,14 @@ export function PortfolioGrid({
               type="button"
               onClick={() => setActive(chip.id)}
               aria-pressed={isActive}
-              className={`inline-flex min-h-10 items-center gap-2 border px-4 text-[0.6875rem] font-semibold uppercase tracking-[0.13em] transition-colors ${
+              className={`relative inline-flex min-h-10 items-baseline gap-2 pb-1 text-[0.9375rem] transition-colors after:absolute after:inset-x-0 after:-bottom-[1.3rem] after:h-px after:transition-colors ${
                 isActive
-                  ? 'border-ink bg-ink text-cream'
-                  : 'border-line text-ink hover:border-ink/50'
+                  ? 'text-ink after:bg-gold'
+                  : 'text-stone hover:text-ink after:bg-transparent'
               }`}
             >
               {chip.label}
-              <span className={isActive ? 'text-cream/60' : 'text-stone'}>
+              <span className="font-display text-[0.8125rem] text-clay">
                 {chip.count}
               </span>
             </button>

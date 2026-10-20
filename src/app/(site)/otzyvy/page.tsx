@@ -57,7 +57,7 @@ export default async function ReviewsPage() {
           <RatingBadge />
           <CtaButton
             source="reviews-top"
-            variant="gold"
+            variant="light-solid"
             size="lg"
             withArrow
             className="max-sm:w-full"

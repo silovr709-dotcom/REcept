@@ -51,7 +51,7 @@ export default async function FurniturePage() {
       >
         <CtaButton
           source="furniture-top"
-          variant="gold"
+          variant="light-solid"
           size="lg"
           withArrow
           className="max-sm:w-full"

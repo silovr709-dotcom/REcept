@@ -233,7 +233,7 @@ export default async function ProjectPage({ params }: Params) {
                   </p>
                   <CtaButton
                     source={`project-${project.slug}`}
-                    variant="gold"
+                    variant="light-solid"
                     size="lg"
                     withArrow
                     className="mt-6 w-full"

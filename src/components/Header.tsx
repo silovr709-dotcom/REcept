@@ -60,8 +60,8 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-90 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
         scrolled || menuOpen
-          ? 'bg-cream/92 backdrop-blur-xl'
-          : 'bg-transparent'
+          ? 'border-b border-line bg-cream/92 backdrop-blur-xl'
+          : 'border-b border-transparent bg-transparent'
       }`}
     >
       <div className="container-page">
@@ -77,11 +77,15 @@ export function Header() {
                     <Link
                       href={item.href}
                       aria-current={active ? 'page' : undefined}
-                      className={`relative py-2 text-[0.9375rem] font-medium transition-colors ${
+                      /* Подчёркивание в один пиксель вместо жирности:
+                         текущий раздел виден, но меню остаётся ровным
+                         по цвету и весу — как колонтитул, а не как
+                         панель кнопок. */
+                      className={`relative py-2 text-[0.9375rem] transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 ${
                         active
                           ? overPhoto
-                            ? 'text-goldsoft'
-                            : 'text-gold'
+                            ? 'text-goldsoft after:scale-x-100'
+                            : 'text-gold after:scale-x-100'
                           : overPhoto
                             ? 'text-cream/85 hover:text-cream'
                             : 'text-ink/80 hover:text-gold'

@@ -112,22 +112,31 @@ export async function Cliches({ tone = 'ink' }: { tone?: 'ink' | 'cream' }) {
           ))}
 
           {shots.map((d) => (
-            <li key={d.id} className="relative min-h-56">
-              <Image
-                src={assetUrl(d.image.src)}
-                alt={d.alt}
-                fill
-                loading="lazy"
-                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 50vw"
-                placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
-                blurDataURL={d.image.blurDataURL || undefined}
-                className="object-cover"
-              />
-              <p className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-12 text-[0.9375rem] font-medium text-cream">
+            <li key={d.id}>
+              {/* Снимок на цветном поле всегда в паспарту: иначе его
+                  край режет плоскость и кадр выглядит приклеенным */}
+              <div className={dark ? 'mat-dark' : 'mat-light'}>
+                <div className="relative aspect-3/2 overflow-hidden bg-coal">
+                  <Image
+                    src={assetUrl(d.image.src)}
+                    alt={d.alt}
+                    fill
+                    loading="lazy"
+                    sizes="(max-width: 639px) 100vw, 50vw"
+                    placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
+                    blurDataURL={d.image.blurDataURL || undefined}
+                    className="photo-calm object-cover"
+                  />
+                </div>
+              </div>
+              <p
+                className={`label-xs mt-3 ${dark ? 'text-cream/60' : 'text-stone'}`}
+              >
                 {d.title}
               </p>
             </li>
           ))}
+
         </ul>
       </div>
     </Section>

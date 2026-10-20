@@ -372,7 +372,10 @@ export function LeadForm({
       <div className="mt-6 flex flex-col gap-4">
         <Button
           type="submit"
-          variant="gold"
+          /* Главное действие формы — плотная заливка, а не контур:
+             на светлом поле синяя, на тёмном бумажная. Контурная
+             кнопка «золотом» раньше была невидима на синем фоне. */
+          variant={light ? 'light-solid' : 'primary'}
           size="lg"
           withArrow
           disabled={status === 'sending'}

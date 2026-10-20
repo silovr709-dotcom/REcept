@@ -115,7 +115,7 @@ export function PageHero({
           чтобы не потерялась прозрачная шапка сайта */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-linear-to-t from-ink/95 via-ink/78 to-ink/55"
+        className="absolute inset-0 -z-10 bg-linear-to-t from-ink/94 via-ink/74 to-ink/44"
       />
       <div
         aria-hidden="true"

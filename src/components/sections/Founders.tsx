@@ -71,11 +71,15 @@ export async function Founders({ index }: { index?: string } = {}) {
                   // себя за Роберта или Катю (см. src/data/atelier.ts).
                   const portrait = person.photo;
                   const fallback = atelierShots[i % atelierShots.length];
-                  const src = portrait ? assetUrl(portrait.src) : fallback.image.src;
+                  const src = portrait
+                    ? assetUrl(portrait.src)
+                    : fallback.image.src;
                   const alt = portrait
                     ? `${person.fullName} — мебельное ателье «РЕцепт», Тверь`
                     : fallback.alt;
-                  const blur = portrait ? portrait.blurDataURL : fallback.image.blurDataURL;
+                  const blur = portrait
+                    ? portrait.blurDataURL
+                    : fallback.image.blurDataURL;
                   const note = handNotes[i % handNotes.length];
 
                   return (
@@ -83,17 +87,19 @@ export async function Founders({ index }: { index?: string } = {}) {
                     // снимка. Сам снимок обрезает содержимое, поэтому
                     // текст лежит рядом с ним, а не внутри.
                     <div className="relative mb-16 max-w-sm sm:max-w-md lg:max-w-lg">
-                      <div className="mat-light media-reveal relative aspect-4/5 overflow-hidden">
-                        <Image
-                          src={src}
-                          alt={alt}
-                          fill
-                          loading="lazy"
-                          sizes="(max-width: 1023px) 100vw, 40vw"
-                          placeholder={blur ? 'blur' : 'empty'}
-                          blurDataURL={blur || undefined}
-                          className="photo-calm object-cover"
-                        />
+                      <div className="mat-light">
+                        <div className="media-reveal relative aspect-4/5 overflow-hidden bg-sand">
+                          <Image
+                            src={src}
+                            alt={alt}
+                            fill
+                            loading="lazy"
+                            sizes="(max-width: 1023px) 100vw, 40vw"
+                            placeholder={blur ? 'blur' : 'empty'}
+                            blurDataURL={blur || undefined}
+                            className="photo-calm object-cover"
+                          />
+                        </div>
                       </div>
 
                       {/* «Четвёртая стена»: человек со снимка обращается
