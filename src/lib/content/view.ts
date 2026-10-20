@@ -2,6 +2,7 @@ import 'server-only';
 
 import { cache } from 'react';
 import { getContent } from './store';
+import { site as siteDefaults } from '@/data/site';
 import type { Phone, SiteContent } from './types';
 
 /**
@@ -24,12 +25,26 @@ export type ContactChannel = {
   hint?: string;
 };
 
+/**
+ * Кириллический домен хранится в ASCII (xn--…), иначе ломаются ссылки.
+ * Человеку же показываем привычное написание.
+ */
+function humanDomain(url: string): string {
+  const host = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  if (url === siteDefaults.url || host === siteDefaults.url.replace(/^https?:\/\//, '')) {
+    return siteDefaults.urlDisplay;
+  }
+  return host;
+}
+
 export type SiteView = {
   name: string;
   legalName: string;
   city: string;
   region: string;
   url: string;
+  /** Домен в человеческом написании: кириллица вместо xn--… */
+  urlDisplay: string;
   metaTitle: string;
   metaDescription: string;
 
@@ -176,6 +191,7 @@ export const getSiteView = cache(async (): Promise<SiteView> => {
     city: 'Тверь',
     region: 'Тверская область',
     url: site.url,
+    urlDisplay: humanDomain(site.url),
     metaTitle: site.metaTitle,
     metaDescription: site.metaDescription,
 

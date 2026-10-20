@@ -11,12 +11,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-function buildBlocks(site: { legalName: string; url: string }): { h: string; p: string[] }[] {
+function buildBlocks(site: { legalName: string; url: string; urlDisplay: string }): { h: string; p: string[] }[] {
   return [
   {
     h: '1. Общие положения',
     p: [
-      `Настоящая политика описывает, как ${site.legalName} (далее — «мы») обрабатывает персональные данные посетителей сайта ${site.url}.`,
+      `Настоящая политика описывает, как ${site.legalName} (далее — «мы») обрабатывает персональные данные посетителей сайта ${site.urlDisplay}.`,
       'Оставляя данные в формах на сайте, вы подтверждаете согласие на их обработку на условиях, описанных ниже.',
     ],
   },

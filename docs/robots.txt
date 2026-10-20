@@ -4,5 +4,5 @@ Disallow: /api/
 Disallow: /admin
 Disallow: /kabinet
 
-Host: https://tver-kuhni.ru
-Sitemap: https://tver-kuhni.ru/sitemap.xml
+Host: https://xn----dtbhac1degob3b6e.xn--p1ai
+Sitemap: https://xn----dtbhac1degob3b6e.xn--p1ai/sitemap.xml
