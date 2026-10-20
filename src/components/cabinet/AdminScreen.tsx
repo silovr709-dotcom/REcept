@@ -30,6 +30,7 @@ import {
 } from './ui';
 import { AuthScreen } from './AuthScreen';
 import { NotConfigured } from './CabinetShell';
+import { StaffPanel } from './StaffPanel';
 
 /**
  * ПАНЕЛЬ «РЕцепт»
@@ -167,6 +168,7 @@ export function AdminScreen() {
           { key: 'clients', label: 'Клиенты' },
           { key: 'messages', label: 'Вопросы', badge: messages.length || undefined },
           { key: 'audit', label: 'Журнал' },
+          ...(profile?.role === 'admin' ? [{ key: 'staff', label: 'Сотрудники' }] : []),
         ]}
         active={tab}
         onSelect={setTab}
@@ -267,6 +269,8 @@ export function AdminScreen() {
           </ul>
         )
       ) : null}
+
+      {tab === 'staff' && profile?.role === 'admin' ? <StaffPanel selfId={profile.id} /> : null}
 
       <NewClientModal open={newClient} onClose={() => setNewClient(false)} reload={reload} />
       <NewProjectModal

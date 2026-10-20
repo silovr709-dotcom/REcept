@@ -21,6 +21,7 @@ import type {
   ProjectWithClient,
   Stage,
   StageStatus,
+  UserRole,
   Visibility,
 } from './types';
 
@@ -68,6 +69,51 @@ export async function fetchProfile(userId: string): Promise<Profile | null> {
 
 export async function updateOwnProfile(userId: string, patch: { full_name?: string; phone?: string }) {
   const { error } = await db().from('profiles').update(patch).eq('id', userId);
+  if (error) throw error;
+}
+
+/**
+ * Смена собственного пароля. Меняет его сам Supabase у вошедшего
+ * пользователя: ни сайт, ни база паролей не видят и не хранят.
+ */
+export async function changeOwnPassword(password: string) {
+  const { error } = await db().auth.updateUser({ password });
+  if (error) throw error;
+}
+
+/* ------------------------------------------------------------------ *
+ * Сотрудники (только администратор)
+ * ------------------------------------------------------------------ */
+
+const PROFILE_FIELDS = 'id, email, full_name, phone, role, is_blocked, created_at';
+
+export async function fetchStaffProfiles(): Promise<Profile[]> {
+  return unwrap<Profile[]>(
+    await db()
+      .from('profiles')
+      .select(PROFILE_FIELDS)
+      .in('role', ['staff', 'admin'])
+      .order('created_at', { ascending: true }),
+  );
+}
+
+/** Поиск уже зарегистрированного человека по почте — чтобы выдать ему права. */
+export async function findProfileByEmail(email: string): Promise<Profile | null> {
+  const { data, error } = await db()
+    .from('profiles')
+    .select(PROFILE_FIELDS)
+    .ilike('email', email.trim())
+    .maybeSingle();
+  if (error) throw error;
+  return (data as Profile) ?? null;
+}
+
+/**
+ * Назначение роли. Разрешено только администратору — это проверяет
+ * политика profiles_staff_write в базе, а не эта строчка кода.
+ */
+export async function setProfileRole(userId: string, role: UserRole) {
+  const { error } = await db().from('profiles').update({ role }).eq('id', userId);
   if (error) throw error;
 }
 

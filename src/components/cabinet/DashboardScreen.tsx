@@ -6,6 +6,7 @@ import { projectStatusLabel } from '@/lib/cabinet/labels';
 import { formatAgo, personName } from '@/lib/cabinet/format';
 import { phones, emailValue } from '@/data/site';
 import { EmptyState, Loading, Notice, Panel, Pill } from './ui';
+import { AccountPanel } from './AccountPanel';
 import { AuthScreen } from './AuthScreen';
 import { NotConfigured } from './CabinetShell';
 
@@ -116,6 +117,8 @@ export function DashboardScreen() {
           </ul>
         </section>
       ) : null}
+
+      <AccountPanel />
 
       <Panel className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
         <div>
