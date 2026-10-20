@@ -17,8 +17,10 @@ import { readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const OUT = path.join(ROOT, 'docs');
-const BASE = '/REcept'; // basePath витрины на GitHub Pages
+// По умолчанию проверяется витрина для GitHub Pages (docs/, подпапка /REcept).
+// Сборку для своего домена проверяем так: AUDIT_DIR=site AUDIT_BASE= npm run audit
+const OUT = path.join(ROOT, process.env.AUDIT_DIR || 'docs');
+const BASE = process.env.AUDIT_BASE !== undefined ? process.env.AUDIT_BASE : '/REcept';
 
 const fails = [];
 const warns = [];
@@ -262,10 +264,18 @@ if (orphans.length)
 /* 11. ссылки на корень вместо basePath                                */
 /* ------------------------------------------------------------------ */
 
-const rootRefs = [
-  ...textBlob.matchAll(/(?:src|href|srcset)="\/(images|uploads|favicon|og|fonts|_next)[^"]*"/g),
-].length;
-if (rootRefs) fail('basePath', `ссылок мимо ${BASE}: ${rootRefs}`);
+// Когда сайт лежит в подпапке (GitHub Pages), ссылка «от корня» ведёт в
+// никуда. На собственном домене сайт лежит в корне — там это норма,
+// и проверять нечего.
+if (BASE) {
+  const rootRefs = [
+    ...textBlob.matchAll(/(?:src|href|srcset)="\/(images|uploads|favicon|og|fonts|_next)[^"]*"/g),
+  ].length;
+  if (rootRefs) fail('basePath', `ссылок мимо ${BASE}: ${rootRefs}`);
+} else {
+  const stray = [...textBlob.matchAll(/(?:src|href|srcset)="\/REcept\//g)].length;
+  if (stray) fail('basePath', `в сборке для домена остались ссылки с /REcept/: ${stray}`);
+}
 
 /* ------------------------------------------------------------------ */
 /* 12. контраст текста (по палитре и классам Tailwind)                 */

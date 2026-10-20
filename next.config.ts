@@ -14,7 +14,14 @@ import type { NextConfig } from 'next';
  * Адрес витрины лежит в подпапке репозитория, отсюда basePath.
  */
 const isStatic = process.env.STATIC_EXPORT === '1';
-const basePath = isStatic ? '/REcept' : '';
+/**
+ * Подпапка, в которой лежит сайт.
+ * На GitHub Pages он живёт по адресу …/REcept/, поэтому все ссылки
+ * получают приставку. На собственном домене сайт лежит в корне —
+ * тогда сборка запускается с BASE_PATH='' и приставки нет.
+ */
+const basePath =
+  process.env.BASE_PATH !== undefined ? process.env.BASE_PATH : isStatic ? '/REcept' : '';
 
 const nextConfig: NextConfig = {
   // Три режима сборки:
