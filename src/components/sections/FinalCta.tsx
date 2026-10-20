@@ -70,7 +70,7 @@ export async function FinalCta({
                 'Вместе решаем, с чего начать: с замера, с планировки или просто с разговора.',
               ].map((step, i) => (
                 <li key={step} className="flex gap-4">
-                  <span className="font-display shrink-0 text-[1.125rem] leading-tight text-brasslight">
+                  <span className="font-display shrink-0 text-[1.125rem] leading-tight text-navylight">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="text-cream/70">{step}</span>
@@ -87,7 +87,7 @@ export async function FinalCta({
                   {hasPhone ? (
                     <a
                       href={phoneHref}
-                      className="font-display text-[1.375rem] text-cream transition-colors hover:text-brasslight"
+                      className="font-display text-[1.375rem] text-cream transition-colors hover:text-navylight"
                     >
                       {phoneDisplay}
                     </a>
@@ -101,7 +101,7 @@ export async function FinalCta({
                         {...(c.href.startsWith('http')
                           ? { target: '_blank', rel: 'noopener noreferrer' }
                           : {})}
-                        className="self-center text-cream/70 underline decoration-brass/50 underline-offset-4 transition-colors hover:text-cream"
+                        className="self-center text-cream/70 underline decoration-navy/50 underline-offset-4 transition-colors hover:text-cream"
                       >
                         {c.label}
                       </a>

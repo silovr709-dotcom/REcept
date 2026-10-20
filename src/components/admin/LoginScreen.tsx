@@ -25,7 +25,7 @@ export function LoginScreen({ configured }: { configured: boolean }) {
     <div className="grid min-h-dvh place-items-center bg-ink px-4 py-10">
       <div className="w-full max-w-sm">
         <p className="font-display text-center text-[1.75rem] text-cream">
-          <span className="text-brasslight">РЕ</span>цепт
+          <span className="text-navylight">РЕ</span>цепт
         </p>
         <p className="mt-2 text-center text-sm text-cream/60">
           Управление сайтом

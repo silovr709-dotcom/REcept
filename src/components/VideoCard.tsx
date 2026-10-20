@@ -77,12 +77,12 @@ export function VideoCard({
           className="absolute inset-0 grid place-items-center bg-linear-to-b from-coal to-ink"
         >
           <svg viewBox="0 0 120 90" className="w-2/3 opacity-30" fill="none">
-            <g stroke="#CFC4B2" strokeWidth="2">
+            <g stroke="#7f97bb" strokeWidth="2">
               <rect x="14" y="8" width="38" height="26" />
               <rect x="68" y="8" width="38" height="26" />
               <rect x="14" y="52" width="92" height="30" />
             </g>
-            <rect x="10" y="40" width="100" height="5" rx="1" fill="#b8b4ac" />
+            <rect x="10" y="40" width="100" height="5" rx="1" fill="#a8c3e8" />
           </svg>
         </span>
       )}

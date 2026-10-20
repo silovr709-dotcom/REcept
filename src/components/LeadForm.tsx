@@ -62,8 +62,8 @@ export function LeadForm({
     'w-full rounded-md border bg-transparent px-4 py-3.5 text-[1rem] outline-none transition-colors',
     'min-h-13',
     light
-      ? 'border-cream/20 text-cream placeholder:text-cream/55 focus:border-brasslight'
-      : 'border-line text-ink placeholder:text-stone focus:border-brass bg-white/60',
+      ? 'border-cream/20 text-cream placeholder:text-cream/55 focus:border-navylight'
+      : 'border-line text-ink placeholder:text-stone focus:border-navy bg-white/60',
   ].join(' ');
 
   const labelCls = `mb-2 block text-[0.8125rem] font-semibold ${
@@ -147,14 +147,14 @@ export function LeadForm({
         role="status"
         aria-live="polite"
         className={`rounded-lg border p-7 sm:p-9 ${
-          light ? 'border-brasslight/30 bg-cream/[0.04]' : 'border-brass/25 bg-bone'
+          light ? 'border-navylight/30 bg-cream/[0.04]' : 'border-navy/25 bg-bone'
         }`}
       >
-        <div className="flex size-12 items-center justify-center rounded-full bg-brass/15">
+        <div className="flex size-12 items-center justify-center rounded-full bg-navy/15">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="m4.5 12.5 5 5 10-11"
-              stroke="#4a4741"
+              stroke="#1f4176"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -189,7 +189,7 @@ export function LeadForm({
                 {i > 0 ? ', ' : ''}
                 <a
                   href={c.href}
-                  className="underline decoration-brass/50 underline-offset-4 hover:text-brass"
+                  className="underline decoration-navy/50 underline-offset-4 hover:text-navy"
                 >
                   {c.label}
                 </a>
@@ -200,7 +200,7 @@ export function LeadForm({
         <button
           type="button"
           onClick={() => setStatus('idle')}
-          className={`mt-6 text-sm font-semibold underline decoration-brass/40 underline-offset-4 ${
+          className={`mt-6 text-sm font-semibold underline decoration-navy/40 underline-offset-4 ${
             light ? 'text-cream/70 hover:text-cream' : 'text-stone hover:text-ink'
           }`}
         >
@@ -294,7 +294,7 @@ export function LeadForm({
           className={`flex cursor-pointer items-center gap-3 rounded-md border border-dashed px-4 py-3.5 text-sm transition-colors ${
             light
               ? 'border-cream/20 text-cream/60 hover:border-cream/40 hover:text-cream/80'
-              : 'border-line text-stone hover:border-brass/50 hover:text-ink'
+              : 'border-line text-stone hover:border-navy/50 hover:text-ink'
           }`}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
@@ -360,8 +360,8 @@ export function LeadForm({
         <p
           className={`mt-5 border-l-2 px-4 py-3 text-xs leading-relaxed ${
             light
-              ? 'border-brasslight bg-cream/10 text-cream/85'
-              : 'border-brass bg-brass/10 text-ink'
+              ? 'border-navylight bg-cream/10 text-cream/85'
+              : 'border-navy bg-navy/10 text-ink'
           }`}
         >
           Демонстрационная версия: показывает дизайн и переходы, но заявки
@@ -372,7 +372,7 @@ export function LeadForm({
       <div className="mt-6 flex flex-col gap-4">
         <Button
           type="submit"
-          variant="brass"
+          variant="navy"
           size="lg"
           withArrow
           disabled={status === 'sending'}
@@ -386,7 +386,7 @@ export function LeadForm({
           действительно нужно. Нажимая кнопку, вы соглашаетесь с{' '}
           <a
             href="/politika-konfidencialnosti"
-            className="underline decoration-brass/40 underline-offset-2 hover:text-brass"
+            className="underline decoration-navy/40 underline-offset-2 hover:text-navy"
           >
             политикой обработки персональных данных
           </a>

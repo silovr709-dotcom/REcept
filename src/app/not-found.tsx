@@ -26,7 +26,7 @@ export default function NotFound() {
     <SiteChrome>
       <section className="flex min-h-[70vh] items-center bg-cream pt-24">
       <div className="container-page">
-        <p className="text-eyebrow font-bold uppercase text-brass">
+        <p className="text-eyebrow font-bold uppercase text-navy">
           Ошибка 404
         </p>
 

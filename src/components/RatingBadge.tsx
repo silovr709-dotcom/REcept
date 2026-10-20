@@ -6,7 +6,7 @@ function Stars({ tone }: { tone: 'dark' | 'light' }) {
   return (
     <span
       aria-hidden="true"
-      className={`flex gap-0.5 ${tone === 'light' ? 'text-brasslight' : 'text-brass'}`}
+      className={`flex gap-0.5 ${tone === 'light' ? 'text-navylight' : 'text-navy'}`}
     >
       {Array.from({ length: 5 }).map((_, i) => (
         <svg key={i} width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
@@ -70,7 +70,7 @@ export function RatingBadge({
         fill="none"
         aria-hidden="true"
         className={`shrink-0 transition-transform group-hover:translate-x-0.5 ${
-          tone === 'light' ? 'text-cream/60' : 'text-brass'
+          tone === 'light' ? 'text-cream/60' : 'text-navy'
         }`}
       >
         <path

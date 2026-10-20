@@ -18,7 +18,7 @@ export function Breadcrumbs({
         }`}
       >
         <li>
-          <Link href="/" className="transition-colors hover:text-brass">
+          <Link href="/" className="transition-colors hover:text-navy">
             Главная
           </Link>
         </li>
@@ -28,7 +28,7 @@ export function Breadcrumbs({
               /
             </span>
             {item.href ? (
-              <Link href={item.href} className="transition-colors hover:text-brass">
+              <Link href={item.href} className="transition-colors hover:text-navy">
                 {item.name}
               </Link>
             ) : (
@@ -82,8 +82,8 @@ export function PageHero({
       <section className="bg-cream pb-14 pt-28 lg:pb-20 lg:pt-36">
         <div className="container-page">
           <Breadcrumbs items={breadcrumbs} />
-          <p className="mt-8 flex items-center gap-3 text-eyebrow font-bold uppercase text-brass">
-            <span aria-hidden="true" className="h-px w-6 bg-brass/60" />
+          <p className="mt-8 flex items-center gap-3 text-eyebrow font-bold uppercase text-navy">
+            <span aria-hidden="true" className="h-px w-6 bg-navy/60" />
             {eyebrow}
           </p>
           <h1 className="font-display mt-5 max-w-4xl text-h1 text-ink">
@@ -124,8 +124,8 @@ export function PageHero({
 
       <div className="container-page">
         <Breadcrumbs items={breadcrumbs} tone="light" />
-        <p className="mt-8 flex items-center gap-3 text-eyebrow font-bold uppercase text-brasslight">
-          <span aria-hidden="true" className="h-px w-6 bg-brasslight/60" />
+        <p className="mt-8 flex items-center gap-3 text-eyebrow font-bold uppercase text-navylight">
+          <span aria-hidden="true" className="h-px w-6 bg-navylight/60" />
           {eyebrow}
         </p>
         <h1 className="font-display mt-5 max-w-4xl text-h1 text-cream">

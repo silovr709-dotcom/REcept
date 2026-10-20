@@ -58,7 +58,7 @@ export function Eyebrow({
       {/* Засечка как на обмерном чертеже, а не декоративная линия */}
       <span
         aria-hidden="true"
-        className={`inline-block h-3 w-px ${tone === 'dark' ? 'bg-brass' : 'bg-brasslight'}`}
+        className={`inline-block h-3 w-px ${tone === 'dark' ? 'bg-navy' : 'bg-navylight'}`}
       />
       {children}
     </p>

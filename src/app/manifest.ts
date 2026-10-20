@@ -16,8 +16,8 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     description: site.metaDescription,
     start_url: assetUrl('/'),
     display: 'standalone',
-    background_color: '#16130F',
-    theme_color: '#FDFBF7',
+    background_color: '#101C2E',
+    theme_color: '#FAF9F7',
     lang: 'ru',
     icons: [
       { src: assetUrl('/favicon.svg'), sizes: 'any', type: 'image/svg+xml' },

@@ -16,7 +16,7 @@ import type { ComponentProps, ReactNode } from 'react';
 
 type Variant =
   | 'primary'
-  | 'brass'
+  | 'navy'
   | 'outline'
   | 'ghost'
   | 'light'
@@ -46,9 +46,11 @@ const sweep =
   'focus-visible:before:ease-[cubic-bezier(0.12,0.9,0.08,1)]';
 
 const variants: Record<Variant, string> = {
-  // Основное действие: плотный графит, заливка наезжает снизу
+  // Основное действие: самая тёмная синь, заливка наезжает снизу
   primary: `bg-ink text-cream ${sweep} before:bg-coal`,
-  brass: `bg-ink text-cream ${sweep} before:bg-coal`,
+  // Фирменная: открытый нави. Берётся там, где кнопка стоит одна на
+  // светлой странице и должна звучать цветом, а не только контрастом.
+  navy: `bg-navy text-cream ${sweep} before:bg-ink`,
   outline: `border border-ink/25 text-ink ${sweep} before:bg-ink hover:text-cream hover:border-ink`,
   ghost: 'text-ink hover:opacity-60',
   // На фотографии: тонкая светлая рамка

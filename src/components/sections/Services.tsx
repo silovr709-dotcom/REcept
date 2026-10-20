@@ -88,13 +88,13 @@ export async function Services({
                         />
                       </div>
                     ) : null}
-                    <p className="font-display mt-5 text-[1.375rem] leading-tight text-ink transition-colors group-hover:text-brass">
+                    <p className="font-display mt-5 text-[1.375rem] leading-tight text-ink transition-colors group-hover:text-navy">
                       {s.title}
                     </p>
                     <p className="mt-2 text-[0.9375rem] leading-relaxed text-stone">
                       {s.text}
                     </p>
-                    <span className="label-xs mt-4 inline-flex items-center gap-2 text-brass">
+                    <span className="label-xs mt-4 inline-flex items-center gap-2 text-navy">
                       Смотреть
                       <span aria-hidden="true">→</span>
                     </span>
@@ -161,7 +161,7 @@ export async function Services({
                     <p className="mt-2 text-[0.9375rem] leading-relaxed text-stone">
                       {s.text}
                     </p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brass">
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-navy">
                       Смотреть направление
                       <svg
                         width="14"

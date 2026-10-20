@@ -75,8 +75,8 @@ export default async function ProjectPage({ params }: Params) {
                 { name: project.title },
               ]}
             />
-            <p className="mt-8 flex items-center gap-3 text-eyebrow font-bold uppercase text-brass">
-              <span aria-hidden="true" className="h-px w-6 bg-brass/60" />
+            <p className="mt-8 flex items-center gap-3 text-eyebrow font-bold uppercase text-navy">
+              <span aria-hidden="true" className="h-px w-6 bg-navy/60" />
               {project.category} · Тверь
             </p>
             <h1 className="font-display mt-5 max-w-4xl text-h1 text-ink">
@@ -87,7 +87,7 @@ export default async function ProjectPage({ params }: Params) {
             </p>
             <p className="mt-6">
               <span className="inline-flex items-center gap-2.5 border-y border-line px-1 py-2 text-[0.6875rem] font-bold uppercase tracking-[0.16em] text-ink">
-                <span aria-hidden="true" className="size-1.5 rounded-full bg-brass" />
+                <span aria-hidden="true" className="size-1.5 rounded-full bg-navy" />
                 {project.layout} компоновка
               </span>
             </p>
@@ -112,7 +112,7 @@ export default async function ProjectPage({ params }: Params) {
           <div className="container-page">
             <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
               <div>
-                <h2 className="text-eyebrow font-bold uppercase text-brass">
+                <h2 className="text-eyebrow font-bold uppercase text-navy">
                   Что здесь решено
                 </h2>
                 <dl className="mt-8 grid gap-8">
@@ -128,7 +128,7 @@ export default async function ProjectPage({ params }: Params) {
                 {projectDetails.length > 0 ? (
                   <div className="mt-12">
                     <div className="flex items-baseline justify-between gap-6">
-                      <h2 className="text-eyebrow font-bold uppercase text-brass">
+                      <h2 className="text-eyebrow font-bold uppercase text-navy">
                         Детали этого проекта
                       </h2>
                       <p className="text-[0.75rem] text-stone">
@@ -176,8 +176,8 @@ export default async function ProjectPage({ params }: Params) {
                   </div>
                 ) : null}
 
-                <div className="mt-12 rounded-lg border-l-2 border-brass bg-bone p-8">
-                  <p className="text-eyebrow font-bold uppercase text-brass">
+                <div className="mt-12 rounded-lg border-l-2 border-navy bg-bone p-8">
+                  <p className="text-eyebrow font-bold uppercase text-navy">
                     Почему так
                   </p>
                   <p className="mt-4 text-lead text-ink">{project.rationale}</p>
@@ -185,7 +185,7 @@ export default async function ProjectPage({ params }: Params) {
 
                 {project.clientStory ? (
                   <div className="mt-8 rounded-lg bg-bone p-8">
-                    <p className="text-eyebrow font-bold uppercase text-brass">
+                    <p className="text-eyebrow font-bold uppercase text-navy">
                       Что получил заказчик
                     </p>
                     <p className="mt-4 text-stone">{project.clientStory}</p>
@@ -195,7 +195,7 @@ export default async function ProjectPage({ params }: Params) {
 
               <aside>
                 <div className="rounded-lg border border-line bg-bone p-8 sm:p-10">
-                  <h2 className="text-eyebrow font-bold uppercase text-brass">
+                  <h2 className="text-eyebrow font-bold uppercase text-navy">
                     Материалы и фурнитура
                   </h2>
                   <ul className="mt-6 grid gap-3.5">
@@ -203,7 +203,7 @@ export default async function ProjectPage({ params }: Params) {
                       <li key={m} className="flex gap-3 text-[0.9375rem] text-stone">
                         <span
                           aria-hidden="true"
-                          className="mt-2.5 size-1 shrink-0 rounded-full bg-brass"
+                          className="mt-2.5 size-1 shrink-0 rounded-full bg-navy"
                         />
                         <span>{m}</span>
                       </li>
@@ -233,7 +233,7 @@ export default async function ProjectPage({ params }: Params) {
                   </p>
                   <CtaButton
                     source={`project-${project.slug}`}
-                    variant="brass"
+                    variant="navy"
                     size="lg"
                     withArrow
                     className="mt-6 w-full"
@@ -255,7 +255,7 @@ export default async function ProjectPage({ params }: Params) {
               <h2 className="font-display text-h2 text-ink">Другие работы</h2>
               <Link
                 href="/portfolio"
-                className="shrink-0 text-sm font-semibold text-brass underline underline-offset-4"
+                className="shrink-0 text-sm font-semibold text-navy underline underline-offset-4"
               >
                 Все проекты
               </Link>

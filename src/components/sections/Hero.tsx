@@ -199,7 +199,7 @@ export async function Hero() {
               Или просто позвоните:{' '}
               <a
                 href={`tel:${primaryPhone.raw}`}
-                className="font-semibold text-cream underline decoration-brasslight/50 underline-offset-4 transition-colors hover:text-brasslight"
+                className="font-semibold text-cream underline decoration-navylight/50 underline-offset-4 transition-colors hover:text-navylight"
               >
                 {primaryPhone.display}
               </a>

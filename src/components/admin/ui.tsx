@@ -7,7 +7,7 @@ import type { ActionState } from '@/app/admin/actions';
 /* ----------------------------- поля ----------------------------- */
 
 const base =
-  'w-full rounded-lg border border-line bg-cream px-3.5 py-2.5 text-[0.9375rem] text-ink outline-none transition-colors placeholder:text-stone/60 focus:border-brass';
+  'w-full rounded-lg border border-line bg-cream px-3.5 py-2.5 text-[0.9375rem] text-ink outline-none transition-colors placeholder:text-stone/60 focus:border-navy';
 
 export function Field({
   label,
@@ -53,7 +53,7 @@ export function Checkbox({
       <input
         type="checkbox"
         {...props}
-        className="size-4 rounded border-line accent-[#8f6530]"
+        className="size-4 rounded border-line accent-[#1f4176]"
       />
       {label}
     </label>
@@ -132,7 +132,7 @@ export function AdminForm({
           role="status"
           className={`mb-5 rounded-lg border px-4 py-3 text-[0.9375rem] ${
             state.ok
-              ? 'border-brass/40 bg-brass/10 text-ink'
+              ? 'border-navy/40 bg-navy/10 text-ink'
               : 'border-red-300 bg-red-50 text-red-800'
           }`}
         >

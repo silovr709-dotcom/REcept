@@ -41,7 +41,7 @@ export default async function AdminLayout({
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
             <span className="font-display text-[1.25rem] text-ink">
-              <span className="text-brass">РЕ</span>цепт
+              <span className="text-navy">РЕ</span>цепт
             </span>
             <span className="hidden text-eyebrow font-bold uppercase text-stone sm:inline">
               Управление сайтом

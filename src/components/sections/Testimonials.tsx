@@ -133,7 +133,7 @@ export async function Testimonials({
             <div className="flex flex-wrap gap-x-6 gap-y-2 lg:justify-end">
             <Link
               href="/otzyvy"
-              className="link-sweep font-semibold text-brass"
+              className="link-sweep font-semibold text-navy"
             >
               Все отзывы на сайте
             </Link>

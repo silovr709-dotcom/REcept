@@ -51,7 +51,7 @@ export default async function AdminLeadsPage() {
       <div
         className={`mt-6 rounded-xl border p-5 ${
           mailConfigured
-            ? 'border-brass/40 bg-brass/10'
+            ? 'border-navy/40 bg-navy/10'
             : 'border-amber-300 bg-amber-50'
         }`}
       >
@@ -97,7 +97,7 @@ export default async function AdminLeadsPage() {
                         ? `mailto:${lead.contact}`
                         : `tel:${lead.contact.replace(/[^\d+]/g, '')}`
                     }
-                    className="text-[1.0625rem] font-semibold text-ink underline decoration-brass/50 underline-offset-4"
+                    className="text-[1.0625rem] font-semibold text-ink underline decoration-navy/50 underline-offset-4"
                   >
                     {lead.contact}
                   </a>

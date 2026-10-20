@@ -48,10 +48,10 @@ export async function Advantages({
             <div className="relative overflow-hidden bg-ink p-10 text-cream sm:p-16">
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-brass/20 blur-3xl"
+                className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-navy/20 blur-3xl"
               />
               <div className="relative max-w-3xl">
-                <p className="text-eyebrow font-bold uppercase text-brasslight">
+                <p className="text-eyebrow font-bold uppercase text-navylight">
                   Главное
                 </p>
                 <h3 className="font-display mt-5 text-h2 text-cream">

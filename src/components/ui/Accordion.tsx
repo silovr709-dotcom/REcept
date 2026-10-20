@@ -43,7 +43,7 @@ export function Accordion({
                 aria-controls={panelId}
                 onClick={() => setOpen(isOpen ? null : i)}
                 className={`flex w-full items-start justify-between gap-8 py-8 text-left text-h3 font-display ${qColor} transition-colors ${
-                  tone === 'light' ? 'hover:text-brasslight' : 'hover:text-brass'
+                  tone === 'light' ? 'hover:text-navylight' : 'hover:text-navy'
                 }`}
               >
                 <span>{item.q}</span>
