@@ -29,12 +29,21 @@ const base =
   'transition-colors duration-300 active:translate-y-px ' +
   'disabled:pointer-events-none disabled:opacity-55 text-center';
 
-/** Слой заливки, который наезжает снизу при наведении */
+/**
+ * Слой заливки, который наезжает снизу при наведении.
+ *
+ * Движение намеренно сделано как у доводчика ящика: быстрый старт и
+ * заметное замедление в самом конце, без отскока. Это тот же язык, на
+ * котором говорит сама мебель, и он читается даже на одной кнопке.
+ * Уход — короче входа: кнопка «отпускает» быстрее, чем «закрывается».
+ */
 const sweep =
   'before:absolute before:inset-0 before:-z-0 before:origin-bottom ' +
-  'before:scale-y-0 before:transition-transform before:duration-400 ' +
-  'before:ease-[cubic-bezier(0.16,1,0.3,1)] hover:before:scale-y-100 ' +
-  'focus-visible:before:scale-y-100';
+  'before:scale-y-0 before:transition-transform before:duration-200 ' +
+  'before:ease-out hover:before:scale-y-100 focus-visible:before:scale-y-100 ' +
+  'hover:before:duration-[560ms] focus-visible:before:duration-[560ms] ' +
+  'hover:before:ease-[cubic-bezier(0.12,0.9,0.08,1)] ' +
+  'focus-visible:before:ease-[cubic-bezier(0.12,0.9,0.08,1)]';
 
 const variants: Record<Variant, string> = {
   // Основное действие: плотный графит, заливка наезжает снизу
@@ -73,7 +82,7 @@ function Inner({ children, withArrow }: { children: ReactNode; withArrow?: boole
           height="8"
           viewBox="0 0 18 8"
           fill="none"
-          className="relative z-10 shrink-0 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5"
+          className="relative z-10 shrink-0 transition-transform duration-[560ms] ease-[cubic-bezier(0.12,0.9,0.08,1)] group-hover:translate-x-1.5 group-hover:delay-[70ms]"
         >
           <path
             d="M0 4h16.5M13 1l3.5 3L13 7"

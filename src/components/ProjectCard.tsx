@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { ProjectOpenLink } from './ProjectOpenLink';
 import type { ProjectItem } from '@/lib/content/types';
 import { projectAlt } from '@/lib/content/seo';
 import { assetUrl, fitRatio } from '@/lib/content/images';
@@ -24,9 +24,9 @@ export function ProjectCard({
   ratio?: string;
 }) {
   return (
-    <Link
+    <ProjectOpenLink
       href={`/portfolio/${project.slug}`}
-      className={`group hinge block ${className}`}
+      className={`group hinge relative block ${className}`}
     >
       <div
         className={`media-reveal hinge-panel relative overflow-hidden rounded-md bg-sand ${fitRatio(project.image, ratio ?? aspect[project.shape])}`}
@@ -75,6 +75,6 @@ export function ProjectCard({
           </svg>
         </span>
       </div>
-    </Link>
+    </ProjectOpenLink>
   );
 }

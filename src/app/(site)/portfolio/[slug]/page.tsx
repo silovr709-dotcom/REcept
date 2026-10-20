@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { Breadcrumbs } from '@/components/PageHero';
 import { ProjectCard } from '@/components/ProjectCard';
 import { ZoomableImage } from '@/components/ZoomableImage';
+import { ProjectStickyBar } from '@/components/ProjectStickyBar';
 import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section } from '@/components/ui/Section';
@@ -126,24 +127,36 @@ export default async function ProjectPage({ params }: Params) {
                 {/* Фрагменты: фурнитура, фактуры и стыки крупным планом */}
                 {projectDetails.length > 0 ? (
                   <div className="mt-12">
-                    <h2 className="text-eyebrow font-bold uppercase text-brass">
-                      Детали этого проекта
-                    </h2>
+                    <div className="flex items-baseline justify-between gap-6">
+                      <h2 className="text-eyebrow font-bold uppercase text-brass">
+                        Детали этого проекта
+                      </h2>
+                      <p className="text-[0.75rem] text-stone">
+                        {projectDetails.length > 1
+                          ? 'Листайте вбок · нажмите, чтобы рассмотреть'
+                          : 'Нажмите, чтобы рассмотреть'}
+                      </p>
+                    </div>
+                    {/* Лента: на телефоне детали листаются вбок с прилипанием,
+                        на большом экране раскладываются в сетку. */}
                     <ul
-                      className={`mt-6 grid gap-4 ${
+                      className={`-mx-gutter mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-gutter pb-2 [scrollbar-width:none] sm:gap-5 lg:mx-0 lg:grid lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden ${
                         projectDetails.length === 1
-                          ? 'grid-cols-1'
-                          : 'grid-cols-2 sm:gap-5'
+                          ? 'lg:grid-cols-1'
+                          : 'lg:grid-cols-2'
                       }`}
                     >
                       {projectDetails.map((d, i) => (
-                        <li key={d.id}>
+                        <li
+                          key={d.id}
+                          className="w-[76%] shrink-0 snap-start sm:w-[58%] lg:w-auto lg:shrink"
+                        >
                           <Reveal delay={Math.min(i, 4) * 40}>
                             <ZoomableImage
                               image={d.image}
                               alt={d.alt}
                               caption={`${d.title} — ${d.note.toLowerCase()}`}
-                              sizes="(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 26vw"
+                              sizes="(max-width: 639px) 76vw, (max-width: 1023px) 58vw, 26vw"
                               wrapperClassName={`rounded-md ${
                                 projectDetails.length === 1
                                   ? 'aspect-16/9'
@@ -262,6 +275,8 @@ export default async function ProjectPage({ params }: Params) {
         title="Давайте спроектируем вашу"
         source={`project-final-${project.slug}`}
       />
+
+      <ProjectStickyBar title={project.title} layout={project.layout} />
 
       <ProjectJsonLd project={project} />
 
