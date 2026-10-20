@@ -14,6 +14,8 @@
 import { execSync } from 'node:child_process';
 import {
   existsSync,
+  readdirSync,
+  readFileSync,
   renameSync,
   rmSync,
   cpSync,
@@ -121,9 +123,25 @@ try {
   });
 
   const target = path.join(root, outDir);
+
+  // В docs/ лежит не только собранный сайт, но и написанные от руки справки
+  // (например, docs/шаблон-договора.md). Папка пересобирается с нуля, поэтому
+  // текстовые файлы из её корня сохраняются и возвращаются обратно —
+  // иначе каждая сборка молча их стирает.
+  const handwritten = existsSync(target)
+    ? readdirSync(target, { withFileTypes: true })
+        .filter((e) => e.isFile() && /\.(md|txt)$/i.test(e.name))
+        .map((e) => ({ name: e.name, body: readFileSync(path.join(target, e.name)) }))
+    : [];
+
   rmSync(target, { recursive: true, force: true });
   mkdirSync(target, { recursive: true });
   cpSync(path.join(root, 'out'), target, { recursive: true });
+
+  for (const file of handwritten) {
+    const dest = path.join(target, file.name);
+    if (!existsSync(dest)) writeFileSync(dest, file.body);
+  }
   // Без этого файла GitHub Pages прячет папки, начинающиеся с подчёркивания
   writeFileSync(path.join(target, '.nojekyll'), '');
 

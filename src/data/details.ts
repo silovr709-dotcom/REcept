@@ -10,6 +10,10 @@ import stone from '@public/images/textures/stone.jpg';
 import hardware from '@public/images/textures/hardware.jpg';
 import light from '@public/images/textures/light.jpg';
 import edge from '@public/images/textures/edge.jpg';
+import tverHandle from '@public/images/textures/tver-handle.webp';
+import tverSink from '@public/images/textures/tver-sink.webp';
+import tverDrawer from '@public/images/textures/tver-drawer.webp';
+import tverColumn from '@public/images/textures/tver-column.webp';
 
 /**
  * ДЕТАЛИ И ФАКТУРЫ
@@ -125,6 +129,42 @@ export const details: Detail[] = [
     project: 'kuhnya-grafit-i-belye-reyki',
     projectTitle: 'Графит и белые рейки',
     alt: 'Ровный теневой зазор между двумя матовыми фасадами',
+  },
+  {
+    id: 'tver-handle',
+    image: tverHandle,
+    title: 'Зазор 4 мм и ручка по центру',
+    note: 'Заводской допуск фабрики — один и тот же шов по всей кухне',
+    project: 'uglovaya-kuhnya-gribnoy-mat',
+    projectTitle: 'Угловая кухня в грибном матовом тоне',
+    alt: 'Два фасада ящиков крупным планом: ровный теневой зазор и две одинаковые чёрные ручки на одной линии',
+  },
+  {
+    id: 'tver-drawer',
+    image: tverDrawer,
+    title: 'Ящик с доводчиком и лотком',
+    note: 'Металлический бок, скрытые направляющие, лоток под приборы',
+    project: 'uglovaya-kuhnya-gribnoy-mat',
+    projectTitle: 'Угловая кухня в грибном матовом тоне',
+    alt: 'Полностью выдвинутый кухонный ящик с деревянным лотком для столовых приборов',
+  },
+  {
+    id: 'tver-sink',
+    image: tverSink,
+    title: 'Мойка под столешницу у окна',
+    note: 'Подстольный монтаж: крошки сметаются прямо в чашу',
+    project: 'uglovaya-kuhnya-gribnoy-mat',
+    projectTitle: 'Угловая кухня в грибном матовом тоне',
+    alt: 'Чёрная мойка, встроенная под серую столешницу у окна, со смесителем по центру чаши',
+  },
+  {
+    id: 'tver-column',
+    image: tverColumn,
+    title: 'Колонна с духовкой и СВЧ',
+    note: 'Приборы в одну вертикаль, одинаковый отступ по периметру',
+    project: 'uglovaya-kuhnya-gribnoy-mat',
+    projectTitle: 'Угловая кухня в грибном матовом тоне',
+    alt: 'Кухонная колонна: компактная СВЧ над духовым шкафом, вертикальные чёрные ручки на дверях',
   },
 ];
 

@@ -107,6 +107,12 @@
     "height": 2400,
     "base": 1024
   },
+  "/images/kitchens/kitchen-19.webp": {
+    "src": "/images/kitchens/kitchen-19@2x.webp",
+    "width": 2400,
+    "height": 1600,
+    "base": 1536
+  },
   "/images/millings/rooms/arecio.webp": {
     "src": "/images/millings/rooms/arecio@2x.webp",
     "width": 2400,
