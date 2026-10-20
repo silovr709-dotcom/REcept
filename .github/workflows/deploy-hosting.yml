@@ -1,0 +1,87 @@
+name: Выгрузка сайта на хостинг
+
+# Запускается при каждом изменении сайта. Сама собирает сайт и
+# выкладывает его на хостинг по FTP — руками ничего заливать не нужно.
+#
+# Чтобы включить, в репозитории нужно один раз добавить доступы:
+#   Settings → Secrets and variables → Actions → New repository secret
+#     FTP_HOST      адрес FTP-сервера (например, ftp.рецепт-тверь.рф или IP из панели reg.ru)
+#     FTP_USER      логин FTP
+#     FTP_PASSWORD  пароль FTP
+#     FTP_DIR       папка сайта, например /www/xn----dtbhac1degob3b6e.xn--p1ai/
+#
+# Пока доступы не добавлены, выгрузка просто пропускается, а сборка
+# всё равно проверяется — чтобы сломанный сайт не уехал на хостинг.
+
+on:
+  push:
+    branches: [main, 'arena/**']
+    paths-ignore:
+      - 'reference/**'
+      - 'docs/**'
+      - '**.md'
+      - 'recept-sayt.zip'
+  workflow_dispatch:
+
+concurrency:
+  group: hosting-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Собрать сайт для домена
+        run: npm run build:domain
+
+      - name: Проверить качество сборки
+        env:
+          AUDIT_DIR: site
+          AUDIT_BASE: ''
+        run: npm run audit
+
+      - name: Проверить, настроен ли хостинг
+        id: cfg
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+        run: |
+          if [ -n "$FTP_HOST" ] && [ -n "$FTP_USER" ]; then
+            echo "ready=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=no" >> "$GITHUB_OUTPUT"
+            echo "Доступы к хостингу не заданы — выгрузка пропущена." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Выгрузить на хостинг
+        if: steps.cfg.outputs.ready == 'yes'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_DIR }}
+          local-dir: ./site/
+          # Отправляются только изменившиеся файлы — выгрузка занимает секунды.
+          state-name: .recept-deploy-state.json
+          # Что на хостинге трогать нельзя:
+          #   _zayavki      — пришедшие заявки;
+          #   lead-config   — ваш пароль от почты;
+          #   .well-known   — проверка сертификата.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            _zayavki/**
+            api/lead-config.php
+            .well-known/**

@@ -22,26 +22,51 @@ declare(strict_types=1);
  * НАСТРОЙКИ
  * ------------------------------------------------------------------ */
 
+/**
+ * Личные настройки (почта, пароль приложения) живут в отдельном файле
+ * api/lead-config.php. Он НЕ входит в обновления сайта, поэтому при
+ * следующей выгрузке ваши настройки не затираются.
+ * Образец лежит рядом: lead-config.example.php.
+ */
+if (is_file(__DIR__ . '/lead-config.php')) {
+    require __DIR__ . '/lead-config.php';
+}
+
 /** Куда приходят заявки. Можно указать несколько через запятую. */
-const LEAD_TO = 'tver-kuhni11@yandex.ru';
+if (!defined('LEAD_TO')) {
+    define('LEAD_TO', 'tver-kuhni11@yandex.ru');
+}
 
 /** Домен сайта в «машинном» написании (рецепт-тверь.рф). */
-const SITE_DOMAIN = 'xn----dtbhac1degob3b6e.xn--p1ai';
+if (!defined('SITE_DOMAIN')) {
+    define('SITE_DOMAIN', 'xn----dtbhac1degob3b6e.xn--p1ai');
+}
 
 /** Обратный адрес письма. Должен быть на вашем домене. */
-const MAIL_FROM = 'no-reply@xn----dtbhac1degob3b6e.xn--p1ai';
-const MAIL_FROM_NAME = 'Сайт РЕцепт';
+if (!defined('MAIL_FROM')) {
+    define('MAIL_FROM', 'no-reply@xn----dtbhac1degob3b6e.xn--p1ai');
+}
+if (!defined('MAIL_FROM_NAME')) {
+    define('MAIL_FROM_NAME', 'Сайт РЕцепт');
+}
 
 /**
  * Запасной способ отправки — через почтовый сервер (SMTP).
- * Нужен, только если хостинг сам письма не шлёт.
- * Для Яндекс Почты: хост ssl://smtp.yandex.ru, порт 465, логин — ваш
- * ящик целиком, пароль — ПАРОЛЬ ПРИЛОЖЕНИЯ из Яндекс ID.
+ * Нужен, только если хостинг сам письма не шлёт. Задаётся
+ * в lead-config.php, сюда пароли не вписываются.
  */
-const SMTP_HOST = '';
-const SMTP_PORT = 465;
-const SMTP_USER = '';
-const SMTP_PASS = '';
+if (!defined('SMTP_HOST')) {
+    define('SMTP_HOST', '');
+}
+if (!defined('SMTP_PORT')) {
+    define('SMTP_PORT', 465);
+}
+if (!defined('SMTP_USER')) {
+    define('SMTP_USER', '');
+}
+if (!defined('SMTP_PASS')) {
+    define('SMTP_PASS', '');
+}
 
 /** Папка для резервных копий заявок (создаётся сама, закрыта от посторонних). */
 const STORE_DIR = __DIR__ . '/../_zayavki';
