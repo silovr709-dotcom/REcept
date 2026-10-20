@@ -163,10 +163,10 @@ export default async function ProjectPage({ params }: Params) {
                                   : 'aspect-4/3'
                               }`}
                             />
-                            <p className="mt-2.5 text-[0.875rem] font-semibold leading-snug text-ink">
+                            <p className="font-display mt-3 border-t border-line pt-3 text-[1.0625rem] leading-snug text-ink">
                               {d.title}
                             </p>
-                            <p className="mt-0.5 text-[0.8125rem] leading-snug text-stone">
+                            <p className="mt-1.5 text-[0.8125rem] leading-snug text-stone">
                               {d.note}
                             </p>
                           </Reveal>

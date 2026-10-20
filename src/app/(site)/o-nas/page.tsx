@@ -112,12 +112,15 @@ export default async function AboutPage() {
             </div>
           </div>
 
-          <div className="mt-16 grid gap-6 sm:grid-cols-2">
+          {/* Правила набраны полосами на волосяных линиях, а не
+              карточками в рамке: рамка вокруг каждого абзаца дробит
+              разворот на окошки и выглядит как интерфейс. */}
+          <div className="mt-14 grid gap-x-14 gap-y-10 sm:grid-cols-2">
             {principles.map((p, i) => (
               <Reveal
                 key={p.title}
                 delay={Math.min(i, 3) * 50}
-                className="rounded-lg border border-line bg-cream p-8 sm:p-10"
+                className="border-t border-goldline/45 pt-6"
               >
                 <h3 className="font-display text-[1.1875rem] leading-snug text-ink">
                   {p.title}

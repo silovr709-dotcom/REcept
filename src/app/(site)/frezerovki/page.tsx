@@ -89,7 +89,7 @@ export default async function MillingsPage() {
             title="Что стоит знать до выбора рисунка"
           />
 
-          <div className="mt-16 grid gap-6 lg:mt-20 lg:grid-cols-3">
+          <div className="mt-14 grid gap-x-14 gap-y-10 lg:mt-16 lg:grid-cols-3">
             {[
               {
                 index: '01',
@@ -107,9 +107,12 @@ export default async function MillingsPage() {
                 text: 'Фрезеровка задаёт минимальные и максимальные габариты фасада. На кухне до потолка это важнее, чем кажется: иногда именно рисунок решает, будет ли верхний ряд одной дверью или двумя.',
               },
             ].map((item) => (
-              <Reveal key={item.index} className="border border-line bg-cream p-8 sm:p-10">
-                <p className="label-xs text-stone">{item.index}</p>
-                <h3 className="font-display mt-6 text-[1.25rem] leading-snug text-ink">
+              <Reveal
+                key={item.index}
+                className="border-t border-goldline/45 pt-6"
+              >
+                <p className="label-xs text-gold">{item.index}</p>
+                <h3 className="font-display mt-5 text-[1.25rem] leading-snug text-ink">
                   {item.title}
                 </h3>
                 <p className="mt-4 text-[0.9375rem] leading-relaxed text-stone">

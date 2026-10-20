@@ -78,24 +78,29 @@ export default async function ReviewsPage() {
             работы: это не иллюстрация к конкретному отзыву (связывать
             их мы не вправе), а напоминание, о чём вообще речь.
           */}
-          <ul className="grid gap-6 lg:grid-cols-2">
+          <ul className="grid gap-x-16 gap-y-12 lg:grid-cols-2">
             {reviews.map((t, i) => (
               <Fragment key={`${t.author ?? 'anon'}-${i}`}>
               <li>
                 <Reveal
                   delay={Math.min(i, 3) * 50}
-                  className="flex h-full flex-col rounded-lg border border-line bg-cream p-8 sm:p-10"
+                  /* Рамка вокруг каждой цитаты превращала страницу
+                     в сетку окошек. Цитата держится линией сверху и
+                     подписью снизу — как в книге. */
+                  className="flex h-full flex-col border-t border-goldline/50 pt-7"
                 >
-                  <p className="font-display text-h3 text-ink">{t.highlight}</p>
-                  <div aria-hidden="true" className="rule-gold my-6 w-full" />
-                  <blockquote className="grow leading-relaxed text-stone">
+                  <p className="font-display text-[clamp(1.3rem,0.95rem+0.9vw,1.6rem)] leading-[1.3] text-ink">
+                    {t.highlight}
+                  </p>
+                  <blockquote className="mt-5 grow text-[0.9375rem] leading-[1.7] text-stone">
                     {t.text}
                   </blockquote>
-                  <footer className="mt-7 flex items-baseline justify-between gap-4 border-t border-line pt-5">
-                    <p className="font-semibold text-ink">
+                  <footer className="mt-6 flex items-baseline gap-4">
+                    <p className="label-xs text-ink">
                       {t.author ?? 'Без подписи'}
                     </p>
-                    <p className="shrink-0 text-sm text-stone">
+                    <span aria-hidden="true" className="h-px grow bg-line" />
+                    <p className="shrink-0 font-display text-[0.9375rem] text-stone">
                       {t.date} · Яндекс Карты
                     </p>
                   </footer>
@@ -109,7 +114,7 @@ export default async function ReviewsPage() {
                     ratio="aspect-16/10"
                     sizes="(max-width: 1023px) 100vw, 46vw"
                     caption
-                    className="h-full rounded-lg"
+                    className="h-full"
                   />
                 </li>
               ) : null}

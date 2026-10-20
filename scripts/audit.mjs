@@ -403,6 +403,59 @@ if (cabinetPages.length === 0) {
 }
 
 /* ------------------------------------------------------------------ */
+/* витрина не отстаёт от данных                                        */
+/* ------------------------------------------------------------------ */
+
+/*
+  Содержимое сайта лежит в JSON-снимке `content/`, который создаётся из
+  «заводских» данных в `src/data/` при первом запуске и дальше живёт
+  своей жизнью — его правит админка. Однажды снимок отстал молча: в
+  src/data было девятнадцать проектов, в снимке восемнадцать, и
+  девятнадцатый просто не существовал для сайта. Заметить это по
+  внешнему виду нельзя — страница не ломается, её просто нет.
+
+  Поэтому сверяем списки. Расхождение — не ошибка сама по себе
+  (проект могли намеренно снять через админку), но знать о нём нужно,
+  поэтому это предупреждение, а не нарушение.
+*/
+{
+  const slugsIn = (file, re) => {
+    if (!existsSync(file)) return [];
+    const src = readFileSync(file, 'utf8');
+    return [...src.matchAll(re)].map((m) => m[1]);
+  };
+  const seedProjects = slugsIn(
+    path.join(ROOT, 'src/data/projects.ts'),
+    /^\s{4}slug: '([^']+)'/gm,
+  );
+  const snapshot = path.join(ROOT, 'content/projects.json');
+  if (seedProjects.length && existsSync(snapshot)) {
+    const live = JSON.parse(readFileSync(snapshot, 'utf8')).map((p) => p.slug);
+    const missing = seedProjects.filter((s) => !live.includes(s));
+    if (missing.length)
+      warn(
+        'контент',
+        `в content/projects.json нет проектов из src/data: ${missing.join(', ')}`,
+      );
+  }
+
+  const seedDetails = slugsIn(
+    path.join(ROOT, 'src/data/details.ts'),
+    /^\s{4}id: '([^']+)'/gm,
+  );
+  const dSnapshot = path.join(ROOT, 'content/details.json');
+  if (seedDetails.length && existsSync(dSnapshot)) {
+    const live = JSON.parse(readFileSync(dSnapshot, 'utf8')).map((d) => d.id);
+    const missing = seedDetails.filter((s) => !live.includes(s));
+    if (missing.length)
+      warn(
+        'контент',
+        `в content/details.json нет деталей из src/data: ${missing.join(', ')}`,
+      );
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /* итог                                                                */
 /* ------------------------------------------------------------------ */
 

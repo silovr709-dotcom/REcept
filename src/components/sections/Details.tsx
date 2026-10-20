@@ -119,17 +119,21 @@ export async function Details({
                       sizes={big ? bigSizes : sizes}
                       placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
                       blurDataURL={d.image.blurDataURL || undefined}
-                      className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+                      className="photo-calm object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
                     />
                   </div>
+                  {/* Подпись набрана как подпись к иллюстрации: линия,
+                      название антиквой, пояснение мелким кеглем. Тот же
+                      приём, что и у карточек работ, — страница держится
+                      на одном правиле, а не на трёх разных. */}
                   <p
-                    className={`mt-4 font-semibold leading-snug text-ink transition-colors group-hover:text-gold ${
-                      big ? 'text-base sm:text-lg' : 'text-[0.9375rem]'
+                    className={`font-display mt-3 border-t border-line pt-3 leading-snug text-ink transition-colors group-hover:text-gold ${
+                      big ? 'text-[1.1875rem]' : 'text-[1.0625rem]'
                     }`}
                   >
                     {d.title}
                   </p>
-                  <p className="mt-1 text-[0.8125rem] leading-snug text-stone">
+                  <p className="mt-1.5 text-[0.8125rem] leading-snug text-stone">
                     {d.note}
                   </p>
                 </Link>
