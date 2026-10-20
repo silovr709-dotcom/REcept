@@ -49,22 +49,22 @@ export async function Founders({ index }: { index?: string } = {}) {
   );
 
   return (
-    <Section tone="ink" id="o-nas" aria-labelledby="founders-title">
+    <Section tone="bone" id="o-nas" aria-labelledby="founders-title">
       <div className="container-page">
         <SectionHeading
           id="founders-title"
           index={index}
-          tone="light"
+          tone="dark"
           eyebrow="Кто это делает"
           title={founders.title}
           lead={founders.paragraphs[0]}
         />
 
-        <div className="mt-16 grid gap-px bg-cream/12 lg:grid-cols-2">
+        <div className="mt-14 grid gap-px bg-line lg:grid-cols-2">
           {team.map((person, i) => {
             const phone = phoneFor(person.fullName);
             return (
-              <Reveal key={person.name} className="bg-ink p-8 sm:p-12">
+              <Reveal key={person.name} className="bg-bone p-8 sm:p-12">
                 {(() => {
                   // Настоящий портрет, если он уже загружен. Иначе —
                   // кадр работы: лица на нём нет, поэтому никто не выдаёт
@@ -83,7 +83,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                     // снимка. Сам снимок обрезает содержимое, поэтому
                     // текст лежит рядом с ним, а не внутри.
                     <div className="relative mb-16 max-w-sm sm:max-w-md lg:max-w-lg">
-                      <div className="media-reveal relative aspect-4/5 overflow-hidden bg-coal">
+                      <div className="mat-light media-reveal relative aspect-4/5 overflow-hidden">
                         <Image
                           src={src}
                           alt={alt}
@@ -92,7 +92,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                           sizes="(max-width: 1023px) 100vw, 40vw"
                           placeholder={blur ? 'blur' : 'empty'}
                           blurDataURL={blur || undefined}
-                          className="object-cover"
+                          className="photo-calm object-cover"
                         />
                       </div>
 
@@ -106,10 +106,10 @@ export async function Founders({ index }: { index?: string } = {}) {
                         // подпись Кати не влезает в одну строку, и при
                         // якоре снизу вторая строка уезжала вверх,
                         // на лицо. Теперь она растёт вниз, в поле.
-                        className="absolute left-4 right-0 top-[calc(100%-1.75rem)] origin-left font-(family-name:--font-hand) text-[1.375rem] leading-snug text-cream sm:left-6 sm:text-[1.5rem]"
+                        className="absolute left-4 right-0 top-[calc(100%-1.75rem)] origin-left font-(family-name:--font-hand) text-[1.375rem] leading-snug text-ink sm:left-6 sm:text-[1.5rem]"
                         style={{ transform: 'rotate(-1.2deg)' }}
                       >
-                        <span className="bg-ink/85 box-decoration-clone px-2 py-0.5">
+                        <span className="bg-bone/90 box-decoration-clone px-2 py-0.5">
                           {note}
                         </span>
                       </p>
@@ -117,26 +117,26 @@ export async function Founders({ index }: { index?: string } = {}) {
                   );
                 })()}
 
-                <p className="font-display-light text-h2 leading-none text-cream">
+                <p className="font-display-light text-h2 leading-none text-ink">
                   {person.fullName.split(' ')[0]}
                 </p>
-                <p className="font-display mt-1 text-h3 text-cream/45">
+                <p className="font-display mt-1 text-h3 text-stone">
                   {person.fullName.split(' ').slice(1).join(' ')}
                 </p>
 
                 {person.role ? (
-                  <p className="label-xs mt-6 text-cream/60">{person.role}</p>
+                  <p className="label-xs mt-6 text-gold">{person.role}</p>
                 ) : null}
 
                 {person.bio ? (
-                  <p className="mt-5 max-w-md text-cream/70">{person.bio}</p>
+                  <p className="mt-5 max-w-md text-stone">{person.bio}</p>
                 ) : null}
 
-                <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-cream/12 pt-6">
+                <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-line pt-6">
                   {phone ? (
                     <a
                       href={`tel:${phone.raw}`}
-                      className="font-display text-[1.25rem] text-cream transition-colors hover:text-clay"
+                      className="font-display text-[1.25rem] text-ink transition-colors hover:text-gold"
                     >
                       {phone.display}
                     </a>
@@ -146,7 +146,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                       href={person.vk}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="link-sweep text-sm text-cream/60"
+                      className="link-sweep text-sm text-stone"
                     >
                       ВКонтакте
                     </a>
@@ -159,15 +159,15 @@ export async function Founders({ index }: { index?: string } = {}) {
 
         {/* Отзыв, где их зовут по именам, — доказательство личного участия */}
         {namedReview ? (
-          <Reveal className="mt-16 grid gap-6 border-t border-cream/12 pt-10 lg:grid-cols-[10rem_1fr] lg:gap-12">
-            <p className="label-xs text-cream/60">Из отзывов</p>
+          <Reveal className="mt-14 grid gap-6 border-t border-line pt-10 lg:grid-cols-[10rem_1fr] lg:gap-12">
+            <p className="label-xs text-gold">Из отзывов</p>
             <blockquote className="max-w-3xl">
-              <p className="font-display text-h3 leading-snug text-cream">
+              <p className="font-display text-h3 leading-snug text-ink">
                 «{namedReview.text.split('.').slice(0, 2).join('.').trim()}.»
               </p>
-              <footer className="mt-4 text-sm text-cream/60">
+              <footer className="mt-4 text-sm text-stone">
                 {namedReview.author ?? 'Без подписи'} · {namedReview.date} ·{' '}
-                <Link href="/otzyvy" className="link-sweep text-cream/70">
+                <Link href="/otzyvy" className="link-sweep text-gold">
                   все отзывы
                 </Link>
               </footer>
@@ -176,12 +176,12 @@ export async function Founders({ index }: { index?: string } = {}) {
         ) : null}
 
         <Reveal className="mt-14 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-xl text-lead text-cream/70">
+          <p className="max-w-xl text-lead text-stone">
             {founders.paragraphs[1]}
           </p>
           <CtaButton
             source="founders"
-            variant="light"
+            variant="primary"
             size="lg"
             withArrow
             className="shrink-0 max-sm:w-full"

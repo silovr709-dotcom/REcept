@@ -24,23 +24,14 @@ export async function Headache({ index }: { index?: string } = {}) {
       aria-labelledby="headache-title"
       className="relative isolate overflow-hidden"
     >
-      {/* Кадр не иллюстрирует текст, а снимает «однотон»: на длинном
-          тёмном блоке без него остаётся только плоская заливка.
-          Плотность завала сверху максимальная — там лежит заголовок,
-          ниже кадр проступает сильнее, но контраст светлого текста
-          даже в худшем случае держится выше 8:1 */}
-      {backdrop ? (
-        <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <Photo
-            image={backdrop.image}
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-linear-to-b from-ink/95 via-ink/82 to-ink/68" />
-        </div>
-      ) : null}
+      {/* Поле со светом, а не фотография под плотным завалом. Снимок,
+          приглушённый до 20% и накрытый градиентом, не читается как
+          фотография — он читается как грязь на плоскости. Свет и зерно
+          дают ту же глубину честнее и в сто раз легче по весу. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(85%_60%_at_78%_8%,rgba(199,170,112,0.14),transparent_62%),radial-gradient(70%_60%_at_0%_100%,rgba(5,12,24,0.6),transparent_70%)]"
+      />
 
       <div className="container-page">
         <SectionHeading
@@ -52,9 +43,13 @@ export async function Headache({ index }: { index?: string } = {}) {
           lead={headache.lead}
         />
 
-        <div className="mt-14 grid gap-6 lg:mt-24 lg:grid-cols-2 lg:gap-8">
-          <Reveal className="rounded-lg border border-cream/12 bg-cream/[0.03] p-8 sm:p-10">
-            <h3 className="text-eyebrow font-bold uppercase text-cream/60">
+        {/* Было две карточки со скруглением и полупрозрачной заливкой —
+            самый узнаваемый элемент бесплатного шаблона. Стало две
+            колонки, разделённые линией в один пиксель: тот же смысл,
+            но это уже вёрстка разворота, а не интерфейс. */}
+        <div className="mt-12 grid gap-x-14 gap-y-10 lg:mt-16 lg:grid-cols-2">
+          <Reveal className="border-t border-cream/18 pt-7">
+            <h3 className="text-eyebrow font-medium uppercase tracking-[0.18em] text-cream/55">
               Как это обычно происходит
             </h3>
             <ul className="mt-7 grid gap-5">
@@ -83,7 +78,7 @@ export async function Headache({ index }: { index?: string } = {}) {
 
           <Reveal
             delay={80}
-            className="rounded-lg border border-gold/35 bg-linear-to-b from-gold/12 to-transparent p-8 sm:p-10"
+            className="border-t border-goldline/55 pt-7 lg:border-l lg:border-l-cream/12 lg:pl-14"
           >
             <h3 className="text-eyebrow font-medium uppercase tracking-[0.18em] text-goldsoft">
               Как это происходит с «РЕцептом»

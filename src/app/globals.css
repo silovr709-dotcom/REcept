@@ -54,9 +54,9 @@
   /* --- Тёмная сторона: глубокая синь, а не чёрное ---------------- */
   /* Этим же цветом набран весь текст: печатная краска никогда не
      бывает чёрной, и на тёплой бумаге синяя гуще смотрится дороже. */
-  --color-ink: #16293f;
-  --color-soot: #0e1c2c;
-  --color-coal: #22405f;
+  --color-ink: #13294a;
+  --color-soot: #0b1a30;
+  --color-coal: #1f3f68;
 
   /* --- Светлая сторона: бумага и молоко --------------------------- */
   --color-cream: #fffcf7;
@@ -89,23 +89,28 @@
   /* Шкала с большим разрывом: либо очень крупно, либо очень мелко.
      Средних размеров почти нет — именно это создаёт ощущение
      уверенной подачи вместо «обычного сайта». */
-  --text-display: clamp(3.25rem, 1rem + 9.5vw, 10.5rem);
-  --text-display--line-height: 0.96;
-  --text-display--letter-spacing: -0.018em;
+  /* Кегль заголовков уменьшен примерно на треть. Огромная шапка во
+     весь экран — приём лендингов, который читается как попытка
+     перекричать: в каталоге и в книге заголовок крупный, но никогда
+     не занимает половину полосы. Антиква к тому же сама по себе
+     выглядит больше гротеска при равном кегле. */
+  --text-display: clamp(2.9rem, 1rem + 6.6vw, 6.75rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.016em;
 
-  --text-h1: clamp(2.9rem, 1.1rem + 6.9vw, 7.25rem);
-  --text-h1--line-height: 0.98;
-  --text-h1--letter-spacing: -0.016em;
+  --text-h1: clamp(2.5rem, 1.2rem + 4.4vw, 5rem);
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.014em;
 
-  --text-h2: clamp(2.15rem, 1rem + 4.4vw, 4.75rem);
-  --text-h2--line-height: 1.04;
-  --text-h2--letter-spacing: -0.014em;
+  --text-h2: clamp(1.9rem, 1rem + 3.1vw, 3.5rem);
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.012em;
 
-  --text-h3: clamp(1.4rem, 1rem + 1.3vw, 1.95rem);
+  --text-h3: clamp(1.3rem, 1rem + 1.1vw, 1.75rem);
   --text-h3--line-height: 1.16;
   --text-h3--letter-spacing: -0.008em;
 
-  --text-lead: clamp(1.0625rem, 0.97rem + 0.5vw, 1.3125rem);
+  --text-lead: clamp(1.0625rem, 0.97rem + 0.45vw, 1.25rem);
   --text-lead--line-height: 1.62;
   --text-lead--letter-spacing: -0.002em;
 
@@ -116,8 +121,11 @@
   --text-eyebrow--line-height: 1.2;
   --text-eyebrow--letter-spacing: 0.2em;
 
-  /* Воздуха заметно больше: пустое место — главный признак дорогой подачи */
-  --spacing-section: clamp(7rem, 3.5rem + 10vw, 16rem);
+  /* Воздух дорог, пустота дешева. Разница между ними — в том, работает
+     ли пустое место как пауза или просто тянет страницу вниз. Прежние
+     16rem между секциями на большом экране читались как недоделанная
+     вёрстка: человек прокручивал пустой синий экран. */
+  --spacing-section: clamp(4.75rem, 2.5rem + 6vw, 9.5rem);
   --spacing-gutter: clamp(1.375rem, 0.5rem + 3.4vw, 6rem);
 
   --radius-xs: 0px;
@@ -300,6 +308,34 @@
   &:focus-visible {
     background-size: 100% 1px;
   }
+}
+
+
+/* Паспарту. Фотография, положенная прямо на цветное поле, выглядит
+   вставленной картинкой: край снимка режет плоскость, и глаз читает
+   «сюда загрузили файл». В галерее снимок всегда отбит от стены полем
+   и тонкой рамкой — это и есть разница между распечаткой и работой.
+
+   Светлое паспарту на тёмном поле, золотая линия в волосок на светлом. */
+@utility mat-dark {
+  padding: clamp(10px, 1.1vw, 18px);
+  background: color-mix(in oklab, var(--color-bone) 10%, transparent);
+  outline: 1px solid color-mix(in oklab, var(--color-goldline) 32%, transparent);
+  outline-offset: -1px;
+}
+
+@utility mat-light {
+  padding: clamp(10px, 1.1vw, 18px);
+  background: var(--color-cream);
+  outline: 1px solid var(--color-line);
+  outline-offset: -1px;
+}
+
+/* Общая цветокоррекция для портретов людей. Снимки сняты при тёплом
+   свете, поле — холодное; без лёгкого усмирения насыщенности они
+   спорят с полосой и выглядят вклеенными из другого проекта. */
+@utility photo-calm {
+  filter: saturate(0.92) contrast(1.03);
 }
 
 /* Разделитель: тонкая линия, которая начинается фирменным цветом

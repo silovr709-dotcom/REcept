@@ -111,18 +111,22 @@ export async function FinalCta({
             )}
           </div>
 
-          <div className="rounded-lg border border-cream/12 bg-cream/[0.04] p-6 backdrop-blur-sm sm:p-9">
-            <h3 className="font-display text-h3 text-cream">
+          {/* Форма стоит на собственном светлом поле. Полупрозрачная
+              «стеклянная» карточка размывала и бумагу, и синеву: такой
+              приём выдаёт шаблон. Бумажный прямоугольник на тёмной
+              странице — это бланк, который хочется заполнить. */}
+          <div className="bg-cream p-7 text-ink sm:p-10">
+            <h3 className="font-display text-h3 text-ink">
               Расскажите, какую кухню вы хотите
             </h3>
-            <p className="mt-3 text-cream/60">
+            <p className="mt-3 text-stone">
               Можно даже без точного проекта — разберёмся вместе.
             </p>
             <div className="mt-7">
-              <LeadForm tone="light" submitLabel={submitLabel} source={source} />
+              <LeadForm submitLabel={submitLabel} source={source} />
             </div>
 
-            <MarginNote author="Роберт и Катя" tone="light" className="mt-9">
+            <MarginNote author="Роберт и Катя" className="mt-9">
               Вы дочитали до самого низа. Обычно так делают, когда вопрос
               серьёзный и решение ещё не принято. Напишите — разберём вашу
               кухню, ни к чему вас это не обязывает.

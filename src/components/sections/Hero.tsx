@@ -57,15 +57,19 @@ export async function Hero() {
             вёрстки: в печати и в природе плоского цвета не бывает */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(115%_90%_at_82%_0%,rgba(182,154,99,0.16),transparent_58%),radial-gradient(90%_80%_at_0%_100%,rgba(8,18,30,0.6),transparent_62%),linear-gradient(158deg,#1b3148_0%,#16293f_46%,#101f31_100%)]"
+          className="absolute inset-0 -z-10 bg-[radial-gradient(120%_85%_at_84%_-4%,rgba(199,170,112,0.22),transparent_56%),radial-gradient(95%_85%_at_-5%_105%,rgba(5,12,24,0.78),transparent_64%),linear-gradient(162deg,#1b3a63_0%,#13294a_48%,#0a1930_100%)]"
         />
 
-        <div className="container-page relative z-10 flex min-h-svh flex-col justify-center pb-14 pt-28 sm:pb-16 lg:pb-20 lg:pt-32">
+        <div className="container-page relative z-10 flex min-h-[92svh] flex-col justify-center pb-12 pt-24 sm:pb-14 lg:pb-16 lg:pt-28">
           <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(300px,0.88fr)] lg:gap-16">
             {/* ПОРТРЕТ. В разметке он стоит первым — это и есть мобильный
                 порядок. На большом экране уезжает направо через order */}
             <div className="relative mx-auto w-full max-w-[17rem] sm:max-w-[22rem] lg:order-2 lg:mx-0 lg:ml-auto lg:max-w-[29.5rem]">
-              <div className="relative aspect-4/5 overflow-hidden bg-soot">
+              {/* Паспарту: снимок отбит от поля светлым полем и золотой
+                  линией — так портрет читается как работа на стене,
+                  а не как картинка, положенная на фон */}
+              <div className="mat-dark relative">
+                <div className="relative aspect-4/5 overflow-hidden bg-soot">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={assetUrl(teamShots.heroPortrait.src)}
@@ -76,19 +80,20 @@ export async function Hero() {
                   height={teamShots.heroPortrait.height}
                   fetchPriority="high"
                   decoding="async"
-                  className="size-full object-cover object-[50%_18%]"
+                  className="photo-calm size-full object-cover object-[50%_18%]"
                 />
 
                 {/* Рамка в волосок с отбивкой от края и засечками по
                     углам — приём паспарту: он говорит «это снимок,
                     который показывают», а не «это картинка на фоне» */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-2.5 z-10 border border-goldline/40"
-                >
-                  <span className="absolute -left-px -top-px size-6 border-l border-t border-goldsoft/85" />
-                  <span className="absolute -bottom-px -right-px size-6 border-b border-r border-goldsoft/85" />
-                </span>
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 z-10"
+                  >
+                    <span className="absolute left-0 top-0 size-7 border-l border-t border-goldsoft/70" />
+                    <span className="absolute bottom-0 right-0 size-7 border-b border-r border-goldsoft/70" />
+                  </span>
+                </div>
               </div>
 
               <div className="mt-4 flex items-end justify-between gap-4">
@@ -122,7 +127,7 @@ export async function Hero() {
             <div className="lg:order-1 lg:max-w-[40rem]">
               <p className="eyebrow-rule text-goldsoft">{hero.eyebrow}</p>
 
-              <h1 className="font-display-light animate-fade-up mt-6 text-h1 sm:mt-8">
+              <h1 className="font-display-light animate-fade-up mt-6 text-[clamp(2.5rem,4.4vw,4.4rem)] leading-[1.02] tracking-[-0.014em] sm:mt-7">
                 {hero.title}
                 {hero.titleSecondLine ? (
                   <>
@@ -138,14 +143,14 @@ export async function Hero() {
               </h1>
 
               <p
-                className="animate-fade-up mt-6 max-w-[47ch] text-lead text-cream/78"
+                className="animate-fade-up mt-5 max-w-[46ch] text-lead text-cream/78"
                 style={{ animationDelay: '120ms' }}
               >
                 {hero.lead}
               </p>
 
               <div
-                className="animate-fade-up mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4"
+                className="animate-fade-up mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4"
                 style={{ animationDelay: '200ms' }}
               >
                 <CtaButton
@@ -191,7 +196,7 @@ export async function Hero() {
 
               {/* Факты — цифрой антиквой, подпись мелко. Так устроены
                   выходные данные в каталоге: цифра работает как якорь */}
-              <dl className="mt-9 grid grid-cols-3 gap-x-6 gap-y-4 border-t border-cream/15 pt-6 sm:gap-x-10 lg:mt-11">
+              <dl className="mt-8 grid grid-cols-3 gap-x-6 gap-y-4 border-t border-cream/15 pt-5 sm:gap-x-10 lg:mt-9">
                 {facts.map((item) => (
                   <div key={item.small} className="flex flex-col-reverse gap-1">
                     <dd className="max-w-[16ch] text-[0.6875rem] leading-[1.45] tracking-[0.03em] text-cream/70">
@@ -211,14 +216,14 @@ export async function Hero() {
       {/* Строка доказательств сразу под кадром: рейтинг с Яндекс Карт,
           ссылка на страницу о нас и четвёртый факт, не поместившийся
           в первый экран */}
-      <div className="bg-cream">
+      <div className="grain bg-ink text-cream">
         <div className="container-page">
-          <div className="flex flex-wrap items-center gap-x-10 gap-y-5 border-b border-line py-6">
-            <RatingBadge tone="dark" />
+          <div className="flex flex-wrap items-center gap-x-10 gap-y-5 border-t border-cream/12 py-6">
+            <RatingBadge tone="light" />
 
             {hero.stats.slice(3).map((item) => (
-              <p key={item.small} className="max-w-64 text-[0.8125rem] text-stone">
-                <span className="mr-2 font-display text-[1.125rem] text-gold">
+              <p key={item.small} className="max-w-64 text-[0.8125rem] text-cream/70">
+                <span className="mr-2 font-display text-[1.125rem] text-goldsoft">
                   {item.big}
                 </span>
                 {item.small}
@@ -229,11 +234,11 @@ export async function Hero() {
               href="/o-nas"
               className="group ml-auto inline-flex items-baseline gap-3 max-sm:ml-0"
             >
-              <span className="label-xs text-stone">Это мы</span>
-              <span className="font-display text-[1.125rem] text-ink transition-colors group-hover:text-gold">
+              <span className="label-xs text-cream/55">Это мы</span>
+              <span className="font-display text-[1.125rem] text-cream transition-colors group-hover:text-goldsoft">
                 {names}
               </span>
-              <span aria-hidden="true" className="text-gold">
+              <span aria-hidden="true" className="text-goldsoft">
                 →
               </span>
             </Link>
