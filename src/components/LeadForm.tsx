@@ -79,9 +79,12 @@ export function LeadForm({
     data.set('source', source);
     data.set('page', typeof window !== 'undefined' ? window.location.pathname : '');
 
-    // Файлы добавляем вручную — так проще контролировать лимиты
+    // Файлы добавляем вручную — так проще контролировать лимиты.
+    // Имя поля со скобками: его одинаково понимают и наш сервер,
+    // и приёмщик на PHP (на обычном хостинге иначе дойдёт только один файл).
     data.delete('files');
-    for (const f of files) data.append('files', f);
+    data.delete('files[]');
+    for (const f of files) data.append('files[]', f);
 
     if (NO_RECEIVER) {
       setStatus('error');

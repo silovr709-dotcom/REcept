@@ -110,7 +110,14 @@ try {
   rmSync(path.join(root, 'out'), { recursive: true, force: true });
   execSync('npx --no-install next build', {
     stdio: 'inherit',
-    env: { ...process.env, STATIC_EXPORT: '1', BASE_PATH: basePath },
+    env: {
+      ...process.env,
+      STATIC_EXPORT: '1',
+      BASE_PATH: basePath,
+      // На хостинге заявки принимает hosting/api/lead.php
+      NEXT_PUBLIC_FORM_ENDPOINT:
+        process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? (forDomain ? '/api/lead.php' : ''),
+    },
   });
 
   const target = path.join(root, outDir);
@@ -122,7 +129,12 @@ try {
 
   if (forDomain) {
     writeFileSync(path.join(target, '.htaccess'), HTACCESS);
-    if (siteUrl) {
+
+    // Серверная часть для обычного хостинга: приём заявок на PHP.
+    const hosting = path.join(root, 'hosting');
+    if (existsSync(hosting)) cpSync(hosting, target, { recursive: true });
+
+    if (process.env.WRITE_CNAME === '1' && siteUrl) {
       // Для GitHub Pages со своим доменом нужен файл CNAME с голым доменом.
       writeFileSync(path.join(target, 'CNAME'), `${siteUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')}\n`);
     }

@@ -163,7 +163,7 @@ export async function POST(request: Request) {
     };
 
     const attachments: { filename: string; content: Buffer }[] = [];
-    for (const entry of form.getAll('files')) {
+    for (const entry of [...form.getAll('files[]'), ...form.getAll('files')]) {
       if (attachments.length >= MAX_FILES) break;
       if (typeof entry === 'string') continue;
       if (entry.size === 0 || entry.size > MAX_FILE_BYTES) continue;
