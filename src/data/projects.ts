@@ -95,7 +95,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Прямая компоновка в нише — рабочее решение для комнаты, где нельзя «размазать» кухню по двум стенам. Вся техника, хранение и рабочая поверхность собраны в один фронт, а остальное пространство остаётся свободным.',
-    detailIds: ['brass', 'wood-stone'],
+    detailIds: ['p01-gola', 'p01-stone', 'p01-hood', 'p01-oven'],
     area: null,
     term: null,
     budget: null,
@@ -133,7 +133,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Когда кухня открыта в гостиную, она перестаёт быть «техническим» помещением. Поэтому фасады сделаны без ручек и максимально спокойными, а вся «жизнь» отдана острову и свету.',
-    detailIds: ['lacquer'],
+    detailIds: ['p02-bar', 'p02-sink', 'p02-gap', 'p02-light'],
     area: null,
     term: null,
     budget: null,
@@ -170,7 +170,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Маленькая кухня не обязана быть белой и безликой. Её можно сделать характерной, если правильно распределить массу цвета и не перегрузить верхний ярус.',
-    detailIds: ['reeded'],
+    detailIds: ['p03-reeded'],
     area: null,
     term: null,
     budget: null,
