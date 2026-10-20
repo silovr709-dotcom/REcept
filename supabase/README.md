@@ -183,3 +183,30 @@ psql "$DB" -v ON_ERROR_STOP=1 -f supabase/tests/policies-test.sql
   архитектура (таблица `notifications`) к этому готова.
 * **Чата.** Обращения — это вопросы и ответы по проекту с историей, а не
   мессенджер.
+
+---
+
+## 6. Мост с калькулятором
+
+Файл `migrations/0002_integration.sql` — применён к живой базе. Он добавляет
+одиннадцать служебных функций `integration_*`, через которые калькулятор
+заводит клиентов и проекты, публикует документы, выгружает состав, оплаты и
+этапы и забирает решения клиентов.
+
+Эти функции **недоступны ни анонимным посетителям, ни вошедшим клиентам**:
+право на выполнение у них отозвано, и внутри каждой стоит проверка служебного
+ключа. Ключ (`calculator_bridge` в Supabase → Project Settings → API Keys)
+живёт только в `api/config.php` на хостинге калькулятора.
+
+Проверка: `tests/integration-test.sql` — 44 утверждения, запускается так же,
+как `tests/policies-test.sql`:
+
+```
+psql -f tests/local-shim.sql
+psql -f migrations/0001_cabinet.sql
+psql -f migrations/0002_integration.sql
+psql -f tests/integration-test.sql
+```
+
+Код для калькулятора — в папке `integration/calculator/` в корне этого
+репозитория, там же инструкция по установке.
