@@ -1,0 +1,103 @@
+import { Reveal } from '../ui/Reveal';
+import { Section, SectionHeading } from '../ui/Section';
+import { MarginNote } from '../ui/MarginNote';
+import { supplierRows } from '@/data/materials';
+
+/**
+ * РЕЕСТР ПОСТАВЩИКОВ
+ * ==================
+ * Раздел «Материалы» до этого рассказывал про материалы абстрактно:
+ * «плёнка», «пластик», «камень» — и показывал макро-кадры с подписями
+ * вроде «дерево и камень рядом». Для человека, который выбирает кухню
+ * и сравнивает предложения, это пустая страница: у всех написано то
+ * же самое.
+ *
+ * Конкретика — это названия. Увадрев, Ламарти, Egger, Kronospan —
+ * проверяемые вещи: их можно загуглить, сравнить с тем, что предлагают
+ * в другом салоне, и спросить на замере «а почему этот, а не тот».
+ * Именно поэтому список стоит первым блоком страницы, а не в сноске.
+ *
+ * Набран как спецификация к проекту: слева позиция, справа марки
+ * через волосяные разделители. Никаких логотипов — чужие логотипы на
+ * своём сайте выглядят как попытка занять чужой авторитет.
+ */
+export function Suppliers({
+  tone = 'bone',
+}: {
+  tone?: 'cream' | 'bone' | 'ink';
+}) {
+  return (
+    <Section tone={tone} aria-labelledby="suppliers-title">
+      <div className="container-page">
+        <SectionHeading
+          id="suppliers-title"
+          eyebrow="С чем мы работаем"
+          title="Конкретные заводы и марки"
+          lead="Не «качественные материалы от проверенных поставщиков», а список, который можно проверить: загуглить, сравнить с тем, что предлагают в другом месте, и спросить на замере, почему выбран именно этот вариант."
+        />
+
+        <dl className="mt-12 lg:mt-16">
+          {supplierRows.map((row, i) => (
+            <Reveal
+              key={row.id}
+              delay={Math.min(i, 5) * 40}
+              className="grid gap-x-12 gap-y-4 border-t border-line py-7 lg:grid-cols-[13rem_1fr] lg:py-8"
+            >
+              <dt className="font-display text-[1.25rem] leading-snug text-ink">
+                {row.title}
+              </dt>
+              <dd>
+                {/* Марки — крупно, потому что ради них сюда и пришли.
+                    Разделитель — точка на средней линии: ряд названий
+                    должен читаться как строка каталога, а не как
+                    облако тегов. */}
+                <p className="font-display flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[1.1875rem] text-ink">
+                  {row.brands.map((brand, b) => (
+                    <span key={brand} className="inline-flex items-baseline">
+                      {b > 0 ? (
+                        <span
+                          aria-hidden="true"
+                          className="mr-3 text-goldline"
+                        >
+                          ·
+                        </span>
+                      ) : null}
+                      {brand}
+                    </span>
+                  ))}
+                </p>
+                <p className="mt-3 max-w-[62ch] text-[0.9375rem] leading-[1.7] text-stone">
+                  {row.text}
+                </p>
+              </dd>
+            </Reveal>
+          ))}
+          <div aria-hidden="true" className="border-t border-line" />
+        </dl>
+
+        <Reveal className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <MarginNote author="Роберт">
+            Список рабочий, а не рекламный: здесь то, что реально лежит
+            на нашем производстве и за что я готов отвечать. Если у вас
+            уже есть любимая марка или её назвал дизайнер — скажите на
+            замере, обычно можем заказать именно её.
+          </MarginNote>
+
+          <div className="text-[0.9375rem] leading-[1.7] text-stone lg:pt-2">
+            <p>
+              Конкретный артикул и декор выбираем на замере по образцам:
+              один и тот же цвет у разных заводов выглядит по-разному,
+              и это тот случай, когда смотреть нужно глазами, а не по
+              фотографии в интернете.
+            </p>
+            <p className="mt-4">
+              Фурнитуру и столешницу считаем отдельной строкой в смете —
+              вы видите, за что платите, и можете заменить позицию,
+              не пересобирая весь проект.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+    </Section>
+  );
+}

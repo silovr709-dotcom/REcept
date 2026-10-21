@@ -5,7 +5,7 @@ import { CtaButton } from '@/components/CtaButton';
 import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { Section, SectionHeading } from '@/components/ui/Section';
-import { Details } from '@/components/sections/Details';
+import { Suppliers } from '@/components/sections/Suppliers';
 import { PhotoBand } from '@/components/PhotoBand';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
@@ -26,7 +26,7 @@ import { teamShots, teamShotAlt } from '@/data/team-shots';
 export const metadata: Metadata = {
   title: 'Материалы для кухни',
   description:
-    'Фасады, столешницы и фурнитура для кухни на заказ в Твери: плёнка, эмаль, шпон, массив, камень. Честно о том, где экономия разумна, а где вернётся проблемой.',
+    'Материалы кухонь ателье «РЕцепт» в Твери: ЛДСП Увадрев, Ламарти, Egger; пластик AGT, ARPA, ABET; столешницы СОЮЗ, Кедр, Slotex; петли Боярд, Hettich, Blum.',
   alternates: { canonical: '/materialy' },
   openGraph: {
     images: [{ url: '/og-materialy.jpg', width: 1200, height: 630, alt: 'Материалы для кухни на заказ: фасады, столешницы, фурнитура' }],
@@ -164,14 +164,11 @@ export default async function MaterialsPage() {
         </CtaButton>
       </PageHero>
 
-      <Details
-        tone="bone"
-        items={details}
-        eyebrow="Фактуры вживую"
-        title="Материалы, с которыми мы уже работали"
-        lead="Металл, стекло, камень, дерево и рельеф крупным планом. Именно на таком расстоянии видна разница между эмалью и плёнкой, между шпоном и имитацией."
-        footnote="Нажмите на любой фрагмент, чтобы посмотреть проект целиком."
-      />
+      {/* Первым блоком — реестр марок. Раньше здесь шла лента макро
+          с подписями «дерево и камень рядом»: красиво, но человек,
+          который сравнивает предложения, уходил со страницы, так и не
+          узнав ни одного названия. */}
+      <Suppliers tone="bone" />
 
       <Section tone="cream" aria-labelledby="facades-title">
         <div className="container-page">
@@ -306,8 +303,8 @@ export default async function MaterialsPage() {
                 </p>
                 {h.brands.length > 0 ? (
                   <p className="mt-5 border-t border-line pt-4 text-[0.875rem] text-stone">
-                    <span className="text-ink">От базовых к верхним:</span>{' '}
-                    {h.brands.join(' → ')}
+                    <span className="text-ink">Работаем с:</span>{' '}
+                    {h.brands.join(' · ')}
                   </p>
                 ) : null}
               </Reveal>
