@@ -26,7 +26,7 @@ export default async function ContactsPage() {
   const heroProjects = await getVisibleProjects();
   // Снимок в шапку страницы: тот же приём, что на первом экране
   // главной и на карточке ссылки в мессенджере
-  const heroShot = pickImage(heroProjects, 'terrakotovaya-kuhnya', 13);
+  const heroShot = pickImage(heroProjects, 'kuhnya-grafit-s-ostrovom', 3);
   const [site, details, projects] = await Promise.all([
     getSiteView(),
     getVisibleDetails(),
@@ -40,7 +40,7 @@ export default async function ContactsPage() {
     workingHours: WORKING_HOURS,
   } = site;
   const contactDetails = details.slice(0, 4);
-  const band = pickImage(projects, 'kuhnya-gostinaya-v-dvuh-tonah', 16);
+  const band = pickImage(projects, 'uglovaya-kuhnya-s-derevyannym-fartukom', 6);
 
   return (
     <>

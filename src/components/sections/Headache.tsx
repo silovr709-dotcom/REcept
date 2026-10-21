@@ -16,7 +16,7 @@ export async function Headache({ index }: { index?: string } = {}) {
     getContent('texts'),
     getVisibleProjects(),
   ]);
-  const backdrop = pickImage(projects, 'temno-siniaya-kuhnya-latun', 9);
+  const backdrop = pickImage(projects, 'kuhnya-grafit-s-ostrovom', 3);
 
   return (
     <Section

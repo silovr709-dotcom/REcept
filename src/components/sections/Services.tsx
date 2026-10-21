@@ -47,7 +47,7 @@ export async function Services({
     getContent('texts'),
     getVisibleProjects(),
   ]);
-  const shot = pickImage(projects, 'uglovaya-kuhnya-do-potolka', 6);
+  const shot = pickImage(projects, 'uglovaya-kuhnya-s-derevyannym-fartukom', 6);
 
   // Компактный вид на главной. Раньше это был список текстовых ссылок —
   // единственный блок страницы вообще без изображений, и направления в нём

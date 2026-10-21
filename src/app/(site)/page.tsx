@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
  */
 export default async function HomePage() {
   const projects = await getVisibleProjects();
-  const bandClassic = pickImage(projects, 'chernaya-kuhnya-s-kamnem', 5);
+  const bandClassic = pickImage(projects, 'kuhnya-neoklassika-greyzh', 5);
   /*
     Самый длинный текстовый перегон страницы — отзывы, возражения и
     зачёркнутые штампы подряд. Между ним и вопросами нужна пауза,

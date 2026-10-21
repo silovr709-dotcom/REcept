@@ -74,7 +74,7 @@ export default async function KitchensPage() {
   const heroShot = pickImage(projects, 'kuhnya-v-nishe-latun', 0);
   const featuredProjects = projects.slice(0, 6);
   const shot = pickImage(projects, 'bolshaya-kuhnya-v-dome', 4);
-  const band = pickImage(projects, 'terrakotovaya-kuhnya', 12);
+  const band = pickImage(projects, 'kuhnya-neoklassika-greyzh', 5);
 
   return (
     <>

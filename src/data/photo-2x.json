@@ -2,116 +2,56 @@
   "/images/kitchens/kitchen-01.webp": {
     "src": "/images/kitchens/kitchen-01@2x.webp",
     "width": 2400,
-    "height": 1600,
+    "height": 1800,
     "base": 1536
   },
   "/images/kitchens/kitchen-02.webp": {
     "src": "/images/kitchens/kitchen-02@2x.webp",
-    "width": 1600,
+    "width": 1350,
     "height": 2400,
-    "base": 1024
+    "base": 864
   },
   "/images/kitchens/kitchen-03.webp": {
     "src": "/images/kitchens/kitchen-03@2x.webp",
-    "width": 1600,
+    "width": 1800,
     "height": 2400,
-    "base": 1024
+    "base": 1152
   },
   "/images/kitchens/kitchen-04.webp": {
     "src": "/images/kitchens/kitchen-04@2x.webp",
     "width": 2400,
-    "height": 1600,
+    "height": 1800,
     "base": 1536
   },
   "/images/kitchens/kitchen-05.webp": {
     "src": "/images/kitchens/kitchen-05@2x.webp",
     "width": 2400,
-    "height": 1600,
+    "height": 1019,
     "base": 1536
   },
   "/images/kitchens/kitchen-06.webp": {
     "src": "/images/kitchens/kitchen-06@2x.webp",
     "width": 2400,
-    "height": 1600,
+    "height": 1339,
     "base": 1536
   },
   "/images/kitchens/kitchen-07.webp": {
     "src": "/images/kitchens/kitchen-07@2x.webp",
-    "width": 1600,
+    "width": 2180,
     "height": 2400,
-    "base": 1024
+    "base": 1395
   },
   "/images/kitchens/kitchen-08.webp": {
     "src": "/images/kitchens/kitchen-08@2x.webp",
-    "width": 1600,
+    "width": 2175,
     "height": 2400,
-    "base": 1024
+    "base": 1392
   },
   "/images/kitchens/kitchen-09.webp": {
     "src": "/images/kitchens/kitchen-09@2x.webp",
-    "width": 1600,
+    "width": 1797,
     "height": 2400,
-    "base": 1024
-  },
-  "/images/kitchens/kitchen-10.webp": {
-    "src": "/images/kitchens/kitchen-10@2x.webp",
-    "width": 2400,
-    "height": 1600,
-    "base": 1536
-  },
-  "/images/kitchens/kitchen-11.webp": {
-    "src": "/images/kitchens/kitchen-11@2x.webp",
-    "width": 2400,
-    "height": 1601,
-    "base": 1535
-  },
-  "/images/kitchens/kitchen-12.webp": {
-    "src": "/images/kitchens/kitchen-12@2x.webp",
-    "width": 2400,
-    "height": 1600,
-    "base": 1536
-  },
-  "/images/kitchens/kitchen-13.webp": {
-    "src": "/images/kitchens/kitchen-13@2x.webp",
-    "width": 1600,
-    "height": 2400,
-    "base": 1024
-  },
-  "/images/kitchens/kitchen-14.webp": {
-    "src": "/images/kitchens/kitchen-14@2x.webp",
-    "width": 2400,
-    "height": 1600,
-    "base": 1536
-  },
-  "/images/kitchens/kitchen-15.webp": {
-    "src": "/images/kitchens/kitchen-15@2x.webp",
-    "width": 2400,
-    "height": 1600,
-    "base": 1536
-  },
-  "/images/kitchens/kitchen-16.webp": {
-    "src": "/images/kitchens/kitchen-16@2x.webp",
-    "width": 1600,
-    "height": 2400,
-    "base": 1024
-  },
-  "/images/kitchens/kitchen-17.webp": {
-    "src": "/images/kitchens/kitchen-17@2x.webp",
-    "width": 2400,
-    "height": 1600,
-    "base": 1536
-  },
-  "/images/kitchens/kitchen-18.webp": {
-    "src": "/images/kitchens/kitchen-18@2x.webp",
-    "width": 1600,
-    "height": 2400,
-    "base": 1024
-  },
-  "/images/kitchens/kitchen-19.webp": {
-    "src": "/images/kitchens/kitchen-19@2x.webp",
-    "width": 2400,
-    "height": 1600,
-    "base": 1536
+    "base": 1150
   },
   "/images/millings/rooms/arecio.webp": {
     "src": "/images/millings/rooms/arecio@2x.webp",

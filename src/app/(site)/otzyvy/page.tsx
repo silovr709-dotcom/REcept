@@ -34,13 +34,13 @@ export default async function ReviewsPage() {
   const heroProjects = await getVisibleProjects();
   // Снимок в шапку страницы: тот же приём, что на первом экране
   // главной и на карточке ссылки в мессенджере
-  const heroShot = pickImage(heroProjects, 'belaya-klassika-s-ostrovom', 10);
+  const heroShot = pickImage(heroProjects, 'kuhnya-v-nishe-latun', 0);
   const [{ rating, items: reviews }, site, projects] = await Promise.all([
     getVisibleReviews(),
     getSiteView(),
     getVisibleProjects(),
   ]);
-  const band = pickImage(projects, 'belaya-klassika-s-ostrovom', 1);
+  const band = pickImage(projects, 'malenkaya-kuhnya-p-obraznaya', 8);
   const yandex = site.yandex;
   return (
     <>

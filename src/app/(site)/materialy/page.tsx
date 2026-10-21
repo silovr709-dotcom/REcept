@@ -130,14 +130,14 @@ export default async function MaterialsPage() {
   const heroProjects = await getVisibleProjects();
   // Снимок в шапку страницы: тот же приём, что на первом экране
   // главной и на карточке ссылки в мессенджере
-  const heroShot = pickImage(heroProjects, 'temno-siniaya-kuhnya-latun', 9);
+  const heroShot = pickImage(heroProjects, 'uglovaya-kuhnya-s-derevyannym-fartukom', 6);
   const [details, projects] = await Promise.all([
     getVisibleDetails(),
     getVisibleProjects(),
   ]);
   const shot = pickImage(projects, 'kompaktnaya-kuhnya-zelenye-reyki', 2);
   const shot2 = pickImage(projects, 'kuhnya-grafit-i-belye-reyki', 7);
-  const band = pickImage(projects, 'kuhnya-s-moykoy-u-okna', 13);
+  const band = pickImage(projects, 'kuhnya-grafit-s-ostrovom', 3);
 
   return (
     <>

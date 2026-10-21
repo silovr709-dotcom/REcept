@@ -25,7 +25,7 @@ export async function Faq({
   // Левая колонка — заголовок и одна кнопка, а справа шесть вопросов.
   // На десктопе под кнопкой оставалось пустое кремовое поле во весь
   // экран: самое плоское место страницы. Туда встаёт кадр.
-  const shot = pickImage(projects, 'skandinavskaya-kuhnya-dub', 11);
+  const shot = pickImage(projects, 'kuhnya-gostinaya-s-ostrovom', 1);
 
   return (
     <Section tone={tone} id="faq" aria-labelledby="faq-title">

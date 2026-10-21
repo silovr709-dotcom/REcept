@@ -60,3 +60,4 @@ next-env.d.ts
 # они в десять раз легче, а исходник всегда можно сделать заново.
 /reference/details/
 /reference/masters/
+/reference/retouch/

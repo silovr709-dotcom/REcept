@@ -46,7 +46,7 @@ const principles = [
 
 export default async function AboutPage() {
   const projects = await getVisibleProjects();
-  const band = pickImage(projects, 'belaya-klassika-s-ostrovom', 10);
+  const band = pickImage(projects, 'bolshaya-kuhnya-v-dome', 4);
 
   return (
     <>

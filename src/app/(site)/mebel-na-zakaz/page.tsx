@@ -29,14 +29,14 @@ export default async function FurniturePage() {
   const heroProjects = await getVisibleProjects();
   // Снимок в шапку страницы: тот же приём, что на первом экране
   // главной и на карточке ссылки в мессенджере
-  const heroShot = pickImage(heroProjects, 'skandinavskaya-kuhnya-dub', 11);
+  const heroShot = pickImage(heroProjects, 'kuhnya-gostinaya-s-ostrovom', 1);
   const [details, projects] = await Promise.all([
     getVisibleDetails(),
     getVisibleProjects(),
   ]);
   const craftDetails = details.slice(0, 6);
   const shot = pickImage(projects, 'kuhnya-neoklassika-greyzh', 5);
-  const band = pickImage(projects, 'kuhnya-gostinaya-v-dvuh-tonah', 8);
+  const band = pickImage(projects, 'kuhnya-grafit-i-belye-reyki', 7);
 
   return (
     <>
