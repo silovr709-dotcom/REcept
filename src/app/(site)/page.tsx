@@ -4,6 +4,7 @@ import { Headache } from '@/components/sections/Headache';
 import { Services } from '@/components/sections/Services';
 import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
 import { Details } from '@/components/sections/Details';
+import { Suppliers } from '@/components/sections/Suppliers';
 import { Process } from '@/components/sections/Process';
 import { Price } from '@/components/sections/Price';
 import { Brief } from '@/components/sections/Brief';
@@ -82,9 +83,16 @@ export default async function HomePage() {
       <PortfolioPreview index="04" limit={6} />
       <Details index="05" tone="cream" limit={6} />
 
+      {/* Сразу за фактурами — названия. Фотография фасада показывает,
+          как это выглядит; строчка «Увадрев · Ламарти · Egger»
+          показывает, из чего это сделано. Второе проверяется, и
+          именно поэтому его стоит сказать вслух на главной, а не
+          прятать на отдельной странице. */}
+      <Suppliers tone="bone" variant="compact" />
+
       {/* Как это устроено и сколько стоит */}
-      <Process index="06" tone="bone" limit={5} />
-      <Price index="07" tone="cream" />
+      <Process index="06" tone="cream" limit={5} />
+      <Price index="07" tone="bone" />
 
       {/* Сразу после цены: вопрос «а сколько у меня» уже возник,
           и вместо формы «имя и телефон» человеку предлагается

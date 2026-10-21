@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 import { MarginNote } from '../ui/MarginNote';
@@ -23,9 +24,72 @@ import { supplierRows } from '@/data/materials';
  */
 export function Suppliers({
   tone = 'bone',
+  variant = 'full',
 }: {
   tone?: 'cream' | 'bone' | 'ink';
+  /**
+   * `compact` — та же таблица без пояснений, для главной: там нужен
+   * факт «вот марки», а разбор, чем одна плита отличается от другой,
+   * ждёт на отдельной странице.
+   */
+  variant?: 'full' | 'compact';
 }) {
+  if (variant === 'compact') {
+    return (
+      <Section tone={tone} aria-labelledby="suppliers-short-title">
+        <div className="container-page">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+            <div>
+              <SectionHeading
+                id="suppliers-short-title"
+                eyebrow="Материалы"
+                title="Мы называем марки"
+              />
+              <p className="mt-6 max-w-sm text-stone">
+                Не «качественные материалы от проверенных поставщиков», а
+                список, который можно проверить и сравнить с тем, что
+                предлагают в другом месте.
+              </p>
+              <Link
+                href="/materialy"
+                className="link-sweep mt-7 inline-block font-medium text-gold"
+              >
+                Подробно о материалах
+              </Link>
+            </div>
+
+            <dl className="lg:pt-2">
+              {supplierRows.map((row, i) => (
+                <Reveal
+                  key={row.id}
+                  delay={Math.min(i, 5) * 40}
+                  className="grid grid-cols-[9.5rem_1fr] gap-x-6 border-t border-line py-4 max-sm:grid-cols-1 max-sm:gap-y-1.5"
+                >
+                  <dt className="label-xs self-baseline pt-1 text-stone">
+                    {row.title}
+                  </dt>
+                  <dd className="font-display flex flex-wrap items-baseline gap-x-3 text-[1.0625rem] text-ink">
+                    {row.brands.map((brand, b) => (
+                      <span key={brand} className="inline-flex items-baseline">
+                        {b > 0 ? (
+                          <span aria-hidden="true" className="mr-3 text-goldline">
+                            ·
+                          </span>
+                        ) : null}
+                        {brand}
+                      </span>
+                    ))}
+                  </dd>
+                </Reveal>
+              ))}
+              <div aria-hidden="true" className="border-t border-line" />
+            </dl>
+          </div>
+        </div>
+      </Section>
+    );
+  }
+
   return (
     <Section tone={tone} aria-labelledby="suppliers-title">
       <div className="container-page">
