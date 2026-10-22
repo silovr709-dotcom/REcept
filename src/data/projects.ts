@@ -209,7 +209,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Большой комнате нужна точка опоры в середине, иначе мебель расползается по стенам. Остров задаёт центр, забирает варочную поверхность и отделяет кухню от зоны отдыха.',
-    detailIds: ['p04-splash', 'p04-island'],
+    detailIds: ['p04-splash', 'p04-island', 'p04-column'],
     area: null,
     term: null,
     budget: null,
@@ -323,7 +323,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Светлый фронт плюс тёплое дерево — самая рабочая пара для небольшой кухни: светлое не давит, дерево не даёт комнате стать стерильной.',
-    detailIds: [],
+    detailIds: ['p07-glass', 'p07-niche', 'p07-sink'],
     area: null,
     term: null,
     budget: null,
@@ -361,7 +361,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Кухня в новостройке с одним окном. Главное здесь — не перегрузить: один тёмный материал, один светлый, один камень и ничего лишнего.',
-    detailIds: [],
+    detailIds: ['p08-flutes', 'p08-stone', 'p08-sink'],
     area: null,
     term: null,
     budget: null,
@@ -399,7 +399,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Маленькая кухня прощает только одно — точность. Здесь важнее не декор, а то, что между мойкой, варочной и холодильником два шага, а каждый сантиметр высоты занят хранением.',
-    detailIds: [],
+    detailIds: ['p09-stone', 'p09-rows', 'p09-light'],
     area: null,
     term: null,
     budget: null,
