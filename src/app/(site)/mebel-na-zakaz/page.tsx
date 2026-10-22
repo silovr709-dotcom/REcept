@@ -11,6 +11,7 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
 import { rooms } from '@/data/rooms';
+import { RenderBadge } from '@/components/ui/RenderBadge';
 import { assetUrl, pickImage } from '@/lib/content/images';
 
 export const metadata: Metadata = {
@@ -86,6 +87,7 @@ export default async function FurniturePage() {
                     placeholder="blur"
                     className="object-cover"
                   />
+                  <RenderBadge />
                 </div>
                 <h3 className="font-display mt-7 text-h3 text-ink">{room.title}</h3>
                 <p className="mt-3 max-w-lg text-stone">{room.text}</p>

@@ -123,10 +123,35 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-cream/10 pt-7 text-xs text-cream/50 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {year} {site.legalName}. Изображения на сайте — визуализации проектов.
-          </p>
+        <div className="mt-14 flex flex-col gap-4 border-t border-cream/10 pt-7 text-xs text-cream/50 sm:flex-row sm:items-start sm:justify-between">
+          <div className="space-y-1.5">
+            <p>
+              © {year} {site.requisites.legalEntity ?? site.legalName}
+            </p>
+            {/*
+              Реквизиты оператора: без них политика обработки данных
+              формально ни на кого не ссылается. Пока поля пустые — строки нет.
+            */}
+            {site.requisites.inn || site.requisites.ogrn ? (
+              <p>
+                {[
+                  site.requisites.inn ? `ИНН ${site.requisites.inn}` : null,
+                  site.requisites.ogrn ? `ОГРНИП ${site.requisites.ogrn}` : null,
+                ]
+                  .filter(Boolean)
+                  .join(' · ')}
+              </p>
+            ) : null}
+            {/*
+              Честная строка про изображения. Раньше здесь было написано,
+              что все изображения — визуализации; после того как портфолио
+              стало полностью реальным, это перестало быть правдой.
+            */}
+            <p>
+              В портфолио — фотографии наших работ. Там, где показана
+              визуализация, это подписано прямо на изображении.
+            </p>
+          </div>
           <Link
             href="/politika-konfidencialnosti"
             className="transition-colors hover:text-cream/80"

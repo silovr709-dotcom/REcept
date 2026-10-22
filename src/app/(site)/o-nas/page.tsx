@@ -4,6 +4,7 @@ import { PageHero } from '@/components/PageHero';
 import { Founders } from '@/components/sections/Founders';
 import { Advantages } from '@/components/sections/Advantages';
 import { Objections } from '@/components/sections/Objections';
+import { Cliches } from '@/components/sections/Cliches';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { Reveal } from '@/components/ui/Reveal';
@@ -157,6 +158,9 @@ export default async function AboutPage() {
 
       <Testimonials tone="cream" photoIndex={11} />
       <Objections tone="bone" />
+      {/* Переехало с главной: разговор про клише в нише — это разговор
+          о нас и о том, как мы работаем, а не очередной блок лендинга */}
+      <Cliches tone="ink" />
 
       <FinalCta
         title="Познакомимся?"

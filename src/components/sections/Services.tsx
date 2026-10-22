@@ -5,6 +5,7 @@ import { Section, SectionHeading } from '../ui/Section';
 import { getContent, getVisibleProjects } from '@/lib/content/store';
 import { assetUrl, pickImage, ratioOf } from '@/lib/content/images';
 import { rooms } from '@/data/rooms';
+import { RenderBadge } from '@/components/ui/RenderBadge';
 import type { ImageRef } from '@/lib/content/types';
 
 /**
@@ -75,7 +76,7 @@ export async function Services({
                 <Reveal delay={i * 60}>
                   <Link href={s.href} className="group block">
                     {s.visual ? (
-                      <div className="media-reveal relative aspect-4/5 overflow-hidden bg-sand">
+                      <div className="media-reveal relative aspect-3/2 overflow-hidden bg-sand sm:aspect-4/5">
                         <Image
                           src={s.visual.src}
                           alt={s.visual.alt}
@@ -86,6 +87,7 @@ export async function Services({
                           blurDataURL={s.visual.blurDataURL}
                           className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                         />
+                        <RenderBadge />
                       </div>
                     ) : null}
                     <p className="font-display mt-5 text-[1.375rem] leading-tight text-ink transition-colors group-hover:text-gold">
@@ -133,6 +135,7 @@ export async function Services({
                   blurDataURL={shot.image.blurDataURL || undefined}
                   className="object-cover"
                 />
+                <RenderBadge />
               </div>
             </Reveal>
           ) : null}

@@ -138,6 +138,29 @@ export function Header() {
               Рассчитать кухню
             </CtaButton>
 
+            {/* Телефон на мобильном. Раньше номер появлялся только с 2xl,
+                то есть на телефоне позвонить из шапки было нельзя — приходилось
+                открывать меню или долистывать до нижней панели. */}
+            {hasPhone ? (
+              <a
+                href={phoneHref}
+                onClick={() => reachGoal('phone_click', { place: 'header-mobile' })}
+                aria-label={`Позвонить ${phoneDisplay}`}
+                className={`grid size-11 place-items-center rounded-full transition-colors 2xl:hidden ${
+                  overPhoto ? 'text-cream hover:bg-cream/10' : 'text-ink hover:bg-ink/5'
+                }`}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M6.6 3.5h3l1.5 3.7-2 1.4a12 12 0 0 0 5.3 5.3l1.4-2 3.7 1.5v3a1.6 1.6 0 0 1-1.7 1.6A15.6 15.6 0 0 1 5 5.2 1.6 1.6 0 0 1 6.6 3.5Z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            ) : null}
+
             <button
               type="button"
               onClick={() => setMenuOpen((v) => !v)}

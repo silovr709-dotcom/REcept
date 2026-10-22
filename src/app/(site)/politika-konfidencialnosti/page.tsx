@@ -11,12 +11,42 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-function buildBlocks(site: { legalName: string; url: string; urlDisplay: string }): { h: string; p: string[] }[] {
+type PolicySite = {
+  legalName: string;
+  url: string;
+  urlDisplay: string;
+  email: string | null;
+  address: string | null;
+  requisites: {
+    legalEntity: string | null;
+    inn: string | null;
+    ogrn: string | null;
+    filled: boolean;
+  };
+};
+
+function buildBlocks(site: PolicySite): { h: string; p: string[] }[] {
+  /*
+   * Закон требует, чтобы политика называла оператора поимённо.
+   * Пока реквизиты не заполнены, пишем название ателье — но как только
+   * в данных появятся ИП и ИНН, оператор здесь назовётся сам.
+   */
+  const operator = site.requisites.legalEntity ?? site.legalName;
+  const operatorDetails = [
+    site.requisites.inn ? `ИНН ${site.requisites.inn}` : null,
+    site.requisites.ogrn ? `ОГРНИП ${site.requisites.ogrn}` : null,
+    site.address ? `адрес: ${site.address}` : null,
+    site.email ? `электронная почта: ${site.email}` : null,
+  ].filter(Boolean) as string[];
+
   return [
   {
     h: '1. Общие положения',
     p: [
-      `Настоящая политика описывает, как ${site.legalName} (далее — «мы») обрабатывает персональные данные посетителей сайта ${site.urlDisplay}.`,
+      `Настоящая политика описывает, как ${operator} (далее — «мы», «оператор») обрабатывает персональные данные посетителей сайта ${site.urlDisplay}.`,
+      ...(operatorDetails.length
+        ? [`Реквизиты оператора: ${operatorDetails.join('; ')}.`]
+        : []),
       'Оставляя данные в формах на сайте, вы подтверждаете согласие на их обработку на условиях, описанных ниже.',
     ],
   },

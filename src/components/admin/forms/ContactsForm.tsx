@@ -125,6 +125,40 @@ export function ContactsForm({ site }: { site: SiteContent }) {
         </Card>
 
         <Card
+          title="Юридические реквизиты"
+          description="Политика обработки персональных данных обязана называть оператора, а Яндекс.Директ без реквизитов рекламу не пропустит. Пустые поля на сайте не показываются."
+        >
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Field
+              label="Наименование"
+              hint="Как в свидетельстве: ИП Шилов Роберт Владимирович"
+            >
+              <Input
+                name="legalEntity"
+                defaultValue={site.legalEntity ?? ''}
+                placeholder="ИП Фамилия Имя Отчество"
+              />
+            </Field>
+            <Field label="ИНН" hint="Только цифры">
+              <Input
+                name="inn"
+                inputMode="numeric"
+                defaultValue={site.inn ?? ''}
+                placeholder="690000000000"
+              />
+            </Field>
+            <Field label="ОГРНИП или ОГРН" hint="Только цифры">
+              <Input
+                name="ogrn"
+                inputMode="numeric"
+                defaultValue={site.ogrn ?? ''}
+                placeholder="312690000000000"
+              />
+            </Field>
+          </div>
+        </Card>
+
+        <Card
           title="Условия работы"
           description="Эти цифры показываются на первом экране, в блоке цены и в микроразметке."
         >

@@ -9,8 +9,6 @@ import { Process } from '@/components/sections/Process';
 import { Price } from '@/components/sections/Price';
 import { Brief } from '@/components/sections/Brief';
 import { Founders } from '@/components/sections/Founders';
-import { Objections } from '@/components/sections/Objections';
-import { Cliches } from '@/components/sections/Cliches';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
@@ -80,8 +78,12 @@ export default async function HomePage() {
 
       {/* Визуальное доказательство */}
       <Services index="03" compact />
-      <PortfolioPreview index="04" limit={6} />
-      <Details index="05" tone="cream" limit={6} />
+      {/* Четыре работы вместо шести: редакционная сетка 7+5 / 5+7 остаётся
+          целой, а пять экранов пролистывания превращаются в три. Все девять
+          кухонь лежат в портфолио, ссылка на него — тут же */}
+      <PortfolioPreview index="04" limit={4} />
+      {/* На главной — три детали; весь набор живёт в портфолио и на странице кухонь */}
+      <Details index="05" tone="cream" limit={3} />
 
       {/* Сразу за фактурами — названия. Фотография фасада показывает,
           как это выглядит; строчка «Увадрев · Ламарти · Egger»
@@ -108,13 +110,20 @@ export default async function HomePage() {
         />
       ) : null}
 
-      {/* Доверие и остаточные сомнения */}
-      <Testimonials index="09" tone="cream" />
-      <Objections index="10" tone="bone" />
+      {/*
+        Доверие и остаточные сомнения.
 
-      {/* Интерлюдия без номера: это не ещё один раздел, а слом ритма
-          перед последним блоком вопросов */}
-      <Cliches tone="ink" />
+        Раньше здесь шли подряд «Отзывы» + «Возражения» + «Клише»:
+        три блока почти на 8 500 пикселей, то есть десять экранов телефона
+        между фотолентой и вопросами. Мы измерили главную на 390 px —
+        она была 38 600 пикселей, 46 экранов, и до финального призыва
+        дочитывали единицы.
+
+        Теперь «Возражения» живут на странице «О нас», где они и были
+        продублированы, «Клише» переехали туда же, а здесь остались отзывы.
+        Ни один текст не потерян — изменился только порядок чтения.
+      */}
+      <Testimonials index="09" tone="cream" />
 
       {bandBeforeFaq ? (
         <PhotoBand
@@ -124,7 +133,7 @@ export default async function HomePage() {
         />
       ) : null}
 
-      <Faq index="11" limit={6} tone="cream" />
+      <Faq index="10" limit={6} tone="cream" />
 
       <FinalCta />
       {/* Столько же вопросов, сколько видно в блоке выше */}

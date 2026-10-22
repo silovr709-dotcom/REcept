@@ -8,7 +8,7 @@ import { CtaButton } from '@/components/CtaButton';
 import { VideoWall } from '@/components/sections/VideoWall';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { FinalCta } from '@/components/sections/FinalCta';
-import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { BreadcrumbJsonLd, ProjectListJsonLd } from '@/components/JsonLd';
 import { getVisibleProjects } from '@/lib/content/store';
 import type { ProjectItem } from '@/lib/content/types';
 
@@ -92,6 +92,7 @@ export default async function PortfolioPage() {
         source="portfolio-final"
       />
       <BreadcrumbJsonLd items={[{ name: 'Портфолио', url: '/portfolio' }]} />
+      <ProjectListJsonLd projects={projects} />
     </>
   );
 }

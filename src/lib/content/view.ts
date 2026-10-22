@@ -63,6 +63,13 @@ export type SiteView = {
   vkGroupId: string | null;
   instagramUrl: string | null;
   metrikaId: string | null;
+  /** Юридические реквизиты оператора; `filled` — есть ли что показывать */
+  requisites: {
+    legalEntity: string | null;
+    inn: string | null;
+    ogrn: string | null;
+    filled: boolean;
+  };
   geo: { lat: number; lon: number } | null;
 
   yandex: {
@@ -212,6 +219,14 @@ export const getSiteView = cache(async (): Promise<SiteView> => {
     vkGroupId: site.vkGroupId,
     instagramUrl: site.instagramUrl,
     metrikaId: site.metrikaId || process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID || null,
+
+    /** Реквизиты: показываем только то, что действительно заполнено */
+    requisites: {
+      legalEntity: site.legalEntity || null,
+      inn: site.inn || null,
+      ogrn: site.ogrn || null,
+      filled: Boolean(site.legalEntity || site.inn || site.ogrn),
+    },
     geo:
       site.geoLat !== null && site.geoLon !== null
         ? { lat: site.geoLat, lon: site.geoLon }

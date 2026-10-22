@@ -68,6 +68,19 @@ if (!defined('SMTP_PASS')) {
     define('SMTP_PASS', '');
 }
 
+/**
+ * Дубль заявки в Telegram.
+ *
+ * Письмо можно не заметить, сообщение в телефоне — нет. Токен бота и id чата
+ * задаются в lead-config.php. Пока они пустые, блок просто ничего не делает.
+ */
+if (!defined('TELEGRAM_BOT_TOKEN')) {
+    define('TELEGRAM_BOT_TOKEN', '');
+}
+if (!defined('TELEGRAM_CHAT_ID')) {
+    define('TELEGRAM_CHAT_ID', '');
+}
+
 /** Папка для резервных копий заявок (создаётся сама, закрыта от посторонних). */
 const STORE_DIR = __DIR__ . '/../_zayavki';
 
@@ -185,6 +198,48 @@ function buildBody(string $text, array $files, string $boundary): string
     }
 
     return $body . "--$boundary--\r\n";
+}
+
+/**
+ * Отправка уведомления в Telegram.
+ * Возвращает true, только если Telegram подтвердил доставку.
+ */
+function sendToTelegram(string $text): bool
+{
+    if (TELEGRAM_BOT_TOKEN === '' || TELEGRAM_CHAT_ID === '') {
+        return false;
+    }
+
+    $payload = http_build_query([
+        'chat_id' => TELEGRAM_CHAT_ID,
+        'text' => $text,
+        'disable_web_page_preview' => 'true',
+    ]);
+    $url = 'https://api.telegram.org/bot' . TELEGRAM_BOT_TOKEN . '/sendMessage';
+
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $payload,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 10,
+        ]);
+        $body = curl_exec($ch);
+        $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return $code === 200 && is_string($body);
+    }
+
+    $context = stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
+            'content' => $payload,
+            'timeout' => 10,
+        ],
+    ]);
+    return @file_get_contents($url, false, $context) !== false;
 }
 
 function sendViaMail(string $subject, string $text, array $files, string $replyTo): bool
@@ -398,6 +453,9 @@ $subject = 'Заявка с сайта: ' . $name;
 $replyTo = filter_var($contact, FILTER_VALIDATE_EMAIL) ? $contact : '';
 $sent = sendViaSmtp($subject, $text, $files, $replyTo)
     || sendViaMail($subject, $text, $files, $replyTo);
+
+// 3. Дубль в Telegram — независимый канал, не отменяет письмо
+$sent = sendToTelegram($text) || $sent;
 
 if (!$sent && $dir === null) {
     // Ни письма, ни записи — честно говорим, что не дошло

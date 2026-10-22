@@ -57,6 +57,46 @@ async function saveFallback(lead: Lead, note: string) {
   }
 }
 
+/**
+ * Дубль заявки в Telegram.
+ *
+ * Письмо можно не заметить — сообщение в телефон не заметить нельзя.
+ * Включается двумя переменными окружения (TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID);
+ * пока их нет, функция молча ничего не делает и ничего не ломает.
+ */
+async function sendTelegram(lead: Lead, filesCount: number) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return { sent: false as const, reason: 'Telegram не настроен' };
+
+  const lines = [
+    '<b>Заявка с сайта</b>',
+    `<b>Имя:</b> ${escapeHtml(lead.name || '—')}`,
+    `<b>Связь:</b> ${escapeHtml(lead.contact)}`,
+    lead.message ? `<b>Сообщение:</b> ${escapeHtml(lead.message)}` : '',
+    filesCount ? `<b>Файлов приложено:</b> ${filesCount}` : '',
+    `<b>Откуда:</b> ${escapeHtml(lead.source)}`,
+    `<b>Страница:</b> ${escapeHtml(lead.page)}`,
+    `<b>Время:</b> ${escapeHtml(lead.receivedAt)}`,
+  ].filter(Boolean);
+
+  const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: lines.join('\n'),
+      parse_mode: 'HTML',
+      disable_web_page_preview: true,
+    }),
+  });
+
+  if (!response.ok) {
+    return { sent: false as const, reason: `Telegram ответил ${response.status}` };
+  }
+  return { sent: true as const };
+}
+
 async function sendEmail(
   lead: Lead,
   attachments: { filename: string; content: Buffer }[],
@@ -173,16 +213,33 @@ export async function POST(request: Request) {
       });
     }
 
+    // Два независимых канала: почта и Telegram. Падение одного не должно
+    // мешать другому, поэтому каждый обёрнут в свой try.
+    let delivered = false;
+    let note = '';
+
     try {
       const result = await sendEmail(lead, attachments);
-      if (!result.sent) {
-        // Почта ещё не настроена — не теряем заявку и не врём пользователю об ошибке
-        console.warn('[lead] SMTP не настроен, заявка сохранена локально:', lead);
-        await saveFallback(lead, result.reason);
-      }
+      if (result.sent) delivered = true;
+      else note = result.reason;
     } catch (err) {
       console.error('[lead] ошибка отправки письма', err);
-      await saveFallback(lead, 'Ошибка отправки письма');
+      note = 'Ошибка отправки письма';
+    }
+
+    try {
+      const result = await sendTelegram(lead, attachments.length);
+      if (result.sent) delivered = true;
+      else note = note ? `${note}; ${result.reason}` : result.reason;
+    } catch (err) {
+      console.error('[lead] ошибка отправки в Telegram', err);
+      note = note ? `${note}; ошибка Telegram` : 'Ошибка отправки в Telegram';
+    }
+
+    if (!delivered) {
+      // Ни один канал не сработал — не теряем заявку и не врём пользователю об ошибке
+      console.warn('[lead] заявка нигде не отправлена, сохранена локально:', lead);
+      await saveFallback(lead, note || 'Каналы доставки не настроены');
     }
 
     return NextResponse.json({ ok: true });

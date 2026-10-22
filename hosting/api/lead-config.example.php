@@ -27,3 +27,20 @@
 // define('SMTP_PORT', 465);
 // define('SMTP_USER', 'tver-kuhni11@yandex.ru');
 // define('SMTP_PASS', 'пароль-приложения');
+
+/*
+ * Дубль заявки в Telegram — приходит в телефон за секунду.
+ *
+ * Как получить значения:
+ *   1. в Telegram напишите @BotFather → /newbot → придумайте имя;
+ *      он пришлёт токен вида 1234567890:AAH...; это TELEGRAM_BOT_TOKEN;
+ *   2. создайте чат (или группу для Роберта и Кати), добавьте туда бота
+ *      и напишите в чат любое сообщение;
+ *   3. откройте в браузере
+ *      https://api.telegram.org/bot<ВАШ_ТОКЕН>/getUpdates
+ *      и возьмите оттуда "chat":{"id": ...} — это TELEGRAM_CHAT_ID.
+ *
+ * Telegram не отменяет письмо: работают оба канала сразу.
+ */
+// define('TELEGRAM_BOT_TOKEN', '1234567890:AAH...');
+// define('TELEGRAM_CHAT_ID', '-1001234567890');

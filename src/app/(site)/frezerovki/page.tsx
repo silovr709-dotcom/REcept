@@ -20,6 +20,7 @@ import {
   MILLING_IMAGE_HEIGHT,
 } from '@/data/millings';
 import { millingRoom, millingRoomCount } from '@/data/milling-rooms';
+import { RenderBadge } from '@/components/ui/RenderBadge';
 
 export const metadata: Metadata = {
   title: 'Фрезеровки фасадов',
@@ -173,6 +174,8 @@ export default async function MillingsPage() {
                               sizes="(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 66vw"
                               className="object-cover"
                             />
+                            {/* Интерьер — проектная визуализация, выкраска рядом — настоящая */}
+                            <RenderBadge className="bottom-3 left-auto right-3" />
                             {/* Выкраска поверх кадра: рядом сразу видно,
                                 что именно фрезеровано и как это выглядит
                                 на целой кухне */}

@@ -17,6 +17,7 @@ import {
   yandex as seedYandex,
   contacts as seedContacts,
   WORKING_HOURS,
+  requisites as seedRequisites,
 } from '@/data/site';
 import {
   advantages,
@@ -90,6 +91,9 @@ export function buildSeed(): ContentShape {
       geoLat: 56.853292,
       geoLon: 35.870186,
       metrikaId: null,
+      legalEntity: seedRequisites.legalEntity,
+      inn: seedRequisites.inn,
+      ogrn: seedRequisites.ogrn,
       warrantyMonths: seedTerms.warrantyMonths,
       payment: seedTerms.payment,
       furnitureSince: seedTerms.furnitureSince,

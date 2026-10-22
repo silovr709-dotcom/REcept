@@ -28,6 +28,19 @@ export async function OrganizationJsonLd() {
         '@id': `${site.url}#organization`,
         name: site.legalName,
         alternateName: site.name,
+        ...(site.requisites.legalEntity
+          ? { legalName: site.requisites.legalEntity }
+          : {}),
+        ...(site.requisites.inn ? { taxID: site.requisites.inn } : {}),
+        ...(site.requisites.ogrn
+          ? {
+              identifier: {
+                '@type': 'PropertyValue',
+                name: 'ОГРНИП',
+                value: site.requisites.ogrn,
+              },
+            }
+          : {}),
         url: site.url,
         description: site.metaDescription,
         image: `${site.url}/og.jpg`,
@@ -59,6 +72,9 @@ export async function OrganizationJsonLd() {
             }
           : {}),
         ...(site.addressMapUrl ? { hasMap: site.addressMapUrl } : {}),
+        // Часы работы отдаём строкой ровно в том виде, в каком они заданы:
+        // выдумывать расписание для микроразметки нельзя.
+        ...(site.workingHours ? { openingHours: site.workingHours } : {}),
         priceRange: 'Стоимость рассчитывается по проекту',
         // aggregateRating намеренно не размечаем: разметка чужих отзывов
         // на собственном сайте нарушает правила поисковиков
@@ -173,6 +189,40 @@ export async function ProjectJsonLd({ project }: { project: ProjectItem }) {
           height: project.image.height,
           caption: projectAlt(project),
         },
+      }}
+    />
+  );
+}
+
+/**
+ * Список работ на странице портфолио.
+ *
+ * Без него поисковик видит набор картинок без структуры и не понимает,
+ * что это каталог реализованных проектов. ItemList — ровно тот тип,
+ * который для такой страницы и предназначен.
+ */
+export async function ProjectListJsonLd({
+  projects,
+}: {
+  projects: ProjectItem[];
+}) {
+  const site = await getSiteView();
+  if (projects.length === 0) return null;
+
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Реализованные кухни на заказ в Твери',
+        numberOfItems: projects.length,
+        itemListElement: projects.map((project, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${site.url}/portfolio/${project.slug}`,
+          name: project.title,
+          image: `${site.url}${project.image.src}`,
+        })),
       }}
     />
   );
