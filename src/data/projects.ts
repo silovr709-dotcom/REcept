@@ -95,7 +95,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Прямая компоновка — решение для комнаты, где кухню нельзя «размазать» по двум стенам. Вся техника, хранение и рабочая поверхность собраны в один фронт, остальное пространство остаётся свободным.',
-    detailIds: [],
+    detailIds: ['p01-profile', 'p01-stone', 'p01-hood'],
     area: null,
     term: null,
     budget: null,
@@ -133,7 +133,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Когда кухня живёт в одной комнате с гостиной, главный враг — визуальный шум. Поэтому фронт без ручек, техника встроена, вытяжка ушла в потолок, а дерево на острове связывает кухню с мебелью комнаты.',
-    detailIds: [],
+    detailIds: ['p02-bar', 'p02-hood', 'p02-gap'],
     area: null,
     term: null,
     budget: null,
@@ -171,7 +171,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Два метра на два — типичная кухня в новостройке. Решение простое: не раздувать мебель, а сделать её фактурной и довести верх до самого потолка.',
-    detailIds: [],
+    detailIds: ['p03-corner', 'p03-hood', 'p03-niche'],
     area: null,
     term: null,
     budget: null,

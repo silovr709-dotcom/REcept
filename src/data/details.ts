@@ -1,15 +1,22 @@
 import type { StaticImageData } from 'next/image';
 
-import brass from '@public/images/textures/brass.jpg';
-import woodStone from '@public/images/textures/wood-stone.jpg';
-import reeded from '@public/images/textures/reeded.jpg';
-import lacquer from '@public/images/textures/lacquer.jpg';
 import flutedGlass from '@public/images/textures/fluted-glass.jpg';
 import veneer from '@public/images/textures/veneer.jpg';
 import stone from '@public/images/textures/stone.jpg';
 import hardware from '@public/images/textures/hardware.jpg';
 import light from '@public/images/textures/light.jpg';
 import edge from '@public/images/textures/edge.jpg';
+
+// Детали конкретных проектов: тот же объект, что и на общем плане
+import p01Profile from '@public/images/textures/p01-profile.webp';
+import p01Stone from '@public/images/textures/p01-stone.webp';
+import p01Hood from '@public/images/textures/p01-hood.webp';
+import p02Bar from '@public/images/textures/p02-bar.webp';
+import p02Hood from '@public/images/textures/p02-hood.webp';
+import p02Gap from '@public/images/textures/p02-gap.webp';
+import p03Corner from '@public/images/textures/p03-corner.webp';
+import p03Hood from '@public/images/textures/p03-hood.webp';
+import p03Niche from '@public/images/textures/p03-niche.webp';
 
 
 /**
@@ -46,22 +53,85 @@ export type Detail = {
 
 export const details: Detail[] = [
   {
-    id: 'brass',
-    image: brass,
-    title: 'Профиль-ручка в цвете латуни',
-    note: 'Ящик открывается без единой выступающей детали',
+    id: 'p01-profile',
+    image: p01Profile,
+    title: 'Латунный профиль вместо ручки',
+    note: 'Профиль идёт по всей длине ящика и заканчивается ровно с фасадом. Ничего не выступает в проход, зацепиться рукавом не за что.',
     project: 'kuhnya-v-nishe-latun',
     projectTitle: 'Прямая кухня в нише с латунью',
-    alt: 'Латунный профиль-ручка, утопленный в верхнюю кромку фасада под каменной столешницей',
+    alt: 'Крупный план: латунный профиль-ручка по верхней кромке ящика под каменной столешницей, светлый матовый фасад',
   },
   {
-    id: 'wood-stone',
-    image: woodStone,
-    title: 'Дерево и камень рядом',
-    note: 'Стык двух материалов — место, где видно точность',
+    id: 'p01-stone',
+    image: p01Stone,
+    title: 'Кромка камня, мойка и смеситель',
+    note: 'Мойка врезана заподлицо, смеситель стоит ровно по центру чаши. Столешница остаётся одной плоскостью — ни бортика, ни шва, где копится вода.',
     project: 'kuhnya-v-nishe-latun',
     projectTitle: 'Прямая кухня в нише с латунью',
-    alt: 'Стык деревянной и каменной столешниц крупным планом',
+    alt: 'Крупный план: каменная столешница со скруглённой кромкой, белая мойка и латунный смеситель по центру чаши',
+  },
+  {
+    id: 'p01-hood',
+    image: p01Hood,
+    title: 'Латунная вытяжка в деревянной нише',
+    note: 'Вытяжка, профиль-ручка и смеситель — один металл. Подсветка убрана под полку: светит на столешницу, а не в глаза.',
+    project: 'kuhnya-v-nishe-latun',
+    projectTitle: 'Прямая кухня в нише с латунью',
+    alt: 'Крупный план: латунная цилиндрическая вытяжка на фоне деревянной ниши с полками и скрытой подсветкой',
+  },
+  {
+    id: 'p02-bar',
+    image: p02Bar,
+    title: 'Стык дуба и камня на острове',
+    note: 'Дубовая барная столешница толще рабочей и лежит ниже. Готовка и еда разделены по высоте, но остров читается как один предмет.',
+    project: 'kuhnya-gostinaya-s-ostrovom',
+    projectTitle: 'Кухня-гостиная с островом',
+    alt: 'Крупный план: стык дубовой барной столешницы и серой каменной столешницы острова, рифлёная боковина снизу',
+  },
+  {
+    id: 'p02-hood',
+    image: p02Hood,
+    title: 'Вытяжка, встроенная в потолок',
+    note: 'Над островом нет ничего на уровне глаз: панель вытяжки встала заподлицо с потолком, рядом только трек и линия карнизной подсветки.',
+    project: 'kuhnya-gostinaya-s-ostrovom',
+    projectTitle: 'Кухня-гостиная с островом',
+    alt: 'Крупный план: квадратная вытяжная панель заподлицо с потолком, чёрный световой трек и тёплая линия подсветки',
+  },
+  {
+    id: 'p02-gap',
+    image: p02Gap,
+    title: 'Зазор 4 мм и свет под шкафами',
+    note: 'Между фасадами без ручек везде одинаковые 4 мм. Это и отличает аккуратную кухню от обычной: рисунок зазоров виден раньше, чем цвет.',
+    project: 'kuhnya-gostinaya-s-ostrovom',
+    projectTitle: 'Кухня-гостиная с островом',
+    alt: 'Крупный план: два светлых фасада без ручек с ровным зазором, тёмная столешница и подсветка под дубовым шкафом',
+  },
+  {
+    id: 'p03-corner',
+    image: p03Corner,
+    title: 'Угол столешницы в ус',
+    note: 'Две части столешницы сведены по диагонали угла: без ступеньки по высоте и без щели у стены. Самое заметное место в маленькой кухне.',
+    project: 'kompaktnaya-kuhnya-zelenye-reyki',
+    projectTitle: 'Компактная кухня с зелёными рейками',
+    alt: 'Крупный план: угловой стык двух дубовых столешниц, запиленный в ус, на фоне серой бетонной стены',
+  },
+  {
+    id: 'p03-hood',
+    image: p03Hood,
+    title: 'Вытяжка и свет на бетонной стене',
+    note: 'Наклонная вытяжка не отнимает голову у того, кто стоит у плиты, а подвесы висят рядом, а не по центру рабочей зоны.',
+    project: 'kompaktnaya-kuhnya-zelenye-reyki',
+    projectTitle: 'Компактная кухня с зелёными рейками',
+    alt: 'Крупный план: чёрная наклонная вытяжка на серой бетонной стене и чёрный подвес с лампой накаливания',
+  },
+  {
+    id: 'p03-niche',
+    image: p03Niche,
+    title: 'Ниша в дубовой рамке',
+    note: 'Открытая ниша разбивает глухой зелёный фронт и забирает то, чем пользуются каждый день: иначе это стоит на столешнице.',
+    project: 'kompaktnaya-kuhnya-zelenye-reyki',
+    projectTitle: 'Компактная кухня с зелёными рейками',
+    alt: 'Крупный план: открытая ниша в дубовой рамке среди тёмно-зелёных реечных фасадов',
   },
   {
     id: 'stone',
@@ -73,15 +143,6 @@ export const details: Detail[] = [
     alt: 'Столешница из камня с матовой поверхностью и аккуратным запилом кромки',
   },
   {
-    id: 'reeded',
-    image: reeded,
-    title: 'Рифлёный фасад',
-    note: 'Рельеф вместо декора: свет сам рисует ритм',
-    project: 'kompaktnaya-kuhnya-zelenye-reyki',
-    projectTitle: 'Компактная кухня с зелёными рейками',
-    alt: 'Рифлёный фасад глубокого приглушённого зелёного с вертикальными рёбрами',
-  },
-  {
     id: 'veneer',
     image: veneer,
     title: 'Шпон ореха',
@@ -89,15 +150,6 @@ export const details: Detail[] = [
     project: 'bolshaya-kuhnya-v-dome',
     projectTitle: 'Большая кухня в доме',
     alt: 'Фасад из шпона ореха с непрерывным рисунком волокон и врезной ручкой',
-  },
-  {
-    id: 'lacquer',
-    image: lacquer,
-    title: 'Матовая эмаль',
-    note: 'Бархатистая поверхность и чистая кромка на стыке фасадов',
-    project: 'kuhnya-gostinaya-s-ostrovom',
-    projectTitle: 'Кухня-гостиная с островом',
-    alt: 'Матовая эмаль на фасаде: бархатистая поверхность и тонкий теневой зазор',
   },
   {
     id: 'fluted-glass',
