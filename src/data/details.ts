@@ -1,10 +1,7 @@
 import type { StaticImageData } from 'next/image';
 
 import flutedGlass from '@public/images/textures/fluted-glass.jpg';
-import veneer from '@public/images/textures/veneer.jpg';
 import stone from '@public/images/textures/stone.jpg';
-import hardware from '@public/images/textures/hardware.jpg';
-import light from '@public/images/textures/light.jpg';
 import edge from '@public/images/textures/edge.jpg';
 
 // Детали конкретных проектов: тот же объект, что и на общем плане
@@ -17,6 +14,14 @@ import p02Gap from '@public/images/textures/p02-gap.webp';
 import p03Corner from '@public/images/textures/p03-corner.webp';
 import p03Hood from '@public/images/textures/p03-hood.webp';
 import p03Niche from '@public/images/textures/p03-niche.webp';
+import p04Splash from '@public/images/textures/p04-splash.webp';
+import p04Island from '@public/images/textures/p04-island.webp';
+import p05Light from '@public/images/textures/p05-light.webp';
+import p05Run from '@public/images/textures/p05-run.webp';
+import p05Pendants from '@public/images/textures/p05-pendants.webp';
+import p06Handle from '@public/images/textures/p06-handle.webp';
+import p06Vitrine from '@public/images/textures/p06-vitrine.webp';
+import p06Stone from '@public/images/textures/p06-stone.webp';
 
 
 /**
@@ -134,6 +139,78 @@ export const details: Detail[] = [
     alt: 'Крупный план: открытая ниша в дубовой рамке среди тёмно-зелёных реечных фасадов',
   },
   {
+    id: 'p04-splash',
+    image: p04Splash,
+    title: 'Дерево на столешнице и фартуке',
+    note: 'Столешница и фартук из одного декора: один стык вместо десятка плиточных швов, и его не надо промазывать герметиком каждый год.',
+    project: 'kuhnya-grafit-s-ostrovom',
+    projectTitle: 'Графитовая кухня с островом',
+    alt: 'Крупный план: стык деревянной столешницы и деревянного фартука над матовыми графитовыми фасадами',
+  },
+  {
+    id: 'p04-island',
+    image: p04Island,
+    title: 'Варочная панель в деревянной столешнице',
+    note: 'Панель врезана заподлицо, с ровным полем по кругу: по такой поверхности кастрюлю можно двигать, а не переставлять.',
+    project: 'kuhnya-grafit-s-ostrovom',
+    projectTitle: 'Графитовая кухня с островом',
+    alt: 'Крупный план: чёрная варочная панель, врезанная заподлицо в деревянную столешницу острова с графитовой боковиной',
+  },
+  {
+    id: 'p05-run',
+    image: p05Run,
+    title: 'Тёмное дерево на длинном фронте',
+    note: 'Столешница и фартук из одного декора проходят через всю кухню, а фасады без ручек держат одинаковый зазор по всей длине.',
+    project: 'bolshaya-kuhnya-v-dome',
+    projectTitle: 'Большая кухня в доме',
+    alt: 'Крупный план: тёмная деревянная столешница и такой же фартук над светлыми матовыми фасадами без ручек',
+  },
+  {
+    id: 'p05-light',
+    image: p05Light,
+    title: 'Подсветка внутри колонны',
+    note: 'Две вертикальные линии света вечером работают вместо верхнего. Провода идут внутри корпуса — снаружи не видно ни одного.',
+    project: 'bolshaya-kuhnya-v-dome',
+    projectTitle: 'Большая кухня в доме',
+    alt: 'Крупный план: вертикальные линии тёплой подсветки за стеклом тёмной колонны с полкой внутри',
+  },
+  {
+    id: 'p05-pendants',
+    image: p05Pendants,
+    title: 'Подвесы над рабочей зоной',
+    note: 'Свет висит над столешницей, а не над проходом: у рабочей поверхности светло, а головой задеть нечего.',
+    project: 'bolshaya-kuhnya-v-dome',
+    projectTitle: 'Большая кухня в доме',
+    alt: 'Крупный план: три чёрных конусных подвеса в ряд над рабочей зоной на фоне рифлёных светлых шкафов',
+  },
+  {
+    id: 'p06-stone',
+    image: p06Stone,
+    title: 'Камень со столешницы поднят на стену',
+    note: 'Фартук из того же камня, что и столешница: один стык вместо плиточных швов — мыть нечего и негде копиться жиру.',
+    project: 'kuhnya-neoklassika-greyzh',
+    projectTitle: 'Неоклассика в цвете грейж',
+    alt: 'Крупный план: угол светлой каменной столешницы, переходящей в фартук из того же камня, с подсветкой сверху',
+  },
+  {
+    id: 'p06-handle',
+    image: p06Handle,
+    title: 'Тонкая ручка на рамочном фасаде',
+    note: 'Ручка стоит по центру фасада и не выходит за его края, рамка одинаковой ширины со всех сторон. Это видят раньше, чем цвет.',
+    project: 'kuhnya-neoklassika-greyzh',
+    projectTitle: 'Неоклассика в цвете грейж',
+    alt: 'Крупный план: тонкая золотая ручка-скоба по центру рамочного фасада цвета грейж под каменной столешницей',
+  },
+  {
+    id: 'p06-vitrine',
+    image: p06Vitrine,
+    title: 'Витрина в тонкой чёрной рамке',
+    note: 'Стекло в узкой рамке и тёплый свет внутри: верхний ряд перестаёт быть глухой стеной, но посуда остаётся за дверцей.',
+    project: 'kuhnya-neoklassika-greyzh',
+    projectTitle: 'Неоклассика в цвете грейж',
+    alt: 'Крупный план: витрина со стеклом в тонкой чёрной рамке и тёплой подсветкой между фасадами цвета грейж',
+  },
+  {
     id: 'stone',
     image: stone,
     title: 'Камень столешницы',
@@ -143,15 +220,6 @@ export const details: Detail[] = [
     alt: 'Столешница из камня с матовой поверхностью и аккуратным запилом кромки',
   },
   {
-    id: 'veneer',
-    image: veneer,
-    title: 'Шпон ореха',
-    note: 'Продолжающийся рисунок волокон и врезная ручка по кромке',
-    project: 'bolshaya-kuhnya-v-dome',
-    projectTitle: 'Большая кухня в доме',
-    alt: 'Фасад из шпона ореха с непрерывным рисунком волокон и врезной ручкой',
-  },
-  {
     id: 'fluted-glass',
     image: flutedGlass,
     title: 'Рифлёное стекло в рамке',
@@ -159,24 +227,6 @@ export const details: Detail[] = [
     project: 'uglovaya-kuhnya-s-derevyannym-fartukom',
     projectTitle: 'Угловая кухня с деревянным фартуком',
     alt: 'Дверца с рифлёным стеклом в тонкой рамке и тёплой подсветкой внутри',
-  },
-  {
-    id: 'light',
-    image: light,
-    title: 'Скрытая подсветка',
-    note: 'Свет спрятан под корпусом и не бьёт в глаза',
-    project: 'kuhnya-grafit-s-ostrovom',
-    projectTitle: 'Графитовая кухня с островом',
-    alt: 'Тёплая линейная подсветка, спрятанная под навесным шкафом над столешницей',
-  },
-  {
-    id: 'hardware',
-    image: hardware,
-    title: 'Наполнение и фурнитура',
-    note: 'Направляющие с доводчиком и разделители из дуба',
-    project: 'kuhnya-neoklassika-greyzh',
-    projectTitle: 'Неоклассика в цвете грейж',
-    alt: 'Выдвижной ящик с дубовыми разделителями и направляющей с доводчиком',
   },
   {
     id: 'edge',

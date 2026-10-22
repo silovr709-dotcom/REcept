@@ -209,7 +209,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Большой комнате нужна точка опоры в середине, иначе мебель расползается по стенам. Остров задаёт центр, забирает варочную поверхность и отделяет кухню от зоны отдыха.',
-    detailIds: [],
+    detailIds: ['p04-splash', 'p04-island'],
     area: null,
     term: null,
     budget: null,
@@ -247,7 +247,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'В доме кухня почти всегда длиннее квартирной, и ошибка здесь дороже: любой случайный перепад высот виден по всей стене. Поэтому единый фронт, одна линия верха и один акцентный материал.',
-    detailIds: [],
+    detailIds: ['p05-run', 'p05-light', 'p05-pendants'],
     area: null,
     term: null,
     budget: null,
@@ -285,7 +285,7 @@ export const projects: Project[] = [
     ],
     rationale:
       'Неоклассика ломается на мелочах: стоит смешать два оттенка белого или добавить лишнюю фрезеровку — и кухня становится «нарядной». Здесь всё держится на одном тоне и трёх фактурах.',
-    detailIds: [],
+    detailIds: ['p06-stone', 'p06-handle', 'p06-vitrine'],
     area: null,
     term: null,
     budget: null,
