@@ -141,7 +141,7 @@ export default async function ReviewsPage() {
       ) : null}
 
       {/* Живой первоисточник */}
-      <Section tone="cream" aria-labelledby="widget-title">
+      <Section tone="bone" aria-labelledby="widget-title">
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <div>
@@ -165,7 +165,7 @@ export default async function ReviewsPage() {
         </div>
       </Section>
 
-      <Section tone="bone" aria-labelledby="reviews-works">
+      <Section tone="cream" aria-labelledby="reviews-works">
         <div className="container-page">
           <SectionHeading
             id="reviews-works"
@@ -182,7 +182,9 @@ export default async function ReviewsPage() {
         </div>
       </Section>
 
-      <VideoWall />
+      {/* Видеостена на песочном: раньше она была тёмной и упиралась
+          в тёмный финальный призыв — два синих блока подряд */}
+      <VideoWall tone="bone" />
 
       <FinalCta
         title="Хотите так же?"

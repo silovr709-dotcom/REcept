@@ -34,6 +34,13 @@ export function Suppliers({
    */
   variant?: 'full' | 'compact';
 }) {
+  /*
+   * Тёмный вариант. Раньше tone="ink" формально поддерживался, но все
+   * цвета внутри были захардкожены под светлый фон: на синем пропадали
+   * и заголовок, и сами марки — оставались одни золотые точки-разделители.
+   */
+  const dark = tone === 'ink';
+
   if (variant === 'compact') {
     return (
       <Section tone={tone} aria-labelledby="suppliers-short-title">
@@ -44,15 +51,18 @@ export function Suppliers({
                 id="suppliers-short-title"
                 eyebrow="Материалы"
                 title="Мы называем марки"
+                tone={dark ? 'light' : 'dark'}
               />
-              <p className="mt-6 max-w-sm text-stone">
+              <p className={`mt-6 max-w-sm ${dark ? 'text-cream/70' : 'text-stone'}`}>
                 Не «качественные материалы от проверенных поставщиков», а
                 список, который можно проверить и сравнить с тем, что
                 предлагают в другом месте.
               </p>
               <Link
                 href="/materialy"
-                className="link-sweep mt-7 inline-block font-medium text-gold"
+                className={`link-sweep mt-7 inline-block font-medium ${
+                  dark ? 'text-goldsoft' : 'text-gold'
+                }`}
               >
                 Подробно о материалах
               </Link>
@@ -63,16 +73,37 @@ export function Suppliers({
                 <Reveal
                   key={row.id}
                   delay={Math.min(i, 5) * 40}
-                  className="grid grid-cols-[9.5rem_1fr] gap-x-6 border-t border-line py-4 max-sm:grid-cols-1 max-sm:gap-y-1.5"
+                  className={`grid grid-cols-[11.5rem_1fr] gap-x-6 border-t py-4 max-sm:grid-cols-1 max-sm:gap-y-1.5 ${
+                    dark ? 'border-cream/15' : 'border-line'
+                  }`}
                 >
-                  <dt className="label-xs self-baseline pt-1 text-stone">
+                  <dt
+                    className={`label-xs self-baseline pt-1 ${
+                      dark ? 'text-cream/55' : 'text-stone'
+                    }`}
+                  >
                     {row.title}
                   </dt>
-                  <dd className="font-display flex flex-wrap items-baseline gap-x-3 text-[1.0625rem] text-ink">
+                  <dd
+                    className={`font-display flex flex-wrap items-baseline gap-x-4 gap-y-1 sm:gap-x-3 text-[1.0625rem] ${
+                      dark ? 'text-cream' : 'text-ink'
+                    }`}
+                  >
                     {row.brands.map((brand, b) => (
                       <span key={brand} className="inline-flex items-baseline">
+                        {/*
+                          Точка-разделитель прячется на узких экранах:
+                          при переносе строки она оказывалась первой
+                          и выглядела как маркер списка — «· Экстроверт».
+                          Вместо неё работает увеличенный интервал.
+                        */}
                         {b > 0 ? (
-                          <span aria-hidden="true" className="mr-3 text-goldline">
+                          <span
+                            aria-hidden="true"
+                            className={`mr-3 hidden sm:inline ${
+                              dark ? 'text-goldsoft/70' : 'text-goldline'
+                            }`}
+                          >
                             ·
                           </span>
                         ) : null}
@@ -82,7 +113,10 @@ export function Suppliers({
                   </dd>
                 </Reveal>
               ))}
-              <div aria-hidden="true" className="border-t border-line" />
+              <div
+                aria-hidden="true"
+                className={`border-t ${dark ? 'border-cream/15' : 'border-line'}`}
+              />
             </dl>
           </div>
         </div>
@@ -115,13 +149,13 @@ export function Suppliers({
                     Разделитель — точка на средней линии: ряд названий
                     должен читаться как строка каталога, а не как
                     облако тегов. */}
-                <p className="font-display flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[1.1875rem] text-ink">
+                <p className="font-display flex flex-wrap items-baseline gap-x-4 gap-y-1 text-[1.1875rem] text-ink sm:gap-x-3">
                   {row.brands.map((brand, b) => (
                     <span key={brand} className="inline-flex items-baseline">
                       {b > 0 ? (
                         <span
                           aria-hidden="true"
-                          className="mr-3 text-goldline"
+                          className="mr-3 hidden text-goldline sm:inline"
                         >
                           ·
                         </span>

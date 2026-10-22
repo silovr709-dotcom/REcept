@@ -72,18 +72,33 @@ export function VideoCard({
           className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
         />
       ) : (
+        /*
+         * Обложки у роликов нет — ВКонтакте отдаёт её только в плеере.
+         * Раньше на этом месте была схема кухни тонкими линиями: три
+         * прямоугольника читались не как заставка, а как значок
+         * «картинка не загрузилась», и три таких плитки подряд
+         * выглядели сломанной страницей.
+         *
+         * Теперь это осознанная фирменная заставка: тёмное поле,
+         * тонкая золотая рамка и монограмма. Ничего не обещает
+         * и не притворяется кадром из видео.
+         */
         <span
           aria-hidden="true"
-          className="absolute inset-0 grid place-items-center bg-linear-to-b from-coal to-ink"
+          className="absolute inset-0 grid place-items-center bg-linear-to-br from-coal via-ink to-soot"
         >
-          <svg viewBox="0 0 120 90" className="w-2/3 opacity-30" fill="none">
-            <g stroke="#7f97bb" strokeWidth="2">
-              <rect x="14" y="8" width="38" height="26" />
-              <rect x="68" y="8" width="38" height="26" />
-              <rect x="14" y="52" width="92" height="30" />
-            </g>
-            <rect x="10" y="40" width="100" height="5" rx="1" fill="#a8c3e8" />
-          </svg>
+          <span className="absolute inset-4 border border-goldsoft/25" />
+          {/* Надписи разведены к краям: по центру стоит кнопка
+              воспроизведения, и всё, что окажется под ней, пропадёт */}
+          <span className="absolute inset-x-6 top-9 flex flex-col items-center gap-2.5">
+            <span className="font-display text-[1.75rem] leading-none text-cream/45">
+              РЕцепт
+            </span>
+            <span className="h-px w-8 bg-goldsoft/50" />
+          </span>
+          <span className="absolute inset-x-6 bottom-10 text-center text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-cream/60">
+            Видео с объекта
+          </span>
         </span>
       )}
 

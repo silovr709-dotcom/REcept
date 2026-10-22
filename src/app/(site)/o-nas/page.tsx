@@ -157,10 +157,12 @@ export default async function AboutPage() {
       ) : null}
 
       <Testimonials tone="cream" photoIndex={11} />
-      <Objections tone="bone" />
       {/* Переехало с главной: разговор про клише в нише — это разговор
-          о нас и о том, как мы работаем, а не очередной блок лендинга */}
+          о нас и о том, как мы работаем, а не очередной блок лендинга.
+          Стоит перед «возражениями», чтобы тёмный блок не упёрся
+          в тёмный же финальный призыв */}
       <Cliches tone="ink" />
+      <Objections tone="bone" />
 
       <FinalCta
         title="Познакомимся?"

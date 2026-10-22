@@ -58,6 +58,9 @@ export async function Details({
   showCta = true,
   columns = 4,
   limit,
+  frame,
+  spread = false,
+  pick,
 }: {
   index?: string;
   tone?: 'cream' | 'bone';
@@ -69,9 +72,52 @@ export async function Details({
   showCta?: boolean;
   columns?: 3 | 4;
   limit?: number;
+  /**
+   * Общая рамка для всех плиток: в короткой строке из трёх кадров
+   * разная высота читается как брак вёрстки, а не как замысел.
+   * fitRatio всё равно откажется от рамки, если она съест больше трети кадра.
+   */
+  frame?: string;
+  /**
+   * Брать детали из разных проектов.
+   * Без этого короткий список — это три кадра одной кухни подряд,
+   * и вместо «вот сколько мы умеем» получается «вот одна кухня».
+   */
+  spread?: boolean;
+  /**
+   * Явный список деталей по id — когда важен не только разный проект,
+   * но и разный сюжет: два похожих кадра рядом выглядят как повтор,
+   * даже если это разные кухни.
+   */
+  pick?: string[];
 }) {
   const all = await getVisibleDetails();
-  const list = items ?? all.slice(0, limit ?? 6);
+
+  /*
+   * Короткая строка на главной.
+   *
+   * `spread` берёт детали из разных проектов: три кадра одной кухни подряд
+   * читаются как «у нас одна кухня», а не как «вот сколько мы умеем».
+   *
+   * Если задана общая рамка, сначала отбираем кадры, которые в неё
+   * действительно влезают: детали наследуют пропорции исходной фотографии,
+   * и вертикальный кадр в горизонтальной рамке либо обрежется наполовину,
+   * либо (так и было) выпадет из общей высоты и разломает строку.
+   */
+  const fits = frame ? all.filter((d) => fitRatio(d.image, frame) === frame) : all;
+  const byProject = (source: typeof all) =>
+    source.filter(
+      (d, i, arr) => arr.findIndex((x) => x.project === d.project) === i,
+    );
+  const pool = spread
+    ? [...byProject(fits), ...byProject(all)].filter(
+        (d, i, arr) => arr.findIndex((x) => x.id === d.id) === i,
+      )
+    : all;
+  const picked = pick
+    ? (pick.map((id) => all.find((d) => d.id === id)).filter(Boolean) as typeof all)
+    : null;
+  const list = items ?? (picked?.length ? picked : pool.slice(0, limit ?? 6));
   if (list.length === 0) return null;
 
   const cols =
@@ -101,14 +147,32 @@ export async function Details({
         <ul className={`mt-14 grid gap-x-5 gap-y-12 sm:gap-x-8 lg:mt-24 ${cols}`}>
           {list.map((d, i) => {
             const big = isFeature(i, list.length);
+            /*
+             * Сетка из двух колонок и нечётное число плиток оставляли
+             * последний кадр висеть половинкой строки. Пусть он займёт
+             * строку целиком: до больших экранов это читается как
+             * намеренный крупный план, а не как забытая ячейка.
+             */
+            const fillsRow =
+              !big &&
+              list.length % 2 === 1 &&
+              i === list.length - 1 &&
+              list.length < 6;
             return (
-            <li key={d.id} className={big ? 'col-span-2' : undefined}>
+            <li
+              key={d.id}
+              className={
+                big ? 'col-span-2' : fillsRow ? 'col-span-2 lg:col-span-1' : undefined
+              }
+            >
               <Reveal delay={Math.min(i, 5) * 40}>
                 <Link href={`/portfolio/${d.project}`} className="group block">
                   <div
                     className={`media-reveal relative overflow-hidden rounded-md bg-sand ${fitRatio(
                       d.image,
-                      big ? 'aspect-3/2' : wishlist[i % wishlist.length],
+                      big
+                        ? 'aspect-3/2'
+                        : (frame ?? wishlist[i % wishlist.length]),
                     )}`}
                   >
                     <Image
