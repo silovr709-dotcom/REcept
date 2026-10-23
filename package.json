@@ -1,0 +1,42 @@
+{
+  "name": "recept",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Сайт семейного мебельного ателье «РЕцепт», Тверь",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "build:static": "node scripts/build-static.mjs",
+    "build:domain": "SITE_TARGET=domain node scripts/build-static.mjs",
+    "audit": "node scripts/audit.mjs"
+  },
+  "dependencies": {
+    "@fontsource/bad-script": "^5.3.0",
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/golos-text": "^5.3.0",
+    "@fontsource/lora": "^5.3.0",
+    "@fontsource/marck-script": "^5.3.0",
+    "@fontsource/prata": "^5.3.0",
+    "@supabase/supabase-js": "^2.118.0",
+    "next": "15.5.26",
+    "nodemailer": "^7.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/playfair-display": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.0.0",
+    "@types/nodemailer": "^7.0.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.7.0"
+  }
+}

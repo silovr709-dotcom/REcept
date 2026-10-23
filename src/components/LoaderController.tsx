@@ -1,0 +1,58 @@
+'use client';
+
+import { useEffect } from 'react';
+
+/**
+ * Снимает шторку загрузки.
+ * Пользователя не держим: как только страница готова — уходим.
+ * Минимальная длительность нужна лишь для того, чтобы анимация
+ * не мигнула; при повторном визите и при reduce-motion она почти нулевая.
+ */
+export function LoaderController() {
+  useEffect(() => {
+    // Сообщаем CSS, что React ожил: отключаются страховочные анимации
+    document.documentElement.dataset.hydrated = 'true';
+
+    const el = document.getElementById('recept-loader');
+    if (!el) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isShort = document.documentElement.dataset.loader === 'short';
+    const minDuration = reduce ? 0 : isShort ? 400 : 1100;
+
+    const start = Number(document.documentElement.dataset.loaderStart) || Date.now();
+    let done = false;
+
+    const finish = () => {
+      if (done) return;
+      done = true;
+      el.dataset.state = 'done';
+      el.setAttribute('aria-hidden', 'true');
+      el.removeAttribute('role');
+      document.documentElement.removeAttribute('data-loading');
+      try {
+        sessionStorage.setItem('recept:visited', '1');
+      } catch {
+        /* приватный режим — не критично */
+      }
+    };
+
+    const schedule = () => {
+      const elapsed = Date.now() - start;
+      window.setTimeout(finish, Math.max(0, minDuration - elapsed));
+    };
+
+    // Страховка на медленных сетях: не держим дольше трёх секунд
+    const hardStop = window.setTimeout(finish, 3000);
+
+    if (document.readyState === 'complete') {
+      schedule();
+    } else {
+      window.addEventListener('load', schedule, { once: true });
+    }
+
+    return () => window.clearTimeout(hardStop);
+  }, []);
+
+  return null;
+}

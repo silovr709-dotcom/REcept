@@ -1,0 +1,96 @@
+name: Выгрузка сайта на хостинг
+
+# Запускается при каждом изменении сайта. Сама собирает сайт и
+# выкладывает его на хостинг по FTP — руками ничего заливать не нужно.
+#
+# Чтобы включить, нужен ОДИН секрет репозитория:
+#   Settings → Secrets and variables → Actions → New repository secret
+#     FTP_PASSWORD  — пароль FTP того же хостинга, где уже работает калькулятор
+#
+# Остальное подставлено по умолчанию (тот же аккаунт reg.ru, что у калькулятора)
+# и переопределяется секретами, только если что-то изменится:
+#     FTP_HOST  — по умолчанию u3683615.isp.regruhosting.ru
+#     FTP_USER  — по умолчанию u3683615
+#     FTP_DIR   — по умолчанию /www/xn----dtbhac1degob3b6e.xn--p1ai/
+#                 (папка домена рецепт-тверь.рф; у калькулятора своя папка,
+#                  выгрузки не пересекаются)
+#
+# Пока доступы не добавлены, выгрузка просто пропускается, а сборка
+# всё равно проверяется — чтобы сломанный сайт не уехал на хостинг.
+
+on:
+  push:
+    branches: [main, 'arena/**']
+    paths-ignore:
+      - 'reference/**'
+      - 'docs/**'
+      - '**.md'
+      - 'recept-sayt.zip'
+  workflow_dispatch:
+
+concurrency:
+  group: hosting-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_HOST: ${{ secrets.FTP_HOST || 'u3683615.isp.regruhosting.ru' }}
+      FTP_USER: ${{ secrets.FTP_USER || 'u3683615' }}
+      FTP_DIR: ${{ secrets.FTP_DIR || '/www/xn----dtbhac1degob3b6e.xn--p1ai/' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Собрать сайт для домена
+        run: npm run build:domain
+
+      - name: Проверить качество сборки
+        env:
+          AUDIT_DIR: site
+          AUDIT_BASE: ''
+        run: npm run audit
+
+      - name: Проверить, настроен ли хостинг
+        id: cfg
+        env:
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          if [ -n "$FTP_PASSWORD" ]; then
+            echo "ready=yes" >> "$GITHUB_OUTPUT"
+            echo "Выгрузка: $FTP_USER@$FTP_HOST, папка $FTP_DIR" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "ready=no" >> "$GITHUB_OUTPUT"
+            echo "Нет секрета FTP_PASSWORD — выгрузка пропущена, сборка проверена." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Выгрузить на хостинг
+        if: steps.cfg.outputs.ready == 'yes'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ env.FTP_HOST }}
+          username: ${{ env.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ env.FTP_DIR }}
+          local-dir: ./site/
+          # Отправляются только изменившиеся файлы — выгрузка занимает секунды.
+          state-name: .recept-deploy-state.json
+          # Что на хостинге трогать нельзя:
+          #   _zayavki      — пришедшие заявки;
+          #   lead-config   — ваш пароль от почты;
+          #   .well-known   — проверка сертификата.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            _zayavki/**
+            api/lead-config.php
+            .well-known/**
