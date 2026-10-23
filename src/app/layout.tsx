@@ -20,6 +20,18 @@ import '@fontsource/cormorant-garamond/cyrillic-500.css';
 import '@fontsource/cormorant-garamond/latin-300.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
 import '@fontsource/cormorant-garamond/latin-400-italic.css';
+/* ВРЕМЕННО: кандидаты для подбора пары «толстая антиква + тонкий рукописный».
+   Смотреть на /shrifty. Лишние пакеты удаляются сразу после выбора. */
+import '@fontsource/cormorant-garamond/cyrillic-600.css';
+import '@fontsource/cormorant-garamond/cyrillic-600-italic.css';
+import '@fontsource/playfair-display/cyrillic-700.css';
+import '@fontsource/playfair-display/cyrillic-700-italic.css';
+import '@fontsource/prata/cyrillic-400.css';
+import '@fontsource/lora/cyrillic-700.css';
+import '@fontsource/lora/cyrillic-700-italic.css';
+import '@fontsource/caveat/cyrillic-400.css';
+import '@fontsource/marck-script/cyrillic-400.css';
+import '@fontsource/bad-script/cyrillic-400.css';
 import '@fontsource/golos-text/cyrillic-400.css';
 import '@fontsource/golos-text/cyrillic-500.css';
 import '@fontsource/golos-text/cyrillic-600.css';
