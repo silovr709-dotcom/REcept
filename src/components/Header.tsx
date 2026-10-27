@@ -33,6 +33,14 @@ export function Header() {
   }, [pathname]);
 
   const overPhoto = darkHero && !scrolled && !menuOpen;
+  /*
+   * В меню — один канал: ВКонтакте. Телефон уже стоит отдельной
+   * кнопкой выше, и дублировать его списком не нужно; остальные каналы
+   * живут в подвале и на странице контактов. Пять мелких подчёркнутых
+   * ссылок в две строки читались как случайно вставленный подвал.
+   */
+  const menuContacts = activeContacts.filter((c) => c.id === 'vk');
+
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -69,7 +77,10 @@ export function Header() {
           <Logo tone={overPhoto ? 'light' : 'dark'} />
 
           <nav aria-label="Основная навигация" className="hidden lg:block">
-            <ul className="flex items-center gap-5 xl:gap-7">
+            {/* Интервалы и кегль растут вместе с экраном. Раньше меню
+                включалось с 1024 px в одном размере, и на ноутбуках
+                1280–1366 пункты переносились на вторую строку. */}
+            <ul className="flex items-center gap-4 xl:gap-6 2xl:gap-7">
               {navigation.map((item) => {
                 const active = pathname === item.href;
                 return (
@@ -81,7 +92,7 @@ export function Header() {
                          текущий раздел виден, но меню остаётся ровным
                          по цвету и весу — как колонтитул, а не как
                          панель кнопок. */
-                      className={`relative py-2 text-[0.9375rem] transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+                      className={`relative whitespace-nowrap py-2 text-[0.875rem] transition-colors xl:text-[0.9375rem] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 ${
                         active
                           ? overPhoto
                             ? 'text-goldsoft after:scale-x-100'
@@ -101,11 +112,12 @@ export function Header() {
 
           <div className="flex items-center gap-3">
             {/* Кабинет нужен действующим заказчикам, а не случайному
-                посетителю: пункт есть всегда, но не спорит с основным
-                меню за внимание. */}
+                посетителю. На широких экранах он стоит в шапке, на
+                ноутбуках уходит в меню и подвал — иначе основному меню
+                не хватает ширины и оно ломается на две строки. */}
             <Link
               href="/kabinet"
-              className={`hidden text-[0.9375rem] font-medium transition-colors lg:inline ${
+              className={`hidden whitespace-nowrap text-[0.9375rem] font-medium transition-colors 2xl:inline ${
                 overPhoto ? 'text-cream/85 hover:text-cream' : 'text-ink/80 hover:text-gold'
               }`}
             >
@@ -126,17 +138,44 @@ export function Header() {
               </a>
             ) : null}
 
-            <CtaButton
-              source="header"
-              variant={overPhoto ? 'light' : 'primary'}
-              size="md"
-              className="hidden sm:inline-flex"
-              modalTitle="Рассчитаем вашу кухню"
-              modalLead="Оставьте контакт — Роберт или Катя свяжутся, зададут пару вопросов и предложат, с чего начать. Без обязательств."
-              submitLabel="Получить расчёт"
-            >
-              Рассчитать кухню
-            </CtaButton>
+            {/*
+              ПОЧЕМУ КНОПКИ ОБЁРНУТЫ В SPAN.
+              Классы видимости на самой кнопке не работали: у кнопки в
+              базовых стилях стоит inline-flex, и он перебивал hidden —
+              поэтому на телефоне поверх тёмного первого экрана висела
+              кремовая плашка «Рассчитать кухню» в две строки. Теперь
+              показом управляет обёртка, а не сама кнопка.
+
+              На телефоне кнопки в шапке нет вовсе: внизу экрана и так
+              есть панель с «Рассчитать кухню» и «Позвонить».
+            */}
+            <span className="hidden sm:block lg:hidden">
+              <CtaButton
+                source="header"
+                variant={overPhoto ? 'light' : 'primary'}
+                size="sm"
+                className="whitespace-nowrap"
+                modalTitle="Рассчитаем вашу кухню"
+                modalLead="Оставьте контакт — Роберт или Катя свяжутся, зададут пару вопросов и предложат, с чего начать. Без обязательств."
+                submitLabel="Получить расчёт"
+              >
+                Расчёт
+              </CtaButton>
+            </span>
+
+            <span className="hidden lg:block">
+              <CtaButton
+                source="header"
+                variant={overPhoto ? 'light' : 'primary'}
+                size="md"
+                className="whitespace-nowrap"
+                modalTitle="Рассчитаем вашу кухню"
+                modalLead="Оставьте контакт — Роберт или Катя свяжутся, зададут пару вопросов и предложат, с чего начать. Без обязательств."
+                submitLabel="Получить расчёт"
+              >
+                Рассчитать кухню
+              </CtaButton>
+            </span>
 
             {/* Телефон на мобильном. Раньше номер появлялся только с 2xl,
                 то есть на телефоне позвонить из шапки было нельзя — приходилось
@@ -199,7 +238,12 @@ export function Header() {
         id="mobile-menu"
         data-open={menuOpen}
         aria-hidden={!menuOpen}
+        /* Панель во весь оставшийся экран: раньше она заканчивалась по
+           высоте содержимого и снизу выглядывал кусок страницы — меню
+           выглядело незакрытым окном, а не меню. */
         className={`lift-door max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-cream lg:hidden ${
+          menuOpen ? 'min-h-[calc(100dvh-4rem)] ' : ''
+        }${
           menuOpen ? '' : 'invisible h-0 overflow-hidden border-t-0'
         }`}
       >
@@ -207,27 +251,18 @@ export function Header() {
           <ul className="grid gap-1">
             {navigation.map((item) => (
               <li key={item.href}>
+                {/* Без стрелок: они обещали подменю, которого нет.
+                    Вместо них — тонкая золотая черта, которая выезжает
+                    слева при нажатии, как направляющая ящика. */}
                 <Link
                   href={item.href}
-                  className="flex min-h-13 items-center justify-between border-b border-line/70 py-3 text-[1.125rem] font-medium text-ink"
+                  className="group/mi relative flex min-h-13 items-center border-b border-line/70 py-3 font-display text-[1.375rem] text-ink"
                 >
-                  {item.label}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
+                  <span className="relative z-10">{item.label}</span>
+                  <span
                     aria-hidden="true"
-                    className="text-stone"
-                  >
-                    <path
-                      d="M5.5 3 10.5 8l-5 5"
-                      stroke="currentColor"
-                      strokeWidth="1.4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                    className="absolute bottom-0 left-0 h-px w-0 bg-goldline transition-[width] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-active/mi:w-full"
+                  />
                 </Link>
               </li>
             ))}
@@ -255,20 +290,33 @@ export function Header() {
               </a>
             ) : null}
 
+            {/* Кабинет — обычная ссылка, а не серая надпись: раньше он
+                выглядел как заголовок раздела, по которому не нажимают. */}
             <Link
               href="/kabinet"
-              className="flex min-h-13 items-center justify-center text-[0.75rem] font-semibold uppercase tracking-[0.13em] text-stone"
+              className="flex min-h-13 items-center justify-center border border-line text-[0.75rem] font-semibold uppercase tracking-[0.13em] text-stone transition-colors hover:border-gold/50 hover:text-gold"
             >
               Личный кабинет
             </Link>
           </div>
 
-          {activeContacts.length > 0 ? (
-            <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-stone">
-              {activeContacts.map((c) => (
+          {/* В меню оставлены два контакта из пяти. Остальное —
+              работа подвала: мелкие подчёркнутые ссылки в несколько
+              строк превращали меню в свалку. */}
+          {menuContacts.length > 0 ? (
+            <ul className="mt-7 grid gap-3 border-t border-line pt-6">
+              {menuContacts.map((c) => (
                 <li key={c.id}>
-                  <a href={c.href} className="underline decoration-gold/40 underline-offset-4">
-                    {c.label}
+                  <a
+                    href={c.href}
+                    className="flex items-baseline justify-between gap-4 text-[0.9375rem] text-stone transition-colors hover:text-gold"
+                  >
+                    <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-clay">
+                      {c.label}
+                    </span>
+                    <span className="font-display text-[1.0625rem] text-ink">
+                      {c.value}
+                    </span>
                   </a>
                 </li>
               ))}
