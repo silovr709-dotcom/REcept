@@ -91,7 +91,7 @@ export function VideoCard({
           {/* Надписи разведены к краям: по центру стоит кнопка
               воспроизведения, и всё, что окажется под ней, пропадёт */}
           <span className="absolute inset-x-6 top-9 flex flex-col items-center gap-2.5">
-            <span className="font-display text-head leading-none text-cream/45">
+            <span className="font-display text-head leading-none text-cream/60">
               РЕцепт
             </span>
             <span className="h-px w-8 bg-goldsoft/50" />
