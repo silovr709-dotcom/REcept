@@ -27,10 +27,8 @@ export const metadata: Metadata = {
 
 
 export default async function FurniturePage() {
-  const heroProjects = await getVisibleProjects();
   // Снимок в шапку страницы: тот же приём, что на первом экране
   // главной и на карточке ссылки в мессенджере
-  const heroShot = pickImage(heroProjects, 'kuhnya-gostinaya-s-ostrovom', 1);
   const [details, projects] = await Promise.all([
     getVisibleDetails(),
     getVisibleProjects(),
@@ -41,14 +39,17 @@ export default async function FurniturePage() {
 
   return (
     <>
+      {/* Обложка — визуализация гардеробной. Раньше здесь стояла
+          фотография кухни, хотя страница про гардеробные и шкафы. */}
       <PageHero
         eyebrow="Другие помещения · Тверь"
-        title="Не только кухни: гардеробные, шкафы и мебель для остальных комнат"
-        lead="Чаще всего это заказывают вместе с кухней — в одной стилистике, из тех же материалов и с одной ответственностью. Но можно и отдельно."
+        title="Не только кухни"
+        lead="Гардеробные, шкафы, прихожие и мебель для ванной. Чаще всего это заказывают вместе с кухней — в одной стилистике, из тех же материалов и с одной ответственностью. Но можно и отдельно."
         breadcrumbs={[{ name: 'Другие помещения' }]}
-        image={heroShot?.image}
-        imageAlt=""
-        imagePosition="object-[50%_55%]"
+        image={rooms[0].image}
+        imageAlt={rooms[0].alt}
+        imagePosition="object-[50%_45%]"
+        imageIsRender
       >
         <CtaButton
           source="furniture-top"

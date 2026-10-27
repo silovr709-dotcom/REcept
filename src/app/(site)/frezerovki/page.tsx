@@ -56,6 +56,10 @@ export const metadata: Metadata = {
 export default async function MillingsPage() {
   const projects = await getVisibleProjects();
   const band = pickImage(projects, 'kuhnya-neoklassika-greyzh', 5);
+  /* Обложка раздела — настоящая кухня с рельефными фасадами: страница
+     про рисунок фрезы, и начинаться она должна с рельефа, а не
+     с пустого кремового листа. */
+  const heroShot = pickImage(projects, 'kompaktnaya-kuhnya-zelenye-reyki', 2);
 
   return (
     <>
@@ -67,10 +71,13 @@ export default async function MillingsPage() {
           { name: 'Материалы', href: '/materialy' },
           { name: 'Фрезеровки' },
         ]}
+        image={heroShot?.image}
+        imageAlt=""
+        imagePosition="object-[50%_62%]"
       >
         <CtaButton
           source="millings-top"
-          variant="primary"
+          variant="light-solid"
           size="lg"
           withArrow
           modalTitle="Привезти образцы фрезеровок"

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { ImageRef } from '@/lib/content/types';
+import { RenderBadge } from '@/components/ui/RenderBadge';
 import { Photo } from './ui/Photo';
 
 export function Breadcrumbs({
@@ -66,6 +67,8 @@ export function PageHero({
   image,
   imageAlt = '',
   imagePosition = 'object-center',
+  imageIsRender = false,
+  veil = 'default',
 }: {
   eyebrow: string;
   title: ReactNode;
@@ -76,6 +79,17 @@ export function PageHero({
   imageAlt?: string;
   /** Класс object-position: кадры широкие, а полоса низкая */
   imagePosition?: string;
+  /** Изображение — не фотография объекта, а визуализация */
+  imageIsRender?: boolean;
+  /**
+   * Плотность синей вуали поверх кадра.
+   *
+   * Раньше она была одна на все обложки. На светлом кадре это красиво,
+   * а на тёмном кухня исчезала совсем — оставалась синяя стена, и было
+   * непонятно, зачем там вообще фотография. Теперь плотность
+   * выбирается под конкретный кадр.
+   */
+  veil?: 'light' | 'default' | 'heavy';
 }) {
   if (!image) {
     return (
@@ -115,12 +129,24 @@ export function PageHero({
           чтобы не потерялась прозрачная шапка сайта */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-linear-to-t from-ink/94 via-ink/74 to-ink/44"
+        className={`absolute inset-0 -z-10 ${
+          veil === 'light'
+            ? 'bg-linear-to-t from-ink/88 via-ink/55 to-ink/22'
+            : veil === 'heavy'
+              ? 'bg-linear-to-t from-ink/96 via-ink/85 to-ink/60'
+              : 'bg-linear-to-t from-ink/94 via-ink/74 to-ink/44'
+        }`}
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-10 h-40 bg-linear-to-b from-ink/85 via-ink/45 to-transparent lg:h-48"
+        className={`absolute inset-x-0 top-0 -z-10 h-40 bg-linear-to-b to-transparent lg:h-48 ${
+          veil === 'light' ? 'from-ink/70 via-ink/32' : 'from-ink/85 via-ink/45'
+        }`}
       />
+
+      {imageIsRender ? (
+        <RenderBadge className="absolute right-5 top-24 z-10 lg:right-8 lg:top-28" />
+      ) : null}
 
       <div className="container-page">
         <Breadcrumbs items={breadcrumbs} tone="light" />

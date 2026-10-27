@@ -53,7 +53,9 @@ export function Eyebrow({
 }) {
   return (
     <p
-      className={`flex items-center gap-3.5 text-eyebrow font-medium uppercase tracking-[0.18em] ${
+      /* whitespace-nowrap: в узкой левой колонке надзаголовки вроде
+         «КАК ЭТО УСТРОЕНО» ломались пополам и выглядели как обрывок */
+      className={`flex items-center gap-3.5 whitespace-nowrap text-eyebrow font-medium uppercase tracking-[0.18em] ${
         tone === 'dark' ? 'text-gold' : 'text-goldsoft'
       } ${className}`}
     >
