@@ -14,9 +14,10 @@ import type { ComponentProps, ReactNode } from 'react';
  * повышает голос. Капитель осталась там, где она уместна по смыслу, —
  * в надзаголовках разделов.
  *
- * Поведение при наведении — смена плотности цвета и сдвиг стрелки на
- * три точки. Никаких заливок, которые наезжают снизу: движение должно
- * быть в мебели на фотографиях, а не в интерфейсе вокруг них.
+ * Поведение при наведении — смена плотности цвета, сдвиг стрелки на три
+ * точки и тонкий профиль, который выезжает вдоль нижней кромки, как
+ * ящик по направляющей. Никаких заливок, которые наезжают снизу:
+ * движение должно быть в мебели на фотографиях, а не в интерфейсе.
  */
 
 type Variant =
@@ -26,10 +27,10 @@ type Variant =
   | 'ghost'
   | 'light'
   | 'light-solid';
-type Size = 'md' | 'lg';
+type Size = 'sm' | 'md' | 'lg';
 
 const base =
-  'group relative inline-flex items-center justify-center gap-3 ' +
+  'group btn-profile relative inline-flex items-center justify-center gap-3 ' +
   'rounded-none border font-medium leading-tight tracking-[0.01em] ' +
   'transition-[background-color,border-color,color] duration-400 ' +
   'ease-[cubic-bezier(0.22,0.61,0.36,1)] active:translate-y-px ' +
@@ -51,6 +52,9 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, string> = {
+  // Компактный — для шапки на узких экранах, где кнопка не должна
+  // спорить с логотипом
+  sm: 'min-h-10 px-4 py-2 text-small',
   md: 'min-h-12 px-6 py-3 text-ui',
   lg: 'min-h-14 px-8 py-4 text-ui',
 };

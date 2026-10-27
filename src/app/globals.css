@@ -655,9 +655,19 @@ html[data-loader='short'] .loader-text {
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
+    /* Именованный таймлайн объявлен на внешней рамке. Сама полоса
+       обрезает содержимое (overflow: hidden) и потому считается
+       собственным контейнером прокрутки: view() внутри неё отсчитывал
+       бы движение, которого там нет, и анимация замирала в конечном
+       положении. */
+    .band-frame {
+      view-timeline-name: --band;
+      view-timeline-axis: block;
+    }
+
     .band-parallax img {
       animation: band-drift linear both;
-      animation-timeline: view();
+      animation-timeline: --band;
       animation-range: entry 0% exit 100%;
       will-change: transform;
     }
@@ -744,6 +754,34 @@ html[data-loader='short'] .loader-text {
     opacity: 0.8;
   }
 
+  /* --- Доводчик на кнопке --------------------------------------- */
+  /* Вдоль нижней кромки выезжает тонкий профиль — то же движение, что
+     у ящика на направляющей. Заливка снизу выглядела бы как баннер */
+  .btn-profile::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      currentColor,
+      transparent
+    );
+    opacity: 0;
+    transform: scaleX(0.3);
+    transition:
+      opacity 420ms var(--ease-soft),
+      transform 620ms var(--ease-out-expo);
+    pointer-events: none;
+  }
+
+  .btn-profile:hover::after,
+  .btn-profile:focus-visible::after {
+    opacity: 0.6;
+    transform: scaleX(1);
+  }
+
   /* --- Направляющая под шапкой ---------------------------------- */
   /* Тонкая латунная линия, которая выдвигается по мере прокрутки —
      как профиль-ручка вдоль всего фасада. Заодно это честный
@@ -759,6 +797,97 @@ html[data-loader='short'] .loader-text {
     @keyframes rail-extend {
       to {
         transform: scaleX(1);
+      }
+    }
+  }
+
+  /* --- Фотополоса открывается как шкаф --------------------------- */
+  /* Две створки расходятся по мере того, как полоса входит в экран.
+     Створки существуют только там, где браузер умеет анимацию по
+     прокрутке: иначе они остались бы закрытыми навсегда и спрятали
+     фотографию. Поэтому по умолчанию их нет вовсе. */
+  .cabinet-door {
+    display: none;
+  }
+
+  @supports (animation-timeline: view()) {
+    .cabinet {
+      perspective: 2000px;
+    }
+
+    .cabinet-door {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50.4%;
+      background:
+        linear-gradient(
+          to bottom,
+          color-mix(in oklab, var(--color-bone) 94%, white),
+          var(--color-sand)
+        );
+      animation: linear both;
+      animation-timeline: --band;
+      animation-range: entry 18% entry 92%;
+      will-change: transform;
+      backface-visibility: hidden;
+      z-index: 2;
+    }
+
+    /* Ручка-профиль на каждой створке — у закрытого шкафа она первое,
+       что видно */
+    .cabinet-door::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 2px;
+      height: clamp(2.5rem, 6vw, 4.5rem);
+      transform: translateY(-50%);
+      background: linear-gradient(
+        to bottom,
+        var(--color-goldsoft),
+        var(--color-gold)
+      );
+    }
+
+    .cabinet-door--l {
+      left: 0;
+      transform-origin: left center;
+      animation-name: door-left;
+      box-shadow: inset -1px 0 0 color-mix(in oklab, var(--color-clay) 55%, transparent);
+    }
+
+    .cabinet-door--l::after {
+      right: 0.9rem;
+    }
+
+    .cabinet-door--r {
+      right: 0;
+      transform-origin: right center;
+      animation-name: door-right;
+      box-shadow: inset 1px 0 0 color-mix(in oklab, var(--color-clay) 55%, transparent);
+    }
+
+    .cabinet-door--r::after {
+      left: 0.9rem;
+    }
+
+    @keyframes door-left {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(-108deg);
+      }
+    }
+
+    @keyframes door-right {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(108deg);
       }
     }
   }

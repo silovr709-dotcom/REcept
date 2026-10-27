@@ -13,6 +13,7 @@ export function PhotoBand({
   overlay = 'none',
   height = 'md',
   objectPosition = 'object-center',
+  reveal = 'none',
 }: {
   image: ImageRef;
   alt: string;
@@ -26,6 +27,12 @@ export function PhotoBand({
    * сюда передаётся класс вроде `object-[50%_20%]`.
    */
   objectPosition?: string;
+  /**
+   * `doors` — полоса открывается как шкаф: две створки расходятся по
+   * мере прокрутки. Приём редкий и сильный, поэтому на страницу
+   * ставится один раз, не чаще.
+   */
+  reveal?: 'none' | 'doors';
 }) {
   const heights = {
     sm: 'h-[46vw] max-h-[26rem] min-h-[14rem]',
@@ -34,10 +41,16 @@ export function PhotoBand({
   } as const;
 
   return (
-    <figure className="relative bg-ink">
+    <figure className="band-frame relative bg-ink">
       <div
-        className={`band-parallax relative w-full overflow-hidden ${heights[height]}`}
+        className={`band-parallax cabinet relative w-full overflow-hidden ${heights[height]}`}
       >
+        {reveal === 'doors' ? (
+          <>
+            <span aria-hidden="true" className="cabinet-door cabinet-door--l" />
+            <span aria-hidden="true" className="cabinet-door cabinet-door--r" />
+          </>
+        ) : null}
         <Photo
           image={image}
           alt={alt}

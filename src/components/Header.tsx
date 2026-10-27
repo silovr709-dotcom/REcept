@@ -2,11 +2,20 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Logo } from './Logo';
 import { CtaButton } from './CtaButton';
 import { useSite } from './SiteProvider';
 import { reachGoal } from '@/lib/analytics';
+
+/*
+ * Проверка тёмного первого экрана должна успеть до первой отрисовки:
+ * обычный useEffect срабатывает уже после неё, и логотип на мгновение
+ * проступал тёмным поверх тёмной фотографии. На сервере слой разметки
+ * недоступен, поэтому там остаётся обычный эффект.
+ */
+const useBeforePaint =
+  typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 export function Header() {
   const { navigation, contacts: activeContacts, primaryPhone } = useSite();
@@ -28,7 +37,7 @@ export function Header() {
    * смотрит, есть ли такая метка на текущей странице.
    */
   const [darkHero, setDarkHero] = useState(false);
-  useEffect(() => {
+  useBeforePaint(() => {
     setDarkHero(Boolean(document.querySelector('[data-hero="dark"]')));
   }, [pathname]);
 

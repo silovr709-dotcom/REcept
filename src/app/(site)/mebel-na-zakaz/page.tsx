@@ -12,7 +12,7 @@ import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
 import { rooms } from '@/data/rooms';
 import { RenderBadge } from '@/components/ui/RenderBadge';
-import { assetUrl, pickImage } from '@/lib/content/images';
+import { assetUrl, pickImage, imageRef } from '@/lib/content/images';
 
 export const metadata: Metadata = {
   title: 'Гардеробные и шкафы на заказ',
@@ -46,7 +46,7 @@ export default async function FurniturePage() {
         title="Не только кухни"
         lead="Гардеробные, шкафы, прихожие и мебель для ванной. Чаще всего это заказывают вместе с кухней — в одной стилистике, из тех же материалов и с одной ответственностью. Но можно и отдельно."
         breadcrumbs={[{ name: 'Другие помещения' }]}
-        image={rooms[0].image}
+        image={imageRef(rooms[0].image)}
         imageAlt={rooms[0].alt}
         imagePosition="object-[50%_45%]"
         imageIsRender

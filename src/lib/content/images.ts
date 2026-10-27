@@ -24,6 +24,25 @@ export function withAssetUrl<T extends ImageRef | null | undefined>(image: T): T
 }
 
 /**
+ * Статический импорт картинки (визуализации комнат, текстуры) в нашу
+ * форму ImageRef. У импортов Next поле blurDataURL необязательное,
+ * у нас — обязательное: без приведения типы расходятся.
+ */
+export function imageRef(img: {
+  src: string;
+  width: number;
+  height: number;
+  blurDataURL?: string;
+}): ImageRef {
+  return {
+    src: img.src,
+    width: img.width,
+    height: img.height,
+    blurDataURL: img.blurDataURL ?? '',
+  };
+}
+
+/**
  * Иллюстрации для смысловых блоков берём из портфолио, а не прописываем
  * отдельно. Так они не «протухают»: если владельцы удалят или заменят проект,
  * на сайте всё равно окажется актуальная фотография, а не битая ссылка.
