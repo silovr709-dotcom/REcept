@@ -1,0 +1,14 @@
+import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
+const b=await puppeteer.launch({args:[...chromium.args,'--no-sandbox'],executablePath:await chromium.executablePath(),headless:true});
+const p=await b.newPage(); await p.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
+await p.goto('http://localhost:3000/',{waitUntil:'networkidle0',timeout:180000});
+await new Promise(r=>setTimeout(r,1800));
+const btn = await p.$('button[aria-controls="mobile-menu"]') || (await p.$$('header button')).pop();
+await btn.click();
+await new Promise(r=>setTimeout(r,250));
+await p.screenshot({path:'/tmp/menu-mid.png'});
+await new Promise(r=>setTimeout(r,900));
+await p.screenshot({path:'/tmp/menu-done.png'});
+console.log('ok');
+await b.close();

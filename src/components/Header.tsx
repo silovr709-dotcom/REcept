@@ -77,7 +77,7 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-90 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
         scrolled || menuOpen
-          ? 'border-b border-line bg-cream/92 backdrop-blur-xl'
+          ? 'border-b border-line bg-cream/92 shadow-[0_4px_14px_-10px_color-mix(in_oklab,var(--color-soot)_70%,transparent)] backdrop-blur-xl'
           : 'border-b border-transparent bg-transparent'
       }`}
     >
@@ -267,8 +267,12 @@ export function Header() {
       >
         <div className="container-page py-6">
           <ul className="grid gap-1">
-            {navigation.map((item) => (
-              <li key={item.href}>
+            {navigation.map((item, i) => (
+              <li
+                key={item.href}
+                className="drawer-item"
+                style={{ '--i': i } as React.CSSProperties}
+              >
                 {/* Без стрелок: они обещали подменю, которого нет.
                     Вместо них — тонкая золотая черта, которая выезжает
                     слева при нажатии, как направляющая ящика. */}

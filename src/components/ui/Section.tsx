@@ -2,13 +2,18 @@ import type { ReactNode } from 'react';
 
 type Tone = 'cream' | 'bone' | 'ink' | 'sand';
 
+/*
+ * Секция — модуль корпуса. У каждого модуля сверху зазор: тонкая тень
+ * в глубину, по которой видно, что страница собрана из отдельных
+ * коробов, а не залита краской. Тёмные модули вдобавок фрезерованы
+ * рейкой — фактура считывается не сразу, но плоскость перестаёт быть
+ * мёртвой.
+ */
 const tones: Record<Tone, string> = {
-  cream: 'bg-cream text-ink',
-  bone: 'bg-bone text-ink',
-  sand: 'bg-sand text-ink',
-  /* Зерно на тёмном поле: ровная цифровая заливка выглядит дёшево,
-     слабый шум возвращает плоскости материальность */
-  ink: 'bg-ink text-cream grain',
+  cream: 'bg-cream text-ink module-gap',
+  bone: 'bg-bone text-ink module-gap',
+  sand: 'bg-sand text-ink module-gap',
+  ink: 'bg-ink text-cream grain reeded module-gap',
 };
 
 /**
@@ -166,7 +171,9 @@ export function SectionHeading({
   }
 
   return (
-    <div className={`grid gap-6 lg:grid-cols-[10rem_1fr] lg:gap-12 ${className}`}>
+    /* Левая колонка — 13rem: в десяти надзаголовок «КАК ПРОХОДИТ
+       РАБОТА» не помещался в строку и наезжал на заголовок */
+    <div className={`grid gap-6 lg:grid-cols-[13rem_1fr] lg:gap-12 ${className}`}>
       <div className="flex items-baseline gap-4 lg:flex-col lg:gap-3">
         {index ? (
           <span

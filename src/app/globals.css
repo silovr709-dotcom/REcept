@@ -700,6 +700,94 @@ html[data-loader='short'] .loader-text {
 }
 
 /* ==================================================================
+   КОРПУС: САЙТ СОБРАН КАК МЕБЕЛЬ
+   ------------------------------------------------------------------
+   Не «сайт с мебельными картинками», а сам по себе корпус. Отсюда три
+   вещи, которые работают на всех страницах сразу.
+
+   ЗАЗОР. У хорошей мебели фасады разделяет ровный зазор в 4 мм, и
+   именно по нему глаз понимает, что это набор модулей, а не крашеная
+   стена. Между секциями одного тона у нас не было ничего — теперь
+   между ними проходит такая же тень в глубину.
+
+   РЕЙКА. Фрезерованная рейка — самая узнаваемая фактура в современной
+   кухне. На тёмных секциях она идёт еле заметной вертикальной
+   бороздой: заметишь, только если присмотришься, но плоскость сразу
+   перестаёт быть просто синей заливкой.
+
+   ЦОКОЛЬ. Мебель не стоит на полу всей массой: внизу идёт утопленный
+   цоколь, и корпус как будто висит. Подвал сайта сделан так же.
+   ================================================================== */
+
+/* Зазор между модулями: тень вниз, как между двумя фасадами */
+@utility module-gap {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    pointer-events: none;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-soot) 22%, transparent),
+      transparent
+    );
+  }
+}
+
+/* Рейка: вертикальная фрезеровка по тёмной плоскости */
+@utility reeded {
+  background-image: repeating-linear-gradient(
+    to right,
+    color-mix(in oklab, white 3.2%, transparent) 0 1px,
+    transparent 1px 2px,
+    color-mix(in oklab, black 9%, transparent) 2px 3px,
+    transparent 3px 14px
+  );
+  background-attachment: fixed;
+}
+
+/* Цоколь: корпус стоит на утопленном основании */
+@utility plinth {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 7px;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, black 55%, transparent),
+      transparent
+    );
+  }
+}
+
+/* Профиль GOLA: утопленная кромка над фасадом. Ставится на верхний
+   край кадра в карточке — именно по этой тени читается, что фасад
+   открывается без ручки */
+@utility gola-edge {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 7px;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-soot) 38%, transparent),
+      transparent
+    );
+  }
+}
+
+/* ==================================================================
    МЕБЕЛЬНЫЕ ПРИЁМЫ
    ------------------------------------------------------------------
    Сайт мебельного ателье имеет право двигаться как мебель: фасад
@@ -752,6 +840,25 @@ html[data-loader='short'] .loader-text {
   .hinge:hover .hinge-panel::after,
   .hinge:focus-visible .hinge-panel::after {
     opacity: 0.8;
+  }
+
+  /* --- Пункты меню выезжают ящиками ------------------------------ */
+  /* Открытое меню — это выдвинутые один за другим ящики, а не
+     появившийся список. Задержка считается от номера пункта */
+  [data-open='true'] .drawer-item {
+    animation: drawer-item 520ms var(--ease-out-expo) both;
+    animation-delay: calc(var(--i) * 45ms);
+  }
+
+  @keyframes drawer-item {
+    from {
+      opacity: 0;
+      transform: translateX(-18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   /* --- Доводчик на кнопке --------------------------------------- */

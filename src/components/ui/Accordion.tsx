@@ -10,6 +10,9 @@ export type AccordionItem = {
 /**
  * Доступный аккордеон: кнопка + region, управление с клавиатуры,
  * корректные aria-атрибуты.
+ *
+ * Внешне это не «список вопросов», а ряд ящиков: у каждого фасад с
+ * ручкой, ответ выезжает на доводчике, а не раскрывается рывком.
  */
 export function Accordion({
   items,
@@ -47,20 +50,22 @@ export function Accordion({
                 }`}
               >
                 <span>{item.q}</span>
+                {/* Вместо кружка с плюсом — фасад ящика с ручкой.
+                    Закрытый ящик: ручка посередине. Открытый: фасад
+                    отъезжает вниз, ручка уходит к нижней кромке */}
                 <span
                   aria-hidden="true"
-                  className={`mt-1.5 grid size-7 shrink-0 place-items-center rounded-full border ${
-                    tone === 'light' ? 'border-cream/25' : 'border-line'
-                  } transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+                  className={`relative mt-2 grid h-7 w-9 shrink-0 place-items-center border transition-colors ${
+                    tone === 'light'
+                      ? 'border-cream/25 bg-cream/5'
+                      : 'border-line bg-bone'
+                  }`}
                 >
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path
-                      d="M6 1v10M1 6h10"
-                      stroke="currentColor"
-                      strokeWidth="1.3"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                  <span
+                    className={`block h-0.5 w-4 rounded-[1px] bg-linear-to-b from-goldsoft to-gold transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      isOpen ? 'translate-y-[7px]' : ''
+                    }`}
+                  />
                 </span>
               </button>
             </h3>

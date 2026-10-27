@@ -29,7 +29,7 @@ export function ProjectCard({
       className={`group hinge relative block ${className}`}
     >
       <div
-        className={`media-reveal hinge-panel relative overflow-hidden rounded-md bg-sand ${fitRatio(project.image, ratio ?? aspect[project.shape])}`}
+        className={`media-reveal hinge-panel gola-edge relative overflow-hidden rounded-md bg-sand ${fitRatio(project.image, ratio ?? aspect[project.shape])}`}
       >
         <Image
           src={assetUrl(project.image.src)}

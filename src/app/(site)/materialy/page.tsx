@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { CountUp } from '@/components/ui/CountUp';
 import Image from 'next/image';
 import { PageHero } from '@/components/PageHero';
 import { CtaButton } from '@/components/CtaButton';
@@ -244,8 +245,10 @@ export default async function MaterialsPage() {
           <div className="mt-16 grid gap-px bg-cream/12 sm:grid-cols-2 lg:mt-24">
             {materialFamilies.map((f, i) => (
               <Reveal key={f.id} delay={Math.min(i, 4) * 50} className="bg-ink p-8 sm:p-10 lg:p-12">
+                {/* Цифра набирается, когда короб появляется на экране:
+                    595 плёнок — это величина, которую стоит заметить */}
                 <p className="font-display-light text-h2 leading-none text-cream">
-                  {f.count > 0 ? f.count : 'RAL'}
+                  {f.count > 0 ? <CountUp value={f.count} /> : 'RAL'}
                 </p>
                 <p className="label-xs mt-3 text-cream/60">
                   {f.count > 0 ? 'вариантов отделки' : 'любой цвет по вееру'}

@@ -23,7 +23,7 @@ export async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="grain relative bg-soot pb-24 pt-(--spacing-section) text-cream lg:pb-14">
+    <footer className="grain reeded plinth relative bg-soot pb-24 pt-(--spacing-section) text-cream lg:pb-14">
       <div className="container-page">
         {/* Подвал начинается не со списка ссылок, а с подписи: имя
             ателье крупной антиквой и телефон рядом. Так низ страницы
