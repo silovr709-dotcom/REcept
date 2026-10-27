@@ -120,7 +120,7 @@ export function SectionHeading({
         ) : null}
         <h2
           id={id}
-          className={`font-display-light mt-5 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+          className={`font-display-bold mt-5 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
         >
           {title}
         </h2>
@@ -150,7 +150,7 @@ export function SectionHeading({
         </div>
         <h2
           id={id}
-          className={`font-display-light mt-6 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+          className={`font-display-bold mt-6 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
         >
           {title}
         </h2>
@@ -181,7 +181,7 @@ export function SectionHeading({
       <div className="max-w-3xl">
         <h2
           id={id}
-          className={`font-display-light text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+          className={`font-display-bold text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
         >
           {title}
         </h2>

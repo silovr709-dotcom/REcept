@@ -53,22 +53,12 @@ export const sansLatin = localFont({
   ],
 });
 
-/**
- * Рукописное начертание — только для пометок на полях («четвёртая
- * стена»). Без предзагрузки: оно декоративное и находится далеко от
- * первого экрана, а до его появления текст виден системным курсивом.
+/*
+ * Рукописное начертание здесь больше не объявляется: заметки на полях
+ * набраны Marck Script, он приходит пакетом вместе с остальными и
+ * задан в теме переменной --font-hand-face. Два разных почерка на одном
+ * сайте выглядели бы как две разные руки.
  */
-export const hand = localFont({
-  src: '../fonts/caveat-notes.woff2',
-  weight: '600',
-  style: 'normal',
-  display: 'swap',
-  variable: '--font-hand-face',
-  preload: false,
-});
-
-export const fontVariables = [
-  sansCyrillic.variable,
-  sansLatin.variable,
-  hand.variable,
-].join(' ');
+export const fontVariables = [sansCyrillic.variable, sansLatin.variable].join(
+  ' ',
+);
