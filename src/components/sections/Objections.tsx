@@ -39,11 +39,11 @@ export async function Objections({
               delay={Math.min(i, 3) * 50}
               className="flex h-full flex-col border-t border-line pt-7"
             >
-              <p className="font-display text-[1.1875rem] leading-snug text-ink">
+              <p className="font-display text-big leading-snug text-ink">
                 «{o.fear}»
               </p>
               <div className="my-5" />
-              <p className="text-[0.9375rem] leading-relaxed text-stone">
+              <p className="text-ui leading-relaxed text-stone">
                 {o.answer}
               </p>
             </Reveal>
@@ -63,7 +63,7 @@ export async function Objections({
                   className="object-cover"
                 />
                 <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-12">
-                  <p className="text-[0.9375rem] font-semibold text-cream">
+                  <p className="text-ui font-semibold text-cream">
                     {d.title}
                   </p>
                 </figcaption>

@@ -208,17 +208,17 @@ function DocumentRow({
     <Panel as="li" className="grid gap-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="font-display text-[1.125rem] leading-snug text-ink">{doc.title}</p>
+          <p className="font-display text-big leading-snug text-ink">{doc.title}</p>
           {doc.description ? (
-            <p className="mt-1 text-[0.9375rem] leading-relaxed text-stone">{doc.description}</p>
+            <p className="mt-1 text-ui leading-relaxed text-stone">{doc.description}</p>
           ) : null}
           {current ? (
-            <p className="mt-2 text-[0.8125rem] text-stone">
+            <p className="mt-2 text-small text-stone">
               Версия {current.version} · {current.file_name} · {formatSize(current.size_bytes)} ·{' '}
               {formatDateTime(current.created_at)}
             </p>
           ) : (
-            <p className="mt-2 text-[0.8125rem] text-stone">Файл ещё не загружен</p>
+            <p className="mt-2 text-small text-stone">Файл ещё не загружен</p>
           )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -256,7 +256,7 @@ function DocumentRow({
         <ul className="grid gap-2 border-t border-line pt-3">
           {history.map((v) => (
             <li key={v.id} className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-[0.875rem] text-stone">
+              <span className="text-ui text-stone">
                 Версия {v.version} · {formatDateTime(v.created_at)}
                 {v.comment ? ` · ${v.comment}` : ''}
               </span>
@@ -378,7 +378,7 @@ function CreateDocumentModal({
             accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,.gif,.doc,.docx,.xls,.xlsx,.txt,.zip"
           />
         </Field>
-        <label className="flex items-start gap-3 text-[0.9375rem] text-ink">
+        <label className="flex items-start gap-3 text-ui text-ink">
           <input
             type="checkbox"
             checked={needsApproval}
@@ -387,7 +387,7 @@ function CreateDocumentModal({
           />
           Требуется согласование клиентом
         </label>
-        <label className="flex items-start gap-3 text-[0.9375rem] text-ink">
+        <label className="flex items-start gap-3 text-ui text-ink">
           <input type="checkbox" checked={publish} onChange={(e) => setPublish(e.target.checked)} className="mt-1" />
           Опубликовать сразу (клиент увидит документ)
         </label>

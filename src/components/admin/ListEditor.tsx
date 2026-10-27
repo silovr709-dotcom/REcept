@@ -173,7 +173,7 @@ function ItemFields({
         if (def.fields) {
           return (
             <div key={def.key} className="sm:col-span-2">
-              <p className="mb-2 text-[0.8125rem] font-semibold text-ink">
+              <p className="mb-2 text-small font-semibold text-ink">
                 {def.label}
               </p>
               <NestedList
@@ -188,7 +188,7 @@ function ItemFields({
         const wide = def.wide || def.type === 'textarea' || def.type === 'stringlist';
         return (
           <div key={def.key} className={wide ? 'sm:col-span-2' : ''}>
-            <p className="mb-1.5 text-[0.8125rem] font-semibold text-ink">
+            <p className="mb-1.5 text-small font-semibold text-ink">
               {def.label}
             </p>
             <FieldControl
@@ -321,7 +321,7 @@ export function ListEditor<T extends Item>({
                     className="flex min-w-0 flex-1 items-center gap-3 text-left"
                   >
                     <span className="text-xs font-bold text-stone">{i + 1}</span>
-                    <span className="truncate text-[0.9375rem] font-medium text-ink">
+                    <span className="truncate text-ui font-medium text-ink">
                       {itemTitle(item, i) || 'Без названия'}
                     </span>
                     <span
@@ -332,7 +332,7 @@ export function ListEditor<T extends Item>({
                     </span>
                   </button>
                 ) : (
-                  <span className="flex-1 text-[0.9375rem] font-medium text-ink">
+                  <span className="flex-1 text-ui font-medium text-ink">
                     {itemTitle(item, i)}
                   </span>
                 )}

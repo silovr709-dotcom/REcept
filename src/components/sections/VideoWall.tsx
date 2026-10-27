@@ -63,7 +63,7 @@ export async function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
                 />
                 <div className="mt-3 flex items-baseline justify-between gap-4">
                   <p
-                    className={`text-[0.9375rem] font-medium ${
+                    className={`text-ui font-medium ${
                       light ? 'text-cream/75' : 'text-ink'
                     }`}
                   >
@@ -74,7 +74,7 @@ export async function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
                   href={vkVideoLink(video.id)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`mt-1 inline-block text-[0.8125rem] underline decoration-gold/50 underline-offset-4 ${
+                  className={`mt-1 inline-block text-small underline decoration-gold/50 underline-offset-4 ${
                     light ? 'text-cream/60 hover:text-cream' : 'text-stone hover:text-ink'
                   }`}
                 >

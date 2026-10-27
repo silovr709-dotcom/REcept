@@ -59,7 +59,7 @@ export function FileViewer({
       }
     >
       <div className="grid gap-4">
-        <p className="text-[0.8125rem] text-stone">
+        <p className="text-small text-stone">
           {version.file_name} · {formatSize(version.size_bytes)} · загружен{' '}
           {formatDateTime(version.created_at)}
         </p>
@@ -130,7 +130,7 @@ export function DownloadButton({
       >
         {label}
       </Action>
-      {error ? <span className="text-[0.8125rem] text-ink">{error}</span> : null}
+      {error ? <span className="text-small text-ink">{error}</span> : null}
     </>
   );
 }

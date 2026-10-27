@@ -35,7 +35,7 @@ export default function NotFound() {
         </h1>
 
         <p
-          className="mt-7 max-w-xl font-(family-name:--font-hand) text-[1.5rem] leading-snug text-stone sm:text-[1.75rem]"
+          className="mt-7 max-w-xl font-(family-name:--font-hand) text-sub leading-snug text-stone sm:text-head"
           style={{ transform: 'rotate(-0.6deg)' }}
         >
           Зато кухни на месте — мы проверили.

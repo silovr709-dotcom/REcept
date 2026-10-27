@@ -78,7 +78,7 @@ export function CabinetShell({ children }: { children: ReactNode }) {
                     />
                   </svg>
                   {unread ? (
-                    <span className="absolute right-1.5 top-1.5 flex h-4 min-w-4 items-center justify-center bg-ink px-1 text-[0.5625rem] font-semibold text-cream">
+                    <span className="absolute right-1.5 top-1.5 flex h-4 min-w-4 items-center justify-center bg-ink px-1 text-caption font-semibold text-cream">
                       {unread}
                     </span>
                   ) : null}
@@ -91,15 +91,15 @@ export function CabinetShell({ children }: { children: ReactNode }) {
                     </p>
                     <div className="max-h-[60vh] overflow-y-auto">
                       {notifications.length === 0 ? (
-                        <p className="px-4 py-6 text-[0.9375rem] text-stone">Пока событий нет.</p>
+                        <p className="px-4 py-6 text-ui text-stone">Пока событий нет.</p>
                       ) : (
                         notifications.slice(0, 12).map((n) => (
                           <div key={n.id} className="border-b border-line px-4 py-3 last:border-0">
-                            <p className="text-[0.9375rem] leading-snug text-ink">{n.title}</p>
+                            <p className="text-ui leading-snug text-ink">{n.title}</p>
                             {n.body ? (
-                              <p className="mt-1 text-[0.8125rem] leading-snug text-stone">{n.body}</p>
+                              <p className="mt-1 text-small leading-snug text-stone">{n.body}</p>
                             ) : null}
-                            <p className="mt-1 text-[0.75rem] text-stone">{formatAgo(n.created_at)}</p>
+                            <p className="mt-1 text-small text-stone">{formatAgo(n.created_at)}</p>
                           </div>
                         ))
                       )}
@@ -111,7 +111,7 @@ export function CabinetShell({ children }: { children: ReactNode }) {
 
             <Link
               href="/"
-              className="hidden text-[0.8125rem] text-stone transition-colors hover:text-ink sm:inline"
+              className="hidden text-small text-stone transition-colors hover:text-ink sm:inline"
             >
               На сайт
             </Link>
@@ -139,7 +139,7 @@ export function CabinetShell({ children }: { children: ReactNode }) {
       <main className="container-page flex-1 py-8 sm:py-12">{children}</main>
 
       <footer className="border-t border-line bg-cream">
-        <div className="container-page flex flex-wrap items-center justify-between gap-3 py-6 text-[0.8125rem] text-stone">
+        <div className="container-page flex flex-wrap items-center justify-between gap-3 py-6 text-small text-stone">
           <p>
             {profile?.email ? `Вы вошли как ${profile.email}` : 'Личный кабинет «РЕцепт»'}
           </p>
@@ -170,7 +170,7 @@ export function NotConfigured() {
   return (
     <div className="mx-auto max-w-2xl py-10">
       <Panel>
-        <h1 className="font-display text-[1.75rem] leading-tight text-ink">
+        <h1 className="font-display text-head leading-tight text-ink">
           Кабинет ещё не подключён
         </h1>
         <p className="mt-4 text-body leading-relaxed text-stone">
@@ -180,10 +180,10 @@ export function NotConfigured() {
         </p>
         <p className="mt-4 text-body leading-relaxed text-stone">
           Владельцам: инструкция по подключению лежит в репозитории, файл{' '}
-          <code className="bg-sand px-1.5 py-0.5 text-[0.875rem] text-ink">supabase/README.md</code>.
+          <code className="bg-sand px-1.5 py-0.5 text-ui text-ink">supabase/README.md</code>.
           Нужно создать проект Supabase, выполнить миграцию и вписать два
           значения в{' '}
-          <code className="bg-sand px-1.5 py-0.5 text-[0.875rem] text-ink">public/kabinet-config.js</code>.
+          <code className="bg-sand px-1.5 py-0.5 text-ui text-ink">public/kabinet-config.js</code>.
         </p>
         <div className="mt-8">
           <Link

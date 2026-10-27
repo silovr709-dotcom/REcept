@@ -74,7 +74,7 @@ export async function Testimonials({
                   <p className="font-display text-[clamp(1.3rem,0.95rem+0.9vw,1.6rem)] leading-[1.3] text-ink">
                     {t.highlight}
                   </p>
-                  <blockquote className="mt-5 max-w-[62ch] text-[0.9375rem] leading-[1.7] text-stone">
+                  <blockquote className="mt-5 max-w-[62ch] text-ui leading-[1.7] text-stone">
                     {t.text}
                   </blockquote>
                   <footer className="mt-5 flex items-baseline gap-4">
@@ -82,7 +82,7 @@ export async function Testimonials({
                       {t.author ?? 'Без подписи'}
                     </p>
                     <span aria-hidden="true" className="h-px grow bg-line" />
-                    <p className="shrink-0 font-display text-[0.9375rem] text-stone">
+                    <p className="shrink-0 font-display text-ui text-stone">
                       {t.date}
                     </p>
                   </footer>
@@ -113,7 +113,7 @@ export async function Testimonials({
                     />
                   </span>
                 </span>
-                <span className="mt-4 block font-display text-[1.125rem] text-ink transition-colors group-hover:text-gold">
+                <span className="mt-4 block font-display text-big text-ink transition-colors group-hover:text-gold">
                   {sideShot.title}
                 </span>
                 <span className="label-xs mt-1.5 block text-stone">

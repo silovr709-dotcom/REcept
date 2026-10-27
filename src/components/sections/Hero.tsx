@@ -102,14 +102,15 @@ export async function Hero() {
                   className="group inline-flex flex-col gap-1"
                 >
                   <span className="label-xs text-goldsoft">Это мы</span>
-                  <span className="font-display text-[1.25rem] leading-none text-cream transition-colors group-hover:text-goldsoft sm:text-[1.375rem]">
+                  <span className="font-display text-sub leading-none text-cream transition-colors group-hover:text-goldsoft sm:text-sub">
                     {names}
                   </span>
                 </Link>
-                <p className="text-right text-[0.6875rem] leading-snug tracking-[0.04em] text-cream/55">
-                  Ведут проект
-                  <br />
-                  лично
+                {/* На телефоне подпись пряталась в угол и ломалась на две
+                    строки — выглядела как обрывок. Теперь она появляется
+                    только там, где помещается в строку целиком */}
+                <p className="hidden whitespace-nowrap text-right text-caption leading-snug tracking-[0.04em] text-cream/65 sm:block">
+                  Ведут проект лично
                 </p>
               </div>
 
@@ -117,7 +118,7 @@ export async function Hero() {
                   которая ничего не объясняет, но задаёт тон */}
               <p
                 aria-hidden="true"
-                className="absolute right-[-1.25rem] top-1/2 hidden -translate-y-1/2 [writing-mode:vertical-rl] text-[0.5625rem] uppercase tracking-[0.32em] text-cream/30 xl:block"
+                className="absolute right-[-1.25rem] top-1/2 hidden -translate-y-1/2 [writing-mode:vertical-rl] text-caption uppercase tracking-[0.32em] text-cream/30 xl:block"
               >
                 Тверь · своё производство
               </p>
@@ -176,14 +177,14 @@ export async function Hero() {
                 </ButtonLink>
               </div>
 
-              <p className="mt-4 max-w-md text-[0.8125rem] leading-relaxed text-cream/60">
+              <p className="mt-4 max-w-md text-small leading-relaxed text-cream/60">
                 {hero.reassurance}
               </p>
 
               {/* Третья дверь: часть людей не станет заполнять форму
                   ни при каких условиях, им проще один раз позвонить */}
               {primaryPhone ? (
-                <p className="mt-2 text-[0.8125rem] text-cream/60">
+                <p className="mt-2 text-small text-cream/60">
                   Или просто позвоните:{' '}
                   <a
                     href={`tel:${primaryPhone.raw}`}
@@ -199,10 +200,10 @@ export async function Hero() {
               <dl className="mt-8 grid grid-cols-3 gap-x-6 gap-y-4 border-t border-cream/15 pt-5 sm:gap-x-10 lg:mt-9">
                 {facts.map((item) => (
                   <div key={item.small} className="flex flex-col-reverse gap-1">
-                    <dd className="max-w-[16ch] text-[0.6875rem] leading-[1.45] tracking-[0.03em] text-cream/70">
+                    <dd className="max-w-[16ch] text-caption leading-[1.45] tracking-[0.03em] text-cream/70">
                       {item.small}
                     </dd>
-                    <dt className="font-display text-[1.375rem] leading-none text-goldsoft sm:text-[1.5rem]">
+                    <dt className="font-display text-sub leading-none text-goldsoft sm:text-sub">
                       {item.big}
                     </dt>
                   </div>
@@ -222,8 +223,8 @@ export async function Hero() {
             <RatingBadge tone="light" />
 
             {hero.stats.slice(3).map((item) => (
-              <p key={item.small} className="max-w-64 text-[0.8125rem] text-cream/70">
-                <span className="mr-2 font-display text-[1.125rem] text-goldsoft">
+              <p key={item.small} className="max-w-64 text-small text-cream/70">
+                <span className="mr-2 font-display text-big text-goldsoft">
                   {item.big}
                 </span>
                 {item.small}
@@ -235,7 +236,7 @@ export async function Hero() {
               className="group ml-auto inline-flex items-baseline gap-3 max-sm:ml-0"
             >
               <span className="label-xs text-cream/55">Это мы</span>
-              <span className="font-display text-[1.125rem] text-cream transition-colors group-hover:text-goldsoft">
+              <span className="font-display text-big text-cream transition-colors group-hover:text-goldsoft">
                 {names}
               </span>
               <span aria-hidden="true" className="text-goldsoft">

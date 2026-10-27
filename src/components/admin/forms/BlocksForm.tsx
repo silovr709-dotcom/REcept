@@ -110,7 +110,7 @@ export function BlocksForm({ texts }: { texts: TextsContent }) {
 
           <div className="mt-5 grid gap-6 lg:grid-cols-2">
             <div>
-              <p className="mb-2 text-[0.8125rem] font-semibold text-ink">Абзацы</p>
+              <p className="mb-2 text-small font-semibold text-ink">Абзацы</p>
               <ListEditor
                 name="json:price.body"
                 initial={texts.price.body.map((t) => ({ text: t }))}
@@ -122,7 +122,7 @@ export function BlocksForm({ texts }: { texts: TextsContent }) {
               />
             </div>
             <div>
-              <p className="mb-2 text-[0.8125rem] font-semibold text-ink">
+              <p className="mb-2 text-small font-semibold text-ink">
                 Что входит бесплатно
               </p>
               <ListEditor
@@ -138,7 +138,7 @@ export function BlocksForm({ texts }: { texts: TextsContent }) {
           </div>
 
           <div className="mt-6">
-            <p className="mb-2 text-[0.8125rem] font-semibold text-ink">
+            <p className="mb-2 text-small font-semibold text-ink">
               Из чего складывается стоимость
             </p>
             <ListEditor

@@ -210,13 +210,13 @@ export default async function MaterialsPage() {
                   ) : null}
 
                   <div className="flex grow flex-col p-8 sm:p-9">
-                    <span className="self-start border-l border-gold pl-2.5 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-gold">
+                    <span className="self-start border-l border-gold pl-2.5 text-caption font-bold uppercase tracking-[0.18em] text-gold">
                       {f.tag}
                     </span>
-                    <h3 className="font-display mt-4 text-[1.1875rem] text-ink">
+                    <h3 className="font-display mt-4 text-big text-ink">
                       {f.title}
                     </h3>
-                    <p className="mt-3 text-[0.9375rem] leading-relaxed text-stone">
+                    <p className="mt-3 text-ui leading-relaxed text-stone">
                       {f.text}
                     </p>
                   </div>
@@ -250,19 +250,19 @@ export default async function MaterialsPage() {
                 <p className="label-xs mt-3 text-cream/60">
                   {f.count > 0 ? 'вариантов отделки' : 'любой цвет по вееру'}
                 </p>
-                <h3 className="font-display mt-7 text-[1.1875rem] text-cream">
+                <h3 className="font-display mt-7 text-big text-cream">
                   {f.title}
                 </h3>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-cream/65">
+                <p className="mt-3 text-ui leading-relaxed text-cream/65">
                   {f.text}
                 </p>
                 {f.brands.length > 0 ? (
-                  <p className="mt-4 text-[0.875rem] text-cream/60">
+                  <p className="mt-4 text-ui text-cream/60">
                     Производители: {f.brands.join(', ')}
                   </p>
                 ) : null}
                 {f.caveat ? (
-                  <p className="mt-4 border-t border-cream/12 pt-4 text-[0.875rem] leading-relaxed text-cream/55">
+                  <p className="mt-4 border-t border-cream/12 pt-4 text-ui leading-relaxed text-cream/55">
                     {f.caveat}
                   </p>
                 ) : null}
@@ -291,18 +291,18 @@ export default async function MaterialsPage() {
                 className="flex h-full flex-col bg-bone p-8 sm:p-10"
               >
                 <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-display text-[1.1875rem] text-ink">
+                  <h3 className="font-display text-big text-ink">
                     {h.title}
                   </h3>
                   <span className="label-xs shrink-0 text-stone">
                     {h.count}
                   </span>
                 </div>
-                <p className="mt-3 grow text-[0.9375rem] leading-relaxed text-stone">
+                <p className="mt-3 grow text-ui leading-relaxed text-stone">
                   {h.text}
                 </p>
                 {h.brands.length > 0 ? (
-                  <p className="mt-5 border-t border-line pt-4 text-[0.875rem] text-stone">
+                  <p className="mt-5 border-t border-line pt-4 text-ui text-stone">
                     <span className="text-ink">Работаем с:</span>{' '}
                     {h.brands.join(' · ')}
                   </p>
@@ -376,7 +376,7 @@ export default async function MaterialsPage() {
                     />
                   </div>
                   <div className="flex items-baseline justify-between gap-4 px-6 pb-6">
-                    <h3 className="font-display text-[1.1875rem] text-ink">
+                    <h3 className="font-display text-big text-ink">
                       {m.name}
                     </h3>
                     <span className="label-xs shrink-0 text-stone">
@@ -393,7 +393,7 @@ export default async function MaterialsPage() {
               <ButtonLink href="/frezerovki" variant="outline" size="md" withArrow>
                 Весь каталог фрезеровок
               </ButtonLink>
-              <p className="text-[0.9375rem] text-stone">
+              <p className="text-ui text-stone">
                 {millings.length} рисунков в четырёх категориях — с выкрасками и
                 кадрами целых кухонь.
               </p>
@@ -401,7 +401,7 @@ export default async function MaterialsPage() {
           </Reveal>
 
           <Reveal className="mt-12">
-            <p className="max-w-2xl text-[0.9375rem] leading-relaxed text-stone">
+            <p className="max-w-2xl text-ui leading-relaxed text-stone">
               Категория — это сложность рисунка: чем она выше, тем дороже
               обходится фасад. Разброс между первой и четвёртой заметный, и
               на большой кухне выбор фрезеровки влияет на смету не меньше,
@@ -471,15 +471,15 @@ export default async function MaterialsPage() {
                 {countertopLines.map((c) => (
                   <div key={c.id} className="bg-cream p-5">
                     <div className="flex items-baseline justify-between gap-3">
-                      <h3 className="font-display text-[1.0625rem] text-ink">
+                      <h3 className="font-display text-big text-ink">
                         {c.title}
                       </h3>
                       <span className="label-xs text-stone">{c.count}</span>
                     </div>
-                    <p className="mt-2.5 text-[0.875rem] leading-relaxed text-stone">
+                    <p className="mt-2.5 text-ui leading-relaxed text-stone">
                       {c.text}
                     </p>
-                    <p className="mt-3 text-[0.8125rem] text-stone">
+                    <p className="mt-3 text-small text-stone">
                       {c.brands.join(', ')}
                     </p>
                   </div>
@@ -497,7 +497,7 @@ export default async function MaterialsPage() {
                     />
                     <div>
                       <dt className="font-semibold text-ink">{t.title}</dt>
-                      <dd className="mt-1.5 text-[0.9375rem] leading-relaxed text-stone">
+                      <dd className="mt-1.5 text-ui leading-relaxed text-stone">
                         {t.text}
                       </dd>
                     </div>
@@ -525,14 +525,14 @@ export default async function MaterialsPage() {
                     key={w.title}
                     className="rounded-lg border border-cream/12 bg-cream/[0.03] p-6"
                   >
-                    <h3 className="font-display text-[1.125rem] text-cream">
+                    <h3 className="font-display text-big text-cream">
                       {w.title}
                     </h3>
                     <ul className="mt-4 grid gap-3">
                       {w.items.map((item) => (
                         <li
                           key={item}
-                          className="flex gap-3 text-[0.9375rem] leading-relaxed text-cream/65"
+                          className="flex gap-3 text-ui leading-relaxed text-cream/65"
                         >
                           <span
                             aria-hidden="true"

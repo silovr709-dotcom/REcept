@@ -43,7 +43,7 @@ export function ImagePicker({
 
   return (
     <div>
-      <p className="mb-1.5 text-[0.8125rem] font-semibold text-ink">{label}</p>
+      <p className="mb-1.5 text-small font-semibold text-ink">{label}</p>
 
       <div className="flex flex-wrap items-start gap-4">
         <div className="relative h-28 w-40 shrink-0 overflow-hidden rounded-lg border border-line bg-bone">

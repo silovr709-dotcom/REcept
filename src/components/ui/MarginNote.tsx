@@ -60,14 +60,14 @@ export function MarginNote({
       />
 
       <p
-        className={`mt-4 font-(family-name:--font-hand) text-[1.375rem] leading-[1.35] sm:text-[1.5rem] ${ink}`}
+        className={`mt-4 font-(family-name:--font-hand) text-sub leading-[1.35] sm:text-sub ${ink}`}
         style={{ transform: 'rotate(-0.6deg)' }}
       >
         {children}
       </p>
 
       <p
-        className={`mt-2 font-(family-name:--font-hand) text-[1.125rem] ${sign}`}
+        className={`mt-2 font-(family-name:--font-hand) text-big ${sign}`}
         style={{ transform: 'rotate(-0.6deg)' }}
       >
         — {author}

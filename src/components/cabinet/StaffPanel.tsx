@@ -86,7 +86,7 @@ export function StaffPanel({ selfId }: { selfId: string }) {
       {error ? <Notice tone="error">{error}</Notice> : null}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-[0.9375rem] text-stone">
+        <p className="text-ui text-stone">
           Людей с доступом к панели: {list.length}
         </p>
         <Action variant="primary" onClick={() => setAddOpen(true)}>
@@ -103,10 +103,10 @@ export function StaffPanel({ selfId }: { selfId: string }) {
             return (
               <Panel as="li" key={person.id} className="flex flex-wrap items-center justify-between gap-4">
                 <div className="min-w-0">
-                  <p className="font-display text-[1.125rem] leading-snug text-ink">
+                  <p className="font-display text-big leading-snug text-ink">
                     {person.full_name?.trim() || person.email || 'Без имени'}
                   </p>
-                  <p className="mt-1 text-[0.8125rem] text-stone">
+                  <p className="mt-1 text-small text-stone">
                     {person.email}
                     {self ? ' · это вы' : ''}
                   </p>
@@ -118,7 +118,7 @@ export function StaffPanel({ selfId }: { selfId: string }) {
                   </Pill>
 
                   {self ? (
-                    <span className="text-[0.8125rem] text-stone">
+                    <span className="text-small text-stone">
                       свои права не меняются
                     </span>
                   ) : (

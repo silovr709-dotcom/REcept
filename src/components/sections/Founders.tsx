@@ -112,7 +112,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                         // подпись Кати не влезает в одну строку, и при
                         // якоре снизу вторая строка уезжала вверх,
                         // на лицо. Теперь она растёт вниз, в поле.
-                        className="absolute left-4 right-0 top-[calc(100%-1.75rem)] origin-left font-(family-name:--font-hand) text-[1.375rem] leading-snug text-ink sm:left-6 sm:text-[1.5rem]"
+                        className="absolute left-4 right-0 top-[calc(100%-1.75rem)] origin-left font-(family-name:--font-hand) text-sub leading-snug text-ink sm:left-6 sm:text-sub"
                         style={{ transform: 'rotate(-1.2deg)' }}
                       >
                         <span className="bg-bone/90 box-decoration-clone px-2 py-0.5">
@@ -142,7 +142,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                   {phone ? (
                     <a
                       href={`tel:${phone.raw}`}
-                      className="font-display text-[1.25rem] text-ink transition-colors hover:text-gold"
+                      className="font-display text-sub text-ink transition-colors hover:text-gold"
                     >
                       {phone.display}
                     </a>

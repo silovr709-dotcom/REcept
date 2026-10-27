@@ -79,10 +79,10 @@ export function MessagesSection({
     <div className="grid gap-8">
       <Panel className="grid gap-5">
         <div>
-          <p className="font-display text-[1.125rem] text-ink">
+          <p className="font-display text-big text-ink">
             {replyTo ? 'Ответ на обращение' : staff ? 'Написать клиенту' : 'Задать вопрос по проекту'}
           </p>
-          <p className="mt-1 text-[0.9375rem] leading-relaxed text-stone">
+          <p className="mt-1 text-ui leading-relaxed text-stone">
             {staff
               ? 'Сообщение появится у клиента в кабинете.'
               : 'Вопрос придёт Роберту и Кате. Отвечаем в рабочее время — ответ появится здесь же, в кабинете.'}
@@ -155,9 +155,9 @@ export function MessagesSection({
                     </p>
                     <p className="mt-2 whitespace-pre-line text-body leading-relaxed text-ink">{root.body}</p>
                     {linked ? (
-                      <p className="mt-2 text-[0.8125rem] text-stone">К документу: {linked.title}</p>
+                      <p className="mt-2 text-small text-stone">К документу: {linked.title}</p>
                     ) : null}
-                    <p className="mt-2 text-[0.8125rem] text-stone">{personName(root.profiles, 'Клиент')}</p>
+                    <p className="mt-2 text-small text-stone">{personName(root.profiles, 'Клиент')}</p>
                   </div>
                   <Pill tone={toneOf(root.status)}>{messageStatusLabel[root.status]}</Pill>
                 </div>
@@ -166,10 +166,10 @@ export function MessagesSection({
                   <ul className="grid gap-3 border-l-2 border-line pl-4">
                     {replies.map((r) => (
                       <li key={r.id}>
-                        <p className="text-[0.8125rem] text-stone">
+                        <p className="text-small text-stone">
                           {r.from_staff ? 'Ответ «РЕцепт»' : 'Клиент'} · {formatDateTime(r.created_at)}
                         </p>
-                        <p className="mt-1 whitespace-pre-line text-[0.9375rem] leading-relaxed text-ink">
+                        <p className="mt-1 whitespace-pre-line text-ui leading-relaxed text-ink">
                           {r.body}
                         </p>
                       </li>

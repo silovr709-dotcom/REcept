@@ -40,7 +40,7 @@ export default async function AdminLeadsPage() {
 
   return (
     <div>
-      <h1 className="font-display text-[1.75rem] text-ink sm:text-[2.125rem]">
+      <h1 className="font-display text-head text-ink sm:text-title">
         Заявки с сайта
       </h1>
       <p className="mt-2 max-w-3xl text-stone">
@@ -56,11 +56,11 @@ export default async function AdminLeadsPage() {
         }`}
       >
         {mailConfigured ? (
-          <p className="text-[0.9375rem] text-ink">
+          <p className="text-ui text-ink">
             Почта настроена — заявки уходят письмом и дублируются здесь.
           </p>
         ) : (
-          <div className="text-[0.9375rem] text-ink">
+          <div className="text-ui text-ink">
             <p className="font-semibold">Почта пока не настроена</p>
             <p className="mt-1.5 text-stone">
               Заявки не теряются и сохраняются в этот журнал, но письмо вам не
@@ -83,7 +83,7 @@ export default async function AdminLeadsPage() {
               className="rounded-xl border border-line bg-cream p-5"
             >
               <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <p className="font-display text-[1.25rem] text-ink">
+                <p className="font-display text-sub text-ink">
                   {lead.name || 'Без имени'}
                 </p>
                 <p className="text-sm text-stone">{lead.receivedAt}</p>
@@ -97,7 +97,7 @@ export default async function AdminLeadsPage() {
                         ? `mailto:${lead.contact}`
                         : `tel:${lead.contact.replace(/[^\d+]/g, '')}`
                     }
-                    className="text-[1.0625rem] font-semibold text-ink underline decoration-gold/50 underline-offset-4"
+                    className="text-big font-semibold text-ink underline decoration-gold/50 underline-offset-4"
                   >
                     {lead.contact}
                   </a>
@@ -105,7 +105,7 @@ export default async function AdminLeadsPage() {
               ) : null}
 
               {lead.message ? (
-                <p className="mt-3 whitespace-pre-line text-[0.9375rem] text-stone">
+                <p className="mt-3 whitespace-pre-line text-ui text-stone">
                   {lead.message}
                 </p>
               ) : null}

@@ -42,7 +42,7 @@ export function AccountPanel() {
           <p className="mt-2 text-body text-ink">
             {profile.full_name?.trim() || 'Имя не указано'}
           </p>
-          <p className="mt-1 text-[0.8125rem] text-stone">
+          <p className="mt-1 text-small text-stone">
             {profile.email} · роль: {roleLabel}
             {profile.phone ? ` · ${profile.phone}` : ''}
           </p>
@@ -146,7 +146,7 @@ function ProfileModal({
           autoComplete="tel"
           inputMode="tel"
         />
-        <p className="text-[0.8125rem] leading-relaxed text-stone">
+        <p className="text-small leading-relaxed text-stone">
           Почта входа не меняется здесь: чтобы её заменить, напишите нам — так
           никто не сможет тихо увести чужой доступ.
         </p>
@@ -226,7 +226,7 @@ function PasswordModal({
           onChange={(e) => setRepeat(e.target.value)}
           autoComplete="new-password"
         />
-        <p className="text-[0.8125rem] leading-relaxed text-stone">
+        <p className="text-small leading-relaxed text-stone">
           Пароль уходит напрямую в службу входа. Сайт его не видит, не
           пересылает и нигде не сохраняет.
         </p>

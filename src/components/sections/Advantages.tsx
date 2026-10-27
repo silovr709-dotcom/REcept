@@ -68,10 +68,10 @@ export async function Advantages({
               delay={Math.min(i, 4) * 50}
               className="flex h-full flex-col border-t border-line pt-7"
             >
-              <h3 className="font-display text-[1.1875rem] text-ink">
+              <h3 className="font-display text-big text-ink">
                 {adv.title}
               </h3>
-              <p className="mt-3 text-[0.9375rem] leading-relaxed text-stone">
+              <p className="mt-3 text-ui leading-relaxed text-stone">
                 {adv.benefit}
               </p>
             </Reveal>
@@ -91,10 +91,10 @@ export async function Advantages({
                   className="object-cover"
                 />
                 <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-12">
-                  <p className="text-[0.9375rem] font-semibold text-cream">
+                  <p className="text-ui font-semibold text-cream">
                     {d.title}
                   </p>
-                  <p className="mt-0.5 text-[0.8125rem] text-cream/70">{d.note}</p>
+                  <p className="mt-0.5 text-small text-cream/70">{d.note}</p>
                 </figcaption>
               </figure>
             </Reveal>

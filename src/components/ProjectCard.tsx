@@ -54,10 +54,10 @@ export function ProjectCard({
       <div className="mt-4 flex items-start justify-between gap-4 border-t border-line pt-4">
         <div>
           <p className="label-xs text-clay">{project.layout}</p>
-          <h3 className="font-display mt-2 text-[1.125rem] text-ink transition-colors group-hover:text-gold sm:text-[1.25rem]">
+          <h3 className="font-display mt-2 text-big text-ink transition-colors group-hover:text-gold sm:text-sub">
             {project.title}
           </h3>
-          <p className="mt-1.5 text-[0.875rem] leading-snug text-stone">
+          <p className="mt-1.5 text-ui leading-snug text-stone">
             {project.summary}
           </p>
         </div>

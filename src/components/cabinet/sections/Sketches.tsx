@@ -84,8 +84,8 @@ export function SketchesSection({
 
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="font-display text-[1.125rem] leading-snug text-ink">{doc.title}</p>
-                  <p className="mt-1 text-[0.8125rem] text-stone">
+                  <p className="font-display text-big leading-snug text-ink">{doc.title}</p>
+                  <p className="mt-1 text-small text-stone">
                     {version ? `Версия ${version.version} · ${formatDateTime(version.created_at)}` : 'Файл не загружен'}
                   </p>
                 </div>
@@ -93,11 +93,11 @@ export function SketchesSection({
               </div>
 
               {doc.description ? (
-                <p className="text-[0.9375rem] leading-relaxed text-stone">{doc.description}</p>
+                <p className="text-ui leading-relaxed text-stone">{doc.description}</p>
               ) : null}
 
               {version?.comment ? (
-                <p className="border-l-2 border-line pl-3 text-[0.9375rem] leading-relaxed text-stone">
+                <p className="border-l-2 border-line pl-3 text-ui leading-relaxed text-stone">
                   {version.comment}
                 </p>
               ) : null}
@@ -146,14 +146,14 @@ export function SketchesSection({
 
               {docApprovals.length ? (
                 <details className="border-t border-line pt-3">
-                  <summary className="cursor-pointer text-[0.8125rem] text-stone">
+                  <summary className="cursor-pointer text-small text-stone">
                     История решений ({docApprovals.length})
                   </summary>
                   <ul className="mt-3 grid gap-2">
                     {docApprovals.map((a) => {
                       const v = versions.find((x) => x.id === a.version_id);
                       return (
-                        <li key={a.id} className="text-[0.8125rem] leading-snug text-stone">
+                        <li key={a.id} className="text-small leading-snug text-stone">
                           {a.decision === 'approved' ? 'Согласовано' : 'Запрошены изменения'} ·
                           версия {v?.version ?? '—'} · {formatDateTime(a.created_at)} ·{' '}
                           {personName(a.profiles, 'Клиент')}
@@ -270,7 +270,7 @@ function CompareModal({ doc, onClose }: { doc: Doc | null; onClose: () => void }
                 id={id}
                 value={side.value}
                 onChange={(e) => side.set(e.target.value)}
-                className="w-full rounded-none border border-line bg-bone px-3 py-2 text-[0.9375rem] text-ink focus:border-ink focus:outline-none"
+                className="w-full rounded-none border border-line bg-bone px-3 py-2 text-ui text-ink focus:border-ink focus:outline-none"
               >
                 {versions.map((v) => (
                   <option key={v.id} value={v.id}>
@@ -282,7 +282,7 @@ function CompareModal({ doc, onClose }: { doc: Doc | null; onClose: () => void }
                 <>
                   <SketchPreview version={version} title={doc.title} onOpen={() => undefined} />
                   {version.comment ? (
-                    <p className="text-[0.8125rem] leading-snug text-stone">{version.comment}</p>
+                    <p className="text-small leading-snug text-stone">{version.comment}</p>
                   ) : null}
                   <DownloadButton version={version} size="sm" variant="quiet" />
                 </>
@@ -355,8 +355,8 @@ function DecisionModal({
           <p className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-stone">
             Вы подтверждаете
           </p>
-          <p className="mt-2 font-display text-[1.125rem] text-ink">{state.doc.title}</p>
-          <p className="mt-1 text-[0.875rem] text-stone">
+          <p className="mt-2 font-display text-big text-ink">{state.doc.title}</p>
+          <p className="mt-1 text-ui text-stone">
             Версия {state.version.version} · файл {state.version.file_name} · загружен{' '}
             {formatDateTime(state.version.created_at)}
           </p>

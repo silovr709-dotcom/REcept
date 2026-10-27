@@ -120,10 +120,10 @@ export default async function MillingsPage() {
                 className="border-t border-goldline/45 pt-6"
               >
                 <p className="label-xs text-gold">{item.index}</p>
-                <h3 className="font-display mt-5 text-[1.25rem] leading-snug text-ink">
+                <h3 className="font-display mt-5 text-sub leading-snug text-ink">
                   {item.title}
                 </h3>
-                <p className="mt-4 text-[0.9375rem] leading-relaxed text-stone">
+                <p className="mt-4 text-ui leading-relaxed text-stone">
                   {item.text}
                 </p>
               </Reveal>
@@ -214,7 +214,7 @@ export default async function MillingsPage() {
 
                         <div className="flex grow flex-col p-6 sm:p-7">
                           <div className="flex items-baseline justify-between gap-4">
-                            <h3 className="font-display text-[1.1875rem] text-ink">
+                            <h3 className="font-display text-big text-ink">
                               {m.name}
                             </h3>
                             <span className="label-xs shrink-0 text-stone">
@@ -223,12 +223,12 @@ export default async function MillingsPage() {
                           </div>
 
                           {room ? (
-                            <p className="mt-3 text-[0.9375rem] leading-relaxed text-stone">
+                            <p className="mt-3 text-ui leading-relaxed text-stone">
                               {room.caption}
                             </p>
                           ) : null}
 
-                          <dl className="mt-5 flex flex-wrap gap-x-5 gap-y-1.5 text-[0.8125rem] text-stone">
+                          <dl className="mt-5 flex flex-wrap gap-x-5 gap-y-1.5 text-small text-stone">
                             <div className="flex gap-1.5">
                               <dt className="sr-only">Покрытие</dt>
                               <dd>
@@ -301,10 +301,10 @@ export default async function MillingsPage() {
             </div>
 
             <div className="flex flex-col justify-end border-l border-cream/15 pl-8 lg:pl-12">
-              <p className="font-display text-[1.375rem] leading-snug text-cream">
+              <p className="font-display text-sub leading-snug text-cream">
                 Не угадывайте рисунок по названию
               </p>
-              <p className="mt-4 text-[0.9375rem] leading-relaxed text-cream/70">
+              <p className="mt-4 text-ui leading-relaxed text-cream/70">
                 Назовите два-три варианта, которые приглянулись, — привезём
                 образцы на замер и приложим их к вашему цвету. Расчёт и проект
                 бесплатные.

@@ -70,7 +70,7 @@ export function NotesSection({
             </Action>
           </div>
         ) : (
-          <p className="text-[0.9375rem] text-stone">
+          <p className="text-ui text-stone">
             Здесь мы фиксируем всё, о чём договорились, — чтобы не искать в переписке.
           </p>
         )}
@@ -92,16 +92,16 @@ export function NotesSection({
           {visible.map((note) => (
             <Panel as="li" key={note.id} className="grid gap-2">
               <div className="flex flex-wrap items-start justify-between gap-3">
-                <p className="font-display text-[1.0625rem] leading-snug text-ink">{note.title}</p>
+                <p className="font-display text-big leading-snug text-ink">{note.title}</p>
                 <div className="flex flex-wrap items-center gap-2">
                   {note.category ? <Pill>{note.category}</Pill> : null}
                   {note.visibility === 'internal' ? <Pill tone="wait">Только для нас</Pill> : null}
                 </div>
               </div>
               {note.body ? (
-                <p className="whitespace-pre-line text-[0.9375rem] leading-relaxed text-stone">{note.body}</p>
+                <p className="whitespace-pre-line text-ui leading-relaxed text-stone">{note.body}</p>
               ) : null}
-              <p className="text-[0.8125rem] text-stone">
+              <p className="text-small text-stone">
                 {formatDateTime(note.created_at)} · {personName(note.profiles)}
               </p>
               {staff ? (

@@ -94,7 +94,7 @@ export default async function FurniturePage() {
                 <p className="mt-3 max-w-lg text-stone">{room.text}</p>
                 <ul className="mt-6 grid gap-2.5 border-t border-line pt-5">
                   {room.points.map((point) => (
-                    <li key={point} className="flex gap-3 text-[0.9375rem] text-stone">
+                    <li key={point} className="flex gap-3 text-ui text-stone">
                       <span
                         aria-hidden="true"
                         className="mt-2.5 size-1 shrink-0 rounded-full bg-ink/40"

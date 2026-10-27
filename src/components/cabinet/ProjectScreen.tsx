@@ -91,13 +91,13 @@ export function ProjectScreen({ projectId }: { projectId: string }) {
     <div className="grid gap-8">
       <header className="grid gap-4">
         <div className="flex flex-wrap items-center gap-3">
-          <Link href="/kabinet" className="text-[0.8125rem] text-stone transition-colors hover:text-ink">
+          <Link href="/kabinet" className="text-small text-stone transition-colors hover:text-ink">
             ← Все проекты
           </Link>
           {isStaff ? (
             <Link
               href={`/kabinet/admin/proekt?id=${project.id}`}
-              className="text-[0.8125rem] text-stone transition-colors hover:text-ink"
+              className="text-small text-stone transition-colors hover:text-ink"
             >
               Открыть в панели
             </Link>
@@ -247,11 +247,11 @@ function Overview({
               <p className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-stone">
                 Текущий этап
               </p>
-              <p className="mt-2 font-display text-[1.25rem] leading-snug text-ink">
+              <p className="mt-2 font-display text-sub leading-snug text-ink">
                 {stage ? stage.name : 'Этапы ещё не заданы'}
               </p>
               {stage ? (
-                <p className="mt-1 text-[0.875rem] text-stone">
+                <p className="mt-1 text-ui text-stone">
                   {stageStatusLabel[stage.status]} · план:{' '}
                   {stage.planned_on ? formatDate(stage.planned_on) : 'дата уточняется'}
                 </p>
@@ -262,7 +262,7 @@ function Overview({
                 Последнее обновление
               </p>
               <p className="mt-2 text-body text-ink">{formatDateTime(project.updated_at)}</p>
-              <p className="mt-1 text-[0.875rem] text-stone">{formatAgo(project.updated_at)}</p>
+              <p className="mt-1 text-ui text-stone">{formatAgo(project.updated_at)}</p>
             </div>
             {project.address && project.show_address ? (
               <div>
@@ -277,7 +277,7 @@ function Overview({
           </div>
 
           {stage?.client_comment ? (
-            <p className="border-l-2 border-line pl-4 text-[0.9375rem] leading-relaxed text-stone">
+            <p className="border-l-2 border-line pl-4 text-ui leading-relaxed text-stone">
               {stage.client_comment}
             </p>
           ) : null}
@@ -285,13 +285,13 @@ function Overview({
 
         <section className="grid gap-4">
           <div className="flex items-end justify-between gap-4">
-            <h2 className="font-display text-[1.25rem] text-ink">Последние документы</h2>
+            <h2 className="font-display text-sub text-ink">Последние документы</h2>
             <Action size="sm" variant="quiet" onClick={() => onGo('documents')}>
               Все документы
             </Action>
           </div>
           {recent.length === 0 ? (
-            <p className="text-[0.9375rem] text-stone">
+            <p className="text-ui text-stone">
               Документы появятся здесь сразу после публикации — просить их не нужно.
             </p>
           ) : (
@@ -302,7 +302,7 @@ function Overview({
                   <li key={doc.id} className="flex flex-wrap items-center justify-between gap-3 bg-cream p-4">
                     <div className="min-w-0">
                       <p className="text-body text-ink">{doc.title}</p>
-                      <p className="mt-1 text-[0.8125rem] text-stone">
+                      <p className="mt-1 text-small text-stone">
                         {docCategoryLabel[doc.category]}
                         {version ? ` · версия ${version.version} · ${formatAgo(version.created_at)}` : ''}
                       </p>
@@ -318,17 +318,17 @@ function Overview({
         {lastNote ? (
           <section className="grid gap-3">
             <div className="flex items-end justify-between gap-4">
-              <h2 className="font-display text-[1.25rem] text-ink">Последняя договорённость</h2>
+              <h2 className="font-display text-sub text-ink">Последняя договорённость</h2>
               <Action size="sm" variant="quiet" onClick={() => onGo('notes')}>
                 Вся история
               </Action>
             </div>
             <Panel>
-              <p className="font-display text-[1.0625rem] text-ink">{lastNote.title}</p>
+              <p className="font-display text-big text-ink">{lastNote.title}</p>
               {lastNote.body ? (
-                <p className="mt-2 text-[0.9375rem] leading-relaxed text-stone">{lastNote.body}</p>
+                <p className="mt-2 text-ui leading-relaxed text-stone">{lastNote.body}</p>
               ) : null}
-              <p className="mt-2 text-[0.8125rem] text-stone">{formatDateTime(lastNote.created_at)}</p>
+              <p className="mt-2 text-small text-stone">{formatDateTime(lastNote.created_at)}</p>
             </Panel>
           </section>
         ) : null}
@@ -348,7 +348,7 @@ function Overview({
                 key={item.key}
                 type="button"
                 onClick={() => onGo(item.key)}
-                className="flex items-center justify-between border border-line bg-bone px-4 py-3 text-left text-[0.9375rem] text-ink transition-colors hover:border-ink"
+                className="flex items-center justify-between border border-line bg-bone px-4 py-3 text-left text-ui text-ink transition-colors hover:border-ink"
               >
                 {item.label}
                 <span aria-hidden="true">→</span>
@@ -361,14 +361,14 @@ function Overview({
           <p className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-stone">
             Ваш проект ведут
           </p>
-          <p className="text-[0.9375rem] leading-relaxed text-stone">
+          <p className="text-ui leading-relaxed text-stone">
             Роберт и Катя. Вопрос по проекту лучше задать прямо здесь — он
             сохранится в истории вместе с ответом.
           </p>
           <Action variant="primary" onClick={() => onGo('messages')}>
             Задать вопрос по проекту
           </Action>
-          <div className="grid gap-1 border-t border-line pt-4 text-[0.9375rem]">
+          <div className="grid gap-1 border-t border-line pt-4 text-ui">
             {phones.map((phone) => (
               <a key={phone.raw} href={`tel:${phone.raw}`} className="text-ink transition-colors hover:text-stone">
                 {phone.display}

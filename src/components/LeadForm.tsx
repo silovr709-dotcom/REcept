@@ -59,14 +59,14 @@ export function LeadForm({
   const light = tone === 'light';
 
   const fieldCls = [
-    'w-full rounded-md border bg-transparent px-4 py-3.5 text-[1rem] outline-none transition-colors',
+    'w-full rounded-md border bg-transparent px-4 py-3.5 text-ui outline-none transition-colors',
     'min-h-13',
     light
       ? 'border-cream/20 text-cream placeholder:text-cream/55 focus:border-goldsoft'
       : 'border-line text-ink placeholder:text-stone focus:border-gold bg-white/60',
   ].join(' ');
 
-  const labelCls = `mb-2 block text-[0.8125rem] font-semibold ${
+  const labelCls = `mb-2 block text-small font-semibold ${
     light ? 'text-cream/75' : 'text-stone'
   }`;
 
@@ -173,7 +173,7 @@ export function LeadForm({
           не нужно.
         </p>
         <p
-          className={`mt-5 font-(family-name:--font-hand) text-[1.3125rem] leading-snug ${
+          className={`mt-5 font-(family-name:--font-hand) text-sub leading-snug ${
             light ? 'text-cream/80' : 'text-ink/75'
           }`}
           style={{ transform: 'rotate(-0.6deg)' }}

@@ -57,7 +57,7 @@ export function AdminNav() {
                     <Link
                       href={item.href}
                       aria-current={active ? 'page' : undefined}
-                      className={`block whitespace-nowrap rounded-lg px-3 py-2 text-[0.9375rem] transition-colors lg:whitespace-normal ${
+                      className={`block whitespace-nowrap rounded-lg px-3 py-2 text-ui transition-colors lg:whitespace-normal ${
                         active
                           ? 'bg-ink text-cream'
                           : 'text-ink hover:bg-ink/[0.06]'

@@ -55,7 +55,7 @@ export function ProjectStickyBar({
       aria-hidden={!visible}
     >
       <div className="container-page flex items-center justify-between gap-8 py-3.5">
-        <p className="min-w-0 truncate text-[0.9375rem] text-ink">
+        <p className="min-w-0 truncate text-ui text-ink">
           <span className="font-semibold">{title}</span>
           <span className="text-stone"> · {layout.toLowerCase()} компоновка</span>
         </p>

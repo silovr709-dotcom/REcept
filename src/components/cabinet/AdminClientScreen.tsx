@@ -78,7 +78,7 @@ export function AdminClientScreen({ clientId }: { clientId: string }) {
   return (
     <div className="grid gap-8">
       <header className="grid gap-3">
-        <Link href="/kabinet/admin" className="text-[0.8125rem] text-stone transition-colors hover:text-ink">
+        <Link href="/kabinet/admin" className="text-small text-stone transition-colors hover:text-ink">
           ← Панель
         </Link>
         <div className="flex flex-wrap items-end justify-between gap-4">
@@ -108,7 +108,7 @@ export function AdminClientScreen({ clientId }: { clientId: string }) {
       </Panel>
 
       <section className="grid gap-3">
-        <h2 className="font-display text-[1.25rem] text-ink">Проекты клиента</h2>
+        <h2 className="font-display text-sub text-ink">Проекты клиента</h2>
         {projects.length === 0 ? (
           <EmptyState title="Проектов пока нет">
             Создайте проект в панели — он автоматически привяжется к этому клиенту.
@@ -118,8 +118,8 @@ export function AdminClientScreen({ clientId }: { clientId: string }) {
             {projects.map((p) => (
               <Panel as="li" key={p.id} className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <p className="font-display text-[1.0625rem] text-ink">{p.title}</p>
-                  <p className="mt-1 text-[0.8125rem] text-stone">
+                  <p className="font-display text-big text-ink">{p.title}</p>
+                  <p className="mt-1 text-small text-stone">
                     {p.furniture_type} · создан {formatDate(p.created_at)}
                   </p>
                 </div>
@@ -141,9 +141,9 @@ export function AdminClientScreen({ clientId }: { clientId: string }) {
       </section>
 
       <section className="grid gap-3">
-        <h2 className="font-display text-[1.25rem] text-ink">Приглашения</h2>
+        <h2 className="font-display text-sub text-ink">Приглашения</h2>
         {invites.length === 0 ? (
-          <p className="text-[0.9375rem] text-stone">
+          <p className="text-ui text-stone">
             Приглашений не выписано. Нажмите «Пригласить в кабинет» — получится
             персональная ссылка.
           </p>
@@ -157,7 +157,7 @@ export function AdminClientScreen({ clientId }: { clientId: string }) {
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                       <p className="text-body text-ink">{invite.email || 'Ссылка без привязки к почте'}</p>
-                      <p className="mt-1 text-[0.8125rem] text-stone">
+                      <p className="mt-1 text-small text-stone">
                         Действует до {formatDate(invite.expires_at)}
                         {invite.accepted_at ? ` · принято ${formatDateTime(invite.accepted_at)}` : ''}
                       </p>
@@ -169,14 +169,14 @@ export function AdminClientScreen({ clientId }: { clientId: string }) {
 
                   {!invite.accepted_at && !dead ? (
                     <>
-                      <p className="break-all border border-line bg-bone px-3 py-2 text-[0.8125rem] text-stone">
+                      <p className="break-all border border-line bg-bone px-3 py-2 text-small text-stone">
                         {url}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         <CopyButton value={url} label="Скопировать ссылку" />
                         <a
                           href={mailtoLink(client.display_name, invite.email, url)}
-                          className="inline-flex min-h-9 items-center justify-center border border-ink/25 px-3.5 py-2 text-[0.625rem] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:bg-ink hover:text-cream"
+                          className="inline-flex min-h-9 items-center justify-center border border-ink/25 px-3.5 py-2 text-caption font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:bg-ink hover:text-cream"
                         >
                           Письмо клиенту
                         </a>
@@ -308,14 +308,14 @@ function InviteModal({
             Отправьте ссылку клиенту любым привычным способом. Она одноразовая
             и действует 30 дней.
           </Notice>
-          <p className="break-all border border-line bg-bone px-3 py-2 text-[0.8125rem] text-stone">
+          <p className="break-all border border-line bg-bone px-3 py-2 text-small text-stone">
             {inviteUrl(created.token)}
           </p>
           <div className="flex flex-wrap gap-2">
             <CopyButton value={inviteUrl(created.token)} label="Скопировать ссылку" />
             <a
               href={mailtoLink(client.display_name, created.email, inviteUrl(created.token))}
-              className="inline-flex min-h-9 items-center justify-center border border-ink/25 px-3.5 py-2 text-[0.625rem] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:bg-ink hover:text-cream"
+              className="inline-flex min-h-9 items-center justify-center border border-ink/25 px-3.5 py-2 text-caption font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:bg-ink hover:text-cream"
             >
               Открыть письмо
             </a>

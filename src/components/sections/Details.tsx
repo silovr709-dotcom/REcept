@@ -192,12 +192,12 @@ export async function Details({
                       на одном правиле, а не на трёх разных. */}
                   <p
                     className={`font-display mt-3 border-t border-line pt-3 leading-snug text-ink transition-colors group-hover:text-gold ${
-                      big ? 'text-[1.1875rem]' : 'text-[1.0625rem]'
+                      big ? 'text-big' : 'text-big'
                     }`}
                   >
                     {d.title}
                   </p>
-                  <p className="mt-1.5 text-[0.8125rem] leading-snug text-stone">
+                  <p className="mt-1.5 text-small leading-snug text-stone">
                     {d.note}
                   </p>
                 </Link>

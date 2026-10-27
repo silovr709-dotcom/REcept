@@ -40,7 +40,7 @@ export default async function AdminLayout({
       <header className="sticky top-0 z-50 border-b border-line bg-cream/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <span className="font-display text-[1.25rem] text-ink">
+            <span className="font-display text-sub text-ink">
               <span className="text-gold">РЕ</span>цепт
             </span>
             <span className="hidden text-eyebrow font-bold uppercase text-stone sm:inline">

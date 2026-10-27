@@ -156,13 +156,13 @@ export function LoadingScreen() {
 
           <div className="mt-8 text-center">
             <p
-              className="loader-text font-display text-[1.75rem] tracking-tight text-cream sm:text-[2rem]"
+              className="loader-text font-display text-head tracking-tight text-cream sm:text-head"
               style={{ '--d': '1380ms' } as React.CSSProperties}
             >
               <span className="text-clay">РЕ</span>цепт
             </p>
             <p
-              className="loader-text loader-tagline mt-2.5 text-[0.8125rem] leading-relaxed text-cream/55 sm:text-sm"
+              className="loader-text loader-tagline mt-2.5 text-small leading-relaxed text-cream/55 sm:text-sm"
               style={{ '--d': '1520ms' } as React.CSSProperties}
             >
               Собираем пространство для вашей жизни
@@ -173,7 +173,7 @@ export function LoadingScreen() {
                 выставлен до первой отрисовки — поэтому строка не мигает
                 и не зависит от гидратации. */}
             <p
-              className="loader-text loader-return mt-2.5 font-(family-name:--font-hand) text-[1.25rem] leading-snug text-cream/70 sm:text-[1.375rem]"
+              className="loader-text loader-return mt-2.5 font-(family-name:--font-hand) text-sub leading-snug text-cream/70 sm:text-sub"
               style={{ '--d': '1520ms' } as React.CSSProperties}
             >
               С возвращением

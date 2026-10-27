@@ -14,7 +14,7 @@ export function Breadcrumbs({
   return (
     <nav aria-label="Хлебные крошки">
       <ol
-        className={`flex flex-wrap items-center gap-2 text-[0.8125rem] ${
+        className={`flex flex-wrap items-center gap-2 text-small ${
           tone === 'light' ? 'text-cream/60' : 'text-stone'
         }`}
       >

@@ -72,7 +72,7 @@ export function DashboardScreen() {
                     {project.furniture_type}
                     {project.code ? ` · ${project.code}` : ''}
                   </p>
-                  <h2 className="mt-2 font-display text-[1.375rem] leading-snug text-ink">
+                  <h2 className="mt-2 font-display text-sub leading-snug text-ink">
                     {project.title}
                   </h2>
                 </div>
@@ -80,16 +80,16 @@ export function DashboardScreen() {
               </div>
 
               {project.summary ? (
-                <p className="text-[0.9375rem] leading-relaxed text-stone">{project.summary}</p>
+                <p className="text-ui leading-relaxed text-stone">{project.summary}</p>
               ) : null}
 
-              <p className="text-[0.8125rem] text-stone">
+              <p className="text-small text-stone">
                 Обновлён {formatAgo(project.updated_at)}
               </p>
 
               <div>
                 <Link href={`/kabinet/proekt?id=${project.id}`}>
-                  <span className="inline-flex min-h-11 items-center justify-center bg-ink px-5 py-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-cream transition-colors hover:bg-coal">
+                  <span className="inline-flex min-h-11 items-center justify-center bg-ink px-5 py-2.5 text-caption font-semibold uppercase tracking-[0.12em] text-cream transition-colors hover:bg-coal">
                     Открыть проект
                   </span>
                 </Link>
@@ -101,14 +101,14 @@ export function DashboardScreen() {
 
       {archived.length ? (
         <section className="grid gap-3">
-          <h2 className="font-display text-[1.25rem] text-ink">Завершённые проекты</h2>
+          <h2 className="font-display text-sub text-ink">Завершённые проекты</h2>
           <ul className="grid divide-y divide-line border border-line">
             {archived.map((project) => (
               <li key={project.id} className="flex flex-wrap items-center justify-between gap-3 bg-cream p-4">
                 <span className="text-body text-ink">{project.title}</span>
                 <Link
                   href={`/kabinet/proekt?id=${project.id}`}
-                  className="text-[0.8125rem] text-stone transition-colors hover:text-ink"
+                  className="text-small text-stone transition-colors hover:text-ink"
                 >
                   Открыть
                 </Link>
@@ -122,11 +122,11 @@ export function DashboardScreen() {
 
       <Panel className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
         <div>
-          <p className="font-display text-[1.125rem] text-ink">Нужна помощь с кабинетом?</p>
-          <p className="mt-1 text-[0.9375rem] leading-relaxed text-stone">
+          <p className="font-display text-big text-ink">Нужна помощь с кабинетом?</p>
+          <p className="mt-1 text-ui leading-relaxed text-stone">
             Напишите или позвоните — Роберт и Катя на связи.
           </p>
-          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[0.9375rem]">
+          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-ui">
             {phones.map((phone) => (
               <a key={phone.raw} href={`tel:${phone.raw}`} className="text-ink transition-colors hover:text-stone">
                 {phone.display}
@@ -139,7 +139,7 @@ export function DashboardScreen() {
         </div>
         <Link
           href="/kontakty"
-          className="inline-flex min-h-11 items-center justify-center border border-ink/25 px-5 py-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-cream"
+          className="inline-flex min-h-11 items-center justify-center border border-ink/25 px-5 py-2.5 text-caption font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-cream"
         >
           Контакты
         </Link>

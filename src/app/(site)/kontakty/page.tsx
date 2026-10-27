@@ -82,7 +82,7 @@ export default async function ContactsPage() {
                     <li key={phone.raw}>
                       <a
                         href={`tel:${phone.raw}`}
-                        className="font-display block text-[1.5rem] leading-tight text-ink transition-colors hover:text-gold sm:text-[1.75rem]"
+                        className="font-display block text-sub leading-tight text-ink transition-colors hover:text-gold sm:text-head"
                       >
                         {phone.display}
                       </a>
@@ -156,7 +156,7 @@ export default async function ContactsPage() {
                     'Предложат, с чего начать: с замера, с планировки или просто с разговора.',
                   ].map((s, i) => (
                     <li key={s} className="flex gap-4">
-                      <span className="font-display shrink-0 text-[1.0625rem] text-goldsoft">
+                      <span className="font-display shrink-0 text-big text-goldsoft">
                         {String(i + 1).padStart(2, '0')}
                       </span>
                       <span className="text-cream/70">{s}</span>

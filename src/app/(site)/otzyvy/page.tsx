@@ -92,7 +92,7 @@ export default async function ReviewsPage() {
                   <p className="font-display text-[clamp(1.3rem,0.95rem+0.9vw,1.6rem)] leading-[1.3] text-ink">
                     {t.highlight}
                   </p>
-                  <blockquote className="mt-5 grow text-[0.9375rem] leading-[1.7] text-stone">
+                  <blockquote className="mt-5 grow text-ui leading-[1.7] text-stone">
                     {t.text}
                   </blockquote>
                   <footer className="mt-6 flex items-baseline gap-4">
@@ -100,7 +100,7 @@ export default async function ReviewsPage() {
                       {t.author ?? 'Без подписи'}
                     </p>
                     <span aria-hidden="true" className="h-px grow bg-line" />
-                    <p className="shrink-0 font-display text-[0.9375rem] text-stone">
+                    <p className="shrink-0 font-display text-ui text-stone">
                       {t.date} · Яндекс Карты
                     </p>
                   </footer>

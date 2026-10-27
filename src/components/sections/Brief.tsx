@@ -59,12 +59,12 @@ export function Brief({
                   ],
                 ].map(([t, d], i) => (
                   <li key={t} className="flex gap-4">
-                    <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-gold/40 text-[0.75rem] font-semibold text-gold">
+                    <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-gold/40 text-small font-semibold text-gold">
                       {i + 1}
                     </span>
                     <span>
                       <span className="block font-semibold text-ink">{t}</span>
-                      <span className="mt-1 block text-[0.9375rem] leading-relaxed text-stone">
+                      <span className="mt-1 block text-ui leading-relaxed text-stone">
                         {d}
                       </span>
                     </span>

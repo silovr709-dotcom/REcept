@@ -81,18 +81,18 @@ export function AdminProjectScreen({ projectId }: { projectId: string }) {
     <div className="grid gap-8">
       <header className="grid gap-3">
         <div className="flex flex-wrap gap-4">
-          <Link href="/kabinet/admin" className="text-[0.8125rem] text-stone transition-colors hover:text-ink">
+          <Link href="/kabinet/admin" className="text-small text-stone transition-colors hover:text-ink">
             ← Панель
           </Link>
           <Link
             href={`/kabinet/admin/klient?id=${project.client_id}`}
-            className="text-[0.8125rem] text-stone transition-colors hover:text-ink"
+            className="text-small text-stone transition-colors hover:text-ink"
           >
             Карточка клиента
           </Link>
           <Link
             href={`/kabinet/proekt?id=${project.id}`}
-            className="text-[0.8125rem] text-stone transition-colors hover:text-ink"
+            className="text-small text-stone transition-colors hover:text-ink"
           >
             Как видит клиент
           </Link>
@@ -231,7 +231,7 @@ function ProjectSettings({
           />
         </div>
 
-        <label className="flex items-start gap-3 text-[0.9375rem] text-ink">
+        <label className="flex items-start gap-3 text-ui text-ink">
           <input
             type="checkbox"
             checked={draft.show_address}
@@ -255,7 +255,7 @@ function ProjectSettings({
           onChange={(e) => setDraft({ ...draft, internal_note: e.target.value })}
         />
 
-        <label className="flex items-start gap-3 text-[0.9375rem] text-ink">
+        <label className="flex items-start gap-3 text-ui text-ink">
           <input
             type="checkbox"
             checked={draft.is_archived}
@@ -320,13 +320,13 @@ function ProjectLog({ projectId }: { projectId: string }) {
     <Panel className="grid content-start gap-4">
       <p className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-stone">Журнал действий</p>
       {entries.length === 0 ? (
-        <p className="text-[0.9375rem] text-stone">Пока ничего не происходило.</p>
+        <p className="text-ui text-stone">Пока ничего не происходило.</p>
       ) : (
         <ul className="grid gap-3">
           {entries.map((e) => (
             <li key={e.id} className="border-b border-line pb-3 last:border-0 last:pb-0">
-              <p className="text-[0.9375rem] leading-snug text-ink">{e.action}</p>
-              <p className="mt-1 text-[0.8125rem] text-stone">
+              <p className="text-ui leading-snug text-ink">{e.action}</p>
+              <p className="mt-1 text-small text-stone">
                 {formatDateTime(e.created_at)}
                 {e.meta && typeof e.meta.title === 'string' ? ` · ${e.meta.title}` : ''}
               </p>
@@ -380,7 +380,7 @@ function AccessSection({ projectId }: { projectId: string }) {
             <Panel as="li" key={m.user_id} className="flex flex-wrap items-center justify-between gap-4">
               <div>
                 <p className="text-body text-ink">{personName(m.profiles, 'Пользователь')}</p>
-                <p className="mt-1 text-[0.8125rem] text-stone">
+                <p className="mt-1 text-small text-stone">
                   {m.profiles?.email} · подключён {formatAgo(m.created_at)}
                   {m.profiles?.is_blocked ? ' · доступ заблокирован' : ''}
                 </p>

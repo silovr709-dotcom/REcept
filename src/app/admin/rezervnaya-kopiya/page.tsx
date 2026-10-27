@@ -7,7 +7,7 @@ export default async function AdminBackupPage() {
 
   return (
     <div>
-      <h1 className="font-display text-[1.75rem] text-ink sm:text-[2.125rem]">
+      <h1 className="font-display text-head text-ink sm:text-title">
         Резервная копия
       </h1>
       <p className="mt-2 max-w-3xl text-stone">

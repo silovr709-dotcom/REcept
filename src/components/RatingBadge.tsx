@@ -48,7 +48,7 @@ export function RatingBadge({
       } ${className}`}
     >
       <span
-        className={`font-display text-[1.25rem] leading-none ${
+        className={`font-display text-sub leading-none ${
           tone === 'light' ? 'text-cream' : 'text-ink'
         }`}
       >
@@ -56,7 +56,7 @@ export function RatingBadge({
       </span>
       <Stars tone={tone} />
       <span
-        className={`text-[0.8125rem] leading-tight ${
+        className={`text-small leading-tight ${
           tone === 'light' ? 'text-cream/60' : 'text-stone'
         }`}
       >

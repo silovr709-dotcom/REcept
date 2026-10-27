@@ -91,12 +91,12 @@ export function VideoCard({
           {/* Надписи разведены к краям: по центру стоит кнопка
               воспроизведения, и всё, что окажется под ней, пропадёт */}
           <span className="absolute inset-x-6 top-9 flex flex-col items-center gap-2.5">
-            <span className="font-display text-[1.75rem] leading-none text-cream/45">
+            <span className="font-display text-head leading-none text-cream/45">
               РЕцепт
             </span>
             <span className="h-px w-8 bg-goldsoft/50" />
           </span>
-          <span className="absolute inset-x-6 bottom-10 text-center text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-cream/60">
+          <span className="absolute inset-x-6 bottom-10 text-center text-caption font-semibold uppercase tracking-[0.22em] text-cream/60">
             Видео с объекта
           </span>
         </span>
@@ -116,7 +116,7 @@ export function VideoCard({
         </svg>
       </span>
 
-      <span className="absolute bottom-0 right-0 bg-ink/75 px-2.5 py-1.5 text-[0.6875rem] font-semibold tracking-[0.1em] text-cream backdrop-blur-sm">
+      <span className="absolute bottom-0 right-0 bg-ink/75 px-2.5 py-1.5 text-caption font-semibold tracking-[0.1em] text-cream backdrop-blur-sm">
         {duration}
       </span>
 

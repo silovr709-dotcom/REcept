@@ -145,10 +145,10 @@ export default async function KitchensPage() {
                 <div className="mb-6 max-w-44 text-ink/90">
                   <LayoutDiagram variant={l.variant} />
                 </div>
-                <h3 className="font-display text-[1.1875rem] text-ink">
+                <h3 className="font-display text-big text-ink">
                   {l.title}
                 </h3>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-stone">
+                <p className="mt-3 text-ui leading-relaxed text-stone">
                   {l.text}
                 </p>
               </Reveal>
@@ -207,7 +207,7 @@ export default async function KitchensPage() {
                     }
                     className="object-cover"
                   />
-                  <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-14 text-[0.9375rem] text-cream/90">
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-14 text-ui text-cream/90">
                     Пункт первый из списка: Роберт на замере. Остальные
                     девять — тоже наша работа, а не ваша.
                   </figcaption>
@@ -239,7 +239,7 @@ export default async function KitchensPage() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <span className="text-[0.9375rem] leading-relaxed">{item}</span>
+                    <span className="text-ui leading-relaxed">{item}</span>
                   </Reveal>
                 </li>
               ))}
@@ -301,11 +301,11 @@ export default async function KitchensPage() {
             ))}
 
             <div className="flex flex-col justify-between border border-cream/15 p-6">
-              <p className="font-display text-[1.1875rem] leading-snug text-cream">
+              <p className="font-display text-big leading-snug text-cream">
                 Хотите рассмотреть такие детали вживую?
               </p>
               <div className="mt-6">
-                <p className="mb-5 text-[0.875rem] leading-relaxed text-cream/70">
+                <p className="mb-5 text-ui leading-relaxed text-cream/70">
                   Привезём образцы фасадов и фурнитуры на замер — трогать
                   руками полезнее, чем смотреть на экран.
                 </p>

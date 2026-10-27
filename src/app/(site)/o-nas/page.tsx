@@ -123,10 +123,10 @@ export default async function AboutPage() {
                 delay={Math.min(i, 3) * 50}
                 className="border-t border-goldline/45 pt-6"
               >
-                <h3 className="font-display text-[1.1875rem] leading-snug text-ink">
+                <h3 className="font-display text-big leading-snug text-ink">
                   {p.title}
                 </h3>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-stone">
+                <p className="mt-3 text-ui leading-relaxed text-stone">
                   {p.text}
                 </p>
               </Reveal>

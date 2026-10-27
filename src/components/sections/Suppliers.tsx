@@ -85,7 +85,7 @@ export function Suppliers({
                     {row.title}
                   </dt>
                   <dd
-                    className={`font-display flex flex-wrap items-baseline gap-x-4 gap-y-1 sm:gap-x-3 text-[1.0625rem] ${
+                    className={`font-display flex flex-wrap items-baseline gap-x-4 gap-y-1 sm:gap-x-3 text-big ${
                       dark ? 'text-cream' : 'text-ink'
                     }`}
                   >
@@ -141,7 +141,7 @@ export function Suppliers({
               delay={Math.min(i, 5) * 40}
               className="grid gap-x-12 gap-y-4 border-t border-line py-7 lg:grid-cols-[13rem_1fr] lg:py-8"
             >
-              <dt className="font-display text-[1.25rem] leading-snug text-ink">
+              <dt className="font-display text-sub leading-snug text-ink">
                 {row.title}
               </dt>
               <dd>
@@ -149,7 +149,7 @@ export function Suppliers({
                     Разделитель — точка на средней линии: ряд названий
                     должен читаться как строка каталога, а не как
                     облако тегов. */}
-                <p className="font-display flex flex-wrap items-baseline gap-x-4 gap-y-1 text-[1.1875rem] text-ink sm:gap-x-3">
+                <p className="font-display flex flex-wrap items-baseline gap-x-4 gap-y-1 text-big text-ink sm:gap-x-3">
                   {row.brands.map((brand, b) => (
                     <span key={brand} className="inline-flex items-baseline">
                       {b > 0 ? (
@@ -164,7 +164,7 @@ export function Suppliers({
                     </span>
                   ))}
                 </p>
-                <p className="mt-3 max-w-[62ch] text-[0.9375rem] leading-[1.7] text-stone">
+                <p className="mt-3 max-w-[62ch] text-ui leading-[1.7] text-stone">
                   {row.text}
                 </p>
               </dd>
@@ -181,7 +181,7 @@ export function Suppliers({
             замере, обычно можем заказать именно её.
           </MarginNote>
 
-          <div className="text-[0.9375rem] leading-[1.7] text-stone lg:pt-2">
+          <div className="text-ui leading-[1.7] text-stone lg:pt-2">
             <p>
               Конкретный артикул и декор выбираем на замере по образцам:
               один и тот же цвет у разных заводов выглядит по-разному,

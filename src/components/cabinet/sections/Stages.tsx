@@ -55,7 +55,7 @@ export function StagesSection({
   return (
     <div className="grid gap-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <p className="text-[0.9375rem] text-stone">
+        <p className="text-ui text-stone">
           Пройдено {done} из {stages.length}
         </p>
         {staff ? (
@@ -73,7 +73,7 @@ export function StagesSection({
             <li key={stage.id} className="relative grid grid-cols-[auto_1fr] gap-5 pb-8 last:pb-0">
               <div className="flex flex-col items-center">
                 <span
-                  className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center border text-[0.625rem] font-semibold ${
+                  className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center border text-caption font-semibold ${
                     stage.status === 'done'
                       ? 'border-ink bg-ink text-cream'
                       : active
@@ -88,11 +88,11 @@ export function StagesSection({
 
               <div className={`grid gap-2 ${active ? '' : 'opacity-95'}`}>
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <p className="font-display text-[1.0625rem] leading-snug text-ink">{stage.name}</p>
+                  <p className="font-display text-big leading-snug text-ink">{stage.name}</p>
                   <Pill tone={toneOf(stage.status)}>{stageStatusLabel[stage.status]}</Pill>
                 </div>
 
-                <div className="flex flex-wrap gap-x-6 gap-y-1 text-[0.8125rem] text-stone">
+                <div className="flex flex-wrap gap-x-6 gap-y-1 text-small text-stone">
                   {stage.started_on ? <span>Начали: {formatDate(stage.started_on)}</span> : null}
                   <span>
                     План:{' '}
@@ -102,13 +102,13 @@ export function StagesSection({
                 </div>
 
                 {stage.client_comment ? (
-                  <p className="border-l-2 border-line pl-3 text-[0.9375rem] leading-relaxed text-stone">
+                  <p className="border-l-2 border-line pl-3 text-ui leading-relaxed text-stone">
                     {stage.client_comment}
                   </p>
                 ) : null}
 
                 {staff && stage.internal_comment ? (
-                  <p className="border-l-2 border-ink/40 bg-bone px-3 py-2 text-[0.875rem] leading-relaxed text-ink">
+                  <p className="border-l-2 border-ink/40 bg-bone px-3 py-2 text-ui leading-relaxed text-ink">
                     Внутреннее: {stage.internal_comment}
                   </p>
                 ) : null}

@@ -7,7 +7,7 @@ import type { ActionState } from '@/app/admin/actions';
 /* ----------------------------- поля ----------------------------- */
 
 const base =
-  'w-full rounded-lg border border-line bg-cream px-3.5 py-2.5 text-[0.9375rem] text-ink outline-none transition-colors placeholder:text-stone/60 focus:border-gold';
+  'w-full rounded-lg border border-line bg-cream px-3.5 py-2.5 text-ui text-ink outline-none transition-colors placeholder:text-stone/60 focus:border-gold';
 
 export function Field({
   label,
@@ -22,7 +22,7 @@ export function Field({
 }) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-1.5 block text-[0.8125rem] font-semibold text-ink">
+      <span className="mb-1.5 block text-small font-semibold text-ink">
         {label}
       </span>
       {children}
@@ -49,7 +49,7 @@ export function Checkbox({
   ...props
 }: React.ComponentProps<'input'> & { label: string }) {
   return (
-    <label className="flex cursor-pointer items-center gap-2.5 text-[0.9375rem] text-ink">
+    <label className="flex cursor-pointer items-center gap-2.5 text-ui text-ink">
       <input
         type="checkbox"
         {...props}
@@ -75,9 +75,9 @@ export function Card({
     <section className="rounded-xl border border-line bg-cream p-5 sm:p-7">
       <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h2 className="font-display text-[1.375rem] text-ink">{title}</h2>
+          <h2 className="font-display text-sub text-ink">{title}</h2>
           {description ? (
-            <p className="mt-1.5 max-w-2xl text-[0.9375rem] text-stone">
+            <p className="mt-1.5 max-w-2xl text-ui text-stone">
               {description}
             </p>
           ) : null}
@@ -98,7 +98,7 @@ function SaveBar({ extra }: { extra?: ReactNode }) {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex min-h-11 items-center rounded-full bg-ink px-6 text-[0.9375rem] font-semibold text-cream transition-opacity disabled:opacity-60"
+        className="inline-flex min-h-11 items-center rounded-full bg-ink px-6 text-ui font-semibold text-cream transition-opacity disabled:opacity-60"
       >
         {pending ? 'Сохраняем…' : 'Сохранить и опубликовать'}
       </button>
@@ -130,7 +130,7 @@ export function AdminForm({
       {state ? (
         <p
           role="status"
-          className={`mb-5 rounded-lg border px-4 py-3 text-[0.9375rem] ${
+          className={`mb-5 rounded-lg border px-4 py-3 text-ui ${
             state.ok
               ? 'border-gold/40 bg-gold/10 text-ink'
               : 'border-red-300 bg-red-50 text-red-800'

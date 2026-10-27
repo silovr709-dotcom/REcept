@@ -89,7 +89,7 @@ export async function Cliches({ tone = 'ink' }: { tone?: 'ink' | 'cream' }) {
                 {/* Штамп. Зачёркнут по-настоящему, а не стилизован:
                     для озвучки это тоже должно читаться как «вычеркнуто». */}
                 <s
-                  className={`font-display text-[1.25rem] leading-snug decoration-2 sm:text-[1.4375rem] ${
+                  className={`font-display text-sub leading-snug decoration-2 sm:text-sub ${
                     dark
                       ? 'text-cream/60 decoration-cream/50'
                       : 'text-ink/65 decoration-ink/45'
@@ -100,7 +100,7 @@ export async function Cliches({ tone = 'ink' }: { tone?: 'ink' | 'cream' }) {
 
                 {/* Ответ от руки — как будто поверх распечатки */}
                 <p
-                  className={`mt-5 font-(family-name:--font-hand) text-[1.375rem] leading-[1.35] sm:text-[1.5rem] ${
+                  className={`mt-5 font-(family-name:--font-hand) text-sub leading-[1.35] sm:text-sub ${
                     dark ? 'text-cream' : 'text-ink'
                   }`}
                   style={{ transform: 'rotate(-0.5deg)' }}

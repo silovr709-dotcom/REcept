@@ -72,17 +72,17 @@ export async function Process({
                 }`}
               >
                 <div className="flex items-baseline gap-3">
-                  <span className="text-[0.75rem] font-bold tracking-[0.16em] text-stone">
+                  <span className="text-small font-bold tracking-[0.16em] text-stone">
                     {step.n}
                   </span>
-                  <h3 className="font-display text-[1.1875rem] leading-snug text-ink">
+                  <h3 className="font-display text-big leading-snug text-ink">
                     {step.title}
                   </h3>
                 </div>
-                <p className="mt-4 grow text-[0.9375rem] leading-relaxed text-stone">
+                <p className="mt-4 grow text-ui leading-relaxed text-stone">
                   {step.text}
                 </p>
-                <p className="mt-5 border-t border-line pt-4 text-[0.8125rem] text-stone">
+                <p className="mt-5 border-t border-line pt-4 text-small text-stone">
                   <span className="font-semibold text-ink">От вас:</span>{' '}
                   {step.yourEffort}
                 </p>
@@ -103,7 +103,7 @@ export async function Process({
                 blurDataURL={d.image.blurDataURL || undefined}
                 className="object-cover"
               />
-              <p className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/80 to-transparent p-5 pt-10 text-[0.8125rem] font-medium text-cream">
+              <p className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/80 to-transparent p-5 pt-10 text-small font-medium text-cream">
                 {d.title}
               </p>
             </div>
@@ -122,7 +122,7 @@ export async function Process({
           <Reveal className="mt-8">
             <Link
               href="/kuhni-na-zakaz#process"
-              className="inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-gold underline decoration-gold/40 underline-offset-4"
+              className="inline-flex items-center gap-2 text-ui font-semibold text-gold underline decoration-gold/40 underline-offset-4"
             >
               Весь процесс целиком — все {allSteps.length} шагов до сборки и гарантии
             </Link>

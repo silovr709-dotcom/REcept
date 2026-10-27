@@ -184,8 +184,8 @@ export function AdminScreen() {
             {projects.map((p) => (
               <Panel as="li" key={p.id} className="flex flex-wrap items-center justify-between gap-4">
                 <div className="min-w-0">
-                  <p className="font-display text-[1.125rem] leading-snug text-ink">{p.title}</p>
-                  <p className="mt-1 text-[0.8125rem] text-stone">
+                  <p className="font-display text-big leading-snug text-ink">{p.title}</p>
+                  <p className="mt-1 text-small text-stone">
                     {p.clients?.display_name ?? 'Без клиента'} · {p.furniture_type}
                     {p.code ? ` · ${p.code}` : ''} · обновлён {formatAgo(p.updated_at)}
                   </p>
@@ -215,8 +215,8 @@ export function AdminScreen() {
             {clients.map((c) => (
               <Panel as="li" key={c.id} className="flex flex-wrap items-center justify-between gap-4">
                 <div className="min-w-0">
-                  <p className="font-display text-[1.125rem] leading-snug text-ink">{c.display_name}</p>
-                  <p className="mt-1 text-[0.8125rem] text-stone">
+                  <p className="font-display text-big leading-snug text-ink">{c.display_name}</p>
+                  <p className="mt-1 text-small text-stone">
                     {[c.phone, c.email].filter(Boolean).join(' · ') || 'Контакты не указаны'}
                   </p>
                 </div>
@@ -239,7 +239,7 @@ export function AdminScreen() {
           <ul className="grid gap-3">
             {messages.map((m) => (
               <Panel as="li" key={m.id} className="grid gap-2">
-                <p className="text-[0.8125rem] text-stone">
+                <p className="text-small text-stone">
                   {m.projects?.title ?? 'Проект'} · {formatAgo(m.created_at)}
                 </p>
                 <p className="text-body leading-relaxed text-ink">{m.body}</p>
@@ -262,8 +262,8 @@ export function AdminScreen() {
           <ul className="grid divide-y divide-line border border-line">
             {audit.map((entry) => (
               <li key={entry.id} className="flex flex-wrap items-center justify-between gap-3 bg-cream p-4">
-                <span className="text-[0.9375rem] text-ink">{describeAction(entry.action, entry.meta)}</span>
-                <span className="text-[0.8125rem] text-stone">{formatAgo(entry.created_at)}</span>
+                <span className="text-ui text-ink">{describeAction(entry.action, entry.meta)}</span>
+                <span className="text-small text-stone">{formatAgo(entry.created_at)}</span>
               </li>
             ))}
           </ul>
@@ -280,7 +280,7 @@ export function AdminScreen() {
         reload={reload}
       />
 
-      <p className="text-[0.8125rem] text-stone">
+      <p className="text-small text-stone">
         Вы вошли как {profile?.email} · роль {profile?.role === 'admin' ? 'администратор' : 'сотрудник'}
       </p>
     </div>
@@ -291,7 +291,7 @@ function Stat({ label, value }: { label: string; value: number }) {
   return (
     <Panel>
       <p className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-stone">{label}</p>
-      <p className="mt-2 font-display text-[1.75rem] text-ink">{value}</p>
+      <p className="mt-2 font-display text-head text-ink">{value}</p>
     </Panel>
   );
 }

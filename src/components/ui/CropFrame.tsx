@@ -39,7 +39,7 @@ export function CropFrame({
         className="object-cover"
       />
       {caption ? (
-        <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-4 pt-10 text-[0.8125rem] font-medium text-cream">
+        <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-4 pt-10 text-small font-medium text-cream">
           {crop.alt}
         </figcaption>
       ) : null}

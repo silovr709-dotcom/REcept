@@ -86,7 +86,7 @@ export default async function ProjectPage({ params }: Params) {
               {project.summary}
             </p>
             <p className="mt-6">
-              <span className="inline-flex items-center gap-2.5 border-y border-line px-1 py-2 text-[0.6875rem] font-bold uppercase tracking-[0.16em] text-ink">
+              <span className="inline-flex items-center gap-2.5 border-y border-line px-1 py-2 text-caption font-bold uppercase tracking-[0.16em] text-ink">
                 <span aria-hidden="true" className="size-1.5 rounded-full bg-gold" />
                 {project.layout} компоновка
               </span>
@@ -131,7 +131,7 @@ export default async function ProjectPage({ params }: Params) {
                       <h2 className="text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
                         Детали этого проекта
                       </h2>
-                      <p className="text-[0.75rem] text-stone">
+                      <p className="text-small text-stone">
                         {projectDetails.length > 1
                           ? 'Листайте вбок · нажмите, чтобы рассмотреть'
                           : 'Нажмите, чтобы рассмотреть'}
@@ -163,10 +163,10 @@ export default async function ProjectPage({ params }: Params) {
                                   : 'aspect-4/3'
                               }`}
                             />
-                            <p className="font-display mt-3 border-t border-line pt-3 text-[1.0625rem] leading-snug text-ink">
+                            <p className="font-display mt-3 border-t border-line pt-3 text-big leading-snug text-ink">
                               {d.title}
                             </p>
-                            <p className="mt-1.5 text-[0.8125rem] leading-snug text-stone">
+                            <p className="mt-1.5 text-small leading-snug text-stone">
                               {d.note}
                             </p>
                           </Reveal>
@@ -200,7 +200,7 @@ export default async function ProjectPage({ params }: Params) {
                   </h2>
                   <ul className="mt-6 grid gap-3.5">
                     {project.materials.map((m) => (
-                      <li key={m} className="flex gap-3 text-[0.9375rem] text-stone">
+                      <li key={m} className="flex gap-3 text-ui text-stone">
                         <span
                           aria-hidden="true"
                           className="mt-2.5 size-1 shrink-0 rounded-full bg-gold"

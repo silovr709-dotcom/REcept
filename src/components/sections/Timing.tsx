@@ -45,14 +45,14 @@ export async function Timing({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
               }`}
             >
               <div className="flex items-center justify-between gap-4">
-                <h3 className="font-display text-[1.25rem] text-ink">{s.stage}</h3>
+                <h3 className="font-display text-sub text-ink">{s.stage}</h3>
                 <span
                   className={`label-xs shrink-0 ${s.best ? 'text-ink' : 'text-stone'}`}
                 >
                   {s.mark}
                 </span>
               </div>
-              <p className="mt-4 text-[0.9375rem] leading-relaxed text-stone">
+              <p className="mt-4 text-ui leading-relaxed text-stone">
                 {s.text}
               </p>
             </Reveal>
@@ -71,7 +71,7 @@ export async function Timing({ tone = 'cream' }: { tone?: 'cream' | 'bone' }) {
                   blurDataURL={d.image.blurDataURL || undefined}
                   className="object-cover"
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/80 to-transparent p-5 pt-12 text-[0.8125rem] font-medium text-cream">
+                <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/80 to-transparent p-5 pt-12 text-small font-medium text-cream">
                   {d.title}
                 </figcaption>
               </figure>

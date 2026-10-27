@@ -90,10 +90,10 @@ export async function Services({
                         <RenderBadge />
                       </div>
                     ) : null}
-                    <p className="font-display mt-5 text-[1.375rem] leading-tight text-ink transition-colors group-hover:text-gold">
+                    <p className="font-display mt-5 text-sub leading-tight text-ink transition-colors group-hover:text-gold">
                       {s.title}
                     </p>
-                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-stone">
+                    <p className="mt-2 text-ui leading-relaxed text-stone">
                       {s.text}
                     </p>
                     <span className="label-xs mt-4 inline-flex items-center gap-2 text-gold">
@@ -158,10 +158,10 @@ export async function Services({
                     <span className="text-eyebrow font-bold uppercase text-stone">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <h3 className="font-display mt-3 text-[1.25rem] text-ink">
+                    <h3 className="font-display mt-3 text-sub text-ink">
                       {s.title}
                     </h3>
-                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-stone">
+                    <p className="mt-2 text-ui leading-relaxed text-stone">
                       {s.text}
                     </p>
                     <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold">

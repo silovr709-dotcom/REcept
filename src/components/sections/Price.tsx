@@ -147,18 +147,18 @@ export async function Price({
                           />
                         </span>
                       ) : (
-                        <span className="shrink-0 pt-1 text-[0.6875rem] font-bold tracking-[0.16em] text-stone">
+                        <span className="shrink-0 pt-1 text-caption font-bold tracking-[0.16em] text-stone">
                           {String(i + 1).padStart(2, '0')}
                         </span>
                       )}
                       <div>
                         <dt className="flex items-baseline gap-3 font-semibold text-ink">
-                          <span className="text-[0.6875rem] font-bold tracking-[0.16em] text-stone">
+                          <span className="text-caption font-bold tracking-[0.16em] text-stone">
                             {String(i + 1).padStart(2, '0')}
                           </span>
                           {f.title}
                         </dt>
-                        <dd className="mt-1 text-[0.9375rem] leading-relaxed text-stone">
+                        <dd className="mt-1 text-ui leading-relaxed text-stone">
                           {f.text}
                         </dd>
                       </div>
@@ -190,7 +190,7 @@ export async function Price({
                   blurDataURL={priceShot.image.blurDataURL || undefined}
                   className="object-cover"
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-12 text-[0.9375rem] font-medium text-cream">
+                <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-12 text-ui font-medium text-cream">
                   Разницу в смете видно вот здесь — в фурнитуре и в том, как
                   сходятся детали
                 </figcaption>

@@ -160,7 +160,7 @@ export function KitchenBrief({
             }}
           />
         </div>
-        <p className={`shrink-0 text-[0.75rem] font-semibold ${soft}`}>
+        <p className={`shrink-0 text-small font-semibold ${soft}`}>
           {done ? 'Последний шаг' : `Шаг ${step + 1} из ${STEPS.length}`}
         </p>
       </div>
@@ -184,11 +184,11 @@ export function KitchenBrief({
                       : 'border-line bg-white hover:border-gold hover:bg-bone'
                   }`}
                 >
-                  <span className={`text-[0.9375rem] font-semibold ${head}`}>
+                  <span className={`text-ui font-semibold ${head}`}>
                     {o.value}
                   </span>
                   {o.note ? (
-                    <span className={`mt-0.5 text-[0.8125rem] leading-snug ${soft}`}>
+                    <span className={`mt-0.5 text-small leading-snug ${soft}`}>
                       {o.note}
                     </span>
                   ) : null}
@@ -240,7 +240,7 @@ export function KitchenBrief({
                       type="button"
                       onClick={() => setStep(STEPS.indexOf(s))}
                       title="Изменить ответ"
-                      className={`rounded-full border px-3 py-1.5 text-[0.8125rem] transition-colors ${
+                      className={`rounded-full border px-3 py-1.5 text-small transition-colors ${
                         dark
                           ? 'border-cream/20 text-cream/80 hover:border-goldsoft'
                           : 'border-line text-ink hover:border-gold'

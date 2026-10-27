@@ -134,7 +134,7 @@ export function ProjectOpenLink({
       {cursor ? (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap bg-ink/90 px-3 py-1.5 text-[0.625rem] font-bold uppercase tracking-[0.16em] text-cream backdrop-blur-sm"
+          className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap bg-ink/90 px-3 py-1.5 text-caption font-bold uppercase tracking-[0.16em] text-cream backdrop-blur-sm"
           style={{ left: cursor.x, top: cursor.y }}
         >
           {label}

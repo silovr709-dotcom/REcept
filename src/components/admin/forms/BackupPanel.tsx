@@ -37,14 +37,14 @@ export function BackupPanel({
   return (
     <div className="grid gap-6">
       <Card title="Скачать копию">
-        <p className="text-[0.9375rem] text-stone">
+        <p className="text-ui text-stone">
           Размер файла — {Math.round(size / 1024)} КБ. Храните его где-нибудь
           вне сайта: в почте, облаке или на своём компьютере.
         </p>
         <button
           type="button"
           onClick={download}
-          className="mt-5 inline-flex min-h-11 items-center rounded-full bg-ink px-6 text-[0.9375rem] font-semibold text-cream"
+          className="mt-5 inline-flex min-h-11 items-center rounded-full bg-ink px-6 text-ui font-semibold text-cream"
         >
           Скачать резервную копию
         </button>
@@ -57,7 +57,7 @@ export function BackupPanel({
         {importState ? (
           <p
             role="status"
-            className={`mb-4 rounded-lg border px-4 py-3 text-[0.9375rem] ${
+            className={`mb-4 rounded-lg border px-4 py-3 text-ui ${
               importState.ok
                 ? 'border-gold/40 bg-gold/10 text-ink'
                 : 'border-red-300 bg-red-50 text-red-800'
@@ -77,7 +77,7 @@ export function BackupPanel({
           />
           <button
             type="submit"
-            className="min-h-11 rounded-full border border-ink/25 px-5 text-[0.9375rem] font-semibold text-ink hover:border-ink/60"
+            className="min-h-11 rounded-full border border-ink/25 px-5 text-ui font-semibold text-ink hover:border-ink/60"
           >
             Восстановить
           </button>
@@ -91,7 +91,7 @@ export function BackupPanel({
         {resetState ? (
           <p
             role="status"
-            className={`mb-4 rounded-lg border px-4 py-3 text-[0.9375rem] ${
+            className={`mb-4 rounded-lg border px-4 py-3 text-ui ${
               resetState.ok
                 ? 'border-gold/40 bg-gold/10 text-ink'
                 : 'border-red-300 bg-red-50 text-red-800'
@@ -119,7 +119,7 @@ export function BackupPanel({
               <input type="hidden" name="key" value={section.key} />
               <button
                 type="submit"
-                className="w-full rounded-lg border border-line px-4 py-3 text-left text-[0.9375rem] text-ink transition-colors hover:border-red-300 hover:text-red-700"
+                className="w-full rounded-lg border border-line px-4 py-3 text-left text-ui text-ink transition-colors hover:border-red-300 hover:text-red-700"
               >
                 {section.label}
               </button>

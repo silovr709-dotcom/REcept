@@ -55,7 +55,7 @@ export function PhotoBand({
         {caption && overlay === 'quote' ? (
           <figcaption className="absolute inset-x-0 bottom-0">
             <div className="container-page pb-8 sm:pb-10">
-              <p className="font-display max-w-2xl text-[1.25rem] leading-snug text-cream sm:text-[1.75rem]">
+              <p className="font-display max-w-2xl text-sub leading-snug text-cream sm:text-head">
                 {caption}
               </p>
             </div>

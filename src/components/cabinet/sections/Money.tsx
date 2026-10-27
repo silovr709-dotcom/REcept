@@ -66,13 +66,13 @@ export function MoneySection({
               <p className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-stone">
                 Согласованная стоимость
               </p>
-              <p className="mt-2 font-display text-[1.5rem] text-ink">
+              <p className="mt-2 font-display text-sub text-ink">
                 {costs.length ? formatMoney(totals.sum) : 'не внесена'}
               </p>
             </Panel>
             <Panel>
               <p className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-stone">Оплачено</p>
-              <p className="mt-2 font-display text-[1.5rem] text-ink">
+              <p className="mt-2 font-display text-sub text-ink">
                 {payments.length ? formatMoney(totals.paid) : '—'}
               </p>
             </Panel>
@@ -80,7 +80,7 @@ export function MoneySection({
               <p className="text-eyebrow font-semibold uppercase tracking-[0.18em] text-stone">
                 Остаток по графику
               </p>
-              <p className="mt-2 font-display text-[1.5rem] text-ink">
+              <p className="mt-2 font-display text-sub text-ink">
                 {payments.length ? formatMoney(totals.rest) : '—'}
               </p>
             </Panel>
@@ -88,7 +88,7 @@ export function MoneySection({
 
           <section className="grid gap-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h3 className="font-display text-[1.25rem] text-ink">Состав и стоимость</h3>
+              <h3 className="font-display text-sub text-ink">Состав и стоимость</h3>
               {staff ? (
                 <Action size="sm" onClick={() => setEditCost({ project_id: projectId })}>
                   Добавить позицию
@@ -96,7 +96,7 @@ export function MoneySection({
               ) : null}
             </div>
             {costs.length === 0 ? (
-              <p className="text-[0.9375rem] text-stone">Позиции пока не внесены.</p>
+              <p className="text-ui text-stone">Позиции пока не внесены.</p>
             ) : (
               <ul className="grid divide-y divide-line border border-line">
                 {costs.map((cost) => (
@@ -104,16 +104,16 @@ export function MoneySection({
                     <div className="min-w-0">
                       <p className="text-body text-ink">{cost.title}</p>
                       {cost.details ? (
-                        <p className="mt-1 text-[0.8125rem] leading-snug text-stone">{cost.details}</p>
+                        <p className="mt-1 text-small leading-snug text-stone">{cost.details}</p>
                       ) : null}
                       {staff && !cost.is_published ? (
-                        <p className="mt-1 text-[0.75rem] uppercase tracking-[0.14em] text-stone">
+                        <p className="mt-1 text-small uppercase tracking-[0.14em] text-stone">
                           не опубликовано
                         </p>
                       ) : null}
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="font-display text-[1.0625rem] text-ink">
+                      <span className="font-display text-big text-ink">
                         {formatMoney(cost.amount, 'уточняется')}
                       </span>
                       {staff ? (
@@ -130,7 +130,7 @@ export function MoneySection({
 
           <section className="grid gap-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h3 className="font-display text-[1.25rem] text-ink">График платежей</h3>
+              <h3 className="font-display text-sub text-ink">График платежей</h3>
               {staff ? (
                 <Action size="sm" onClick={() => setEditPayment({ project_id: projectId })}>
                   Добавить платёж
@@ -138,7 +138,7 @@ export function MoneySection({
               ) : null}
             </div>
             {payments.length === 0 ? (
-              <p className="text-[0.9375rem] text-stone">График пока не составлен.</p>
+              <p className="text-ui text-stone">График пока не составлен.</p>
             ) : (
               <ul className="grid gap-3">
                 {payments.map((p) => (
@@ -147,13 +147,13 @@ export function MoneySection({
                       <p className="text-body text-ink">{p.title}</p>
                       <Pill tone={toneOf(p.status)}>{paymentStatusLabel[p.status]}</Pill>
                     </div>
-                    <div className="flex flex-wrap gap-x-6 gap-y-1 text-[0.875rem] text-stone">
+                    <div className="flex flex-wrap gap-x-6 gap-y-1 text-ui text-stone">
                       <span>Сумма: {formatMoney(p.amount, 'уточняется')}</span>
                       <span>Внесено: {formatMoney(p.paid_amount, '0 ₽')}</span>
                       <span>Срок: {p.due_on ? formatDate(p.due_on) : 'дата уточняется'}</span>
                       {p.paid_on ? <span>Оплачен: {formatDate(p.paid_on)}</span> : null}
                     </div>
-                    {p.note ? <p className="text-[0.875rem] text-stone">{p.note}</p> : null}
+                    {p.note ? <p className="text-ui text-stone">{p.note}</p> : null}
                     {staff ? (
                       <div>
                         <Action size="sm" variant="quiet" onClick={() => setEditPayment(p)}>
@@ -283,7 +283,7 @@ function CostModal({
           onChange={(e) => setState({ ...state, amount: e.target.value ? Number(e.target.value) : null })}
           hint="Пусто — «уточняется»"
         />
-        <label className="flex items-start gap-3 text-[0.9375rem] text-ink">
+        <label className="flex items-start gap-3 text-ui text-ink">
           <input
             type="checkbox"
             checked={state.is_published ?? true}
@@ -420,7 +420,7 @@ function PaymentModal({
           value={state.note ?? ''}
           onChange={(e) => setState({ ...state, note: e.target.value })}
         />
-        <label className="flex items-start gap-3 text-[0.9375rem] text-ink">
+        <label className="flex items-start gap-3 text-ui text-ink">
           <input
             type="checkbox"
             checked={state.is_published ?? true}

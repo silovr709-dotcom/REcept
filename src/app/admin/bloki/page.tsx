@@ -5,7 +5,7 @@ export default async function AdminBlocksPage() {
   const texts = await getContent('texts');
   return (
     <div>
-      <h1 className="font-display text-[1.75rem] text-ink sm:text-[2.125rem]">
+      <h1 className="font-display text-head text-ink sm:text-title">
         Блоки страниц
       </h1>
       <p className="mt-2 max-w-2xl text-stone">

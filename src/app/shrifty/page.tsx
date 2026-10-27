@@ -71,7 +71,7 @@ function Sample({ pair, dark }: { pair: Pair; dark: boolean }) {
     >
       <div className="container-page">
         <p
-          className={`text-[0.6875rem] font-semibold uppercase tracking-[0.2em] ${
+          className={`text-caption font-semibold uppercase tracking-[0.2em] ${
             dark ? 'text-goldsoft' : 'text-gold'
           }`}
         >
@@ -97,7 +97,7 @@ function Sample({ pair, dark }: { pair: Pair; dark: boolean }) {
         </h2>
 
         <p
-          className={`mt-6 max-w-xl text-[1.0625rem] leading-relaxed ${
+          className={`mt-6 max-w-xl text-big leading-relaxed ${
             dark ? 'text-cream/75' : 'text-stone'
           }`}
         >
@@ -108,7 +108,7 @@ function Sample({ pair, dark }: { pair: Pair; dark: boolean }) {
         <div className="mt-10 grid gap-10 border-t border-goldline/40 pt-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <h3
-              className="text-[1.75rem] leading-tight"
+              className="text-head leading-tight"
               style={{
                 fontFamily: pair.display,
                 fontWeight: pair.displayWeight,
@@ -117,7 +117,7 @@ function Sample({ pair, dark }: { pair: Pair; dark: boolean }) {
               Прямая кухня в нише с латунью
             </h3>
             <p
-              className={`mt-3 text-[0.9375rem] leading-relaxed ${
+              className={`mt-3 text-ui leading-relaxed ${
                 dark ? 'text-cream/70' : 'text-stone'
               }`}
             >
@@ -125,7 +125,7 @@ function Sample({ pair, dark }: { pair: Pair; dark: boolean }) {
               фасадом. Зацепиться рукавом не за что.
             </p>
             <p
-              className={`mt-6 text-[0.8125rem] ${dark ? 'text-cream/60' : 'text-stone'}`}
+              className={`mt-6 text-small ${dark ? 'text-cream/60' : 'text-stone'}`}
             >
               Цифры: 595 плёнок · 278 пластиков · 228 ЛДСП · гарантия 24 месяца
             </p>
@@ -153,7 +153,7 @@ function Sample({ pair, dark }: { pair: Pair; dark: boolean }) {
         </div>
 
         <p
-          className={`mt-8 max-w-2xl text-[0.8125rem] leading-relaxed ${
+          className={`mt-8 max-w-2xl text-small leading-relaxed ${
             dark ? 'text-cream/55' : 'text-stone'
           }`}
         >
@@ -169,7 +169,7 @@ export default function FontsPage() {
     <main>
       <section className="bg-bone py-14">
         <div className="container-page">
-          <h1 className="font-display-light text-[2.5rem] text-ink">
+          <h1 className="font-display-light text-title text-ink">
             Подбор шрифтов
           </h1>
           <p className="mt-4 max-w-2xl text-stone">
@@ -177,7 +177,7 @@ export default function FontsPage() {
             потолще + тонкий рукописный». Каждая пара показана на светлом и на
             тёмном фоне — на синем шрифт всегда выглядит тоньше.
           </p>
-          <p className="mt-3 text-[0.8125rem] text-stone">
+          <p className="mt-3 text-small text-stone">
             Страница временная и закрыта от поисковиков.
           </p>
         </div>

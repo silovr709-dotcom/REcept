@@ -60,7 +60,7 @@ function MissingId({ backHref, backLabel }: { backHref: string; backLabel: strin
       action={
         <Link
           href={backHref}
-          className="inline-flex min-h-11 items-center justify-center border border-ink/25 px-5 py-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-cream"
+          className="inline-flex min-h-11 items-center justify-center border border-ink/25 px-5 py-2.5 text-caption font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-cream"
         >
           {backLabel}
         </Link>

@@ -68,7 +68,7 @@ export function MobileActionBar() {
               )
             }
             tabIndex={visible ? 0 : -1}
-            className="grid min-h-13 shrink-0 place-items-center border border-ink/25 px-5 text-[0.6875rem] font-semibold uppercase tracking-[0.13em] text-ink"
+            className="grid min-h-13 shrink-0 place-items-center border border-ink/25 px-5 text-caption font-semibold uppercase tracking-[0.13em] text-ink"
           >
             {secondary.label}
           </a>
@@ -86,7 +86,7 @@ export function MobileActionBar() {
               source: 'mobile-bar',
             });
           }}
-          className="flex min-h-13 flex-1 items-center justify-center gap-2.5 bg-ink px-5 text-[0.6875rem] font-semibold uppercase tracking-[0.13em] text-cream"
+          className="flex min-h-13 flex-1 items-center justify-center gap-2.5 bg-ink px-5 text-caption font-semibold uppercase tracking-[0.13em] text-cream"
         >
           Рассчитать кухню
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -100,7 +100,7 @@ export function MobileActionBar() {
           </svg>
         </button>
       </div>
-      <p className="mt-1.5 text-center text-[0.6875rem] leading-tight text-stone">
+      <p className="mt-1.5 text-center text-caption leading-tight text-stone">
         Бесплатно и без обязательств
       </p>
     </div>

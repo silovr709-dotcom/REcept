@@ -128,7 +128,7 @@ export function HeroForm({ texts }: { texts: TextsContent }) {
 
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
             <div>
-              <p className="mb-2 text-[0.8125rem] font-semibold text-ink">
+              <p className="mb-2 text-small font-semibold text-ink">
                 Как обычно бывает
               </p>
               <ListEditor
@@ -145,7 +145,7 @@ export function HeroForm({ texts }: { texts: TextsContent }) {
               </p>
             </div>
             <div>
-              <p className="mb-2 text-[0.8125rem] font-semibold text-ink">
+              <p className="mb-2 text-small font-semibold text-ink">
                 Как у нас
               </p>
               <ListEditor
@@ -174,7 +174,7 @@ export function HeroForm({ texts }: { texts: TextsContent }) {
             </Field>
           </div>
           <div className="mt-5">
-            <p className="mb-2 text-[0.8125rem] font-semibold text-ink">Абзацы</p>
+            <p className="mb-2 text-small font-semibold text-ink">Абзацы</p>
             <ListEditor
               name="json:founders.paragraphs"
               initial={texts.founders.paragraphs.map((t) => ({ text: t }))}

@@ -95,7 +95,7 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="font-display text-[1.75rem] text-ink sm:text-[2.125rem]">
+      <h1 className="font-display text-head text-ink sm:text-title">
         Что сегодня меняем?
       </h1>
       <p className="mt-2 max-w-2xl text-stone">
@@ -106,7 +106,7 @@ export default async function AdminDashboard() {
       {warning ? (
         <div className="mt-8 rounded-xl border border-amber-300 bg-amber-50 p-5">
           <p className="font-semibold text-ink">Смените пароль перед публикацией</p>
-          <p className="mt-1.5 text-[0.9375rem] text-stone">
+          <p className="mt-1.5 text-ui text-stone">
             {warning} Поменяйте значение <code className="text-ink">ADMIN_PASSWORD</code>{' '}
             в файле <code className="text-ink">.env.local</code> и перезапустите сайт.
           </p>
@@ -119,7 +119,7 @@ export default async function AdminDashboard() {
       >
         <div>
           <p className="text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">Заявки</p>
-          <p className="font-display mt-2 text-[1.5rem] text-ink">
+          <p className="font-display mt-2 text-sub text-ink">
             {leads > 0
               ? `${leads} ${leads === 1 ? 'заявка' : leads < 5 ? 'заявки' : 'заявок'} в журнале`
               : 'Журнал заявок пуст'}
@@ -140,10 +140,10 @@ export default async function AdminDashboard() {
             href={tile.href}
             className="group rounded-xl border border-line bg-cream p-5 transition-colors hover:border-ink/30"
           >
-            <p className="font-display text-[1.125rem] text-ink group-hover:text-gold">
+            <p className="font-display text-big text-ink group-hover:text-gold">
               {tile.title}
             </p>
-            <p className="mt-1.5 text-[0.9375rem] font-medium text-ink">
+            <p className="mt-1.5 text-ui font-medium text-ink">
               {tile.value}
             </p>
             <p className="mt-1 text-sm text-stone">{tile.hint}</p>

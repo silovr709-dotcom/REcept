@@ -60,7 +60,7 @@ export function SectionTitle({
     <div className="flex flex-wrap items-end justify-between gap-4">
       <div>
         {eyebrow ? <Eyebrow className="mb-3">{eyebrow}</Eyebrow> : null}
-        <h2 id={id} className="font-display text-[1.5rem] leading-tight tracking-tight text-ink sm:text-[1.75rem]">
+        <h2 id={id} className="font-display text-sub leading-tight tracking-tight text-ink sm:text-head">
           {children}
         </h2>
       </div>
@@ -90,8 +90,8 @@ export function Action({
     'inline-flex items-center justify-center gap-2 rounded-none font-semibold uppercase ' +
     'tracking-[0.12em] transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50';
   const sizes = {
-    sm: 'min-h-9 px-3.5 py-2 text-[0.625rem]',
-    md: 'min-h-11 px-5 py-2.5 text-[0.6875rem]',
+    sm: 'min-h-9 px-3.5 py-2 text-caption',
+    md: 'min-h-11 px-5 py-2.5 text-caption',
   } as const;
   const variants = {
     primary: 'bg-ink text-cream hover:bg-coal',
@@ -146,8 +146,8 @@ export function Field({
         {label}
       </label>
       {children}
-      {hint && !error ? <p className="text-[0.8125rem] leading-snug text-stone">{hint}</p> : null}
-      {error ? <p className="text-[0.8125rem] leading-snug text-ink">{error}</p> : null}
+      {hint && !error ? <p className="text-small leading-snug text-stone">{hint}</p> : null}
+      {error ? <p className="text-small leading-snug text-ink">{error}</p> : null}
     </div>
   );
 }
@@ -242,7 +242,7 @@ export function Pill({
   } as const;
   return (
     <span
-      className={`inline-flex items-center whitespace-nowrap border px-2.5 py-1 text-[0.625rem] font-semibold uppercase tracking-[0.14em] ${tones[tone]}`}
+      className={`inline-flex items-center whitespace-nowrap border px-2.5 py-1 text-caption font-semibold uppercase tracking-[0.14em] ${tones[tone]}`}
     >
       {children}
     </span>
@@ -262,7 +262,7 @@ export function Notice({
   return (
     <div className={`border-l-2 ${border} bg-bone px-4 py-3`} role={tone === 'error' ? 'alert' : undefined}>
       {title ? <p className="font-semibold text-ink">{title}</p> : null}
-      {children ? <div className="text-[0.9375rem] leading-relaxed text-stone">{children}</div> : null}
+      {children ? <div className="text-ui leading-relaxed text-stone">{children}</div> : null}
     </div>
   );
 }
@@ -278,8 +278,8 @@ export function EmptyState({
 }) {
   return (
     <div className="border border-dashed border-line px-6 py-12 text-center">
-      <p className="font-display text-[1.125rem] text-ink">{title}</p>
-      {children ? <div className="mx-auto mt-3 max-w-md text-[0.9375rem] leading-relaxed text-stone">{children}</div> : null}
+      <p className="font-display text-big text-ink">{title}</p>
+      {children ? <div className="mx-auto mt-3 max-w-md text-ui leading-relaxed text-stone">{children}</div> : null}
       {action ? <div className="mt-6 flex justify-center">{action}</div> : null}
     </div>
   );
@@ -289,7 +289,7 @@ export function Loading({ label = 'Загружаем…' }: { label?: string })
   return (
     <div className="flex items-center gap-3 px-1 py-10 text-stone" aria-live="polite">
       <Spinner />
-      <span className="text-[0.9375rem]">{label}</span>
+      <span className="text-ui">{label}</span>
     </div>
   );
 }
@@ -347,7 +347,7 @@ export function Modal({
         }`}
       >
         <div className="mb-6 flex items-start justify-between gap-6">
-          <h2 className="font-display text-[1.25rem] leading-tight text-ink">{title}</h2>
+          <h2 className="font-display text-sub leading-tight text-ink">{title}</h2>
           <button
             type="button"
             onClick={onClose}
@@ -389,13 +389,13 @@ export function TabBar({
               role="tab"
               aria-selected={selected}
               onClick={() => onSelect(item.key)}
-              className={`relative whitespace-nowrap px-4 py-3 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] transition-colors ${
+              className={`relative whitespace-nowrap px-4 py-3 text-caption font-semibold uppercase tracking-[0.14em] transition-colors ${
                 selected ? 'text-ink' : 'text-stone hover:text-ink'
               }`}
             >
               {item.label}
               {item.badge ? (
-                <span className="ml-2 inline-flex min-w-5 items-center justify-center bg-ink px-1.5 py-0.5 text-[0.5625rem] text-cream">
+                <span className="ml-2 inline-flex min-w-5 items-center justify-center bg-ink px-1.5 py-0.5 text-caption text-cream">
                   {item.badge}
                 </span>
               ) : null}

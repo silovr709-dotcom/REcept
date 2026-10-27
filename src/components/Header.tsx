@@ -101,7 +101,7 @@ export function Header() {
                          текущий раздел виден, но меню остаётся ровным
                          по цвету и весу — как колонтитул, а не как
                          панель кнопок. */
-                      className={`relative whitespace-nowrap py-2 text-[0.875rem] transition-colors xl:text-[0.9375rem] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+                      className={`relative whitespace-nowrap py-2 text-ui transition-colors xl:text-ui after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 ${
                         active
                           ? overPhoto
                             ? 'text-goldsoft after:scale-x-100'
@@ -126,7 +126,7 @@ export function Header() {
                 не хватает ширины и оно ломается на две строки. */}
             <Link
               href="/kabinet"
-              className={`hidden whitespace-nowrap text-[0.9375rem] font-medium transition-colors 2xl:inline ${
+              className={`hidden whitespace-nowrap text-ui font-medium transition-colors 2xl:inline ${
                 overPhoto ? 'text-cream/85 hover:text-cream' : 'text-ink/80 hover:text-gold'
               }`}
             >
@@ -137,7 +137,7 @@ export function Header() {
               <a
                 href={phoneHref}
                 onClick={() => reachGoal('phone_click', { place: 'header' })}
-                className={`hidden text-[0.9375rem] font-semibold transition-colors 2xl:inline ${
+                className={`hidden text-ui font-semibold transition-colors 2xl:inline ${
                   overPhoto
                     ? 'text-cream hover:text-goldsoft'
                     : 'text-ink hover:text-gold'
@@ -265,7 +265,7 @@ export function Header() {
                     слева при нажатии, как направляющая ящика. */}
                 <Link
                   href={item.href}
-                  className="group/mi relative flex min-h-13 items-center border-b border-line/70 py-3 font-display text-[1.375rem] text-ink"
+                  className="group/mi relative flex min-h-13 items-center border-b border-line/70 py-3 font-display text-sub text-ink"
                 >
                   <span className="relative z-10">{item.label}</span>
                   <span
@@ -293,7 +293,7 @@ export function Header() {
             {hasPhone ? (
               <a
                 href={phoneHref}
-                className="flex min-h-13 items-center justify-center border border-ink/25 text-[0.75rem] font-semibold uppercase tracking-[0.13em] text-ink"
+                className="flex min-h-13 items-center justify-center border border-ink/25 text-small font-semibold uppercase tracking-[0.13em] text-ink"
               >
                 Позвонить {phoneDisplay}
               </a>
@@ -303,7 +303,7 @@ export function Header() {
                 выглядел как заголовок раздела, по которому не нажимают. */}
             <Link
               href="/kabinet"
-              className="flex min-h-13 items-center justify-center border border-line text-[0.75rem] font-semibold uppercase tracking-[0.13em] text-stone transition-colors hover:border-gold/50 hover:text-gold"
+              className="flex min-h-13 items-center justify-center border border-line text-small font-semibold uppercase tracking-[0.13em] text-stone transition-colors hover:border-gold/50 hover:text-gold"
             >
               Личный кабинет
             </Link>
@@ -318,12 +318,12 @@ export function Header() {
                 <li key={c.id}>
                   <a
                     href={c.href}
-                    className="flex items-baseline justify-between gap-4 text-[0.9375rem] text-stone transition-colors hover:text-gold"
+                    className="flex items-baseline justify-between gap-4 text-ui text-stone transition-colors hover:text-gold"
                   >
-                    <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-clay">
+                    <span className="text-caption font-semibold uppercase tracking-[0.18em] text-clay">
                       {c.label}
                     </span>
-                    <span className="font-display text-[1.0625rem] text-ink">
+                    <span className="font-display text-big text-ink">
                       {c.value}
                     </span>
                   </a>

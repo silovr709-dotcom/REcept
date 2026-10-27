@@ -145,7 +145,7 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
 
             <h2
               id="lead-modal-title"
-              className="font-display max-w-[85%] text-[1.6rem] leading-tight tracking-tight text-ink sm:text-[2rem]"
+              className="font-display max-w-[85%] text-head leading-tight tracking-tight text-ink sm:text-head"
             >
               {payload.title}
             </h2>

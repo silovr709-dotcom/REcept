@@ -168,10 +168,10 @@ export function AuthScreen({ initialMode = 'signin' }: { initialMode?: Mode }) {
   return (
     <div className="mx-auto w-full max-w-md py-6 sm:py-12">
       <Panel>
-        <h1 className="font-display text-[1.625rem] leading-tight tracking-tight text-ink">
+        <h1 className="font-display text-head leading-tight tracking-tight text-ink">
           {titles[mode]}
         </h1>
-        <p className="mt-3 text-[0.9375rem] leading-relaxed text-stone">{leads[mode]}</p>
+        <p className="mt-3 text-ui leading-relaxed text-stone">{leads[mode]}</p>
 
         {inviteToken && mode !== 'newpassword' ? (
           <div className="mt-5">
@@ -251,7 +251,7 @@ export function AuthScreen({ initialMode = 'signin' }: { initialMode?: Mode }) {
           </Action>
         </form>
 
-        <div className="mt-6 grid gap-2 border-t border-line pt-5 text-[0.875rem] text-stone">
+        <div className="mt-6 grid gap-2 border-t border-line pt-5 text-ui text-stone">
           {mode !== 'signin' ? (
             <button type="button" className="text-left transition-colors hover:text-ink" onClick={() => setMode('signin')}>
               У меня уже есть кабинет — войти
@@ -270,7 +270,7 @@ export function AuthScreen({ initialMode = 'signin' }: { initialMode?: Mode }) {
         </div>
       </Panel>
 
-      <p className="mt-6 px-1 text-[0.8125rem] leading-relaxed text-stone">
+      <p className="mt-6 px-1 text-small leading-relaxed text-stone">
         Кабинет нужен только нашим заказчикам. Чтобы посмотреть работы и
         условия, регистрация не нужна —{' '}
         <Link href="/" className="text-ink underline underline-offset-4">

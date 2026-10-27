@@ -24,7 +24,7 @@ export function LoginScreen({ configured }: { configured: boolean }) {
   return (
     <div className="grid min-h-dvh place-items-center bg-ink px-4 py-10">
       <div className="w-full max-w-sm">
-        <p className="font-display text-center text-[1.75rem] text-cream">
+        <p className="font-display text-center text-head text-cream">
           <span className="text-goldsoft">РЕ</span>цепт
         </p>
         <p className="mt-2 text-center text-sm text-cream/60">
@@ -33,7 +33,7 @@ export function LoginScreen({ configured }: { configured: boolean }) {
 
         <div className="mt-8 rounded-xl border border-cream/12 bg-cream p-6 sm:p-8">
           {!configured ? (
-            <div className="text-[0.9375rem] text-ink">
+            <div className="text-ui text-ink">
               <p className="font-semibold">Админка ещё не настроена</p>
               <p className="mt-3 text-stone">
                 Добавьте в файл <code className="text-ink">.env.local</code> две

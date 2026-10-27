@@ -14,7 +14,7 @@ export function Logo({
       className={`group inline-flex items-baseline gap-2 ${className}`}
     >
       <span
-        className={`font-logo text-[1.45rem] leading-none tracking-tight sm:text-[1.6rem] ${
+        className={`font-logo text-sub leading-none tracking-tight sm:text-head ${
           tone === 'light' ? 'text-cream' : 'text-ink'
         }`}
       >
@@ -32,7 +32,7 @@ export function Logo({
         цепт
       </span>
       <span
-        className={`hidden text-[0.625rem] font-semibold uppercase tracking-[0.18em] sm:inline ${
+        className={`hidden text-caption font-semibold uppercase tracking-[0.18em] sm:inline ${
           tone === 'light' ? 'text-cream/60' : 'text-stone'
         }`}
       >
