@@ -14,7 +14,7 @@ export function Logo({
       className={`group inline-flex items-baseline gap-2 ${className}`}
     >
       <span
-        className={`font-display text-[1.45rem] leading-none tracking-tight sm:text-[1.6rem] ${
+        className={`font-logo text-[1.45rem] leading-none tracking-tight sm:text-[1.6rem] ${
           tone === 'light' ? 'text-cream' : 'text-ink'
         }`}
       >

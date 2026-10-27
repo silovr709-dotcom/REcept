@@ -100,7 +100,7 @@ export function PageHero({
             <span aria-hidden="true" className="h-px w-6 bg-gold/60" />
             {eyebrow}
           </p>
-          <h1 className="font-display-light mt-5 max-w-4xl text-h1 text-ink">
+          <h1 className="title-drawer font-display-light mt-5 max-w-4xl text-h1 text-ink">
             {title}
           </h1>
           {lead ? (
@@ -154,7 +154,7 @@ export function PageHero({
           <span aria-hidden="true" className="h-px w-6 bg-goldsoft/60" />
           {eyebrow}
         </p>
-        <h1 className="font-display-light mt-5 max-w-4xl text-h1 text-cream">
+        <h1 className="title-drawer font-display-light mt-5 max-w-4xl text-h1 text-cream">
           {title}
         </h1>
         {lead ? (

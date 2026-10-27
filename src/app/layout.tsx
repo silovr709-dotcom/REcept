@@ -13,25 +13,34 @@ import type { Metadata, Viewport } from 'next';
   в 400, 500 и 600. Каждый лишний файл — это задержка перед первой
   буквой, поэтому жирных и экзотических начертаний здесь нет.
 */
-import '@fontsource/cormorant-garamond/cyrillic-300.css';
 import '@fontsource/cormorant-garamond/cyrillic-400.css';
-import '@fontsource/cormorant-garamond/cyrillic-400-italic.css';
-import '@fontsource/cormorant-garamond/cyrillic-500.css';
-import '@fontsource/cormorant-garamond/latin-300.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
-import '@fontsource/cormorant-garamond/latin-400-italic.css';
-/* ВРЕМЕННО: кандидаты для подбора пары «толстая антиква + тонкий рукописный».
-   Смотреть на /shrifty. Лишние пакеты удаляются сразу после выбора. */
-import '@fontsource/cormorant-garamond/cyrillic-600.css';
-import '@fontsource/cormorant-garamond/cyrillic-600-italic.css';
+/*
+ * ЗАГОЛОВКИ — PLAYFAIR DISPLAY.
+ * Классическая антиква с высоким контрастом штриха. 400 — для крупных
+ * титулов, 700 — для заголовков разделов и названий работ: именно за
+ * счёт плотного начертания страница перестаёт быть «воздушной
+ * бесконечностью» и начинает читаться как журнал.
+ *
+ * ЛОГОТИП — CORMORANT GARAMOND.
+ * Знак остаётся прежним: это уже узнаваемая подпись ателье.
+ *
+ * РУКОПИСНЫЙ — MARCK SCRIPT.
+ * Тонкое перо для заметок Роберта и Кати на полях. Раньше рукописного
+ * шрифта на сайте не было вовсе: переменная --font-hand-face нигде не
+ * задавалась, и браузер подставлял что найдёт — на половине телефонов
+ * обычный текст без всякого почерка.
+ */
+import '@fontsource/playfair-display/cyrillic-400.css';
+import '@fontsource/playfair-display/cyrillic-400-italic.css';
+import '@fontsource/playfair-display/cyrillic-500.css';
 import '@fontsource/playfair-display/cyrillic-700.css';
 import '@fontsource/playfair-display/cyrillic-700-italic.css';
-import '@fontsource/prata/cyrillic-400.css';
-import '@fontsource/lora/cyrillic-700.css';
-import '@fontsource/lora/cyrillic-700-italic.css';
-import '@fontsource/caveat/cyrillic-400.css';
+import '@fontsource/playfair-display/latin-400.css';
+import '@fontsource/playfair-display/latin-400-italic.css';
+import '@fontsource/playfair-display/latin-700.css';
 import '@fontsource/marck-script/cyrillic-400.css';
-import '@fontsource/bad-script/cyrillic-400.css';
+import '@fontsource/marck-script/latin-400.css';
 import '@fontsource/golos-text/cyrillic-400.css';
 import '@fontsource/golos-text/cyrillic-500.css';
 import '@fontsource/golos-text/cyrillic-600.css';
@@ -118,8 +127,18 @@ const bootScript = `(function(){var d=document.documentElement;d.classList.remov
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  /*
+   * suppressHydrationWarning на <html>: скрипт в <head> снимает класс
+   * no-js и ставит атрибуты загрузчика ещё до гидратации — React
+   * сравнивал разметку с серверной и писал предупреждение в консоль на
+   * каждой странице. Расхождение намеренное, гасим его точечно.
+   */
   return (
-    <html lang="ru" className={`no-js ${fontVariables}`}>
+    <html
+      lang="ru"
+      className={`no-js ${fontVariables}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <noscript>

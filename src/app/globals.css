@@ -83,7 +83,10 @@
   --font-sans: 'Golos Text', var(--font-sans-cyrillic),
     var(--font-sans-latin), ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', Roboto, Arial, sans-serif;
-  --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --font-display: 'Playfair Display', 'Times New Roman', Georgia, serif;
+  /* Знак ателье остаётся на прежней гарнитуре */
+  --font-logo: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-hand-face: 'Marck Script';
   --font-hand: var(--font-hand-face), 'Segoe Script', 'Bradley Hand', cursive;
 
   /* Шкала с большим разрывом: либо очень крупно, либо очень мелко.
@@ -166,17 +169,24 @@
   /* Антиква живёт светлым начертанием. Полужирная антиква —
      главный способ её испортить: засечки заплывают, и благородный
      шрифт начинает выглядеть как заголовок районной газеты. */
+  /*
+   * ВЕС ЗАГОЛОВКОВ.
+   * Крупный титул набирается обычным начертанием: на кегле в 60–80
+   * пунктов контраст штриха у Playfair работает сам, и плотность
+   * только утяжелила бы разворот. Заголовки разделов и названия
+   * работ, наоборот, плотные — они держат ритм страницы.
+   */
   h1,
   h2,
   h3,
   h4 {
     text-wrap: balance;
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 700;
   }
 
   h1 {
-    font-weight: 300;
+    font-weight: 400;
   }
 
   /*
@@ -249,7 +259,19 @@
 /* Крупный заголовок антиквой: чем больше кегль, тем светлее штрих */
 @utility font-display-light {
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 400;
+}
+
+/* Плотная антиква: названия работ, цифры, акценты в разделах */
+@utility font-display-bold {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+/* Знак ателье */
+@utility font-logo {
+  font-family: var(--font-logo);
+  font-weight: 400;
 }
 
 /* Смысловой акцент внутри заголовка: курсив антиквы золотом.
@@ -648,6 +670,112 @@ html[data-loader='short'] .loader-text {
       }
     }
   }
+}
+
+/* ==================================================================
+   МЕБЕЛЬНЫЕ ПРИЁМЫ
+   ------------------------------------------------------------------
+   Сайт мебельного ателье имеет право двигаться как мебель: фасад
+   открывается на петлях, ящик выезжает, ручка-профиль тянется вдоль
+   кромки. Приёмов немного и все они тихие — это мебель хорошая, а не
+   аттракцион.
+
+   Всё заключено в prefers-reduced-motion: кому движение мешает,
+   тот получает обычную статичную страницу.
+   ================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* --- Карточка работы открывается как фасад на петлях ---------- */
+  .hinge {
+    perspective: 1600px;
+  }
+
+  .hinge-panel {
+    transform-origin: left center;
+    transition:
+      transform 760ms var(--ease-out-expo),
+      box-shadow 760ms var(--ease-out-expo);
+    will-change: transform;
+  }
+
+  .hinge:hover .hinge-panel,
+  .hinge:focus-visible .hinge-panel {
+    transform: rotateY(-7deg) translateZ(16px);
+    box-shadow: -28px 30px 64px -34px color-mix(in oklab, var(--color-soot) 62%, transparent);
+  }
+
+  /* Блик на торце открывающегося края — так выглядит кромка фасада,
+     когда на неё попадает свет из комнаты */
+  .hinge-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-goldsoft),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 760ms var(--ease-out-expo);
+    pointer-events: none;
+  }
+
+  .hinge:hover .hinge-panel::after,
+  .hinge:focus-visible .hinge-panel::after {
+    opacity: 0.8;
+  }
+
+  /* --- Направляющая под шапкой ---------------------------------- */
+  /* Тонкая латунная линия, которая выдвигается по мере прокрутки —
+     как профиль-ручка вдоль всего фасада. Заодно это честный
+     индикатор: видно, сколько страницы осталось. */
+  @supports (animation-timeline: scroll()) {
+    .scroll-rail {
+      transform: scaleX(0);
+      transform-origin: left center;
+      animation: rail-extend linear both;
+      animation-timeline: scroll(root block);
+    }
+
+    @keyframes rail-extend {
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  /* --- Заголовок выезжает ящиком -------------------------------- */
+  .title-drawer {
+    animation: title-drawer 900ms var(--ease-out-expo) 120ms both;
+  }
+
+  @keyframes title-drawer {
+    from {
+      clip-path: inset(0 0 108% 0);
+      transform: translateY(14px);
+    }
+    to {
+      clip-path: inset(0 0 -12% 0);
+      transform: none;
+    }
+  }
+}
+
+/* --- Ручка-профиль вместо простой черты ------------------------- */
+/* Короткий штрих рядом с надзаголовком раньше был линией в один
+   пиксель. Теперь у него есть торец и блик — это маленькая латунная
+   ручка, тот же профиль, что мы ставим на ящики. */
+@utility handle-rule {
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-goldsoft),
+    var(--color-gold) 55%,
+    color-mix(in oklab, var(--color-gold) 70%, black)
+  );
 }
 
 /* ==================================================================

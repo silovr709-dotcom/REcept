@@ -72,6 +72,15 @@ export function Header() {
           : 'border-b border-transparent bg-transparent'
       }`}
     >
+      {/* Направляющая: латунная линия выдвигается вдоль нижней кромки
+          шапки по мере прокрутки. Честный индикатор прогресса, сделанный
+          как профиль-ручка, а не как полоска загрузки */}
+      <span
+        aria-hidden="true"
+        className={`scroll-rail pointer-events-none absolute inset-x-0 bottom-[-1px] h-px origin-left bg-goldline transition-opacity duration-300 ${
+          scrolled && !menuOpen ? 'opacity-70' : 'opacity-0'
+        }`}
+      />
       <div className="container-page">
         <div className="flex h-16 items-center justify-between gap-6 lg:h-20">
           <Logo tone={overPhoto ? 'light' : 'dark'} />
