@@ -8,6 +8,7 @@ import { OrganizationJsonLd } from '@/components/JsonLd';
 import { Analytics } from '@/components/Analytics';
 import { FurnitureNavigation } from '@/components/FurnitureNavigation';
 import { PageEnter } from '@/components/PageEnter';
+import { Carcass } from '@/components/Carcass';
 import { getSiteView } from '@/lib/content/view';
 
 /**
@@ -36,6 +37,8 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
       >
         Перейти к содержанию
       </a>
+
+      <Carcass />
 
       <SiteProvider value={site}>
         <LeadModalProvider>

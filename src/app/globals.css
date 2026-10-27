@@ -747,7 +747,6 @@ html[data-loader='short'] .loader-text {
     color-mix(in oklab, black 9%, transparent) 2px 3px,
     transparent 3px 14px
   );
-  background-attachment: fixed;
 }
 
 /* Цоколь: корпус стоит на утопленном основании */

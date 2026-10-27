@@ -147,9 +147,13 @@ export async function Price({
                           />
                         </span>
                       ) : (
-                        <span className="shrink-0 pt-1 text-caption font-bold tracking-[0.16em] text-stone">
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
+                        /* Пустое место ровно под кадр: номера строк
+                           должны стоять в одну вертикаль независимо от
+                           того, есть у пункта фотография или нет */
+                        <span
+                          aria-hidden="true"
+                          className="block size-20 shrink-0 border-l border-line/70 sm:size-24"
+                        />
                       )}
                       <div>
                         <dt className="flex items-baseline gap-3 font-semibold text-ink">
