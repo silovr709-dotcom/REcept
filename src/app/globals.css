@@ -969,6 +969,87 @@ html[data-loader='short'] .loader-text {
     }
   }
 
+  /* ------------------------------------------------------------------
+     ТРИ РАЗНЫХ ПЕРЕХОДА ВМЕСТО ОДНОГО
+     ------------------------------------------------------------------
+     Скрипт навигации давно помечал переход типом — «створка» между
+     разделами, «ящик» вглубь (портфолио → работа) и «ящик обратно», —
+     но стилей для этих типов в теме не было, и все переходы выглядели
+     одинаково. Теперь движение совпадает со смыслом: вглубь страница
+     выдвигается, назад — задвигается, вбок — открывается створкой.
+     ------------------------------------------------------------------ */
+
+  /* Створка: соседний раздел открывается на петлях от левого края */
+  html[data-nav='door']::view-transition-new(root) {
+    animation: door-in 640ms var(--ease-out-expo) 60ms both;
+    transform-origin: left center;
+  }
+
+  @keyframes door-in {
+    from {
+      opacity: 0;
+      transform: perspective(1800px) rotateY(5.5deg) translateX(1.5%);
+    }
+    to {
+      opacity: 1;
+      transform: perspective(1800px) rotateY(0deg) translateX(0);
+    }
+  }
+
+  /* Ящик: страница работы выдвигается снизу, список чуть отступает */
+  html[data-nav='drawer']::view-transition-new(root) {
+    animation: drawer-in 600ms var(--ease-out-expo) 60ms both;
+  }
+
+  html[data-nav='drawer']::view-transition-old(root) {
+    animation: drawer-recede 400ms var(--ease-soft) both;
+  }
+
+  @keyframes drawer-in {
+    from {
+      opacity: 0;
+      transform: translateY(4.5%) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes drawer-recede {
+    to {
+      opacity: 0;
+      transform: scale(0.985);
+    }
+  }
+
+  /* Ящик обратно: то же движение в другую сторону */
+  html[data-nav='drawer-back']::view-transition-new(root) {
+    animation: drawer-back-in 600ms var(--ease-out-expo) 40ms both;
+  }
+
+  html[data-nav='drawer-back']::view-transition-old(root) {
+    animation: drawer-back-out 400ms var(--ease-soft) both;
+  }
+
+  @keyframes drawer-back-in {
+    from {
+      opacity: 0;
+      transform: scale(1.012);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes drawer-back-out {
+    to {
+      opacity: 0;
+      transform: translateY(3.5%);
+    }
+  }
+
   html.no-vt .page-enter {
     animation: page-in 0.7s var(--ease-out-expo) both;
   }
