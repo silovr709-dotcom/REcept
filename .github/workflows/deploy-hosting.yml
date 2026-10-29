@@ -18,6 +18,11 @@ name: Выгрузка сайта на хостинг
 #     FTP_PROTOCOL  — по умолчанию ftps (шифрованный FTP). Если хостинг
 #                     его не поддерживает, поставьте ftp.
 #
+# Выкладывается только «живая» ветка — по умолчанию arena/01a0e490-recept,
+# та, в которой сейчас ведётся работа. Менять её не нужно; если когда-то
+# понадобится, заведите переменную (Variables, не Secrets) LIVE_BRANCH.
+# Остальные ветки собираются и проверяются, но на сайт не уезжают.
+#
 # Пока пароль не добавлен, выгрузка пропускается, а сборка всё равно
 # проверяется — чтобы сломанный сайт не уехал на хостинг. Свежий архив
 # для ручной загрузки при этом всё равно публикуется в разделе Releases.
@@ -105,7 +110,16 @@ jobs:
         id: cfg
         env:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          LIVE_BRANCH: ${{ vars.LIVE_BRANCH || 'arena/01a0e490-recept' }}
         run: |
+          # На хостинг выкладывается только «живая» ветка. Иначе случайная
+          # правка в отставшей ветке молча откатила бы сайт назад.
+          if [ "$GITHUB_REF_NAME" = "$LIVE_BRANCH" ]; then
+            echo "live=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "live=no" >> "$GITHUB_OUTPUT"
+            echo "Ветка \`$GITHUB_REF_NAME\` не выкладывается на хостинг (живая ветка — \`$LIVE_BRANCH\`). Сборка проверена." >> "$GITHUB_STEP_SUMMARY"
+          fi
           if [ -n "$FTP_PASSWORD" ]; then
             echo "ready=yes" >> "$GITHUB_OUTPUT"
             echo "Выгрузка: $FTP_USER@$FTP_HOST ($FTP_PROTOCOL), папка $FTP_DIR" >> "$GITHUB_STEP_SUMMARY"
@@ -119,7 +133,7 @@ jobs:
           fi
 
       - name: Выгрузить на хостинг
-        if: steps.cfg.outputs.ready == 'yes'
+        if: steps.cfg.outputs.ready == 'yes' && steps.cfg.outputs.live == 'yes'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ env.FTP_HOST }}
@@ -146,7 +160,7 @@ jobs:
             .well-known/**
 
       - name: Убедиться, что на сайте новая версия
-        if: steps.cfg.outputs.ready == 'yes'
+        if: steps.cfg.outputs.ready == 'yes' && steps.cfg.outputs.live == 'yes'
         run: |
           url="https://${SITE_DOMAIN}/version.txt"
           echo "Проверяю $url"
