@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 /**
  * Снимает шторку загрузки.
  * Пользователя не держим: как только страница готова — уходим.
- * Минимальная длительность нужна лишь для того, чтобы анимация
- * не мигнула; при повторном визите и при reduce-motion она почти нулевая.
+ * Минимальная длительность равна длине сборки фасада: показать её
+ * наполовину хуже, чем не показывать вовсе. При повторном визите она
+ * вдвое короче, при reduce-motion — нулевая.
  */
 export function LoaderController() {
   useEffect(() => {
@@ -18,7 +19,12 @@ export function LoaderController() {
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isShort = document.documentElement.dataset.loader === 'short';
-    const minDuration = reduce ? 0 : isShort ? 400 : 1100;
+    /*
+     * Сборка фасада идёт до 2,4 с, и обрывать её на середине нельзя —
+     * половина впечатления в том, что рейка дорисовывается до конца.
+     * Повторный визит укорочен вдвое, «меньше движения» — мгновенно.
+     */
+    const minDuration = reduce ? 0 : isShort ? 1150 : 2400;
 
     const start = Number(document.documentElement.dataset.loaderStart) || Date.now();
     let done = false;
@@ -42,8 +48,9 @@ export function LoaderController() {
       window.setTimeout(finish, Math.max(0, minDuration - elapsed));
     };
 
-    // Страховка на медленных сетях: не держим дольше трёх секунд
-    const hardStop = window.setTimeout(finish, 3000);
+    // Страховка на медленных сетях: дольше четырёх с половиной секунд
+    // не держим никого, даже если страница ещё не догрузилась
+    const hardStop = window.setTimeout(finish, 4500);
 
     if (document.readyState === 'complete') {
       schedule();

@@ -449,18 +449,163 @@ html:not([data-hydrated]) [data-reveal] {
   z-index: 200;
   display: grid;
   place-items: center;
-  background: var(--color-ink);
+  /* Фон держат створки, а не сам слой: иначе распахивать было бы
+     нечего — под створками оказался бы тот же синий прямоугольник */
+  background: transparent;
+  perspective: 2400px;
   opacity: 1;
   transition:
-    opacity 0.6s var(--ease-soft),
-    visibility 0.6s;
-  animation: loader-failsafe 0.6s var(--ease-soft) 4.5s forwards;
+    opacity 0.5s var(--ease-soft) 0.45s,
+    visibility 0.5s 0.45s;
+  animation: loader-failsafe 0.6s var(--ease-soft) 6s forwards;
 }
+
+/* --- Створки шторки --------------------------------------------- */
+
+.loader-leaf {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.4%;
+  background:
+    radial-gradient(
+      120% 90% at 50% 45%,
+      transparent 40%,
+      color-mix(in oklab, var(--color-soot) 55%, transparent) 100%
+    ),
+    repeating-linear-gradient(
+      to right,
+      color-mix(in oklab, white 3%, transparent) 0 1px,
+      transparent 1px 2px,
+      color-mix(in oklab, black 10%, transparent) 2px 3px,
+      transparent 3px 14px
+    ),
+    var(--color-ink);
+  transition: transform 900ms var(--ease-out-expo);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.loader-leaf--l {
+  left: 0;
+  transform-origin: left center;
+}
+
+.loader-leaf--r {
+  right: 0;
+  transform-origin: right center;
+}
+
+.loader-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 1.5rem;
+  transition:
+    opacity 320ms var(--ease-soft),
+    transform 520ms var(--ease-out-expo);
+}
+
+/* --- Приводочные метки по углам листа ---------------------------- */
+
+.loader-mark {
+  position: absolute;
+  z-index: 2;
+  width: 2.25rem;
+  height: 2.25rem;
+  opacity: 0;
+  animation: piece-in 0.7s var(--ease-soft) 60ms forwards;
+  /* Сокращение border-top: 1px solid берёт currentColor, поэтому цвет
+     задаётся именно через color, а не border-color */
+  color: color-mix(in oklab, var(--color-goldsoft) 45%, transparent);
+}
+
+.loader-mark--tl {
+  top: 2rem;
+  left: 2rem;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+.loader-mark--tr {
+  top: 2rem;
+  right: 2rem;
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+.loader-mark--bl {
+  bottom: 2rem;
+  left: 2rem;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+.loader-mark--br {
+  bottom: 2rem;
+  right: 2rem;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+/* --- Направляющая-индикатор внизу -------------------------------- */
+
+.loader-rail {
+  position: absolute;
+  z-index: 2;
+  bottom: 4.25rem;
+  left: 50%;
+  width: min(22rem, 62vw);
+  height: 2px;
+  translate: -50% 0;
+  background: color-mix(in oklab, var(--color-cream) 12%, transparent);
+  overflow: hidden;
+}
+
+.loader-rail-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(
+    to right,
+    color-mix(in oklab, var(--color-goldsoft) 35%, transparent),
+    var(--color-goldline)
+  );
+  animation: rail-fill 2.3s var(--ease-soft) 120ms forwards;
+}
+
+@keyframes rail-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* --- Уход: створки распахиваются --------------------------------- */
 
 #recept-loader[data-state='done'] {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+}
+
+#recept-loader[data-state='done'] .loader-leaf--l {
+  transform: rotateY(-102deg);
+}
+
+#recept-loader[data-state='done'] .loader-leaf--r {
+  transform: rotateY(102deg);
+}
+
+#recept-loader[data-state='done'] .loader-stage {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+#recept-loader[data-state='done'] .loader-mark,
+#recept-loader[data-state='done'] .loader-rail {
+  opacity: 0;
+  transition: opacity 260ms var(--ease-soft);
 }
 
 @keyframes loader-failsafe {
@@ -477,12 +622,12 @@ html[data-loading='true'] body {
 }
 
 #recept-loader {
-  --loader-speed: 0.62;
+  --loader-speed: 1;
 }
 
 .loader-piece {
   opacity: 0;
-  animation: piece-in 0.5s var(--ease-out-expo) forwards;
+  animation: piece-in 0.6s var(--ease-out-expo) forwards;
   animation-delay: calc(var(--d) * var(--loader-speed, 1));
 }
 
@@ -490,7 +635,7 @@ html[data-loading='true'] body {
   transform: translateY(16px);
 }
 .loader-piece--down {
-  transform: translateY(-16px);
+  transform: translateY(-14px);
 }
 .loader-piece--left {
   transform: translateX(-20px);
@@ -503,14 +648,30 @@ html[data-loading='true'] body {
   }
 }
 
+/* Профиль-ручка расходится от середины */
 .loader-gola {
-  stroke-dasharray: 260;
-  stroke-dashoffset: 260;
-  animation: gola-draw 0.6s var(--ease-out-expo) forwards;
+  transform-origin: center;
+  transform: scaleX(0);
+  animation: gola-extend 0.75s var(--ease-out-expo) forwards;
   animation-delay: calc(var(--d) * var(--loader-speed, 1));
 }
 
-@keyframes gola-draw {
+@keyframes gola-extend {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Фреза прорисовывается сверху вниз */
+.loader-reed {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  opacity: 0.75;
+  animation: reed-draw 0.65s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--d) * var(--loader-speed, 1));
+}
+
+@keyframes reed-draw {
   to {
     stroke-dashoffset: 0;
   }
@@ -518,7 +679,7 @@ html[data-loading='true'] body {
 
 .loader-light {
   opacity: 0;
-  animation: light-on 0.9s ease-out forwards;
+  animation: light-on 1.1s ease-out forwards;
   animation-delay: calc(var(--d) * var(--loader-speed, 1));
 }
 
@@ -526,26 +687,28 @@ html[data-loading='true'] body {
   0% {
     opacity: 0;
   }
-  40% {
-    opacity: 0.9;
+  45% {
+    opacity: 1;
   }
   100% {
-    opacity: 0.8;
+    opacity: 0.88;
   }
 }
 
 .loader-text {
   opacity: 0;
-  transform: translateY(8px);
-  animation: piece-in 0.7s var(--ease-out-expo) forwards;
+  transform: translateY(10px);
+  animation: piece-in 0.8s var(--ease-out-expo) forwards;
   animation-delay: calc(var(--d) * var(--loader-speed, 1));
 }
 
-html[data-loader='short'] .loader-piece,
-html[data-loader='short'] .loader-gola,
-html[data-loader='short'] .loader-light,
-html[data-loader='short'] .loader-text {
-  --loader-speed: 0.24;
+/* Повторный визит: та же сборка, но вдвое быстрее */
+html[data-loader='short'] #recept-loader {
+  --loader-speed: 0.45;
+}
+
+html[data-loader='short'] .loader-rail-fill {
+  animation-duration: 1.05s;
 }
 
 /* ==================================================================
