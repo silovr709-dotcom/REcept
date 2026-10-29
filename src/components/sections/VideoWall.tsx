@@ -25,7 +25,7 @@ export async function VideoWall({ tone = 'ink' }: { tone?: 'ink' | 'bone' }) {
   const light = tone === 'ink';
 
   return (
-    <Section tone={tone} aria-labelledby="video-title">
+    <Section tone={tone} id="video" aria-labelledby="video-title">
       <div className="container-page">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading

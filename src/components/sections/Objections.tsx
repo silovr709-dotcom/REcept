@@ -22,7 +22,7 @@ export async function Objections({
   // Кадры с объектов не дают блоку превратиться в сплошную стену текста
   const objectionShots = details.slice(5, 8);
   return (
-    <Section tone={tone} aria-labelledby="objections-title">
+    <Section tone={tone} id="voprosy" aria-labelledby="objections-title">
       <div className="container-page">
         <SectionHeading
           index={index}

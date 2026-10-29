@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { Photo } from './ui/Photo';
-import type { ImageRef } from '@/lib/content/types';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from "react-dom";
+import { Photo } from "./ui/Photo";
+import type { ImageRef } from "@/lib/content/types";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Фотография, которую можно рассмотреть.
@@ -18,8 +19,8 @@ export function ZoomableImage({
   alt,
   caption,
   sizes,
-  className = '',
-  wrapperClassName = '',
+  className = "",
+  wrapperClassName = "",
   priority = false,
 }: {
   image: ImageRef;
@@ -33,6 +34,16 @@ export function ZoomableImage({
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  /*
+   * Просмотр выносится в конец документа.
+   * Почему это важно: `position: fixed` перестаёт считаться от окна,
+   * если у любого родителя есть transform или backdrop-filter — а у
+   * нас почти каждая карточка выезжает анимацией. Без переноса окно
+   * просмотра обрезалось рамкой карточки и пряталось под нижней
+   * панелью. Переносим только когда открыли, на сервере — никогда.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -43,20 +54,20 @@ export function ZoomableImage({
     if (!open) return;
 
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') close();
-      if (e.key === 'Tab') {
+      if (e.key === "Escape") close();
+      if (e.key === "Tab") {
         e.preventDefault();
         closeRef.current?.focus();
       }
     };
 
     const prevOverflow = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = 'hidden';
-    document.addEventListener('keydown', onKey);
+    document.documentElement.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
     const t = window.setTimeout(() => closeRef.current?.focus(), 50);
 
     return () => {
-      document.removeEventListener('keydown', onKey);
+      document.removeEventListener("keydown", onKey);
       document.documentElement.style.overflow = prevOverflow;
       window.clearTimeout(t);
     };
@@ -84,7 +95,13 @@ export function ZoomableImage({
           className="pointer-events-none absolute bottom-3 right-3 grid size-9 place-items-center rounded-full bg-ink/55 text-cream opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
         >
           <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-            <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="1.6" />
+            <circle
+              cx="9"
+              cy="9"
+              r="6"
+              stroke="currentColor"
+              strokeWidth="1.6"
+            />
             <path
               d="M13.5 13.5 18 18M9 6.5v5M6.5 9h5"
               stroke="currentColor"
@@ -95,50 +112,59 @@ export function ZoomableImage({
         </span>
       </button>
 
-      {open ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={alt}
-          onMouseDown={(e) => {
-            if (e.target === e.currentTarget) close();
-          }}
-          className="fixed inset-0 z-110 flex cursor-zoom-out flex-col items-center justify-center bg-ink/95 p-4 sm:p-8"
-        >
-          <button
-            ref={closeRef}
-            type="button"
-            onClick={close}
-            aria-label="Закрыть просмотр фотографии"
-            className="absolute right-4 top-4 grid size-11 place-items-center rounded-full bg-cream/10 text-cream transition-colors hover:bg-cream/20"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
+      {open && mounted
+        ? createPortal(
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={alt}
+              onMouseDown={(e) => {
+                if (e.target === e.currentTarget) close();
+              }}
+              className="fixed inset-0 z-110 flex cursor-zoom-out flex-col items-center justify-center bg-soot/97 p-4 backdrop-blur-sm sm:p-8"
+            >
+              <button
+                ref={closeRef}
+                type="button"
+                onClick={close}
+                aria-label="Закрыть просмотр фотографии"
+                className="absolute right-4 top-4 grid size-11 place-items-center rounded-full bg-cream/10 text-cream transition-colors hover:bg-cream/20"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 6l12 12M18 6L6 18"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
 
-          <div className="animate-fade-up relative max-h-[82vh] w-full max-w-6xl cursor-default">
-            <Photo
-              image={image}
-              alt={alt}
-              sizes="100vw"
-              priority
-              className="mx-auto h-auto max-h-[82vh] w-auto max-w-full rounded-md object-contain"
-            />
-          </div>
+              <div className="animate-fade-up relative max-h-[82vh] w-full max-w-6xl cursor-default">
+                <Photo
+                  image={image}
+                  alt={alt}
+                  sizes="100vw"
+                  priority
+                  className="mx-auto h-auto max-h-[82vh] w-auto max-w-full rounded-md object-contain"
+                />
+              </div>
 
-          {caption ? (
-            <p className="mt-4 max-w-2xl text-center text-sm text-cream/70">
-              {caption}
-            </p>
-          ) : null}
-        </div>
-      ) : null}
+              {caption ? (
+                <p className="mt-4 max-w-2xl text-center text-sm text-cream/70">
+                  {caption}
+                </p>
+              ) : null}
+            </div>,
+            document.body,
+          )
+        : null}
     </>
   );
 }

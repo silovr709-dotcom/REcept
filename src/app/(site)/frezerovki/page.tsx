@@ -8,7 +8,7 @@ import { MarginNote } from '@/components/ui/MarginNote';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { Faq } from '@/components/sections/Faq';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
-import { assetUrl, pickImage } from '@/lib/content/images';
+import { pickImage } from '@/lib/content/images';
 import { getVisibleProjects } from '@/lib/content/store';
 import { PhotoBand } from '@/components/PhotoBand';
 import {
@@ -22,6 +22,7 @@ import {
 import { millingRoom, millingRoomCount } from '@/data/milling-rooms';
 import { RenderBadge } from '@/components/ui/RenderBadge';
 import { SectionNav } from '@/components/SectionNav';
+import { ZoomableImage } from '@/components/ZoomableImage';
 
 export const metadata: Metadata = {
   title: 'Фрезеровки фасадов',
@@ -204,28 +205,40 @@ export default async function MillingsPage() {
                             {/* Выкраска поверх кадра: рядом сразу видно,
                                 что именно фрезеровано и как это выглядит
                                 на целой кухне */}
+                            {/* Выкраска открывается крупно по касанию:
+                                в углу кадра она размером со спичечный
+                                коробок, а разглядеть нужно именно
+                                рельеф — ради него сюда и приходят. */}
                             <div className="absolute bottom-0 left-0 w-28 border-r border-t border-line bg-cream p-2 sm:w-36 sm:p-3">
-                              <Image
-                                src={assetUrl(millingImage(m.slug))}
+                              <ZoomableImage
+                                image={{
+                                  src: millingImage(m.slug),
+                                  width: MILLING_IMAGE_WIDTH,
+                                  height: MILLING_IMAGE_HEIGHT,
+                                  blurDataURL: '',
+                                }}
                                 alt={`Выкраска фрезеровки «${m.name}»`}
-                                width={MILLING_IMAGE_WIDTH}
-                                height={MILLING_IMAGE_HEIGHT}
-                                loading="lazy"
+                                caption={`«${m.name}» — ${m.category} категория`}
                                 sizes="144px"
-                                className="h-auto w-full"
+                                wrapperClassName="aspect-[440/362] bg-cream"
+                                className="object-contain"
                               />
                             </div>
                           </div>
                         ) : (
-                          <div className="bg-bone p-4">
-                            <Image
-                              src={assetUrl(millingImage(m.slug))}
+                          <div className="bg-bone p-2 sm:p-4">
+                            <ZoomableImage
+                              image={{
+                                src: millingImage(m.slug),
+                                width: MILLING_IMAGE_WIDTH,
+                                height: MILLING_IMAGE_HEIGHT,
+                                blurDataURL: '',
+                              }}
                               alt={`Фрезеровка «${m.name}»: витрина и глухой фасад`}
-                              width={MILLING_IMAGE_WIDTH}
-                              height={MILLING_IMAGE_HEIGHT}
-                              loading="lazy"
-                              sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 30vw"
-                              className="h-auto w-full"
+                              caption={`«${m.name}» — ${m.category} категория`}
+                              sizes="(max-width: 639px) 45vw, (max-width: 1023px) 45vw, 30vw"
+                              wrapperClassName="aspect-[440/362] bg-bone"
+                              className="object-contain"
                             />
                           </div>
                         )}

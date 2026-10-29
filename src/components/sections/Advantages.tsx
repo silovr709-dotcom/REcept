@@ -33,7 +33,7 @@ export async function Advantages({
   if (!first) return null;
 
   return (
-    <Section tone={tone} aria-labelledby="advantages-title">
+    <Section tone={tone} id="usloviya" aria-labelledby="advantages-title">
       <div className="container-page">
         <SectionHeading
           id="advantages-title"

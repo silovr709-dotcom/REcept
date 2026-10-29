@@ -93,7 +93,7 @@ export async function Testimonials({
           </ul>
 
           {sideShot ? (
-            <Reveal delay={120} className="lg:sticky lg:top-28 lg:self-start">
+            <Reveal delay={120} className="lg:sticky lg:top-40 lg:self-start">
               <Link
                 href={`/portfolio/${sideShot.slug}`}
                 className="group block"

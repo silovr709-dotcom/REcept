@@ -13,6 +13,7 @@ import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
 import { rooms } from '@/data/rooms';
 import { RenderBadge } from '@/components/ui/RenderBadge';
 import { assetUrl, pickImage, imageRef } from '@/lib/content/images';
+import { SectionNav } from '@/components/SectionNav';
 
 export const metadata: Metadata = {
   title: 'Гардеробные и шкафы на заказ',
@@ -65,7 +66,17 @@ export default async function FurniturePage() {
         </CtaButton>
       </PageHero>
 
-      <Section tone="cream" aria-labelledby="rooms-title">
+      <SectionNav
+        items={[
+          { id: 'napravleniya', label: 'Что делаем' },
+          { id: 'detali', label: 'Как это сделано' },
+          { id: 'chestno', label: 'Честно о фото' },
+          { id: 'faq', label: 'Вопросы' },
+        ]}
+        label="Разделы страницы «Другие помещения»"
+      />
+
+      <Section tone="cream" id="napravleniya" aria-labelledby="rooms-title">
         <div className="container-page">
           <SectionHeading
             id="rooms-title"
@@ -133,7 +144,7 @@ export default async function FurniturePage() {
       />
 
       {/* Честно про фотографии */}
-      <Section tone="ink">
+      <Section tone="ink" id="chestno">
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
             <Reveal>

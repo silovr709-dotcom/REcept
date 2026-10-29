@@ -17,6 +17,7 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleReviews } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
+import { SectionNav } from '@/components/SectionNav';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { rating } = await getVisibleReviews();
@@ -70,7 +71,17 @@ export default async function ReviewsPage() {
         </div>
       </PageHero>
 
-      <Section tone="bone" className="pt-0! lg:pt-0!">
+      <SectionNav
+        items={[
+          { id: 'vse-otzyvy', label: 'Отзывы' },
+          { id: 'yandex', label: 'На Яндекс Картах' },
+          { id: 'raboty', label: 'Работы' },
+          { id: 'video', label: 'Видео' },
+        ]}
+        label="Разделы страницы «Отзывы»"
+      />
+
+      <Section tone="bone" id="vse-otzyvy" className="pt-0! lg:pt-0!">
         <div className="container-page">
           {/*
             Шесть отзывов подряд — шесть одинаковых прямоугольников
@@ -141,7 +152,7 @@ export default async function ReviewsPage() {
       ) : null}
 
       {/* Живой первоисточник */}
-      <Section tone="bone" aria-labelledby="widget-title">
+      <Section tone="bone" id="yandex" aria-labelledby="widget-title">
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <div>
@@ -165,7 +176,7 @@ export default async function ReviewsPage() {
         </div>
       </Section>
 
-      <Section tone="cream" aria-labelledby="reviews-works">
+      <Section tone="cream" id="raboty" aria-labelledby="reviews-works">
         <div className="container-page">
           <SectionHeading
             id="reviews-works"

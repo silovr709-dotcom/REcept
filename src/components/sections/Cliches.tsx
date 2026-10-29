@@ -67,7 +67,7 @@ export async function Cliches({ tone = 'ink' }: { tone?: 'ink' | 'cream' }) {
   const shots = details.slice(0, 2);
 
   return (
-    <Section tone={tone} aria-labelledby="cliches-title">
+    <Section tone={tone} id="chego-net" aria-labelledby="cliches-title">
       <div className="container-page">
         <SectionHeading
           tone={dark ? 'light' : 'dark'}
