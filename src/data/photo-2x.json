@@ -439,9 +439,9 @@
   },
   "/images/team/hero-rob-kate-portrait.webp": {
     "src": "/images/team/hero-rob-kate-portrait@2x.webp",
-    "width": 1371,
+    "width": 1900,
     "height": 2400,
-    "base": 860
+    "base": 912
   },
   "/images/team/hero-rob-kate-wide.webp": {
     "src": "/images/team/hero-rob-kate-wide@2x.webp",
