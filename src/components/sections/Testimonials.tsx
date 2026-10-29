@@ -44,7 +44,7 @@ export async function Testimonials({
   const sideShot = projects[photoIndex % Math.max(projects.length, 1)] ?? null;
 
   return (
-    <Section tone={tone} aria-labelledby="testimonials-title">
+    <Section tone={tone} id="otzyvy" aria-labelledby="testimonials-title">
       <div className="container-page">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading

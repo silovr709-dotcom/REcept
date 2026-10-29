@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Hero } from '@/components/sections/Hero';
+import { Essentials } from '@/components/sections/Essentials';
 import { Headache } from '@/components/sections/Headache';
 import { Services } from '@/components/sections/Services';
 import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
@@ -54,6 +55,11 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+
+      {/* Паспорт ателье: всё главное одним взглядом, пока человек ещё
+          не решил, читать ли тридцать экранов. Каждая строка —
+          вход в раздел, где то же самое разложено подробно */}
+      <Essentials />
 
       {/* Сайт личного бренда: люди идут сразу за первым экраном,
           раньше услуг, портфолио и любых объяснений */}
