@@ -37,7 +37,7 @@ export async function Faq({
               index={index}
               id="faq-title"
               eyebrow="Вопросы"
-              title="Коротко о главном"
+              title="Что спрашивают чаще всего"
               lead="Если вашего вопроса здесь нет — просто спросите. Мы отвечаем и тем, кто пока только выбирает."
             />
             <CtaButton

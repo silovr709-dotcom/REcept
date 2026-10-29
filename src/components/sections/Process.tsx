@@ -39,7 +39,15 @@ export async function Process({
   // ряд кадров: этот блок был самым текстовым экраном главной.
   const emptyCells = (3 - (processSteps.length % 3)) % 3;
   const shotCount = emptyCells + 3;
-  const processShots = [...details.slice(2), ...details]
+  /*
+   * Кадры берём с конца списка. Раньше брали со второго — и на
+   * странице «Кухни на заказ», где ниже стоит целый раздел деталей,
+   * одни и те же «Стык дуба и камня» и «Зазор 4 мм» встречались
+   * дважды на одном экране прокрутки. Раздел деталей отбирает кадры
+   * с начала, так что хвост списка с ним не пересекается.
+   */
+  const processShots = [...details]
+    .reverse()
     .filter((d, i, arr) => arr.findIndex((x) => x.id === d.id) === i)
     .slice(0, shotCount);
   return (

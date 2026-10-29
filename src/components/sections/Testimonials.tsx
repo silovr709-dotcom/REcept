@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { RatingBadge } from '../RatingBadge';
 import { Reveal } from '../ui/Reveal';
 import { ReadMore } from '../ui/ReadMore';
 import { Section, SectionHeading } from '../ui/Section';
@@ -52,9 +51,8 @@ export async function Testimonials({
             id="testimonials-title"
             eyebrow="Отзывы"
             title={`${rating.value} из 5 на Яндекс Картах`}
-            lead={`${rating.reviewsCount} отзыва и ${rating.scoresCount} оценки в карточке организации. Мы не можем ни отредактировать их, ни удалить — поэтому им и стоит верить больше, чем тексту на сайте.`}
+            lead={`${rating.reviewsCount} отзыва и ${rating.scoresCount} оценки в карточке организации. Ниже — несколько целиком, дословно; остальные открываются на Картах.`}
           />
-          <RatingBadge className="shrink-0" />
         </div>
 
         {/*
