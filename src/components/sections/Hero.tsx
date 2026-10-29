@@ -60,11 +60,11 @@ export async function Hero() {
           className="absolute inset-0 -z-10 bg-[radial-gradient(120%_85%_at_84%_-4%,rgba(199,170,112,0.22),transparent_56%),radial-gradient(95%_85%_at_-5%_105%,rgba(5,12,24,0.78),transparent_64%),linear-gradient(162deg,#1b3a63_0%,#13294a_48%,#0a1930_100%)]"
         />
 
-        <div className="container-page relative z-10 flex min-h-[92svh] flex-col justify-center pb-12 pt-24 sm:pb-14 lg:pb-16 lg:pt-28">
-          <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(300px,0.88fr)] lg:gap-16">
+        <div className="container-page relative z-10 flex min-h-[92svh] flex-col justify-center pb-10 pt-[4.75rem] sm:pb-14 sm:pt-24 lg:pb-16 lg:pt-28">
+          <div className="grid items-center gap-5 sm:gap-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(300px,0.88fr)] lg:gap-16">
             {/* ПОРТРЕТ. В разметке он стоит первым — это и есть мобильный
                 порядок. На большом экране уезжает направо через order */}
-            <div className="relative mx-auto w-full max-w-[17rem] sm:max-w-[22rem] lg:order-2 lg:mx-0 lg:ml-auto lg:max-w-[29.5rem]">
+            <div className="relative mx-auto w-full max-w-[14.5rem] sm:max-w-[22rem] lg:order-2 lg:mx-0 lg:ml-auto lg:max-w-[29.5rem]">
               {/* Паспарту: снимок отбит от поля светлым полем и золотой
                   линией — так портрет читается как работа на стене,
                   а не как картинка, положенная на фон */}
@@ -74,7 +74,7 @@ export async function Hero() {
                 <img
                   src={assetUrl(teamShots.heroPortrait.src)}
                   srcSet={srcSetOf(teamShots.heroPortrait)}
-                  sizes="(max-width: 640px) 17rem, (max-width: 1024px) 22rem, 30rem"
+                  sizes="(max-width: 640px) 15rem, (max-width: 1024px) 22rem, 30rem"
                   alt={teamShotAlt.hero}
                   width={teamShots.heroPortrait.width}
                   height={teamShots.heroPortrait.height}
@@ -96,7 +96,7 @@ export async function Hero() {
                 </div>
               </div>
 
-              <div className="mt-4 flex items-end justify-between gap-4">
+              <div className="mt-3 flex items-end justify-between gap-4 sm:mt-4">
                 <Link
                   href="/o-nas"
                   className="group inline-flex flex-col gap-1"
@@ -128,7 +128,7 @@ export async function Hero() {
             <div className="lg:order-1 lg:max-w-[40rem]">
               <p className="eyebrow-rule text-goldsoft">{hero.eyebrow}</p>
 
-              <h1 className="font-display-light animate-fade-up mt-6 text-[clamp(2.5rem,4.4vw,4.4rem)] leading-[1.02] tracking-[-0.014em] sm:mt-7">
+              <h1 className="font-display-light animate-fade-up mt-4 text-[clamp(2.4rem,4.4vw,4.4rem)] leading-[1.03] tracking-[-0.014em] sm:mt-7">
                 {hero.title}
                 {hero.titleSecondLine ? (
                   <>
@@ -144,14 +144,14 @@ export async function Hero() {
               </h1>
 
               <p
-                className="animate-fade-up mt-5 max-w-[46ch] text-lead text-cream/78"
+                className="animate-fade-up mt-4 max-w-[46ch] text-lead text-cream/78 sm:mt-5"
                 style={{ animationDelay: '120ms' }}
               >
                 {hero.lead}
               </p>
 
               <div
-                className="animate-fade-up mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4"
+                className="animate-fade-up mt-5 flex flex-col items-start gap-2.5 sm:mt-7 sm:flex-row sm:items-center sm:gap-4"
                 style={{ animationDelay: '200ms' }}
               >
                 <CtaButton
@@ -177,7 +177,7 @@ export async function Hero() {
                 </ButtonLink>
               </div>
 
-              <p className="mt-4 max-w-md text-small leading-relaxed text-cream/60">
+              <p className="mt-3.5 max-w-md text-small leading-relaxed text-cream/60 sm:mt-4">
                 {hero.reassurance}
               </p>
 
@@ -188,16 +188,22 @@ export async function Hero() {
                   Или просто позвоните:{' '}
                   <a
                     href={`tel:${primaryPhone.raw}`}
-                    className="font-medium text-cream underline decoration-goldsoft/50 underline-offset-4 transition-colors hover:text-goldsoft"
+                    className="-my-1.5 inline-flex min-h-11 items-center font-medium text-cream underline decoration-goldsoft/50 underline-offset-4 transition-colors hover:text-goldsoft"
                   >
                     {primaryPhone.display}
                   </a>
                 </p>
               ) : null}
 
+              {/* Доказательство в первом экране. На большом экране
+                  рейтинг стоит в строке под кадром, на телефоне до неё
+                  нужно листать — а именно там человек решает, стоит ли
+                  вообще читать дальше */}
+              <RatingBadge tone="light" className="mt-4 lg:hidden" />
+
               {/* Факты — цифрой антиквой, подпись мелко. Так устроены
                   выходные данные в каталоге: цифра работает как якорь */}
-              <dl className="mt-8 grid grid-cols-3 gap-x-6 gap-y-4 border-t border-cream/15 pt-5 sm:gap-x-10 lg:mt-9">
+              <dl className="mt-6 grid grid-cols-3 gap-x-5 gap-y-4 border-t border-cream/15 pt-5 sm:mt-8 sm:gap-x-10 lg:mt-9">
                 {facts.map((item) => (
                   <div key={item.small} className="flex flex-col-reverse gap-1">
                     <dd className="max-w-[16ch] text-caption leading-[1.45] tracking-[0.03em] text-cream/70">
@@ -220,7 +226,9 @@ export async function Hero() {
       <div className="grain bg-ink text-cream">
         <div className="container-page">
           <div className="flex flex-wrap items-center gap-x-10 gap-y-5 border-t border-cream/12 py-6">
-            <RatingBadge tone="light" />
+            <span className="max-lg:hidden">
+              <RatingBadge tone="light" />
+            </span>
 
             {hero.stats.slice(3).map((item) => (
               <p key={item.small} className="max-w-64 text-small text-cream/70">

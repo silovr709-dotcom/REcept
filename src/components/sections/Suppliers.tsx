@@ -60,7 +60,7 @@ export function Suppliers({
               </p>
               <Link
                 href="/materialy"
-                className={`link-sweep mt-7 inline-block font-medium ${
+                className={`link-sweep mt-6 inline-flex min-h-11 items-center font-medium ${
                   dark ? 'text-goldsoft' : 'text-gold'
                 }`}
               >

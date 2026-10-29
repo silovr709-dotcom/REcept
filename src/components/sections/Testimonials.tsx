@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { RatingBadge } from '../RatingBadge';
 import { Reveal } from '../ui/Reveal';
+import { ReadMore } from '../ui/ReadMore';
 import { Section, SectionHeading } from '../ui/Section';
 import { MarginNote } from '../ui/MarginNote';
 import { getVisibleProjects, getVisibleReviews } from '@/lib/content/store';
@@ -64,7 +65,7 @@ export async function Testimonials({
           за что зацепиться, и чужая речь не превращается в стену.
         */}
         <div className="mt-12 grid gap-x-16 gap-y-12 lg:mt-16 lg:grid-cols-[1.5fr_1fr]">
-          <ul className="grid gap-12">
+          <ul className="grid gap-10 sm:gap-12">
             {items.map((t, i) => (
               <li key={`${t.author ?? 'anon'}-${i}`}>
                 <Reveal
@@ -74,9 +75,9 @@ export async function Testimonials({
                   <p className="font-display text-[clamp(1.3rem,0.95rem+0.9vw,1.6rem)] leading-[1.3] text-ink">
                     {t.highlight}
                   </p>
-                  <blockquote className="mt-5 max-w-[62ch] text-ui leading-[1.7] text-stone">
+                  <ReadMore className="mt-5 max-w-[62ch] text-ui leading-[1.7] text-stone">
                     {t.text}
-                  </blockquote>
+                  </ReadMore>
                   <footer className="mt-5 flex items-baseline gap-4">
                     <p className="label-xs text-ink">
                       {t.author ?? 'Без подписи'}
@@ -141,7 +142,7 @@ export async function Testimonials({
             <div className="flex flex-wrap gap-x-6 gap-y-2 lg:justify-end">
               <Link
                 href="/otzyvy"
-                className="link-sweep font-semibold text-gold"
+                className="link-sweep -my-1.5 inline-flex min-h-11 items-center font-semibold text-gold"
               >
                 Все отзывы на сайте
               </Link>
@@ -149,7 +150,7 @@ export async function Testimonials({
                 href={yandex.reviewsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-sweep font-semibold text-ink"
+                className="link-sweep -my-1.5 inline-flex min-h-11 items-center font-semibold text-ink"
               >
                 Проверить на Яндекс Картах
               </a>

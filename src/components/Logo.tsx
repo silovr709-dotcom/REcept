@@ -11,7 +11,7 @@ export function Logo({
     <Link
       href="/"
       aria-label="РЕцепт — мебельное ателье в Твери, на главную"
-      className={`group inline-flex items-baseline gap-2 ${className}`}
+      className={`group -my-2 inline-flex items-baseline gap-2 py-2 ${className}`}
     >
       <span
         className={`font-logo text-sub leading-none tracking-tight sm:text-head ${

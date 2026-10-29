@@ -69,12 +69,12 @@ export async function Footer() {
 
           <nav aria-label="Разделы сайта" className="lg:border-l lg:border-cream/10 lg:pl-16">
             <h2 className="label-xs text-goldsoft">Разделы</h2>
-            <ul className="mt-6 grid gap-3">
+            <ul className="mt-4 grid gap-0.5 sm:mt-6">
               {footerLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="link-sweep text-cream/70 transition-colors hover:text-cream"
+                    className="link-sweep inline-flex min-h-11 items-center text-cream/70 transition-colors hover:text-cream"
                   >
                     {item.label}
                   </Link>
@@ -86,12 +86,12 @@ export async function Footer() {
           <div className="lg:border-l lg:border-cream/10 lg:pl-16">
             <h2 className="label-xs text-goldsoft">Связаться</h2>
             {activeContacts.length > 0 ? (
-              <ul className="mt-6 grid gap-4">
+              <ul className="mt-5 grid gap-2.5 sm:mt-6 sm:gap-4">
                 {activeContacts.map((c) => (
                   <li key={c.id}>
                     <a
                       href={c.href}
-                      className="group block"
+                      className="group block py-1.5 sm:py-0"
                       {...(c.href.startsWith('http')
                         ? { target: '_blank', rel: 'noopener noreferrer' }
                         : {})}
@@ -154,7 +154,7 @@ export async function Footer() {
           </div>
           <Link
             href="/politika-konfidencialnosti"
-            className="transition-colors hover:text-cream/80"
+            className="-my-2 inline-flex min-h-11 items-center py-2 transition-colors hover:text-cream/80"
           >
             Политика обработки персональных данных
           </Link>

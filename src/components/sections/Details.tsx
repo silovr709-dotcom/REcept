@@ -120,14 +120,27 @@ export async function Details({
   const list = items ?? (picked?.length ? picked : pool.slice(0, limit ?? 6));
   if (list.length === 0) return null;
 
+  /*
+    Телефон. Две колонки превращали макросъёмку в почтовые марки
+    шириной 160 px: именно та фактура, ради которой кадр и снимали,
+    переставала читаться. Короткая подборка (до четырёх кадров)
+    разворачивается в одну колонку во всю ширину экрана, длинная
+    остаётся в двух — иначе страница материалов не кончится никогда.
+  */
+  const narrow = list.length <= 4;
+  const mobileCols = narrow ? 'grid-cols-1 min-[560px]:grid-cols-2' : 'grid-cols-2';
   const cols =
     columns === 3
-      ? 'grid-cols-2 lg:grid-cols-3'
-      : 'grid-cols-2 lg:grid-cols-4';
+      ? `${mobileCols} lg:grid-cols-3`
+      : `${mobileCols} lg:grid-cols-4`;
   const sizes =
     columns === 3
-      ? '(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 30vw'
-      : '(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 22vw';
+      ? narrow
+        ? '(max-width: 559px) 92vw, (max-width: 1023px) 46vw, 30vw'
+        : '(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 30vw'
+      : narrow
+        ? '(max-width: 559px) 92vw, (max-width: 1023px) 46vw, 22vw'
+        : '(max-width: 639px) 46vw, (max-width: 1023px) 46vw, 22vw';
   const bigSizes =
     columns === 3
       ? '(max-width: 1023px) 94vw, 60vw'
@@ -144,7 +157,7 @@ export async function Details({
           lead={lead}
         />
 
-        <ul className={`mt-14 grid gap-x-5 gap-y-12 sm:gap-x-8 lg:mt-24 ${cols}`}>
+        <ul className={`mt-10 grid gap-x-5 gap-y-10 sm:mt-14 sm:gap-x-8 sm:gap-y-12 lg:mt-24 ${cols}`}>
           {list.map((d, i) => {
             const big = isFeature(i, list.length);
             /*
@@ -162,7 +175,15 @@ export async function Details({
             <li
               key={d.id}
               className={
-                big ? 'col-span-2' : fillsRow ? 'col-span-2 lg:col-span-1' : undefined
+                big
+                  ? narrow
+                    ? 'min-[560px]:col-span-2'
+                    : 'col-span-2'
+                  : fillsRow
+                    ? narrow
+                      ? 'min-[560px]:col-span-2 lg:col-span-1'
+                      : 'col-span-2 lg:col-span-1'
+                    : undefined
               }
             >
               <Reveal delay={Math.min(i, 5) * 40}>
@@ -172,7 +193,7 @@ export async function Details({
                       d.image,
                       big
                         ? 'aspect-3/2'
-                        : (frame ?? wishlist[i % wishlist.length]),
+                        : (frame ?? (narrow ? 'aspect-3/2' : wishlist[i % wishlist.length])),
                     )}`}
                   >
                     <Image

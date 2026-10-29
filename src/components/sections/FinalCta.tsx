@@ -87,7 +87,7 @@ export async function FinalCta({
                   {hasPhone ? (
                     <a
                       href={phoneHref}
-                      className="font-display text-sub text-cream transition-colors hover:text-goldsoft"
+                      className="font-display inline-flex min-h-11 items-center text-sub text-cream transition-colors hover:text-goldsoft"
                     >
                       {phoneDisplay}
                     </a>
@@ -101,7 +101,7 @@ export async function FinalCta({
                         {...(c.href.startsWith('http')
                           ? { target: '_blank', rel: 'noopener noreferrer' }
                           : {})}
-                        className="self-center text-cream/70 underline decoration-gold/50 underline-offset-4 transition-colors hover:text-cream"
+                        className="inline-flex min-h-11 items-center self-center text-cream/70 underline decoration-gold/50 underline-offset-4 transition-colors hover:text-cream"
                       >
                         {c.label}
                       </a>

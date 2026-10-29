@@ -43,10 +43,15 @@ export async function Founders({ index }: { index?: string } = {}) {
   const phoneFor = (fullName: string) =>
     site.phones.find((p) => p.who && fullName.includes(p.who.split(' ')[0]));
 
-  // Отзыв, в котором их называют по имени, — лучшее подтверждение личного участия
-  const namedReview = reviews.items.find(
-    (r) => r.text.includes('Екатерин') || r.text.includes('Роберт'),
-  );
+  /*
+    Отзыв, в котором их называют по имени, — лучшее подтверждение личного
+    участия. Ищем с конца списка: первые три отзыва показывает блок
+    «Отзывы» ниже на этой же странице, и один и тот же текст встречался
+    на главной дважды.
+  */
+  const namedReview = [...reviews.items]
+    .reverse()
+    .find((r) => r.text.includes('Екатерин') || r.text.includes('Роберт'));
 
   return (
     <Section tone="bone" id="o-nas" aria-labelledby="founders-title">
@@ -142,7 +147,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                   {phone ? (
                     <a
                       href={`tel:${phone.raw}`}
-                      className="font-display text-sub text-ink transition-colors hover:text-gold"
+                      className="font-display inline-flex min-h-11 items-center text-sub text-ink transition-colors hover:text-gold"
                     >
                       {phone.display}
                     </a>
@@ -152,7 +157,7 @@ export async function Founders({ index }: { index?: string } = {}) {
                       href={person.vk}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="link-sweep text-sm text-stone"
+                      className="link-sweep inline-flex min-h-11 items-center text-sm text-stone"
                     >
                       ВКонтакте
                     </a>
@@ -173,7 +178,10 @@ export async function Founders({ index }: { index?: string } = {}) {
               </p>
               <footer className="mt-4 text-sm text-stone">
                 {namedReview.author ?? 'Без подписи'} · {namedReview.date} ·{' '}
-                <Link href="/otzyvy" className="link-sweep text-gold">
+                <Link
+                  href="/otzyvy"
+                  className="link-sweep -my-2 inline-flex min-h-11 items-center text-gold"
+                >
                   все отзывы
                 </Link>
               </footer>

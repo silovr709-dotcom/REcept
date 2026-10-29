@@ -93,10 +93,14 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
 
     document.addEventListener('keydown', onKey);
 
+    /*
+      Фокус уводим на само окно, а не на первое поле. Поле вызвало бы
+      на телефоне клавиатуру поверх формы ещё до того, как человек
+      прочитал заголовок, а крестик (он теперь первый в разметке)
+      встречал бы его золотым кольцом фокуса.
+    */
     const t = window.setTimeout(() => {
-      dialogRef.current
-        ?.querySelector<HTMLElement>('input, textarea, button')
-        ?.focus();
+      dialogRef.current?.focus();
     }, 60);
 
     return () => {
@@ -115,81 +119,101 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
 
       {payload ? (
         <div
-          className="fixed inset-0 z-100 flex items-end justify-center overflow-y-auto overscroll-contain bg-ink/70 p-0 backdrop-blur-sm sm:items-center sm:p-6"
+          className="fixed inset-0 z-100 flex items-end justify-center overscroll-contain bg-ink/70 p-0 backdrop-blur-sm sm:items-center sm:p-6"
           onMouseDown={(e) => {
             if (e.target === e.currentTarget) close();
           }}
         >
+          {/*
+            ВЫСОТА. Раньше окно было обычным блоком внутри flex-контейнера
+            с items-end: на телефоне форма оказывалась выше экрана, и её
+            верх — заголовок вместе с крестиком — уезжал за верхнюю кромку
+            без возможности доскроллить. Теперь окно само ограничено по
+            высоте, шапка с крестиком прибита сверху, а прокручивается
+            только содержимое.
+          */}
           <div
             ref={dialogRef}
             role="dialog"
             aria-modal="true"
+            tabIndex={-1}
             aria-labelledby="lead-modal-title"
-            className="animate-drawer relative w-full max-w-2xl bg-cream p-6 shadow-2xl sm:p-9"
+            className="animate-drawer relative flex max-h-[94dvh] w-full max-w-2xl flex-col bg-cream shadow-2xl outline-none sm:max-h-[90dvh]"
           >
-            <button
-              type="button"
-              onClick={close}
-              aria-label="Закрыть форму"
-              className="absolute right-4 top-4 grid size-10 place-items-center rounded-full text-stone transition-colors hover:bg-ink/5 hover:text-ink"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path
-                  d="M6 6l12 12M18 6L6 18"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
+            {/* Выдвижной ящик: на телефоне окно приезжает снизу, и
+                маленькая латунная засечка показывает, что это ящик */}
+            <span
+              aria-hidden="true"
+              className="mx-auto mt-3 h-px w-12 shrink-0 bg-goldline/70 sm:hidden"
+            />
 
-            <h2
-              id="lead-modal-title"
-              className="font-display max-w-[85%] text-head leading-tight tracking-tight text-ink sm:text-head"
-            >
-              {payload.title}
-            </h2>
-            <p className="mt-3 text-stone">{payload.lead}</p>
-
-            <div className="mt-7">
-              <LeadForm
-                tone="dark"
-                compact
-                submitLabel={payload.submitLabel}
-                source={payload.source}
-              />
+            <div className="flex shrink-0 items-start justify-between gap-4 border-b border-line/70 px-6 pb-4 pt-5 sm:px-9 sm:pb-5 sm:pt-8">
+              <h2
+                id="lead-modal-title"
+                className="font-display text-head leading-tight tracking-tight text-ink"
+              >
+                {payload.title}
+              </h2>
+              <button
+                type="button"
+                onClick={close}
+                aria-label="Закрыть форму"
+                className="-mr-2 -mt-1 grid size-11 shrink-0 place-items-center rounded-full text-stone transition-colors hover:bg-ink/5 hover:text-ink"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M6 6l12 12M18 6L6 18"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
             </div>
 
-            {(hasPhone || activeContacts.length > 0) && (
-              <div className="mt-7 border-t border-line pt-5 text-sm text-stone">
-                {hasPhone ? (
-                  <p>
-                    Не любите формы?{' '}
-                    <a
-                      href={phoneHref}
-                      className="font-semibold text-ink underline decoration-gold/50 underline-offset-4"
-                    >
-                      {phoneDisplay}
-                    </a>
-                  </p>
-                ) : (
-                  <p>
-                    Не любите формы? Напишите нам:{' '}
-                    {activeContacts.map((c, i) => (
-                      <span key={c.id}>
-                        {i > 0 ? ' · ' : ''}
-                        <a
-                          href={c.href}
-                          className="font-semibold text-ink underline decoration-gold/50 underline-offset-4"
-                        >
-                          {c.label}
-                        </a>
-                      </span>
-                    ))}
-                  </p>
-                )}
+            <div className="overflow-y-auto overscroll-contain px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-5 sm:px-9 sm:pb-9 sm:pt-6">
+              <p className="text-stone">{payload.lead}</p>
+
+              <div className="mt-6">
+                <LeadForm
+                  tone="dark"
+                  compact
+                  submitLabel={payload.submitLabel}
+                  source={payload.source}
+                />
               </div>
-            )}
+
+              {(hasPhone || activeContacts.length > 0) && (
+                <div className="mt-7 border-t border-line pt-5 text-sm text-stone">
+                  {hasPhone ? (
+                    <p>
+                      Не любите формы?{' '}
+                      <a
+                        href={phoneHref}
+                        className="inline-block py-1 font-semibold text-ink underline decoration-gold/50 underline-offset-4"
+                      >
+                        {phoneDisplay}
+                      </a>
+                    </p>
+                  ) : (
+                    <p>
+                      Не любите формы? Напишите нам:{' '}
+                      {activeContacts.map((c, i) => (
+                        <span key={c.id}>
+                          {i > 0 ? ' · ' : ''}
+                          <a
+                            href={c.href}
+                            className="inline-block py-1 font-semibold text-ink underline decoration-gold/50 underline-offset-4"
+                          >
+                            {c.label}
+                          </a>
+                        </span>
+                      ))}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       ) : null}

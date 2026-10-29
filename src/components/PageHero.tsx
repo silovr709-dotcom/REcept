@@ -14,12 +14,15 @@ export function Breadcrumbs({
   return (
     <nav aria-label="Хлебные крошки">
       <ol
-        className={`flex flex-wrap items-center gap-2 text-small ${
+        className={`-my-2 flex flex-wrap items-center gap-x-2 text-small ${
           tone === 'light' ? 'text-cream/60' : 'text-stone'
         }`}
       >
         <li>
-          <Link href="/" className="transition-colors hover:text-gold">
+          <Link
+            href="/"
+            className="inline-flex min-h-11 items-center transition-colors hover:text-gold"
+          >
             Главная
           </Link>
         </li>
@@ -29,7 +32,10 @@ export function Breadcrumbs({
               /
             </span>
             {item.href ? (
-              <Link href={item.href} className="transition-colors hover:text-gold">
+              <Link
+                href={item.href}
+                className="inline-flex min-h-11 items-center transition-colors hover:text-gold"
+              >
                 {item.name}
               </Link>
             ) : (
