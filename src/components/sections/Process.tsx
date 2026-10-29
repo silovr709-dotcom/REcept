@@ -1,0 +1,168 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { CtaButton } from '../CtaButton';
+import { Reveal } from '../ui/Reveal';
+import { Section, SectionHeading } from '../ui/Section';
+import { getContent, getVisibleDetails } from '@/lib/content/store';
+import { assetUrl } from '@/lib/content/images';
+import { MarginNote } from '../ui/MarginNote';
+
+/**
+ * Процесс снимает страх неизвестности: человек должен понимать,
+ * что его ждёт и сколько усилий потребуется лично от него.
+ */
+export async function Process({
+  index,
+  tone = 'bone',
+  limit,
+}: {
+  index?: string;
+  tone?: 'cream' | 'bone';
+  /** Сколько шагов показать. Без ограничения — все */
+  limit?: number;
+}) {
+  const [{ processSteps: allSteps }, details] = await Promise.all([
+    getContent('texts'),
+    getVisibleDetails(),
+  ]);
+  const processSteps = limit ? allSteps.slice(0, limit) : allSteps;
+  const trimmed = processSteps.length < allSteps.length;
+  // Кадры закрывают пустые ячейки сетки и разбавляют текст.
+  // Пять шагов в сетке из трёх колонок оставляют одну свободную ячейку,
+  // десять шагов — две. Раньше в сокращённом виде блок оставался
+  // полностью без изображений, и это был самый «текстовый» экран главной.
+  //
+  // Сколько кадров ставить, считаем от сетки, а не на глаз: в три
+  // колонки шаги почти никогда не укладываются ровно, и пустые ячейки
+  // раньше просто оставались серым полем. Теперь каждая свободная
+  // ячейка — это фотография, а если ряд сошёлся ровно, добавляем целый
+  // ряд кадров: этот блок был самым текстовым экраном главной.
+  const emptyCells = (3 - (processSteps.length % 3)) % 3;
+  const shotCount = emptyCells + 3;
+  /*
+   * Кадры берём с конца списка. Раньше брали со второго — и на
+   * странице «Кухни на заказ», где ниже стоит целый раздел деталей,
+   * одни и те же «Стык дуба и камня» и «Зазор 4 мм» встречались
+   * дважды на одном экране прокрутки. Раздел деталей отбирает кадры
+   * с начала, так что хвост списка с ним не пересекается.
+   */
+  const processShots = [...details]
+    .reverse()
+    .filter((d, i, arr) => arr.findIndex((x) => x.id === d.id) === i)
+    .slice(0, shotCount);
+  return (
+    <Section tone={tone} id="process" aria-labelledby="process-title">
+      <div className="container-page">
+        <SectionHeading
+          index={index}
+          id="process-title"
+          eyebrow="Как проходит работа"
+          title={
+            trimmed
+              ? 'С чего всё начинается'
+              : `${['','Один','Два','Три','Четыре','Пять','Шесть','Семь','Восемь','Девять','Десять'][allSteps.length] ?? allSteps.length} шагов, после которых у вас просто есть кухня`
+          }
+          lead={
+            trimmed
+              ? 'Первые шаги — те, что предстоят вам в ближайшее время. Ниже по ссылке весь процесс целиком, включая производство, доставку и сборку.'
+              : 'Мы описали процесс целиком — включая то, что потребуется лично от вас. Обычно этого немного.'
+          }
+        />
+
+        <div className="mt-16 grid gap-px overflow-hidden bg-line sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
+          <ol className="contents">
+          {processSteps.map((step, i) => (
+            <li key={step.n}>
+              <Reveal
+                delay={Math.min(i, 5) * 40}
+                className={`flex h-full flex-col p-6 sm:p-8 ${
+                  tone === 'bone' ? 'bg-bone' : 'bg-cream'
+                }`}
+              >
+                <div className="flex items-baseline gap-3">
+                  <span className="text-small font-bold tracking-[0.16em] text-stone">
+                    {step.n}
+                  </span>
+                  <h3 className="font-display text-big leading-snug text-ink">
+                    {step.title}
+                  </h3>
+                </div>
+                <p className="mt-4 grow text-ui leading-relaxed text-stone">
+                  {step.text}
+                </p>
+                <p className="mt-5 border-t border-line pt-4 text-small text-stone">
+                  <span className="font-semibold text-ink">От вас:</span>{' '}
+                  {step.yourEffort}
+                </p>
+              </Reveal>
+            </li>
+          ))}
+          </ol>
+
+          {processShots.map((d) => (
+            <div key={d.id} className="relative min-h-52 bg-sand">
+              <Image
+                src={assetUrl(d.image.src)}
+                alt={d.alt}
+                fill
+                loading="lazy"
+                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                placeholder={d.image.blurDataURL ? 'blur' : 'empty'}
+                blurDataURL={d.image.blurDataURL || undefined}
+                className="object-cover"
+              />
+              <p className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/80 to-transparent p-5 pt-10 text-small font-medium text-cream">
+                {d.title}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {!trimmed ? (
+          <MarginNote author="Роберт" className="mt-12">
+            Десять шагов выглядят внушительно, но восемь из них — наша
+            работа, а не ваша. От вас по-настоящему нужны два: впустить
+            на замер и один раз сказать «да, вот так».
+          </MarginNote>
+        ) : null}
+
+        {trimmed ? (
+          <Reveal className="mt-8">
+            <Link
+              href="/kuhni-na-zakaz#process"
+              className="inline-flex items-center gap-2 text-ui font-semibold text-gold underline decoration-gold/40 underline-offset-4"
+            >
+              Весь процесс целиком — все {allSteps.length} шагов до сборки и гарантии
+            </Link>
+          </Reveal>
+        ) : null}
+
+        <Reveal className={`mt-12 flex flex-col items-start gap-5 rounded-lg p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 ${
+            tone === 'bone' ? 'bg-cream' : 'bg-bone'
+          }`}>
+          <div className="max-w-xl">
+            <p className="font-display text-h3 text-ink">
+              Начинается всё с замера
+            </p>
+            <p className="mt-2.5 text-stone">
+              Приедем, снимем размеры и скажем, что реально помещается. Замер и
+              проект — бесплатно, дальше решаете вы.
+            </p>
+          </div>
+          <CtaButton
+            source="process"
+            variant="primary"
+            size="lg"
+            withArrow
+            className="shrink-0 max-sm:w-full"
+            modalTitle="Записаться на замер"
+            modalLead="Оставьте контакт и адрес объекта — согласуем удобное время. Замер и проект бесплатные и ни к чему не обязывают."
+            submitLabel="Записаться на замер"
+          >
+            Записаться на замер
+          </CtaButton>
+        </Reveal>
+      </div>
+    </Section>
+  );
+}

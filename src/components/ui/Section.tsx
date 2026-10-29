@@ -1,0 +1,207 @@
+import type { ReactNode } from 'react';
+
+type Tone = 'cream' | 'bone' | 'ink' | 'sand';
+
+/*
+ * Секция — модуль корпуса. У каждого модуля сверху зазор: тонкая тень
+ * в глубину, по которой видно, что страница собрана из отдельных
+ * коробов, а не залита краской. Тёмные модули вдобавок фрезерованы
+ * рейкой — фактура считывается не сразу, но плоскость перестаёт быть
+ * мёртвой.
+ */
+const tones: Record<Tone, string> = {
+  cream: 'bg-cream text-ink module-gap',
+  bone: 'bg-bone text-ink module-gap',
+  sand: 'bg-sand text-ink module-gap',
+  ink: 'bg-ink text-cream grain reeded module-gap',
+};
+
+/**
+ * Секция без собственного оформления: ни рамок, ни теней, ни подложек.
+ * Ритм страницы держат только крупные отступы и смена фона, а всё
+ * внимание уходит на фотографии и заголовки.
+ */
+export function Section({
+  children,
+  tone = 'cream',
+  id,
+  className = '',
+  as: Tag = 'section',
+  'aria-labelledby': labelledBy,
+}: {
+  children: ReactNode;
+  tone?: Tone;
+  id?: string;
+  className?: string;
+  as?: 'section' | 'div' | 'article' | 'footer';
+  'aria-labelledby'?: string;
+}) {
+  return (
+    <Tag
+      id={id}
+      aria-labelledby={labelledBy}
+      className={[tones[tone], 'py-(--spacing-section)', className].join(' ')}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+export function Eyebrow({
+  children,
+  className = '',
+  tone = 'dark',
+}: {
+  children: ReactNode;
+  className?: string;
+  tone?: 'dark' | 'light';
+}) {
+  return (
+    <p
+      /* whitespace-nowrap: в узкой левой колонке надзаголовки вроде
+         «КАК ЭТО УСТРОЕНО» ломались пополам и выглядели как обрывок */
+      className={`flex items-center gap-3.5 whitespace-nowrap text-eyebrow font-medium uppercase tracking-[0.18em] ${
+        tone === 'dark' ? 'text-gold' : 'text-goldsoft'
+      } ${className}`}
+    >
+      {/* Штрих перед надзаголовком — маленькая латунная ручка-профиль:
+          у неё есть блик сверху и тень на торце, тот же профиль, что мы
+          ставим на ящики. Приём книжной полосы, но из нашего материала */}
+      <span
+        aria-hidden="true"
+        className="handle-rule inline-block w-[34px] shrink-0 opacity-90"
+      />
+      {children}
+    </p>
+  );
+}
+
+/**
+ * Заголовок раздела.
+ *
+ * Асимметричная раскладка: слева узкая колонка с номером и надписью,
+ * справа сам заголовок и вступление. Симметричный блок по центру
+ * контейнера — самая «сайтовая» из возможных композиций; сдвиг и
+ * сквозная нумерация сразу читаются как редакторская вёрстка.
+ *
+ * Номер не декоративный: он показывает, что разделы образуют
+ * последовательность, а не случайный набор.
+ */
+export function SectionHeading({
+  eyebrow,
+  index,
+  title,
+  lead,
+  tone = 'dark',
+  align = 'left',
+  stacked = false,
+  className = '',
+  id,
+}: {
+  eyebrow?: string;
+  /** Порядковый номер раздела, например «03» */
+  index?: string;
+  title: ReactNode;
+  lead?: ReactNode;
+  tone?: 'dark' | 'light';
+  align?: 'left' | 'center';
+  /**
+   * Заголовок в узкой колонке. Боковая колонка с номером занимает
+   * 10rem, и в половине экрана на сам заголовок остаётся полоска
+   * в несколько букв — слова начинают переноситься по одному.
+   * В таком месте номер и надпись встают над заголовком.
+   */
+  stacked?: boolean;
+  className?: string;
+  id?: string;
+}) {
+  if (align === 'center') {
+    return (
+      <div className={`mx-auto max-w-3xl text-center ${className}`}>
+        {eyebrow ? (
+          <Eyebrow tone={tone} className="justify-center">
+            {eyebrow}
+          </Eyebrow>
+        ) : null}
+        <h2
+          id={id}
+          className={`font-display-bold mt-5 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+        >
+          {title}
+        </h2>
+        {lead ? (
+          <div
+            className={`mx-auto mt-6 max-w-[40rem] text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
+          >
+            {lead}
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  if (stacked) {
+    return (
+      <div className={className}>
+        <div className="flex items-baseline gap-4">
+          {index ? (
+            <span
+              className={`label-xs ${tone === 'light' ? 'text-cream/60' : 'text-stone'}`}
+            >
+              {index}
+            </span>
+          ) : null}
+          {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
+        </div>
+        <h2
+          id={id}
+          className={`font-display-bold mt-6 text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+        >
+          {title}
+        </h2>
+        {lead ? (
+          <div
+            className={`mt-6 max-w-[38rem] text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
+          >
+            {lead}
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  return (
+    /* Левая колонка — 13rem: в десяти надзаголовок «КАК ПРОХОДИТ
+       РАБОТА» не помещался в строку и наезжал на заголовок */
+    <div className={`grid gap-6 lg:grid-cols-[13rem_1fr] lg:gap-12 ${className}`}>
+      <div className="flex items-baseline gap-4 lg:flex-col lg:gap-3">
+        {index ? (
+          <span
+            className={`label-xs ${tone === 'light' ? 'text-cream/60' : 'text-stone'}`}
+          >
+            {index}
+          </span>
+        ) : null}
+        {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
+      </div>
+
+      <div className="max-w-3xl">
+        <h2
+          id={id}
+          className={`font-display-bold text-h2 ${tone === 'light' ? 'text-cream' : 'text-ink'}`}
+        >
+          {title}
+        </h2>
+        {lead ? (
+          /* Строка подводки держится в 42rem: длинная строка читается
+             тяжелее и съедает тот самый воздух вокруг текста */
+          <div
+            className={`mt-7 max-w-[42rem] text-lead ${tone === 'light' ? 'text-cream/70' : 'text-stone'}`}
+          >
+            {lead}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}

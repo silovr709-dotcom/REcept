@@ -1,0 +1,8 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /kabinet
+
+Host: https://xn----dtbhac1degob3b6e.xn--p1ai
+Sitemap: https://xn----dtbhac1degob3b6e.xn--p1ai/sitemap.xml
