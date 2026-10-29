@@ -37,7 +37,7 @@ export async function Footer() {
           {phoneDisplay ? (
             <a
               href={phoneHref}
-              className="font-display shrink-0 text-[clamp(1.5rem,1rem+1.5vw,2.25rem)] text-cream transition-colors hover:text-goldsoft"
+              className="font-display -my-1 flex min-h-11 shrink-0 items-center text-[clamp(1.5rem,1rem+1.5vw,2.25rem)] text-cream transition-colors hover:text-goldsoft"
             >
               {phoneDisplay}
             </a>
@@ -91,7 +91,7 @@ export async function Footer() {
                   <li key={c.id}>
                     <a
                       href={c.href}
-                      className="group block py-1.5 sm:py-0"
+                      className="group block py-2.5 sm:py-0"
                       {...(c.href.startsWith('http')
                         ? { target: '_blank', rel: 'noopener noreferrer' }
                         : {})}

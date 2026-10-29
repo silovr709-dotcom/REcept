@@ -99,7 +99,7 @@ export async function Hero() {
               <div className="mt-3 flex items-end justify-between gap-4 sm:mt-4">
                 <Link
                   href="/o-nas"
-                  className="group inline-flex flex-col gap-1"
+                  className="group -my-1 inline-flex min-h-11 flex-col justify-center gap-1 py-1"
                 >
                   <span className="label-xs text-goldsoft">Это мы</span>
                   <span className="font-display text-sub leading-none text-cream transition-colors group-hover:text-goldsoft sm:text-sub">
@@ -241,7 +241,7 @@ export async function Hero() {
 
             <Link
               href="/o-nas"
-              className="group ml-auto inline-flex items-baseline gap-3 max-sm:ml-0"
+              className="group -my-2 ml-auto inline-flex min-h-11 items-center gap-3 py-2 max-sm:ml-0"
             >
               <span className="label-xs text-cream/55">Это мы</span>
               <span className="font-display text-big text-cream transition-colors group-hover:text-goldsoft">

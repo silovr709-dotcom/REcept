@@ -82,7 +82,7 @@ export default async function ContactsPage() {
                     <li key={phone.raw}>
                       <a
                         href={`tel:${phone.raw}`}
-                        className="font-display block text-sub leading-tight text-ink transition-colors hover:text-gold sm:text-head"
+                        className="font-display -my-1 flex min-h-11 items-center text-sub leading-tight text-ink transition-colors hover:text-gold sm:text-head"
                       >
                         {phone.display}
                       </a>
@@ -176,7 +176,7 @@ export default async function ContactsPage() {
                     href={addressMapUrl ?? '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-gold/40 underline-offset-4"
+                    className="-my-1.5 inline-flex min-h-11 items-center underline decoration-gold/40 underline-offset-4"
                   >
                     {addressValue}
                   </a>
@@ -227,7 +227,7 @@ export default async function ContactsPage() {
                 href={addressMapUrl ?? '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-7 inline-flex items-center gap-2 font-semibold text-gold underline decoration-gold/40 underline-offset-4"
+                className="mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-gold underline decoration-gold/40 underline-offset-4"
               >
                 Построить маршрут на Яндекс Картах
               </a>

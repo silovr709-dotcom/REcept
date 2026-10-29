@@ -54,7 +54,7 @@ export function PortfolioGrid({
               type="button"
               onClick={() => setActive(chip.id)}
               aria-pressed={isActive}
-              className={`relative inline-flex min-h-10 items-baseline gap-2 pb-1 text-ui transition-colors after:absolute after:inset-x-0 after:-bottom-[1.3rem] after:h-px after:transition-colors ${
+              className={`relative inline-flex min-h-10 items-baseline gap-2 pb-1 text-ui transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:transition-colors lg:after:-bottom-[1.3rem] ${
                 isActive
                   ? 'text-ink after:bg-gold'
                   : 'text-stone hover:text-ink after:bg-transparent'
