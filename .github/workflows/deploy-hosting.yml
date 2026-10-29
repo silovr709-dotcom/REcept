@@ -1,22 +1,26 @@
 name: Выгрузка сайта на хостинг
 
-# Запускается при каждом изменении сайта. Сама собирает сайт и
-# выкладывает его на хостинг по FTP — руками ничего заливать не нужно.
+# Запускается при каждом изменении сайта. Сама собирает сайт, проверяет
+# его и выкладывает на хостинг reg.ru по FTP — руками ничего заливать
+# не нужно. После выгрузки открывает сайт и убеждается, что там
+# действительно новая версия.
 #
 # Чтобы включить, нужен ОДИН секрет репозитория:
 #   Settings → Secrets and variables → Actions → New repository secret
-#     FTP_PASSWORD  — пароль FTP того же хостинга, где уже работает калькулятор
+#     FTP_PASSWORD  — пароль FTP-пользователя хостинга
 #
-# Остальное подставлено по умолчанию (тот же аккаунт reg.ru, что у калькулятора)
-# и переопределяется секретами, только если что-то изменится:
-#     FTP_HOST  — по умолчанию u3683615.isp.regruhosting.ru
-#     FTP_USER  — по умолчанию u3683615
-#     FTP_DIR   — по умолчанию /www/xn----dtbhac1degob3b6e.xn--p1ai/
-#                 (папка домена рецепт-тверь.рф; у калькулятора своя папка,
-#                  выгрузки не пересекаются)
+# Остальное подставлено по умолчанию и переопределяется секретами,
+# только если на хостинге что-то другое:
+#     FTP_HOST      — по умолчанию u3683615.isp.regruhosting.ru
+#     FTP_USER      — по умолчанию u3683615
+#     FTP_DIR       — по умолчанию /www/xn----dtbhac1degob3b6e.xn--p1ai/
+#                     (папка домена рецепт-тверь.рф)
+#     FTP_PROTOCOL  — по умолчанию ftps (шифрованный FTP). Если хостинг
+#                     его не поддерживает, поставьте ftp.
 #
-# Пока доступы не добавлены, выгрузка просто пропускается, а сборка
-# всё равно проверяется — чтобы сломанный сайт не уехал на хостинг.
+# Пока пароль не добавлен, выгрузка пропускается, а сборка всё равно
+# проверяется — чтобы сломанный сайт не уехал на хостинг. Свежий архив
+# для ручной загрузки при этом всё равно публикуется в разделе Releases.
 
 on:
   push:
@@ -25,20 +29,24 @@ on:
       - 'reference/**'
       - 'docs/**'
       - '**.md'
-      - 'recept-sayt.zip'
   workflow_dispatch:
 
 concurrency:
   group: hosting-deploy
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
+      SITE_DOMAIN: xn----dtbhac1degob3b6e.xn--p1ai
       FTP_HOST: ${{ secrets.FTP_HOST || 'u3683615.isp.regruhosting.ru' }}
       FTP_USER: ${{ secrets.FTP_USER || 'u3683615' }}
       FTP_DIR: ${{ secrets.FTP_DIR || '/www/xn----dtbhac1degob3b6e.xn--p1ai/' }}
+      FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -51,13 +59,47 @@ jobs:
         run: npm ci
 
       - name: Собрать сайт для домена
+        env:
+          NEXT_PUBLIC_SITE_URL: https://xn----dtbhac1degob3b6e.xn--p1ai
         run: npm run build:domain
+
+      - name: Поставить отметку версии
+        # По этому файлу потом видно, какая именно сборка лежит на сайте:
+        # https://рецепт-тверь.рф/version.txt
+        run: |
+          {
+            echo "commit: $GITHUB_SHA"
+            echo "ветка:  ${GITHUB_REF_NAME}"
+            echo "собрано: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          } > site/version.txt
+          cat site/version.txt
 
       - name: Проверить качество сборки
         env:
           AUDIT_DIR: site
           AUDIT_BASE: ''
         run: npm run audit
+
+      - name: Собрать архив для ручной загрузки
+        run: |
+          cd site
+          zip -rq ../recept-sayt.zip . -x '.recept-deploy-state.json'
+          cd ..
+          ls -lh recept-sayt.zip
+
+      - name: Положить архив в Releases
+        # Один и тот же релиз site-latest обновляется на месте,
+        # ссылка всегда ведёт на свежий архив:
+        # https://github.com/silovr709-dotcom/REcept/releases/latest/download/recept-sayt.zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view site-latest >/dev/null 2>&1 || \
+            gh release create site-latest \
+              --title "Сайт «РЕцепт» — свежая сборка" \
+              --notes "Архив для ручной загрузки на хостинг. Обновляется автоматически при каждом изменении сайта." \
+              --latest
+          gh release upload site-latest recept-sayt.zip --clobber
 
       - name: Проверить, настроен ли хостинг
         id: cfg
@@ -66,10 +108,14 @@ jobs:
         run: |
           if [ -n "$FTP_PASSWORD" ]; then
             echo "ready=yes" >> "$GITHUB_OUTPUT"
-            echo "Выгрузка: $FTP_USER@$FTP_HOST, папка $FTP_DIR" >> "$GITHUB_STEP_SUMMARY"
+            echo "Выгрузка: $FTP_USER@$FTP_HOST ($FTP_PROTOCOL), папка $FTP_DIR" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "ready=no" >> "$GITHUB_OUTPUT"
-            echo "Нет секрета FTP_PASSWORD — выгрузка пропущена, сборка проверена." >> "$GITHUB_STEP_SUMMARY"
+            {
+              echo "Нет секрета **FTP_PASSWORD** — выгрузка пропущена, сборка проверена."
+              echo ""
+              echo "Свежий архив: https://github.com/${GITHUB_REPOSITORY}/releases/latest/download/recept-sayt.zip"
+            } >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Выгрузить на хостинг
@@ -79,6 +125,10 @@ jobs:
           server: ${{ env.FTP_HOST }}
           username: ${{ env.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ env.FTP_PROTOCOL }}
+          # Хостинги часто отдают самоподписанный сертификат на FTPS —
+          # соединение всё равно шифруется, просто без проверки имени.
+          security: loose
           server-dir: ${{ env.FTP_DIR }}
           local-dir: ./site/
           # Отправляются только изменившиеся файлы — выгрузка занимает секунды.
@@ -94,3 +144,33 @@ jobs:
             _zayavki/**
             api/lead-config.php
             .well-known/**
+
+      - name: Убедиться, что на сайте новая версия
+        if: steps.cfg.outputs.ready == 'yes'
+        run: |
+          url="https://${SITE_DOMAIN}/version.txt"
+          echo "Проверяю $url"
+          # Домен может ещё не смотреть на хостинг или ждать сертификат —
+          # это не повод считать выгрузку неудачной, поэтому пробуем
+          # и https, и http, и несколько раз.
+          got=""
+          for i in 1 2 3; do
+            got=$(curl -fsS --max-time 25 "$url" 2>/dev/null \
+              || curl -fsS --max-time 25 "http://${SITE_DOMAIN}/version.txt" 2>/dev/null \
+              || true)
+            [ -n "$got" ] && break
+            sleep 10
+          done
+          if [ -z "$got" ]; then
+            echo "::warning::Сайт по адресу ${SITE_DOMAIN} пока не отвечает. Файлы выгружены; проверьте привязку домена и сертификат."
+            echo "⚠️ Файлы выгружены, но домен пока не отвечает — проверьте привязку домена и SSL." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          echo "$got"
+          if echo "$got" | grep -q "$GITHUB_SHA"; then
+            echo "✅ На сайте свежая версия: \`${GITHUB_SHA:0:7}\`" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::error::На сайте лежит другая версия — выгрузка не дошла."
+            echo "❌ На сайте другая версия. Проверьте папку выгрузки FTP_DIR." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
