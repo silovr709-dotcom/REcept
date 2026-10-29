@@ -68,8 +68,15 @@ DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
 # Всегда https и один адрес без www — иначе поисковики видят два разных сайта.
+#
+# Исключение — папка /.well-known/: по ней Let's Encrypt проверяет домен
+# ПЕРЕД тем, как выдать сертификат, и делает это по обычному http.
+# Если переводить и эти запросы на https, сертификат выпустить нельзя:
+# проверка упирается в сайт, у которого ещё нет сертификата.
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule ^\\.well-known/ - [L]
+
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
