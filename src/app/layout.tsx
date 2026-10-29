@@ -96,7 +96,7 @@ export async function generateMetadata(): Promise<Metadata> {
         { url: assetUrl('/favicon.svg'), type: 'image/svg+xml' },
         { url: assetUrl('/favicon.ico'), sizes: '32x32' },
       ],
-      apple: '/apple-touch-icon.png',
+      apple: assetUrl('/apple-touch-icon.png'),
     },
     robots: {
       index: true,

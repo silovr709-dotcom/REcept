@@ -163,14 +163,38 @@ for (const { route, html } of pages) {
 notes.push(`страниц проверено: ${pages.length}`);
 
 /* ------------------------------------------------------------------ */
-/* 7. битые внутренние ссылки                                          */
+/* 7. битые внутренние ссылки и якоря                                  */
 /* ------------------------------------------------------------------ */
 
+/*
+ * Кроме самих адресов проверяем якоря: «#price», «#millings» и прочие
+ * ссылки внутрь страницы. Такую ссылку легко сломать переименованием
+ * секции, а снаружи это не видно — человек просто жмёт пункт меню и
+ * остаётся на месте. Заодно ищем повторяющиеся id: два одинаковых
+ * якоря на странице — это всегда переход не туда.
+ */
 const known = new Set(htmlFiles.map((f) => routeOf(f)));
+const idsOf = new Map(
+  pages.map((p) => [
+    p.route,
+    [...p.html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]),
+  ]),
+);
+
+for (const [route, ids] of idsOf) {
+  const dup = [...new Set(ids.filter((x, i) => ids.indexOf(x) !== i))];
+  if (dup.length) fail('якоря', `${route} — повторяются id: ${dup.join(', ')}`);
+}
 const broken = new Set();
 for (const { route, html } of pages) {
   for (const m of html.matchAll(/href="([^"]+)"/g)) {
     const href = m[1];
+    if (href.startsWith('#')) {
+      const self = href.slice(1);
+      if (self && !(idsOf.get(route) ?? []).includes(self))
+        broken.add(`${route} → ${href} (якоря нет на странице)`);
+      continue;
+    }
     if (!href.startsWith(BASE + '/') && href !== BASE) continue;
     const clean = href.replace(/[#?].*$/, '');
     const target = clean.slice(BASE.length) || '/';
@@ -179,7 +203,13 @@ for (const { route, html } of pages) {
       continue;
     }
     const norm = target.replace(/\/$/, '') || '/';
-    if (!known.has(norm)) broken.add(`${route} → ${href}`);
+    if (!known.has(norm)) {
+      broken.add(`${route} → ${href}`);
+      continue;
+    }
+    const hash = href.includes('#') ? href.split('#')[1] : '';
+    if (hash && !(idsOf.get(norm) ?? []).includes(hash))
+      broken.add(`${route} → ${href} (якоря нет на странице)`);
   }
 }
 for (const b of broken) fail('ссылки', b);

@@ -147,7 +147,7 @@ export async function Details({
       : '(max-width: 1023px) 94vw, 45vw';
 
   return (
-    <Section tone={tone} aria-labelledby="details-title">
+    <Section tone={tone} id="detali" aria-labelledby="details-title">
       <div className="container-page">
         <SectionHeading
           index={index}

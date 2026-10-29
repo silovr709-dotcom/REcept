@@ -21,6 +21,7 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { getVisibleProjects } from '@/lib/content/store';
 import { assetUrl, pickImage } from '@/lib/content/images';
+import { SectionNav } from '@/components/SectionNav';
 
 export const metadata: Metadata = {
   title: 'Кухни на заказ в Твери',
@@ -106,6 +107,22 @@ export default async function KitchensPage() {
         </div>
       </PageHero>
 
+      {/* Содержание: на странице десять блоков — от компоновок до
+          вопросов. Оглавление показывает их сразу и уводит в нужный
+          без долгой прокрутки. */}
+      <SectionNav
+        items={[
+          { id: 'layouts', label: 'Компоновки' },
+          { id: 'includes', label: 'Что входит' },
+          { id: 'raboty', label: 'Наши кухни' },
+          { id: 'vblizi', label: 'Детали' },
+          { id: 'process', label: 'Как работаем' },
+          { id: 'price', label: 'Сколько стоит' },
+          { id: 'faq', label: 'Вопросы' },
+        ]}
+        label="Разделы страницы «Кухни на заказ»"
+      />
+
       {shot ? (
         <div className="container-page">
           <div className="relative aspect-16/9 overflow-hidden rounded-lg bg-sand sm:aspect-21/9">
@@ -125,7 +142,7 @@ export default async function KitchensPage() {
       ) : null}
 
       {/* Компоновки */}
-      <Section tone="cream" aria-labelledby="layouts-title">
+      <Section tone="cream" id="layouts" aria-labelledby="layouts-title">
         <div className="container-page">
           <SectionHeading
             id="layouts-title"
@@ -176,7 +193,7 @@ export default async function KitchensPage() {
       </Section>
 
       {/* Что входит */}
-      <Section tone="ink" aria-labelledby="includes-title">
+      <Section tone="ink" id="includes" aria-labelledby="includes-title">
         <div className="container-page">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
             <div>
@@ -249,7 +266,7 @@ export default async function KitchensPage() {
       </Section>
 
       {/* Работы */}
-      <Section tone="bone" aria-labelledby="kitchens-works">
+      <Section tone="bone" id="raboty" aria-labelledby="kitchens-works">
         <div className="container-page">
           <SectionHeading
             id="kitchens-works"
@@ -270,7 +287,7 @@ export default async function KitchensPage() {
           человек понимает, что мебель существует в реальности,
           а не только на рендерах. Восьмая ячейка — не фотография,
           а следующий шаг: ряд заканчивается предложением, а не точкой */}
-      <Section tone="ink" aria-labelledby="closeups-title">
+      <Section tone="ink" id="vblizi" aria-labelledby="closeups-title">
         <div className="container-page">
           <SectionHeading
             tone="light"

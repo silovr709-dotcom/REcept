@@ -125,7 +125,7 @@ export function Suppliers({
   }
 
   return (
-    <Section tone={tone} aria-labelledby="suppliers-title">
+    <Section tone={tone} id="suppliers" aria-labelledby="suppliers-title">
       <div className="container-page">
         <SectionHeading
           id="suppliers-title"

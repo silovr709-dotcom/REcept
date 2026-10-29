@@ -21,6 +21,7 @@ import {
 } from '@/data/millings';
 import { millingRoom, millingRoomCount } from '@/data/milling-rooms';
 import { RenderBadge } from '@/components/ui/RenderBadge';
+import { SectionNav } from '@/components/SectionNav';
 
 export const metadata: Metadata = {
   title: 'Фрезеровки фасадов',
@@ -88,8 +89,24 @@ export default async function MillingsPage() {
         </CtaButton>
       </PageHero>
 
+      {/* Каталог длинный: четыре категории по полтора десятка рисунков.
+          Оглавление даёт попасть в нужную категорию сразу — и заодно
+          показывает, что каталог разделён по сложности рисунка. */}
+      <SectionNav
+        items={[
+          { id: 'kak-ustroeno', label: 'Как устроено' },
+          ...millingCategories
+            .filter((c) => millingsByCategory(c.id).length > 0)
+            .map((c) => ({
+              id: `kategoriya-${c.id}`,
+              label: `${c.id} категория · ${millingsByCategory(c.id).length}`,
+            })),
+        ]}
+        label="Категории фрезеровок"
+      />
+
       {/* Три вещи, которые нужно понять до того, как листать каталог */}
-      <Section tone="bone" aria-labelledby="millings-how-title">
+      <Section tone="bone" id="kak-ustroeno" aria-labelledby="millings-how-title">
         <div className="container-page">
           <SectionHeading
             id="millings-how-title"
@@ -147,6 +164,7 @@ export default async function MillingsPage() {
         return (
           <Section
             key={category.id}
+            id={`kategoriya-${category.id}`}
             tone={categoryIndex % 2 === 0 ? 'cream' : 'bone'}
             aria-labelledby={`millings-cat-${category.id}`}
           >

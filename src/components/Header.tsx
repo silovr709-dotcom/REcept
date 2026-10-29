@@ -64,7 +64,9 @@ export function Header() {
 
   useEffect(() => {
     if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMenuOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
     document.addEventListener('keydown', onKey);
     document.documentElement.style.overflow = 'hidden';
     return () => {
@@ -100,17 +102,29 @@ export function Header() {
                 1280–1366 пункты переносились на вторую строку. */}
             <ul className="flex items-center gap-4 xl:gap-6 2xl:gap-7">
               {navigation.map((item) => {
-                const active = pathname === item.href;
+                const active =
+                  pathname === item.href ||
+                  (item.children ?? []).some(
+                    (c) => pathname === c.href.split('#')[0],
+                  );
                 return (
-                  <li key={item.href}>
+                  /*
+                   * Раскрытие подразделов держится на CSS, а не на
+                   * состоянии: список появляется и при наведении, и
+                   * когда фокус попадает внутрь пункта. Поэтому меню
+                   * работает одинаково мышью, пальцем и клавиатурой —
+                   * и не зависит от того, успели ли подхватиться
+                   * скрипты.
+                   */
+                  <li key={item.href} className="group/nav relative">
                     <Link
                       href={item.href}
-                      aria-current={active ? 'page' : undefined}
+                      aria-current={pathname === item.href ? 'page' : undefined}
                       /* Подчёркивание в один пиксель вместо жирности:
                          текущий раздел виден, но меню остаётся ровным
                          по цвету и весу — как колонтитул, а не как
                          панель кнопок. */
-                      className={`relative whitespace-nowrap py-2 text-ui transition-colors xl:text-ui after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+                      className={`relative flex items-center gap-1.5 whitespace-nowrap py-2 text-ui transition-colors xl:text-ui after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 ${
                         active
                           ? overPhoto
                             ? 'text-goldsoft after:scale-x-100'
@@ -121,7 +135,61 @@ export function Header() {
                       }`}
                     >
                       {item.label}
+                      {item.children ? (
+                        <svg
+                          width="9"
+                          height="6"
+                          viewBox="0 0 9 6"
+                          fill="none"
+                          aria-hidden="true"
+                          className="shrink-0 opacity-60 transition-transform duration-300 group-hover/nav:rotate-180 group-focus-within/nav:rotate-180"
+
+                        >
+                          <path
+                            d="M1 1.2 4.5 4.6 8 1.2"
+                            stroke="currentColor"
+                            strokeWidth="1.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      ) : null}
                     </Link>
+
+                    {/* Подразделы. Выдвигаются из-под шапки как ящик:
+                        тонкая латунная кромка сверху, прямые углы,
+                        тот же кремовый корпус. */}
+                    {item.children ? (
+                      <div
+                        /* Панель не прячется через visibility: иначе
+                           ссылки выпадают из обхода по Tab и фокусом
+                           до них не добраться. Она прозрачная и не
+                           ловит мышь, пока пункт не раскрыт. */
+                        className="pointer-events-none absolute left-1/2 top-full z-10 w-64 -translate-x-1/2 -translate-y-1 pt-3 opacity-0 transition-[opacity,transform] duration-200 group-hover/nav:pointer-events-auto group-hover/nav:translate-y-0 group-hover/nav:opacity-100 group-focus-within/nav:pointer-events-auto group-focus-within/nav:translate-y-0 group-focus-within/nav:opacity-100"
+                      >
+                        <ul className="border border-line bg-cream py-2 shadow-[0_18px_40px_-28px_color-mix(in_oklab,var(--color-soot)_80%,transparent)]">
+                          <li
+                            aria-hidden="true"
+                            className="mx-4 mb-1 h-px bg-goldline/50"
+                          />
+                          {item.children.map((child) => (
+                            <li key={child.href + child.label}>
+                              <Link
+                                href={child.href}
+                                className="flex min-h-11 flex-col justify-center px-4 py-1.5 text-ui text-ink/85 transition-colors hover:bg-bone hover:text-gold"
+                              >
+                                {child.label}
+                                {child.note ? (
+                                  <span className="text-caption text-clay">
+                                    {child.note}
+                                  </span>
+                                ) : null}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
                   </li>
                 );
               })}
@@ -273,9 +341,8 @@ export function Header() {
                 className="drawer-item"
                 style={{ '--i': i } as React.CSSProperties}
               >
-                {/* Без стрелок: они обещали подменю, которого нет.
-                    Вместо них — тонкая золотая черта, которая выезжает
-                    слева при нажатии, как направляющая ящика. */}
+                {/* Тонкая золотая черта выезжает слева при нажатии —
+                    как направляющая ящика. */}
                 <Link
                   href={item.href}
                   className="group/mi relative flex min-h-13 items-center border-b border-line/70 py-3 font-display text-sub text-ink"
@@ -286,23 +353,41 @@ export function Header() {
                     className="absolute bottom-0 left-0 h-px w-0 bg-goldline transition-[width] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-active/mi:w-full"
                   />
                 </Link>
+
+                {/* Подразделы сразу видны, без второго касания: на
+                    телефоне раскрывающиеся списки прячут как раз то,
+                    что человек ищет — каталог фрезеровок, фурнитуру,
+                    цены. Их здесь по три-пять, место есть. */}
+                {item.children ? (
+                  <ul className="mb-1 grid border-b border-line/70 bg-bone/45">
+                    {item.children.map((child) => (
+                      <li key={child.href + child.label}>
+                        <Link
+                          href={child.href}
+                          className="flex min-h-11 items-baseline gap-2 py-1.5 pl-5 pr-2 text-ui text-stone"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="mt-2 h-px w-3 shrink-0 bg-goldline/70"
+                          />
+                          <span>
+                            {child.label}
+                            {child.note ? (
+                              <span className="block text-caption text-clay">
+                                {child.note}
+                              </span>
+                            ) : null}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </li>
             ))}
           </ul>
 
           <div className="mt-6 grid gap-3">
-            <CtaButton
-              source="mobile-menu"
-              variant="gold"
-              size="lg"
-              className="w-full"
-              modalTitle="Рассчитаем вашу кухню"
-              submitLabel="Получить расчёт"
-              withArrow
-            >
-              Рассчитать кухню
-            </CtaButton>
-
             {hasPhone ? (
               <a
                 href={phoneHref}
@@ -344,6 +429,23 @@ export function Header() {
               ))}
             </ul>
           ) : null}
+
+          {/* Главное действие прижато к низу панели и остаётся на
+              виду, пока листаешь список: меню выросло на подпункты,
+              и без этого кнопка уезжала за край экрана. */}
+          <div className="sticky bottom-0 z-10 -mx-(--spacing-gutter) mt-8 border-t border-line bg-cream/95 px-(--spacing-gutter) py-4 backdrop-blur-sm">
+            <CtaButton
+              source="mobile-menu"
+              variant="gold"
+              size="lg"
+              className="w-full"
+              modalTitle="Рассчитаем вашу кухню"
+              submitLabel="Получить расчёт"
+              withArrow
+            >
+              Рассчитать кухню
+            </CtaButton>
+          </div>
         </div>
       </div>
     </header>

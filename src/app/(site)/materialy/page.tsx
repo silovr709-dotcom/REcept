@@ -23,6 +23,7 @@ import { MarginNote } from '@/components/ui/MarginNote';
 import { CropFrame } from '@/components/ui/CropFrame';
 import { crops } from '@/data/crops';
 import { teamShots, teamShotAlt } from '@/data/team-shots';
+import { SectionNav } from '@/components/SectionNav';
 
 export const metadata: Metadata = {
   title: 'Материалы для кухни',
@@ -165,13 +166,29 @@ export default async function MaterialsPage() {
         </CtaButton>
       </PageHero>
 
+      {/* Содержание страницы. Разделов шесть, страница длинная —
+          без оглавления каталог фрезеровок приходилось искать
+          прокруткой, и до него доходили единицы. */}
+      <SectionNav
+        items={[
+          { id: 'suppliers', label: 'Поставщики' },
+          { id: 'facades', label: 'Фасады' },
+          { id: 'choice', label: 'Что выбирают' },
+          { id: 'hardware', label: 'Фурнитура' },
+          { id: 'millings', label: `Фрезеровки · ${millings.length}` },
+          { id: 'worktops', label: 'Столешницы' },
+          { id: 'budget', label: 'О бюджете' },
+        ]}
+        label="Разделы страницы «Материалы»"
+      />
+
       {/* Первым блоком — реестр марок. Раньше здесь шла лента макро
           с подписями «дерево и камень рядом»: красиво, но человек,
           который сравнивает предложения, уходил со страницы, так и не
           узнав ни одного названия. */}
       <Suppliers tone="bone" />
 
-      <Section tone="cream" aria-labelledby="facades-title">
+      <Section tone="cream" id="facades" aria-labelledby="facades-title">
         <div className="container-page">
           <SectionHeading
             id="facades-title"
@@ -232,7 +249,7 @@ export default async function MaterialsPage() {
           рабочего каталога производства, на котором мы размещаем заказы,
           и учитывают только действующие позиции. Цен здесь нет
           сознательно: см. комментарий в src/data/materials.ts */}
-      <Section tone="ink" aria-labelledby="choice-title">
+      <Section tone="ink" id="choice" aria-labelledby="choice-title">
         <div className="container-page">
           <SectionHeading
             tone="light"
@@ -277,7 +294,7 @@ export default async function MaterialsPage() {
 
       {/* Фурнитура — то, из-за чего кухня живёт десять лет или три.
           Снаружи её не видно, поэтому про неё и молчат. */}
-      <Section tone="bone" aria-labelledby="hardware-title">
+      <Section tone="bone" id="hardware" aria-labelledby="hardware-title">
         <div className="container-page">
           <SectionHeading
             id="hardware-title"
@@ -351,7 +368,7 @@ export default async function MaterialsPage() {
       {/* Каталог фрезеровок: имена, а не картинки. Превью в исходнике —
           развороты каталога производства, их публикация требует
           отдельного разрешения правообладателя. */}
-      <Section tone="cream" aria-labelledby="millings-title">
+      <Section tone="cream" id="millings" aria-labelledby="millings-title">
         <div className="container-page">
           <SectionHeading
             id="millings-title"
@@ -443,7 +460,7 @@ export default async function MaterialsPage() {
         </div>
       </Section>
 
-      <Section tone="bone">
+      <Section tone="bone" id="worktops">
         <div className="container-page">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
             <Reveal>
@@ -512,7 +529,7 @@ export default async function MaterialsPage() {
         </div>
       </Section>
 
-      <Section tone="ink">
+      <Section tone="ink" id="budget">
         <div className="container-page">
           <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
             <div>

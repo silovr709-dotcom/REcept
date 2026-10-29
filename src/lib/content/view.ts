@@ -95,7 +95,12 @@ export type SiteView = {
     checkedAt: string;
   } | null;
 
-  navigation: { href: string; label: string }[];
+  navigation: {
+    href: string;
+    label: string;
+    /** Подразделы: раскрываются в шапке и в мобильном меню */
+    children?: { href: string; label: string; note?: string }[];
+  }[];
 };
 
 function buildContacts(site: SiteContent): ContactChannel[] {
@@ -169,11 +174,41 @@ function buildContacts(site: SiteContent): ContactChannel[] {
   return list;
 }
 
-const NAVIGATION = [
-  { href: '/kuhni-na-zakaz', label: 'Кухни' },
+/**
+ * Главное меню. У «Кухонь» и «Материалов» есть подразделы: без них
+ * каталог фрезеровок и разбор фурнитуры лежали внутри длинных
+ * страниц, и найти их можно было только прокруткой. В шапке
+ * подразделы раскрываются списком, в мобильном меню идут отступом
+ * под своим разделом.
+ */
+const NAVIGATION: SiteView['navigation'] = [
+  {
+    href: '/kuhni-na-zakaz',
+    label: 'Кухни',
+    children: [
+      { href: '/kuhni-na-zakaz', label: 'О кухнях на заказ' },
+      { href: '/kuhni-na-zakaz#layouts', label: 'Компоновки' },
+      { href: '/kuhni-na-zakaz#includes', label: 'Что входит в работу' },
+      { href: '/kuhni-na-zakaz#price', label: 'Сколько стоит' },
+    ],
+  },
   { href: '/mebel-na-zakaz', label: 'Другие помещения' },
   { href: '/portfolio', label: 'Портфолио' },
-  { href: '/materialy', label: 'Материалы' },
+  {
+    href: '/materialy',
+    label: 'Материалы',
+    children: [
+      { href: '/materialy', label: 'Все материалы' },
+      {
+        href: '/frezerovki',
+        label: 'Каталог фрезеровок',
+        note: '60 рисунков фасада',
+      },
+      { href: '/materialy#facades', label: 'Фасады' },
+      { href: '/materialy#hardware', label: 'Фурнитура и ящики' },
+      { href: '/materialy#worktops', label: 'Столешницы' },
+    ],
+  },
   { href: '/otzyvy', label: 'Отзывы' },
   { href: '/o-nas', label: 'О нас' },
   { href: '/kontakty', label: 'Контакты' },
