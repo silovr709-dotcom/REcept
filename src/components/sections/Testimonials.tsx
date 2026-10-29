@@ -70,10 +70,25 @@ export async function Testimonials({
                   delay={Math.min(i, 3) * 60}
                   className="border-t border-goldline/50 pt-7"
                 >
-                  <p className="font-display text-[clamp(1.3rem,0.95rem+0.9vw,1.6rem)] leading-[1.3] text-ink">
+                  <p
+                    className={`font-display leading-[1.3] text-ink ${
+                      i === 0
+                        ? 'text-[clamp(1.5rem,1.05rem+1.3vw,2rem)]'
+                        : 'text-[clamp(1.3rem,0.95rem+0.9vw,1.6rem)]'
+                    }`}
+                  >
                     {t.highlight}
                   </p>
-                  <ReadMore className="mt-5 max-w-[62ch] text-ui leading-[1.7] text-stone">
+                  {/*
+                    Первый отзыв — самый подробный, и набран он крупнее:
+                    человек, который дочитал до этого раздела, ищет не
+                    «всё понравилось», а чужую историю целиком.
+                  */}
+                  <ReadMore
+                    className={`mt-5 max-w-[62ch] leading-[1.7] ${
+                      i === 0 ? 'text-big text-ink/85' : 'text-ui text-stone'
+                    }`}
+                  >
                     {t.text}
                   </ReadMore>
                   <footer className="mt-5 flex items-baseline gap-4">
