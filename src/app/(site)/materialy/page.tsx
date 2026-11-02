@@ -5,7 +5,6 @@ import { PageHero } from '@/components/PageHero';
 import { CtaButton } from '@/components/CtaButton';
 import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
-import { RenderBadge } from '@/components/ui/RenderBadge';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Suppliers } from '@/components/sections/Suppliers';
 import { PhotoBand } from '@/components/PhotoBand';
@@ -431,25 +430,23 @@ export default async function MaterialsPage() {
             </p>
           </Reveal>
 
-          {/* Шестьдесят названий фрезеровок подряд — самая «списочная»
-              часть сайта. Ответ на неё и буквальный, и зрительный:
-              Катя протягивает образец прямо в объектив */}
+          {/* После длинного каталога — совместный портрет владельцев:
+              про материалы можно спросить тех, кто подбирает их для проекта. */}
           <div className="mt-14 grid gap-10 border-t border-line pt-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-16">
             <Reveal>
               <figure className="relative aspect-4/5 overflow-hidden bg-sand">
                 <Image
-                  src={assetUrl(teamShots.katyaSample.src)}
-                  alt={teamShotAlt.katyaSample}
+                  src={assetUrl(teamShots.coupleClose.src)}
+                  alt={teamShotAlt.coupleClose}
                   fill
                   loading="lazy"
                   sizes="(max-width: 1023px) 100vw, 34vw"
                   placeholder={
-                    teamShots.katyaSample.blurDataURL ? 'blur' : 'empty'
+                    teamShots.coupleClose.blurDataURL ? 'blur' : 'empty'
                   }
-                  blurDataURL={teamShots.katyaSample.blurDataURL || undefined}
+                  blurDataURL={teamShots.coupleClose.blurDataURL || undefined}
                   className="object-cover"
                 />
-                <RenderBadge label="Постановочный кадр" />
               </figure>
             </Reveal>
 

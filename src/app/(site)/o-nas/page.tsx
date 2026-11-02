@@ -8,7 +8,6 @@ import { Cliches } from '@/components/sections/Cliches';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { Reveal } from '@/components/ui/Reveal';
-import { RenderBadge } from '@/components/ui/RenderBadge';
 import { Section } from '@/components/ui/Section';
 import { PhotoBand } from '@/components/PhotoBand';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
@@ -58,10 +57,9 @@ export default async function AboutPage() {
         title="«РЕцепт» — это Роберт и Катя, а не отдел продаж"
         lead="Семейное мебельное ателье в Твери. Мы делаем кухни и корпусную мебель на заказ и ведём каждый проект вдвоём — от первого разговора до сборки."
         breadcrumbs={[{ name: 'О нас' }]}
-        image={teamShots.evening}
-        imageAlt=""
-        imagePosition="object-[50%_35%]"
-        imageBadgeLabel="Постановочный кадр"
+        image={teamShots.coupleWide}
+        imageAlt={teamShotAlt.coupleWide}
+        imagePosition="object-[58%_35%]"
       />
 
       {/* Страница на 20 000 пикселей: без оглавления до «Чего вы здесь
@@ -86,23 +84,22 @@ export default async function AboutPage() {
                 Почему семейное дело — это другое качество разговора
               </h2>
 
-              {/* Три абзаца про «участок один — весь» рядом с тем, как
-                  этот участок выглядит: Катя за проектом вашей кухни */}
+              {/* История семейного дела рядом с портретом Кати — одного
+                  из двух людей, которые ведут проект от начала до конца. */}
               <Reveal className="mt-10">
                 <figure className="relative aspect-4/5 overflow-hidden bg-sand">
                   <Image
-                    src={assetUrl(teamShots.katyaPlan.src)}
-                    alt={teamShotAlt.katyaPlan}
+                    src={assetUrl(teamShots.katyaPortrait.src)}
+                    alt={teamShotAlt.katyaPortrait}
                     fill
                     loading="lazy"
                     sizes="(max-width: 1023px) 100vw, 36vw"
                     placeholder={
-                      teamShots.katyaPlan.blurDataURL ? 'blur' : 'empty'
+                      teamShots.katyaPortrait.blurDataURL ? 'blur' : 'empty'
                     }
-                    blurDataURL={teamShots.katyaPlan.blurDataURL || undefined}
+                    blurDataURL={teamShots.katyaPortrait.blurDataURL || undefined}
                     className="object-cover"
                   />
-                  <RenderBadge label="Постановочный кадр" />
                 </figure>
               </Reveal>
             </div>
@@ -156,12 +153,11 @@ export default async function AboutPage() {
           эта страница: подпись говорит «ведут сами» — значит, видно,
           кто именно */}
       <PhotoBand
-        image={teamShots.heroWide}
-        alt={teamShotAlt.hero}
-        badgeLabel="Постановочный кадр"
+        image={teamShots.coupleAtTable}
+        alt={teamShotAlt.coupleAtTable}
         overlay="quote"
         height="lg"
-        objectPosition="object-[58%_28%]"
+        objectPosition="object-[58%_18%]"
         caption="Каждый проект Роберт и Катя ведут сами — от планировки до сборки на объекте."
       />
 

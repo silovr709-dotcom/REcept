@@ -2,9 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
-import { RenderBadge } from '../ui/RenderBadge';
 import { atelierShots } from '@/data/atelier';
-import { teamShots } from '@/data/team-shots';
+import { teamShots, teamShotAlt } from '@/data/team-shots';
 
 /**
  * Подписи поверх снимков — по одной на человека, в том же порядке, что
@@ -30,9 +29,9 @@ import { assetUrl } from '@/lib/content/images';
  * Поэтому здесь не «наша команда», а два конкретных человека с фамилией,
  * телефоном и отзывами, где их называют по имени.
  *
- * Блок не требует подлинных портретов: если их нет, он остаётся
- * типографическим; штатные постановочные кадры отмечаются плашкой. Если
- * владельцы загрузят документальные портреты, они покажутся без этой метки.
+ * Роберт и Катя показаны на актуальных личных снимках из единого реестра.
+ * Эти портреты не выдаются за фотографии выполненных проектов; если в
+ * блоке появится другой участник без снимка, останется нейтральный кадр работы.
  */
 export async function Founders({ index }: { index?: string } = {}) {
   const [{ team, founders }, site, reviews] = await Promise.all([
@@ -73,23 +72,28 @@ export async function Founders({ index }: { index?: string } = {}) {
             return (
               <Reveal key={person.name} className="bg-bone p-8 sm:p-12">
                 {(() => {
-                  // Если в контенте загружен личный портрет, используем его.
-                  // Штатные кадры из /images/team/ постановочные и получают
-                  // явную метку; при отсутствии фото показываем интерьер.
-                  const portrait = person.photo;
-                  const stagedPortrait = Boolean(
-                    portrait &&
-                      [teamShots.robertMeasure, teamShots.katyaPlan].some((shot) =>
-                        portrait.src.endsWith(shot.src),
-                      ),
-                  );
+                  // Для Роберта и Кати используем актуальные снимки из
+                  // реестра даже в том случае, если старый путь остался в
+                  // редактируемом контенте. Для остальных участников берём
+                  // их фото или нейтральный кадр работы.
+                  const isRobert = person.fullName.startsWith('Роберт');
+                  const ownerPortrait = isRobert
+                    ? teamShots.robertPortrait
+                    : person.fullName.startsWith('Екатерина')
+                      ? teamShots.katyaPortrait
+                      : null;
+                  const portrait = ownerPortrait ?? person.photo;
                   const fallback = atelierShots[i % atelierShots.length];
                   const src = portrait
                     ? assetUrl(portrait.src)
                     : fallback.image.src;
-                  const alt = portrait
-                    ? `${person.fullName} — мебельное ателье «РЕцепт», Тверь`
-                    : fallback.alt;
+                  const alt = ownerPortrait
+                    ? isRobert
+                      ? teamShotAlt.robertPortrait
+                      : teamShotAlt.katyaPortrait
+                    : portrait
+                      ? `${person.fullName} — мебельное ателье «РЕцепт», Тверь`
+                      : fallback.alt;
                   const blur = portrait
                     ? portrait.blurDataURL
                     : fallback.image.blurDataURL;
@@ -112,9 +116,6 @@ export async function Founders({ index }: { index?: string } = {}) {
                             blurDataURL={blur || undefined}
                             className="photo-calm object-cover"
                           />
-                          {stagedPortrait ? (
-                            <RenderBadge label="Постановочный кадр" />
-                          ) : null}
                         </div>
                       </div>
 

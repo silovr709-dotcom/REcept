@@ -1,6 +1,6 @@
 import type { StaticImageData } from 'next/image';
 
-import heroImage from '@public/images/team/hero-rob-kate-portrait.webp';
+import heroImage from '@public/images/team/couple-at-table.webp';
 import { teamShots } from '@/data/team-shots';
 import { projects as seedProjects } from '@/data/projects';
 import { details as seedDetails } from '@/data/details';
@@ -104,7 +104,7 @@ export function buildSeed(): ContentShape {
 
     texts: {
       hero: {
-        image: toRef(heroImage, '/images/team/hero-rob-kate-portrait.webp'),
+        image: toRef(heroImage, '/images/team/couple-at-table.webp'),
         eyebrow: 'Семейное мебельное ателье · Тверь',
         title: 'Кухни на заказ',
         titleSecondLine: 'в Твери',
@@ -186,9 +186,9 @@ export function buildSeed(): ContentShape {
         // если кого-то поменять местами, Катя не окажется подписана
         // кадром Роберта.
         photo: t.fullName.startsWith('Роберт')
-          ? teamShots.robertMeasure
+          ? teamShots.robertPortrait
           : t.fullName.startsWith('Екатерина')
-            ? teamShots.katyaPlan
+            ? teamShots.katyaPortrait
             : null,
         vk: t.vk,
       })),

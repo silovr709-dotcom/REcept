@@ -1,7 +1,6 @@
 import { LeadForm } from '../LeadForm';
 import { getSiteView } from '@/lib/content/view';
 import { Photo } from '../ui/Photo';
-import { RenderBadge } from '../ui/RenderBadge';
 import { teamShots } from '@/data/team-shots';
 import { MarginNote } from '../ui/MarginNote';
 
@@ -24,7 +23,7 @@ export async function FinalCta({
   const site = await getSiteView();
   // За формой стоят те, кто на неё ответит. Надзаголовок рядом говорит
   // «Пишет вам не робот» — кадр договаривает это без единого слова.
-  const shot = teamShots.evening;
+  const shot = teamShots.coupleWide;
   const activeContacts = site.contacts;
   const hasPhone = Boolean(site.primaryPhone);
   const phoneDisplay = site.primaryPhone?.display ?? '';
@@ -46,10 +45,6 @@ export async function FinalCta({
         />
         <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/88 to-ink/65" />
       </div>
-      <RenderBadge
-        label="Постановочный кадр"
-        className="bottom-auto right-auto left-4 top-4 z-10 sm:left-8 sm:top-8"
-      />
 
       <div className="container-page relative">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
