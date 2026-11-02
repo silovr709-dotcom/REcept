@@ -3,9 +3,14 @@ import Link from 'next/link';
 import { CtaButton } from '../CtaButton';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
+import { RenderBadge } from '../ui/RenderBadge';
 import { getVisibleDetails } from '@/lib/content/store';
 import type { DetailItem } from '@/lib/content/types';
-import { assetUrl, fitRatio } from '@/lib/content/images';
+import {
+  assetUrl,
+  fitRatio,
+  isIllustrativeProjectDetail,
+} from '@/lib/content/images';
 
 /**
  * ДЕТАЛИ.
@@ -13,7 +18,9 @@ import { assetUrl, fitRatio } from '@/lib/content/images';
  * сделана под конкретное помещение: профиль, кромка, стык, подсветка, фактура.
  * Именно это отличает мебель на заказ от коробки из магазина.
  *
- * Все кадры — фрагменты реальных фотографий наших работ.
+ * Фото готовых работ и иллюстрации отдельных проектных решений здесь
+ * различаются прямо на кадре: крупные планы с меткой «Визуализация»
+ * показывают идею и отделку, а не снимок с объекта.
  */
 
 /**
@@ -35,11 +42,10 @@ const wishlist = ['aspect-4/5', 'aspect-square', 'aspect-square', 'aspect-4/5'];
 /**
  * Крупная плитка.
  *
- * Все восемь фрагментов одного размера читались как ровный коврик:
- * глазу не за что зацепиться, и макросъёмка — самое сильное, что
- * есть у мебельщика, — проходит мимо. Поэтому каждая пятая плитка
- * занимает две колонки: получается ритм «крупное — мелкое», в
- * котором видно и фактуру, и количество решений.
+ * Все восемь изображений одного размера читались как ровный коврик:
+ * глазу не за что зацепиться, и крупные детали решений терялись.
+ * Поэтому каждая пятая плитка занимает две колонки: получается
+ * ритм «крупное — мелкое», в котором лучше читаются фактура и замысел.
  *
  * Работает только когда плиток хотя бы шесть: на четырёх крупная
  * оставила бы в строке дырку.
@@ -54,7 +60,7 @@ export async function Details({
   eyebrow = 'Детали',
   title = 'Индивидуальная мебель видна в мелочах',
   lead = 'Профиль-ручка вместо накладной, кромка столешницы, стык фактур, свет под корпусом, рифлёное стекло вместо прозрачного. Это нельзя купить готовым — это проектируется под конкретную кухню.',
-  footnote = 'Нажмите на любой фрагмент, чтобы посмотреть проект целиком.',
+  footnote = 'Нажмите на любой кадр, чтобы посмотреть проект целиком.',
   showCta = true,
   columns = 4,
   limit,
@@ -73,7 +79,7 @@ export async function Details({
   columns?: 3 | 4;
   limit?: number;
   /**
-   * Общая рамка для всех плиток: в короткой строке из трёх кадров
+   * Общая рамка для всех плиток: в короткой строке из трёх изображений
    * разная высота читается как брак вёрстки, а не как замысел.
    * fitRatio всё равно откажется от рамки, если она съест больше трети кадра.
    */
@@ -99,10 +105,10 @@ export async function Details({
    * `spread` берёт детали из разных проектов: три кадра одной кухни подряд
    * читаются как «у нас одна кухня», а не как «вот сколько мы умеем».
    *
-   * Если задана общая рамка, сначала отбираем кадры, которые в неё
-   * действительно влезают: детали наследуют пропорции исходной фотографии,
+   * Если задана общая рамка, сначала отбираем изображения, которые в неё
+   * действительно влезают: иллюстрации деталей имеют разные пропорции,
    * и вертикальный кадр в горизонтальной рамке либо обрежется наполовину,
-   * либо (так и было) выпадет из общей высоты и разломает строку.
+   * либо выпадет из общей высоты и разломает строку.
    */
   const fits = frame ? all.filter((d) => fitRatio(d.image, frame) === frame) : all;
   const byProject = (source: typeof all) =>
@@ -157,6 +163,12 @@ export async function Details({
           lead={lead}
         />
 
+        {list.some((detail) => isIllustrativeProjectDetail(detail.image)) ? (
+          <p className="mt-5 max-w-3xl border-l-2 border-gold/60 pl-4 text-small leading-relaxed text-stone">
+            Крупные планы с плашкой «Визуализация» показывают проектные решения и отделку, а не фотографии с объекта.
+          </p>
+        ) : null}
+
         <ul className={`mt-10 grid gap-x-5 gap-y-10 sm:mt-14 sm:gap-x-8 sm:gap-y-12 lg:mt-24 ${cols}`}>
           {list.map((d, i) => {
             const big = isFeature(i, list.length);
@@ -198,7 +210,11 @@ export async function Details({
                   >
                     <Image
                       src={assetUrl(d.image.src)}
-                      alt={d.alt}
+                      alt={
+                        isIllustrativeProjectDetail(d.image)
+                          ? `Иллюстрация. ${d.alt}`
+                          : d.alt
+                      }
                       fill
                       loading="lazy"
                       sizes={big ? bigSizes : sizes}
@@ -206,6 +222,9 @@ export async function Details({
                       blurDataURL={d.image.blurDataURL || undefined}
                       className="photo-calm object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
                     />
+                    {isIllustrativeProjectDetail(d.image) ? (
+                      <RenderBadge label="Визуализация" />
+                    ) : null}
                   </div>
                   {/* Подпись набрана как подпись к иллюстрации: линия,
                       название антиквой, пояснение мелким кеглем. Тот же

@@ -1,6 +1,7 @@
 import { CtaButton } from '../CtaButton';
 import { ButtonLink } from '../ui/Button';
 import { RatingBadge } from '../RatingBadge';
+import { RenderBadge } from '../ui/RenderBadge';
 import Link from 'next/link';
 import { getContent } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
@@ -82,6 +83,7 @@ export async function Hero() {
                   decoding="async"
                   className="photo-calm size-full object-cover object-[50%_18%]"
                 />
+                <RenderBadge label="Постановочный кадр" />
 
                 {/* Рамка в волосок с отбивкой от края и засечками по
                     углам — приём паспарту: он говорит «это снимок,

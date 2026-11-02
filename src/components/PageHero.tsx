@@ -74,6 +74,7 @@ export function PageHero({
   imageAlt = '',
   imagePosition = 'object-center',
   imageIsRender = false,
+  imageBadgeLabel,
   veil = 'default',
 }: {
   eyebrow: string;
@@ -87,6 +88,8 @@ export function PageHero({
   imagePosition?: string;
   /** Изображение — не фотография объекта, а визуализация */
   imageIsRender?: boolean;
+  /** Другой тип кадра, который нужно подписать прямо на изображении */
+  imageBadgeLabel?: string;
   /**
    * Плотность синей вуали поверх кадра.
    *
@@ -150,8 +153,15 @@ export function PageHero({
         }`}
       />
 
-      {imageIsRender ? (
-        <RenderBadge className="absolute right-5 top-24 z-10 lg:right-8 lg:top-28" />
+      {imageIsRender || imageBadgeLabel ? (
+        <RenderBadge
+          label={imageBadgeLabel ?? 'Визуализация'}
+          className={
+            imageBadgeLabel
+              ? 'bottom-auto right-auto left-5 top-24 z-10 lg:left-8 lg:top-28'
+              : 'bottom-auto left-auto right-5 top-24 z-10 lg:right-8 lg:top-28'
+          }
+        />
       ) : null}
 
       <div className="container-page">

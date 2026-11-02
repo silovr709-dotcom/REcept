@@ -17,6 +17,15 @@ export function assetUrl(src: string) {
   return `${BASE}${src}`;
 }
 
+/**
+ * Крупные планы `p01`–`p09` сделаны как иллюстрации решений по проектам,
+ * а не сняты на объекте. Путь — явная отметка типа старых записей контента:
+ * JSON на хостинге может пережить код и не иметь нового поля `kind`.
+ */
+export function isIllustrativeProjectDetail(image: Pick<ImageRef, 'src'>) {
+  return /(?:^|\/)images\/textures\/p\d{2}-[^/]+\.webp(?:[?#].*)?$/i.test(image.src);
+}
+
 /** То же для всего объекта изображения — удобно передавать дальше. */
 export function withAssetUrl<T extends ImageRef | null | undefined>(image: T): T {
   if (!image || !BASE) return image;

@@ -1,8 +1,9 @@
 import type { ImageRef } from '@/lib/content/types';
+import { RenderBadge } from './ui/RenderBadge';
 import { Photo } from './ui/Photo';
 
 /**
- * Широкая фотополоса между текстовыми блоками.
+ * Широкая полоса изображения между текстовыми блоками.
  * Задача — дать глазу отдохнуть и напомнить, о чём вообще речь,
  * когда подряд идут несколько смысловых секций.
  */
@@ -14,6 +15,7 @@ export function PhotoBand({
   height = 'md',
   objectPosition = 'object-center',
   reveal = 'none',
+  badgeLabel,
 }: {
   image: ImageRef;
   alt: string;
@@ -33,6 +35,8 @@ export function PhotoBand({
    * ставится один раз, не чаще.
    */
   reveal?: 'none' | 'doors';
+  /** Плашка для постановочного кадра или визуализации */
+  badgeLabel?: string;
 }) {
   const heights = {
     sm: 'h-[46vw] max-h-[26rem] min-h-[14rem]',
@@ -58,6 +62,16 @@ export function PhotoBand({
           sizes="100vw"
           className={`object-cover ${objectPosition}`}
         />
+        {badgeLabel ? (
+          <RenderBadge
+            label={badgeLabel}
+            className={
+              overlay === 'quote'
+                ? 'bottom-auto right-auto left-4 top-4 z-20 sm:left-8 sm:top-8'
+                : 'z-20'
+            }
+          />
+        ) : null}
         {overlay === 'quote' ? (
           <div
             aria-hidden="true"
