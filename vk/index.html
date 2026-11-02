@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>РЕцепт — визуалы для ВКонтакте</title>
+<style>
+  :root{
+    --ink:#13294a; --soot:#0b1a30; --cream:#fffcf7; --bone:#f6f0e7;
+    --sand:#ece3d5; --line:#ddd4c5; --stone:#6b635c; --gold:#7a613c; --goldl:#b69a63;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bone); color:var(--ink);
+    font-family:"Golos Text",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif; font-weight:400; margin:0}
+  .wrap{max-width:1180px; margin:0 auto; padding:56px 28px 96px}
+  .label{
+    font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold);
+    display:flex; align-items:center; gap:14px; margin:0 0 14px;
+  }
+  .label::before{content:""; width:22px; height:1px; background:var(--goldl)}
+  header.top{border-bottom:1px solid var(--line); padding-bottom:38px; margin-bottom:54px}
+  header.top .mark{font-family:Georgia,serif; font-size:34px; letter-spacing:-.01em}
+  header.top .mark b{color:var(--gold); font-weight:400}
+  header.top h1{font-size:44px; line-height:1.05; margin:26px 0 16px; max-width:20ch}
+  header.top p{max-width:62ch; color:var(--stone); font-size:16px; line-height:1.65; margin:0}
+  section{margin:0 0 72px}
+  section > .label{margin-bottom:8px}
+  section h2{font-size:30px; margin-bottom:8px}
+  section .lead{color:var(--stone); font-size:15px; line-height:1.6; max-width:70ch; margin:0 0 26px}
+  .grid{display:grid; gap:20px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  figure{margin:0}
+  figure img{width:100%; display:block; border:1px solid var(--line); background:var(--sand)}
+  figcaption{font-size:12.5px; color:var(--stone); margin-top:9px; line-height:1.5}
+  figcaption b{color:var(--ink); font-weight:600; display:block; font-size:13px}
+  .phone{
+    width:330px; border-radius:34px; background:var(--soot); padding:12px;
+    box-shadow:0 30px 60px -30px rgba(11,26,48,.55);
+  }
+  .phone .screen{background:#111; border-radius:24px; overflow:hidden}
+  .phone .cover{position:relative; height:200px; overflow:hidden}
+  .phone .cover img{width:100%; height:100%; object-fit:cover}
+  .phone .avatarbox{position:relative; margin-top:-54px; padding-left:18px}
+  .phone .avatarbox img{
+    width:86px; height:86px; border-radius:50%; border:3px solid var(--soot);
+    object-fit:cover; display:block;
+  }
+  .phone .name{padding:8px 18px 20px; color:var(--cream); font-size:15px}
+  .phone .name small{display:block; color:#9fb0c6; font-size:11.5px; margin-top:4px; letter-spacing:.06em}
+  .row{display:flex; gap:34px; align-items:flex-start; flex-wrap:wrap}
+  .col-note{flex:1; min-width:280px}
+  .list{list-style:none; padding:0; margin:0; font-size:14px; line-height:1.7; color:var(--stone)}
+  .list li{padding-left:20px; position:relative}
+  .list li::before{content:""; position:absolute; left:0; top:11px; width:9px; height:1px; background:var(--goldl)}
+  .list li b{color:var(--ink)}
+  .menu-item{background:var(--cream); border:1px solid var(--line); padding:10px}
+  .menu-item span{display:block; text-align:center; font-size:12px; letter-spacing:.18em; color:var(--gold); margin-top:8px; text-transform:uppercase}
+  .widget{border:1px solid var(--line); background:var(--cream)}
+  .table{width:100%; border-collapse:collapse; font-size:13.5px; background:var(--cream)}
+  .table th,.table td{text-align:left; padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+  .table th{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:600}
+  code{font-size:12.5px; background:var(--sand); padding:2px 6px; border-radius:3px}
+  .swatches{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+  .sw{width:104px}
+  .sw i{display:block; height:52px; border:1px solid var(--line)}
+  .sw b{display:block; font-size:11px; color:var(--stone); margin-top:6px; font-weight:400; line-height:1.4}
+  footer{border-top:1px solid var(--line); padding-top:26px; font-size:12.5px; color:var(--stone); line-height:1.7}
+  @media (max-width:900px){
+    .g3,.g4{grid-template-columns:repeat(2,1fr)}
+    header.top h1{font-size:34px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark"><b>РЕ</b>цепт &nbsp;—&nbsp; <span style="font-size:13px; letter-spacing:.3em; color:var(--stone); font-family:inherit">ТВЕРЬ</span></div>
+    <h1>Оформление сообщества ВКонтакте</h1>
+    <p>Полный комплект визуалов в той же системе, что и сайт: глубокий синий, тёплая бумага, латунь,
+       антиква в заголовках, рукописная подпись Роберта и Кати. Приоритет — телефон: обложка,
+       аватар и меню читаются на узком экране так же, как на широком.</p>
+  </header>
+
+  <section>
+    <p class="label">01 · обложка</p>
+    <h2>Шапка сообщества</h2>
+    <p class="lead">Слева — синее поле с офферами, справа — вы с Катей на фоне кухни, шов между панелями
+       подчёркнут латунной линией. На телефоне ВКонтакте показывает центральную часть обложки,
+       поэтому лица и заголовок собраны к центру, а вертикальная версия идёт отдельным файлом.</p>
+    <figure>
+      <img src="cover/cover-desktop-1920x768.jpg" alt="Обложка сообщества для компьютера">
+      <figcaption><b>cover-desktop-1920x768.jpg</b>Основная обложка: РЕцепт, «Кухни на заказ в Твери», бесплатный проект, подпись рукой и три тезиса.</figcaption>
+    </figure>
+    <div style="height:20px"></div>
+    <div class="row">
+      <div class="phone">
+        <div class="screen">
+          <div class="cover">
+            <img src="cover/cover-mobile-1080x1350.jpg" alt="Мобильная обложка">
+          </div>
+          <div class="avatarbox"><img src="avatar/avatar-400x400.jpg" alt="Аватар"></div>
+          <div class="name">РЕцепт · кухни в Твери<small>МЕБЕЛЬНОЕ АТЕЛЬЕ · 5,0 ★</small></div>
+        </div>
+      </div>
+      <div class="col-note">
+        <p class="lead" style="margin-bottom:18px">Так это выглядит на телефоне: вертикальная обложка
+          1080×1350, аватар обрезается кругом, под ним — название.</p>
+        <ul class="list">
+          <li><b>Мобильная обложка</b> — 1080×1350 (4:5). В ней заголовок, оффер, подпись и тезисы;
+              вы с Катей в середине кадра.</li>
+          <li><b>Живая обложка</b> — 1080×1920 (9:16), отдельный файл: у ВК она видна только с телефона
+              и обрезается сверху и снизу интерфейсом.</li>
+          <li><b>Классическая</b> — 1590×530: если ВК предложит «старую» обложку, загружайте её.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">02 · аватар</p>
+    <h2>Миниатюра сообщества</h2>
+    <p class="lead">В ленте и в комментариях аватар показывается кружком 36–50 px, в шапке — 86–120 px.
+       Поэтому в круге должны остаться только знак и лица, без мелкого текста.</p>
+    <div class="row">
+      <figure style="width:340px">
+        <img src="avatar/avatar-master-1200x1200.jpg" alt="Аватар 1200×1200">
+        <figcaption><b>avatar-master-1200x1200.jpg</b>Мастер-файл, из него сделаны 400 и 200 px.</figcaption>
+      </figure>
+      <div class="col-note">
+        <div style="display:flex; gap:26px; align-items:center; margin-bottom:20px">
+          <div style="text-align:center">
+            <img src="avatar/avatar-400x400.jpg" style="width:140px; height:140px; border-radius:50%; border:1px solid var(--line)" alt="">
+            <div style="font-size:11px; color:var(--stone); margin-top:8px">шапка · 140</div>
+          </div>
+          <div style="text-align:center">
+            <img src="avatar/avatar-400x400.jpg" style="width:86px; height:86px; border-radius:50%; border:1px solid var(--line)" alt="">
+            <div style="font-size:11px; color:var(--stone); margin-top:8px">телефон · 86</div>
+          </div>
+          <div style="text-align:center">
+            <img src="avatar/avatar-200x200.jpg" style="width:44px; height:44px; border-radius:50%; border:1px solid var(--line)" alt="">
+            <div style="font-size:11px; color:var(--stone); margin-top:8px">лента · 44</div>
+          </div>
+        </div>
+        <ul class="list">
+          <li>Загружать <code>avatar-master-1200x1200.jpg</code> — ВК сам сделает миниатюры.</li>
+          <li>На 44 px читается только силуэт и знак: текст в аватаре не нужен и не читается.</li>
+          <li>Если ВК обрежет верх — поднимите кадр так, чтобы знак остался внутри окружности.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">03 · меню</p>
+    <h2>Четыре пункта услуг</h2>
+    <p class="lead">Иконки-плитки 400×400: тёплая бумага, синяя линия, латунные ручки.
+       Ставятся в блок «Меню» сообщества, подпись уже внутри плитки.</p>
+    <div class="grid g4">
+      <div class="menu-item"><img src="menu/menu-kuhni-400x400.png" alt=""><span>Кухни</span></div>
+      <div class="menu-item"><img src="menu/menu-garderobnye-400x400.png" alt=""><span>Гардеробные</span></div>
+      <div class="menu-item"><img src="menu/menu-vannaya-400x400.png" alt=""><span>Ванная</span></div>
+      <div class="menu-item"><img src="menu/menu-prihozhie-400x400.png" alt=""><span>Прихожие</span></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">04 · услуги</p>
+    <h2>Карточки направлений</h2>
+    <p class="lead">По каждому направлению два файла: вертикальный 1080×1350 — для блока «Услуги»
+       и постов, горизонтальный 1280×720 — для превью ссылок и рекламы.</p>
+    <div class="grid g4">
+      <figure><img src="services/service-kuhni-1080x1350.jpg" alt=""><figcaption><b>Кухни на заказ</b>1080×1350</figcaption></figure>
+      <figure><img src="services/service-garderobnye-1080x1350.jpg" alt=""><figcaption><b>Гардеробные и шкафы</b>1080×1350</figcaption></figure>
+      <figure><img src="services/service-vannaya-1080x1350.jpg" alt=""><figcaption><b>Мебель для ванной</b>1080×1350</figcaption></figure>
+      <figure><img src="services/service-prihozhie-1080x1350.jpg" alt=""><figcaption><b>Прихожие и детские</b>1080×1350</figcaption></figure>
+    </div>
+    <div style="height:18px"></div>
+    <div class="grid g2">
+      <figure><img src="services/service-kuhni-1280x720.jpg" alt=""><figcaption><b>Горизонтальная версия</b>1280×720 — для превью и рекламы</figcaption></figure>
+      <figure><img src="services/service-garderobnye-1280x720.jpg" alt=""><figcaption><b>Горизонтальная версия</b>1280×720</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">05 · товары</p>
+    <h2>Витрина работ</h2>
+    <p class="lead">Карточки 1000×1000 под «Товары»: подпись стоит на синей полке, а не поверх
+       фотографии — кадры бывают и светлые, и тёмные.</p>
+    <div class="grid g3">
+      <figure><img src="products/product-01-1000x1000.jpg" alt=""><figcaption><b>Кухня с островом</b>1000×1000</figcaption></figure>
+      <figure><img src="products/product-02-1000x1000.jpg" alt=""><figcaption><b>Кухня в неоклассике</b>1000×1000</figcaption></figure>
+      <figure><img src="products/product-03-1000x1000.jpg" alt=""><figcaption><b>Угловая кухня</b>1000×1000</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">06 · виджет</p>
+    <h2>Баннер над заявкой</h2>
+    <p class="lead">Широкий виджет 1530×384 с призывом и вашим портретом в круглом паспарту.
+       Ставится в блок «Виджеты» — рядом с формой заявки или кнопкой сообщений.</p>
+    <img class="widget" src="widget/widget-1530x384.jpg" alt="Виджет">
+  </section>
+
+  <section>
+    <p class="label">07 · записи</p>
+    <h2>Посты и история</h2>
+    <p class="lead">Четыре готовые записи на первый месяц и одна история: закреплённый пост
+       о том, кто вы, процесс работы, что бесплатно и условия оплаты.</p>
+    <div class="grid g4">
+      <figure><img src="posts/post-welcome-1080x1350.jpg" alt=""><figcaption><b>Закреплённый пост</b>1080×1350</figcaption></figure>
+      <figure><img src="posts/post-process-1080x1350.jpg" alt=""><figcaption><b>От замера до сборки</b>1080×1350</figcaption></figure>
+      <figure><img src="posts/post-free-1080x1350.jpg" alt=""><figcaption><b>Что не стоит денег</b>1080×1350</figcaption></figure>
+      <figure><img src="posts/post-price-1080x1350.jpg" alt=""><figcaption><b>Оплата 50 / 50</b>1080×1350</figcaption></figure>
+    </div>
+    <div style="height:18px"></div>
+    <figure style="width:300px"><img src="stories/story-welcome-1080x1920.jpg" alt=""><figcaption><b>История</b>1080×1920</figcaption></figure>
+  </section>
+
+  <section>
+    <p class="label">08 · система</p>
+    <h2>Из чего это собрано</h2>
+    <p class="lead">Одна палитра и две гарнитуры — те же, что на сайте. Поэтому сообщество и сайт
+       читаются как одно ателье, а не как две разные компании.</p>
+    <div class="swatches">
+      <div class="sw"><i style="background:#13294a"></i><b>#13294a<br>синий, основной</b></div>
+      <div class="sw"><i style="background:#0b1a30"></i><b>#0b1a30<br>тень, подложки</b></div>
+      <div class="sw"><i style="background:#fffcf7"></i><b>#fffcf7<br>бумага</b></div>
+      <div class="sw"><i style="background:#ece3d5"></i><b>#ece3d5<br>песок</b></div>
+      <div class="sw"><i style="background:#7a613c"></i><b>#7a613c<br>латунь, текст</b></div>
+      <div class="sw"><i style="background:#b69a63"></i><b>#b69a63<br>латунь, линии</b></div>
+      <div class="sw"><i style="background:#6b635c"></i><b>#6b635c<br>серый, пояснения</b></div>
+    </div>
+    <div style="height:24px"></div>
+    <table class="table">
+      <tr><th>Что</th><th>Размер</th><th>Файл</th></tr>
+      <tr><td>Обложка (компьютер)</td><td>1920×768</td><td><code>cover/cover-desktop-1920x768.jpg</code></td></tr>
+      <tr><td>Обложка (старый формат)</td><td>1590×530</td><td><code>cover/cover-classic-1590x530.jpg</code></td></tr>
+      <tr><td>Обложка мобильная</td><td>1080×1350</td><td><code>cover/cover-mobile-1080x1350.jpg</code></td></tr>
+      <tr><td>Живая обложка</td><td>1080×1920</td><td><code>cover/live-cover-1080x1920.jpg</code></td></tr>
+      <tr><td>Аватар</td><td>1200×1200 (400 и 200 в комплекте)</td><td><code>avatar/avatar-*.jpg</code></td></tr>
+      <tr><td>Иконки меню</td><td>400×400</td><td><code>menu/menu-*-400x400.png</code></td></tr>
+      <tr><td>Услуги</td><td>1080×1350 и 1280×720</td><td><code>services/service-*.jpg</code></td></tr>
+      <tr><td>Товары</td><td>1000×1000</td><td><code>products/product-*.jpg</code></td></tr>
+      <tr><td>Виджет</td><td>1530×384</td><td><code>widget/widget-1530x384.jpg</code></td></tr>
+      <tr><td>Посты</td><td>1080×1350</td><td><code>posts/post-*.jpg</code></td></tr>
+      <tr><td>История</td><td>1080×1920</td><td><code>stories/story-welcome-1080x1920.jpg</code></td></tr>
+    </table>
+  </section>
+
+  <footer>
+    Шрифты — Cormorant Garamond (знак), Playfair Display (заголовки), Golos Text (текст),
+    Marck Script (подпись рукой) — те же, что на сайте. Портреты собраны с вашего снимка
+    в режиме редактирования: лица не перерисовывались. Скрипты сборки —
+    <code>scripts/vk-design/</code>.
+  </footer>
+</div>
+</body>
+</html>
