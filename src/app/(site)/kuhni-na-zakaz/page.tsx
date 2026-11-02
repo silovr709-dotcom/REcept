@@ -6,7 +6,6 @@ import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { LayoutDiagram } from '@/components/ui/LayoutDiagram';
 import { CropFrame } from '@/components/ui/CropFrame';
-import { RenderBadge } from '@/components/ui/RenderBadge';
 import { crops } from '@/data/crops';
 import { teamShots, teamShotAlt } from '@/data/team-shots';
 import { Section, SectionHeading } from '@/components/ui/Section';
@@ -206,32 +205,28 @@ export default async function KitchensPage() {
                 lead="Отдельно за проект, визуализацию и схемы электрики мы не берём денег. Это часть работы, а не платная опция."
               />
 
-              {/* Список из десяти строк — самая «перечислительная» часть
-                  страницы. Рядом тот, кто эти десять строк выполняет:
-                  первая из них — выезд на замер */}
+              {/* Список из десяти этапов — самая «перечислительная» часть
+                  страницы. Рядом портрет Роберта: он лично отвечает за замер
+                  и ведёт проект дальше. */}
               <Reveal className="mt-10">
                 <figure className="relative aspect-4/5 overflow-hidden bg-ink/60 sm:aspect-3/2 lg:aspect-4/5">
                   <Image
-                    src={assetUrl(teamShots.robertMeasure.src)}
-                    alt={teamShotAlt.robertMeasure}
+                    src={assetUrl(teamShots.robertPortrait.src)}
+                    alt={teamShotAlt.robertPortrait}
                     fill
                     loading="lazy"
                     sizes="(max-width: 1023px) 100vw, 40vw"
                     placeholder={
-                      teamShots.robertMeasure.blurDataURL ? 'blur' : 'empty'
+                      teamShots.robertPortrait.blurDataURL ? 'blur' : 'empty'
                     }
                     blurDataURL={
-                      teamShots.robertMeasure.blurDataURL || undefined
+                      teamShots.robertPortrait.blurDataURL || undefined
                     }
                     className="object-cover"
                   />
-                  <RenderBadge
-                    label="Постановочный кадр"
-                    className="bottom-auto left-auto right-3 top-3"
-                  />
                   <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-14 text-ui text-cream/90">
-                    Пункт первый из списка: Роберт на замере. Остальные
-                    девять — тоже наша работа, а не ваша.
+                    За замер и ход проекта отвечает Роберт: он согласует размеры
+                    и помогает принять решения до заказа мебели.
                   </figcaption>
                 </figure>
               </Reveal>

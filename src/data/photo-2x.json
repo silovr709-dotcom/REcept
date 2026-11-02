@@ -437,47 +437,35 @@
     "height": 1708,
     "base": 1535
   },
-  "/images/team/hero-rob-kate-portrait.webp": {
-    "src": "/images/team/hero-rob-kate-portrait@2x.webp",
-    "width": 2027,
+  "/images/team/couple-at-table.webp": {
+    "src": "/images/team/couple-at-table@2x.webp",
+    "width": 2048,
     "height": 2560,
-    "base": 912
+    "base": 1024
   },
-  "/images/team/hero-rob-kate-wide.webp": {
-    "src": "/images/team/hero-rob-kate-wide@2x.webp",
+  "/images/team/couple-close.webp": {
+    "src": "/images/team/couple-close@2x.webp",
     "width": 2560,
-    "height": 1717,
-    "base": 1264
+    "height": 2537,
+    "base": 560
   },
-  "/images/team/katya-plan.webp": {
-    "src": "/images/team/katya-plan@2x.webp",
-    "width": 2062,
-    "height": 2560,
-    "base": 928
-  },
-  "/images/team/katya-sample.webp": {
-    "src": "/images/team/katya-sample@2x.webp",
-    "width": 2062,
-    "height": 2560,
-    "base": 928
-  },
-  "/images/team/rob-kate-evening-2.webp": {
-    "src": "/images/team/rob-kate-evening-2@2x.webp",
+  "/images/team/couple-wide.webp": {
+    "src": "/images/team/couple-wide@2x.webp",
     "width": 2560,
     "height": 1429,
     "base": 1376
   },
-  "/images/team/robert-measure.webp": {
-    "src": "/images/team/robert-measure@2x.webp",
-    "width": 2062,
+  "/images/team/katya-portrait.webp": {
+    "src": "/images/team/katya-portrait@2x.webp",
+    "width": 2048,
     "height": 2560,
-    "base": 928
+    "base": 512
   },
-  "/images/team/robert-site.webp": {
-    "src": "/images/team/robert-site@2x.webp",
+  "/images/team/robert-portrait.webp": {
+    "src": "/images/team/robert-portrait@2x.webp",
     "width": 2560,
-    "height": 1429,
-    "base": 1376
+    "height": 2291,
+    "base": 950
   },
   "/images/team/work-measure.webp": {
     "src": "/images/team/work-measure@2x.webp",

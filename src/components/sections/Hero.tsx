@@ -1,7 +1,6 @@
 import { CtaButton } from '../CtaButton';
 import { ButtonLink } from '../ui/Button';
 import { RatingBadge } from '../RatingBadge';
-import { RenderBadge } from '../ui/RenderBadge';
 import Link from 'next/link';
 import { getContent } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
@@ -71,23 +70,22 @@ export async function Hero() {
                   а не как картинка, положенная на фон */}
               <div className="mat-dark relative">
                 <div className="relative aspect-4/5 overflow-hidden bg-soot">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={assetUrl(teamShots.heroPortrait.src)}
-                  srcSet={srcSetOf(teamShots.heroPortrait)}
-                  sizes="(max-width: 640px) 15rem, (max-width: 1024px) 22rem, 30rem"
-                  alt={teamShotAlt.hero}
-                  width={teamShots.heroPortrait.width}
-                  height={teamShots.heroPortrait.height}
-                  fetchPriority="high"
-                  decoding="async"
-                  className="photo-calm size-full object-cover object-[50%_18%]"
-                />
-                <RenderBadge label="Постановочный кадр" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={assetUrl(teamShots.coupleAtTable.src)}
+                    srcSet={srcSetOf(teamShots.coupleAtTable)}
+                    sizes="(max-width: 640px) 15rem, (max-width: 1024px) 22rem, 30rem"
+                    alt={teamShotAlt.coupleAtTable}
+                    width={teamShots.coupleAtTable.width}
+                    height={teamShots.coupleAtTable.height}
+                    fetchPriority="high"
+                    decoding="async"
+                    className="photo-calm size-full object-cover object-[50%_18%]"
+                  />
 
-                {/* Рамка в волосок с отбивкой от края и засечками по
-                    углам — приём паспарту: он говорит «это снимок,
-                    который показывают», а не «это картинка на фоне» */}
+                  {/* Рамка в волосок с отбивкой от края и засечками по
+                      углам — приём паспарту: он говорит «это снимок,
+                      который показывают», а не «это картинка на фоне» */}
                   <span
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 z-10"

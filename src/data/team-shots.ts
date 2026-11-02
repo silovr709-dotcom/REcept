@@ -1,34 +1,26 @@
 import type { StaticImageData } from 'next/image';
 import type { ImageRef } from '@/lib/content/types';
 
-import heroWide from '@public/images/team/hero-rob-kate-wide.webp';
-import heroPortrait from '@public/images/team/hero-rob-kate-portrait.webp';
-import measureShot from '@public/images/team/robert-measure.webp';
-import planShot from '@public/images/team/katya-plan.webp';
-import eveningShot from '@public/images/team/rob-kate-evening-2.webp';
-import sampleShot from '@public/images/team/katya-sample.webp';
-import siteShot from '@public/images/team/robert-site.webp';
+import coupleWideImage from '@public/images/team/couple-wide.webp';
+import coupleTableImage from '@public/images/team/couple-at-table.webp';
+import coupleCloseImage from '@public/images/team/couple-close.webp';
+import robertPortraitImage from '@public/images/team/robert-portrait.webp';
+import katyaPortraitImage from '@public/images/team/katya-portrait.webp';
 
 /**
- * РОБЕРТ И КАТЯ НА САЙТЕ
- * ======================
- * Это постановочные кадры, собранные по личным фотографиям владельцев
- * и с их прямого согласия: лица, сложение и возраст — их собственные,
- * а обстановка и одежда подобраны под конкретный раздел сайта.
- * Исходные снимки лежат в `images/team/` в репозитории и на сайт
- * не выкладываются — владельцы попросили использовать внешность,
- * а не сами фотографии.
+ * ФОТО РОБЕРТА И КАТИ
+ * ===================
+ * Публичные WebP — оптимизированные версии снимков, переданных владельцами;
+ * исходники лежат в `images/team/`. Отдельный портрет Кати — аккуратный
+ * кроп совместной фотографии, а не новая или сгенерированная сцена.
  *
- * ПРАВИЛО ПРИ ЗАМЕНЕ. Подставлять сюда чужое лицо или «похожего
- * человека» нельзя ни при каких условиях: под кадром стоят настоящие
- * имя, фамилия и телефон. Если понадобится новый кадр — он собирается
- * с тех же исходников (`reference/team/`, описание внешности —
- * `reference/team/ОПИСАНИЕ.md`). Если исходников под рукой нет,
- * лучше оставить блок без фотографии: вёрстка это выдерживает.
+ * Фотографии владельцев показывают самих людей и не используются как
+ * подтверждение того, что интерьер на снимке — выполненный проект ателье.
+ * Для визуализаций интерьеров по-прежнему нужна отдельная плашка.
  *
- * Путь в `src` намеренно публичный, а не хешированный: статическая
- * витрина лежит в подпапке, и префикс дописывает `assetUrl()`.
- * Из импорта берутся только размеры и размытая заглушка.
+ * Публичные пути не хешируются: статическая витрина лежит в подпапке,
+ * а префикс дописывает `assetUrl()`. Из импорта берутся размеры и
+ * размытая заглушка.
  */
 function ref(img: StaticImageData, publicPath: string): ImageRef {
   return {
@@ -40,38 +32,27 @@ function ref(img: StaticImageData, publicPath: string): ImageRef {
 }
 
 export const teamShots = {
-  /**
-   * Первый экран снят дважды, и это не прихоть. На ноутбуке в кадр
-   * помещается кухня слева и люди справа, а на телефоне от широкого
-   * снимка остаётся вертикальная полоса в четверть ширины — кухня
-   * пропадает, а от людей остаётся половина лица. Поэтому для узких
-   * экранов снят отдельный вертикальный кадр: оба в верхней половине,
-   * внизу пустая столешница под текст.
-   */
-  heroWide: ref(heroWide, '/images/team/hero-rob-kate-wide.webp'),
-  heroPortrait: ref(heroPortrait, '/images/team/hero-rob-kate-portrait.webp'),
-  /** Роберт на замере в квартире на стадии ремонта */
-  robertMeasure: ref(measureShot, '/images/team/robert-measure.webp'),
-  /** Катя за проектом: чертёж, образцы, профиль-ручка */
-  katyaPlan: ref(planShot, '/images/team/katya-plan.webp'),
-  /** Оба вечером у острова — тёплый кадр для финального экрана */
-  evening: ref(eveningShot, '/images/team/rob-kate-evening-2.webp'),
-  /** Катя протягивает образец прямо в объектив — «четвёртая стена» */
-  katyaSample: ref(sampleShot, '/images/team/katya-sample.webp'),
-  /** Роберт на объекте с чертежом и телефоном — координация подрядчиков */
-  robertSite: ref(siteShot, '/images/team/robert-site.webp'),
+  /** Роберт и Катя вместе в интерьере кухни — широкий кадр. */
+  coupleWide: ref(coupleWideImage, '/images/team/couple-wide.webp'),
+  /** Совместный портрет за столом — вертикальный кадр для мобильной версии. */
+  coupleAtTable: ref(coupleTableImage, '/images/team/couple-at-table.webp'),
+  /** Совместный портрет крупным планом. */
+  coupleClose: ref(coupleCloseImage, '/images/team/couple-close.webp'),
+  /** Портрет Роберта на фоне осеннего парка. */
+  robertPortrait: ref(robertPortraitImage, '/images/team/robert-portrait.webp'),
+  /** Портрет Кати, вырезанный из совместного кадра за столом. */
+  katyaPortrait: ref(katyaPortraitImage, '/images/team/katya-portrait.webp'),
 };
 
 export const teamShotAlt = {
-  hero: 'Роберт и Катя из мебельного ателье «РЕцепт» в готовой кухне на заказ в Твери',
-  robertMeasure:
-    'Роберт Шилов снимает размеры кухни на объекте в Твери перед изготовлением',
-  katyaPlan:
-    'Екатерина Шилова работает над проектом кухни: чертёж фасадов и образцы материалов',
-  evening:
-    'Роберт и Катя у острова готовой кухни — проект они ведут вдвоём от замера до сборки',
-  katyaSample:
-    'Екатерина Шилова показывает образец зелёного матового фасада и другие образцы материалов',
-  robertSite:
-    'Роберт Шилов на объекте в Твери: чертёж кухни в руках, согласование по телефону с подрядчиками',
+  coupleWide:
+    'Роберт и Екатерина Шиловы стоят рядом на фоне кухни со светлыми деревянными фасадами.',
+  coupleAtTable:
+    'Роберт и Екатерина Шиловы сидят вместе за столом в интерьере кухни.',
+  coupleClose:
+    'Совместный портрет Роберта и Екатерины Шиловых крупным планом в интерьере кухни.',
+  robertPortrait:
+    'Роберт Шилов — портрет на фоне осеннего парка.',
+  katyaPortrait:
+    'Екатерина Шилова — портрет в интерьере кухни; рядом видна часть Роберта.',
 };
