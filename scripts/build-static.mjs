@@ -56,7 +56,8 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 /**
  * Настройки Apache для обычного хостинга.
  * Кладутся рядом с файлами сайта и включают то, чего на голой статике
- * нет: страницу 404, сжатие, кэш картинок и шрифтов, переход на https.
+ * нет: страницу 404, сжатие, кэш картинок и шрифтов, переход с www.
+ * Перенаправление на HTTPS настраивается в ISPmanager, не через .htaccess.
  */
 const HTACCESS = `# Настройки сайта «РЕцепт». Файл читает веб-сервер Apache.
 # Если хостинг работает на nginx, этот файл просто не нужен —
@@ -67,19 +68,13 @@ DirectoryIndex index.html
 
 ErrorDocument 404 /404.html
 
-# Всегда https и один адрес без www — иначе поисковики видят два разных сайта.
-#
-# Исключение — папка /.well-known/: по ней Let's Encrypt проверяет домен
-# ПЕРЕД тем, как выдать сертификат, и делает это по обычному http.
-# Если переводить и эти запросы на https, сертификат выпустить нельзя:
-# проверка упирается в сайт, у которого ещё нет сертификата.
+# Перенаправление на HTTPS настраивается в ISPmanager. На некоторых
+# конфигурациях reg.ru TLS завершается до Apache: %{HTTPS} остаётся off,
+# даже если запрос уже пришёл по HTTPS. Правило здесь тогда зацикливает 301.
+# Оставляем только переход с www на канонический адрес без www.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^\\.well-known/ - [L]
-
-  RewriteCond %{HTTPS} !=on
-  RewriteCond %{HTTP:X-Forwarded-Proto} !https
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
   RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
