@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>РЕцепт — визуальная система ВКонтакте · версия 2</title>
+<title>РЕцепт — визуальная система ВКонтакте · тёмно-синий и серебро</title>
 <style>
   :root{
-    --bone:#f7f2e9; --paper:#fcf9f3; --sand:#eee5d7; --line:#dfd4c3;
-    --ink:#2a3026; --graph:#22261f; --olive:#4a5a44; --olived:#2f3a2e;
-    --clay:#968874; --brass:#7a613c; --brassl:#b69a63; --brasss:#d6bc92;
-    --cream:#fffcf7;
+    --bone:#f2f3f6; --paper:#fafbfd; --sand:#e7e9ed; --line:#d7dbe1;
+    --ink:#13294a; --graph:#091425; --olive:#1e3f68; --olived:#0d1f3a;
+    --clay:#6f7b8b; --brass:#968a6a; --brassl:#b7bfc9; --brasss:#e2d8c1;
+    --cream:#fcfcfa;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bone);color:var(--ink);
@@ -83,12 +83,11 @@
 
   <header class="top">
     <div class="mark">Р<b>Е</b>цепт <span style="font-size:14px;letter-spacing:.3em;color:var(--clay);vertical-align:middle;margin-left:12px">ТВЕРЬ</span></div>
-    <h1>Сообщество как <em>тетрадь проекта</em>: бумага, чертёж, олива и латунь</h1>
-    <p>Вторая версия визуальной системы для vk.ru/tverkuhniru.
-       Первый комплект был синим «как сайт». Синий убран: он делает мебельную компанию
-       неотличимой от девяноста других. Основа теперь — бумага, на которой рисуют кухню,
-       и олива, в которой она стоит. Ниже — всё, что нужно загрузить, и то, что осталось
-       за вами: доступ к сообществу у нас не через API.</p>
+    <h1>Обложка, на которой видно <em>и вас, и преимущества</em></h1>
+    <p>Палитра бренда — тёмно-синий и серебро с белым золотом. Зелёный из первой
+       итерации убран полностью: зелёного нет ни в одном элементе системы. Композиция
+       обложек пересобрана так, чтобы на телефоне одновременно были видны оба
+       человека и три преимущества — без выбора «или-или».</p>
   </header>
 
   <!-- ============================================ 1. ЧТО НА ЭКРАНЕ -->
@@ -134,33 +133,33 @@
   <section>
     <div class="label">из чего собрано</div>
     <h2>Палитра и приёмы</h2>
-    <p class="lead">Одна логика на всех носителях: бумажное поле с миллиметровкой, латунные
-       засечки по углам, размерная линия как разделитель, фотография без скруглений и теней,
-       оливковая плашка для подписей.</p>
+    <p class="lead">Одна логика на всех носителях: холодная бумага с миллиметровкой, серебряные
+       волосяные линии и засечки по углам, синие плашки для подписей, белое золото — только
+       для подписи рукой. Фотография без скруглений и теней.</p>
     <div class="sw">
-      <div><i style="background:#f7f2e9"></i><span>BONE</span></div>
-      <div><i style="background:#fcf9f3"></i><span>PAPER</span></div>
-      <div><i style="background:#eee5d7"></i><span>SAND</span></div>
-      <div><i style="background:#dfd4c3"></i><span>LINE</span></div>
-      <div><i style="background:#968874"></i><span>CLAY</span></div>
-      <div><i style="background:#b69a63"></i><span>BRASS</span></div>
-      <div><i style="background:#4a5a44"></i><span>OLIVE</span></div>
-      <div><i style="background:#2f3a2e"></i><span>OLIVE DEEP</span></div>
-      <div><i style="background:#2a3026"></i><span>INK</span></div>
-      <div><i style="background:#22261f"></i><span>GRAPHITE</span></div>
+      <div><i style="background:#f2f3f6"></i><span>PAPER</span></div>
+      <div><i style="background:#e7e9ed"></i><span>SAND</span></div>
+      <div><i style="background:#d7dbe1"></i><span>LINE</span></div>
+      <div><i style="background:#b7bfc9"></i><span>SILVER</span></div>
+      <div><i style="background:#6f7b8b"></i><span>STEEL</span></div>
+      <div><i style="background:#e2d8c1"></i><span>WHITE GOLD</span></div>
+      <div><i style="background:#968a6a"></i><span>GOLD DEEP</span></div>
+      <div><i style="background:#1e3f68"></i><span>NAVY MID</span></div>
+      <div><i style="background:#13294a"></i><span>NAVY</span></div>
+      <div><i style="background:#091425"></i><span>NIGHT</span></div>
     </div>
     <div class="grid g2" style="margin-top:28px">
       <div class="card">
         <h3>Шрифты</h3>
-        <p>Playfair Display — заголовки. Cormorant — знак «РЕцепт». Marck Script — подпись
-           «Роберт и Катя ведут проект лично»: один рукописный голос на всю систему, не больше.
-           Golos Text — тексты и капитель с трекингом 0,22.</p>
+        <p>Playfair Display — заголовки. Cormorant — знак «РЕцепт»: «РЕ» серебром или
+           белым золотом, в зависимости от фона. Marck Script — только подпись «Роберт и Катя
+           ведут проект лично». Golos Text — тексты и капитель с трекингом 0,22.</p>
       </div>
       <div class="card">
         <h3>Кадры</h3>
-        <p>Тёплая коррекция и мягкий свет на лицах, чтобы разные сцены читались как одна
-           съёмка. Обрез по грудь — норма: плашка с тезисами всегда закрывает нижнюю часть.
-           Никаких коллажей, наклонов и «красивых» фильтров.</p>
+        <p>Нейтральная коррекция под синий, чтобы разные кадры читались как одна съёмка.
+           Люди — только настоящие: в макетах стоят ваши кадры, а не сгенерированные лица.
+           Подробно — в разделе про фотографии ниже.</p>
       </div>
     </div>
   </section>
@@ -177,8 +176,8 @@
         <figcaption><b>Аватар A · бумага</b>Базовый вариант: светлый, хорошо смотрится в тёмной ленте</figcaption>
       </figure>
       <figure>
-        <img src="avatar/avatar-02-monogram-olive-1200x1200.jpg" alt="Аватар, олива">
-        <figcaption><b>Аватар B · олива</b>Если нужен более плотный знак — например, на светлых обложках</figcaption>
+        <img src="avatar/avatar-02-monogram-navy-1200x1200.jpg" alt="Аватар, синий">
+        <figcaption><b>Аватар B · тёмно-синий</b>Если нужен более плотный знак — например, на светлых обложках</figcaption>
       </figure>
     </div>
     <div class="grid g6" style="margin-top:24px">
@@ -228,6 +227,7 @@
     <h2>Направления постов</h2>
     <p class="lead">Пять визуальных типов, которые не спорят друг с другом в ленте: тетрадь
        (экспертиза), работа (проект), мнение (позиция), личное (люди), материалы (фактуры).
+       Фон тетради — холодная бумага, фон мнения — тёмно-синий.
        Порядок чередуется — в ленте это выглядит как журнал, а не как каталог.</p>
     <div class="types">
       <figure><img src="posts/post-01-pinned.jpg" alt=""><figcaption><b>A. Тетрадь</b>Закреплённый пост</figcaption></figure>
@@ -256,6 +256,38 @@
       <figure><img src="clips/clip-01-kitchen.jpg" alt=""><figcaption><b>Клип · замер</b></figcaption></figure>
       <figure><img src="clips/clip-02-samples.jpg" alt=""><figcaption><b>Клип · образцы</b></figcaption></figure>
     </div>
+  </section>
+
+  <!-- ============================================ 6b. ФОТОГРАФИИ -->
+  <section>
+    <div class="label">честно про фотографии</div>
+    <h2>Лица: где мы ошиблись и что делать</h2>
+    <p class="lead">Сгенерированные кадры не передают вашу внешность — на этом мы
+       и остановились. Нейросеть уверенно рисует интерьеры и композицию, но лицо
+       каждый раз «дорисовывает» по-своему: меняются овал, глаза, возраст.
+       Для сообщества, где вы и есть главный аргумент, это недопустимо.</p>
+    <div class="grid g3">
+      <div class="card">
+        <h3>Что осталось</h3>
+        <p>В системе — только ваши реальные кадры: интерьеры с сайта, руки с рулеткой
+           и чертежом, портреты из <code>images/team</code>. Сгенерированные лица
+           из макетов убраны.</p>
+      </div>
+      <div class="card">
+        <h3>Что нужно снять</h3>
+        <p>Пять кадров на телефон, у окна или в тёмной кухне: вы вдвоём по грудь,
+           вы вдвоём в полный рост, каждый отдельно, руки с образцами, вы на объекте.
+           Свет — дневной, без вспышки, без фильтров.</p>
+      </div>
+      <div class="card">
+        <h3>Как заменить</h3>
+        <p>Положите свои кадры в <code>vk2/_source</code> и запустите сборку с их именами —
+           обложки пересоберутся под новый кадр за секунду:
+           <code>VK_PHOTO_TALL=мой-кадр.jpg python build_v2_cover.py</code>.</p>
+      </div>
+    </div>
+    <p class="note">Пока новых кадров нет, на обложках стоит лучший доступный вариант —
+       он близок, но это не вы. Мы помечаем это прямо, а не выдаём за фотосессию.</p>
   </section>
 
   <!-- ============================================ 7. ЧТО ДАЛЬШЕ -->

@@ -62,3 +62,6 @@ next-env.d.ts
 /reference/details/
 /reference/masters/
 /reference/retouch/
+
+__pycache__/
+*.pyc

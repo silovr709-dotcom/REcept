@@ -68,9 +68,9 @@ def avatar_olive():
     text(d, (S / 2, base + 140), 'кухни на заказ', F('marck', 52),
          rgba(BRASSL, 250), 0, 'ma')
 
-    save(img, 'avatar/avatar-02-monogram-olive-1200x1200.jpg')
+    save(img, 'avatar/avatar-02-monogram-navy-1200x1200.jpg')
     for s in (400, 200):
-        save(img.resize((s, s), Image.LANCZOS), f'avatar/avatar-02-monogram-olive-{s}x{s}.jpg')
+        save(img.resize((s, s), Image.LANCZOS), f'avatar/avatar-02-monogram-navy-{s}x{s}.jpg')
 
 
 # ============================================================== ИКОНКИ МЕНЮ
@@ -170,11 +170,11 @@ def menu_icons():
 
 # ============================================================== УСЛУГИ
 SERVICES = [
-    dict(slug='kuhni', n='01', photo='photo-01-hero-kitchen.jpg', focus=(0.5, 0.5),
+    dict(slug='kuhni', n='01', photo='svc2_kuhni.jpg', focus=(0.5, 0.5),
          title='Кухни на заказ',
          sub='От компактной кухни в хрущёвке до кухни-гостиной с островом',
          eyebrow='основное направление'),
-    dict(slug='garderobnye', n='02', photo='photo-07-wardrobe.jpg', focus=(0.55, 0.45),
+    dict(slug='garderobnye', n='02', photo='svc_wardrobe.jpg', focus=(0.55, 0.45),
          title='Гардеробные и шкафы',
          sub='Хранение по вашим вещам: глубины, высоты, антресоли, подсветка',
          eyebrow='системы хранения'),

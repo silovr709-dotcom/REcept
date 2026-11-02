@@ -151,9 +151,9 @@ def post_personal(slug, photo, line1, line2, note, focus=(0.5, 0.3), zoom=1.0):
     img = cover(src(photo), (W, H), focus=focus, zoom=zoom)
     img = warm_grade(img, sat=1.04, contrast=1.05, brightness=0.99, mix=0.05)
     img = lift(img, (0.5, 0.42), (0.42, 0.26), 0.10)
-    img = veil(img, [(0.0, rgba(GRAPH, 170)), (0.16, rgba(GRAPH, 20)),
-                     (0.42, rgba(GRAPH, 0)), (0.60, rgba(OLIVED, 120)),
-                     (0.74, rgba(OLIVED, 235)), (1.0, rgba(GRAPH, 252))]).convert('RGB')
+    img = veil(img, [(0.0, rgba(GRAPH, 130)), (0.16, rgba(GRAPH, 10)),
+                     (0.42, rgba(GRAPH, 0)), (0.60, rgba(OLIVED, 90)),
+                     (0.74, rgba(OLIVED, 210)), (1.0, rgba(GRAPH, 248))]).convert('RGB')
     img = grain(img, 5)
     d = ImageDraw.Draw(img, 'RGBA')
     stamp(d, 'dark')
@@ -314,7 +314,7 @@ if __name__ == '__main__':
 
     post_work('post-02-work', '01', 'Кухня-гостиная',
               'Остров с дубовой столешницей, свет без верхних шкафов и место, '
-              'где готовить вдвоём удобно.', 'photo-02-project-island.jpg',
+              'где готовить вдвоём удобно.', 'photo-13-island-real.jpg',
               focus=(0.5, 0.42))
 
     post_opinion(
@@ -327,10 +327,10 @@ if __name__ == '__main__':
         hand='Сначала чертёж, потом красота')
 
     post_personal(
-        'post-04-personal', 'photo-09-experts.jpg',
+        'post-04-personal', 'photo-12-pair-navy-tall.jpg',
         'Проект делают', 'два человека',
         'И это единственный отдел продаж в ателье',
-        focus=(0.5, 0.22), zoom=1.08)
+        focus=(0.5, 0.16), zoom=1.16)
 
     post_materials(
         'post-05-materials',
@@ -338,7 +338,7 @@ if __name__ == '__main__':
         ['Называем марки,', 'а не «поставщиков»'],
         [('public/images/details/marble-splash.webp', 'камень'),
          ('public/images/details/graphite-wood.webp', 'графит и дуб'),
-         ('public/images/details/reeded-green.webp', 'рейка, олива')],
+         ('public/images/details/brass-handles.webp', 'фурнитура')],
         [('Фасады', 'Увадрев · Ламарти · Egger · Kronospan'),
          ('Плёнка ПВХ', 'Тадж · Wild Wolf · Quadro · Recora'),
          ('Пластик HPL', 'AGT · ARPA · ABET · Rehau')])
@@ -372,21 +372,21 @@ if __name__ == '__main__':
          ('06', 'Сборка', 'привозим и собираем сами, гарантия 24 месяца')],
         note='Правки — пока кухня на бумаге, и без счётчика')
 
-    story('story-01-meet', 'photo-01-hero-kitchen.jpg',
+    story('story-01-meet', 'photo-12-pair-navy-tall.jpg',
           ['Кухни,', 'которые', 'собираем сами'],
           'мебельное ателье · тверь', 'Роберт и Катя ведут проект лично',
-          focus=(0.5, 0.30))
-    story('story-02-project', 'photo-02-project-island.jpg',
+          focus=(0.5, 0.18), zoom=1.16)
+    story('story-02-project', 'photo-16-plan-hands.jpg',
           ['Сначала', 'чертёж'],
           'как начинается проект',
-          'Проект бесплатный — и без обязательств', focus=(0.5, 0.42))
-    story('story-03-evening', 'photo-08-home-morning.jpg',
+          'Проект бесплатный — и без обязательств', focus=(0.5, 0.5))
+    story('story-03-evening', 'photo-14-dark-real.jpg',
           ['Кухня — это', 'не картинка'],
           'наше мнение', 'А место, где вы живёте каждый день', focus=(0.5, 0.45))
 
-    clip_cover('clip-01-kitchen', 'photo-03-robert-measure.jpg',
+    clip_cover('clip-01-kitchen', 'photo-17-measure-hands.jpg',
                'Замер, который решает всё', 'Клип · Роберт · 0:42',
                focus=(0.5, 0.3))
-    clip_cover('clip-02-samples', 'photo-04-kate-samples.jpg',
+    clip_cover('clip-02-samples', 'photo-15-light-real.jpg',
                'Три фасада, один свет', 'Клип · Катя · 0:38',
                focus=(0.5, 0.3))
