@@ -10,7 +10,6 @@ import sitroR from '@public/images/millings/rooms/sitro-r.webp';
 import arka2 from '@public/images/millings/rooms/arka-2.webp';
 import arkaR from '@public/images/millings/rooms/arka-r.webp';
 import dali from '@public/images/millings/rooms/dali.webp';
-import duet from '@public/images/millings/rooms/duet.webp';
 import dzhuliya from '@public/images/millings/rooms/dzhuliya.webp';
 import kvadro from '@public/images/millings/rooms/kvadro.webp';
 import marokko2 from '@public/images/millings/rooms/marokko-2.webp';
@@ -25,10 +24,8 @@ import madrid from '@public/images/millings/rooms/madrid.webp';
 import malta from '@public/images/millings/rooms/malta.webp';
 import olimpiya from '@public/images/millings/rooms/olimpiya.webp';
 import palermo from '@public/images/millings/rooms/palermo.webp';
-import arina from '@public/images/millings/rooms/arina.webp';
 import arka from '@public/images/millings/rooms/arka.webp';
 import klassika from '@public/images/millings/rooms/klassika.webp';
-import modern from '@public/images/millings/rooms/modern.webp';
 import belladzho from '@public/images/millings/rooms/belladzho.webp';
 import dublin from '@public/images/millings/rooms/dublin.webp';
 import foster from '@public/images/millings/rooms/foster.webp';
@@ -72,8 +69,9 @@ import zhalyuzi from '@public/images/millings/rooms/zhalyuzi.webp';
  * работы живут в портфолио и подписаны адресами проектов. Так и
  * сказано на самой странице — выдавать одно за другое нельзя.
  *
- * Набор растёт: у фрезеровки без записи в этом файле карточка
- * показывает только выкраску.
+ * Визуализацию показываем только там, где профиль фасада уверенно
+ * совпадает с фабричной выкраской. Если совпадение нельзя подтвердить,
+ * карточка честно показывает только выкраску.
  */
 export type MillingRoom = {
   image: StaticImageData;
@@ -154,12 +152,6 @@ export const millingRooms: Record<string, MillingRoom> = {
     alt: 'Кухня с фрезеровкой «Дали»: фасады цвета слоновой кости с фигурной филёнкой и серебряной патиной',
     caption:
       'Контур филёнки фигурный: срезанные углы и плавные дуги вместо прямоугольника. Патина собирается в канавке и делает рисунок читаемым издалека.',
-  },
-  duet: {
-    image: duet,
-    alt: 'Кухня с фрезеровкой «Дуэт»: фасады из белёного дуба с тремя тонкими прорезями, без ручек',
-    caption:
-      'Три тонкие прорези по гладкому полотну, выставленные в одну линию через все фасады. Весь рисунок держится на точности стыковки.',
   },
   kvadro: {
     image: kvadro,
@@ -395,12 +387,6 @@ export const millingRooms: Record<string, MillingRoom> = {
     caption:
       'Самый сложный рисунок каталога: несколько профилей подряд вокруг филёнки. Четвёртая категория — это про количество проходов фрезы, которое вы видите в тенях.',
   },
-  arina: {
-    image: arina,
-    alt: 'Кухня с фрезеровкой «Арина»: рамочные фасады в тёплом белом с латунными ручками, светлая каменная столешница',
-    caption:
-      'Рамка шириной 49 мм и мягкая фаска: рисунок виден только тенью по контуру — поэтому кухня читается спокойной даже в белом.',
-  },
   arka: {
     image: arka,
     alt: 'Кухня с фрезеровкой «Арка»: шалфейно-серые фасады с арочным верхом, дубовая столешница, бронзовые ручки',
@@ -424,12 +410,6 @@ export const millingRooms: Record<string, MillingRoom> = {
     alt: 'Кухня с фрезеровкой «Ромб»: фасады цвета грейж с ромбовидной решёткой, латунные ручки-раковины',
     caption:
       'Решётка по всему полотну — самый «разговорчивый» рисунок каталога: его хватает одного, без декора на стенах.',
-  },
-  modern: {
-    image: modern,
-    alt: 'Кухня с фрезеровкой «Модерн»: графитовые фасады с тонкой прямоугольной рамкой, тёплая каменная столешница',
-    caption:
-      'Тонкая прямая рамка — компромисс между гладким фасадом и классикой: линия есть, но кухня остаётся современной.',
   },
   klassika: {
     image: klassika,

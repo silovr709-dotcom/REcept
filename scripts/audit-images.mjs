@@ -6,7 +6,8 @@
  * — все публичные изображения читаются и попадают в экспорт;
  * — ссылки из исходников и готовых HTML ведут к существующим файлам;
  * — карты @2x не ссылаются на потерянные или чужие изображения;
- * — у каждой фрезеровки своя выкраска и визуализация с тем же slug;
+ * — у каждой фрезеровки своя выкраска, а каждая опубликованная визуализация
+ *   привязана к рисунку с тем же slug и имеет подпись;
  * — крупные планы проектов привязаны к своему проекту и файлу.
  *
  * Сопоставление рисунка фрезеровки и фотографии остаётся визуальной
@@ -312,7 +313,7 @@ if (existsSync(retinaPath)) {
   fail('@2x', 'нет src/data/photo-2x.json');
 }
 
-/* 6. Фрезеровка → выкраска → интерьерная визуализация: три источника сходятся по slug. */
+/* 6. Каждая фрезеровка имеет выкраску; проверенные визуализации — необязательная привязка. */
 const millingsSource = sourceFile('src/data/millings.ts');
 const millingsRecords = recordsFromArray(millingsSource, 'millings');
 const millingSlugs = new Set(
@@ -358,10 +359,17 @@ const compareSets = (label, expected, actual) => {
   for (const slug of actual) if (!expected.has(slug)) fail(label, `лишний ${slug}`);
 };
 compareSets('выкраски/данные', millingSlugs, swatchSlugs);
-compareSets('визуализации/данные', millingSlugs, roomFileSlugs);
-compareSets('визуализации/импорты', millingSlugs, new Set([...roomImports.values()].map(imageSlug)));
-compareSets('визуализации/подписи', millingSlugs, new Set(roomMappings.keys()));
-notes.push(`фрезеровок и пар «выкраска/визуализация»: ${millingSlugs.size}`);
+const mappedRoomSlugs = new Set(roomMappings.keys());
+const importedRoomSlugs = new Set([...roomImports.values()].map(imageSlug));
+for (const slug of mappedRoomSlugs) {
+  if (!millingSlugs.has(slug)) fail('визуализации/данные', `${slug} — нет такой фрезеровки`);
+  if (!roomFileSlugs.has(slug)) fail('визуализации/файлы', `${slug} — нет интерьерной визуализации`);
+}
+for (const slug of importedRoomSlugs) {
+  if (!mappedRoomSlugs.has(slug)) fail('визуализации/импорты', `${slug} — импорт не используется`);
+}
+notes.push(`фрезеровок/выкрасок: ${millingSlugs.size}`);
+notes.push(`привязок «выкраска/визуализация» по slug: ${mappedRoomSlugs.size}`);
 
 /* 7. Снимок проекта и его детали должны быть привязаны друг к другу. */
 const projectsSource = sourceFile('src/data/projects.ts');
