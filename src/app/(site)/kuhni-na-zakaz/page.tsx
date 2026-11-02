@@ -6,6 +6,7 @@ import { CtaButton } from '@/components/CtaButton';
 import { Reveal } from '@/components/ui/Reveal';
 import { LayoutDiagram } from '@/components/ui/LayoutDiagram';
 import { CropFrame } from '@/components/ui/CropFrame';
+import { RenderBadge } from '@/components/ui/RenderBadge';
 import { crops } from '@/data/crops';
 import { teamShots, teamShotAlt } from '@/data/team-shots';
 import { Section, SectionHeading } from '@/components/ui/Section';
@@ -223,6 +224,10 @@ export default async function KitchensPage() {
                       teamShots.robertMeasure.blurDataURL || undefined
                     }
                     className="object-cover"
+                  />
+                  <RenderBadge
+                    label="Постановочный кадр"
+                    className="bottom-auto left-auto right-3 top-3"
                   />
                   <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-6 pt-14 text-ui text-cream/90">
                     Пункт первый из списка: Роберт на замере. Остальные

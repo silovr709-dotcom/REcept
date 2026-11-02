@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "build:static": "node scripts/build-static.mjs",
     "build:domain": "SITE_TARGET=domain node scripts/build-static.mjs",
-    "audit": "node scripts/audit.mjs"
+    "audit:images": "node scripts/audit-images.mjs",
+    "audit": "node scripts/audit.mjs && node scripts/audit-images.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.3.0",

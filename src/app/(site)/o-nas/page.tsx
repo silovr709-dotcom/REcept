@@ -8,6 +8,7 @@ import { Cliches } from '@/components/sections/Cliches';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { Reveal } from '@/components/ui/Reveal';
+import { RenderBadge } from '@/components/ui/RenderBadge';
 import { Section } from '@/components/ui/Section';
 import { PhotoBand } from '@/components/PhotoBand';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
@@ -60,6 +61,7 @@ export default async function AboutPage() {
         image={teamShots.evening}
         imageAlt=""
         imagePosition="object-[50%_35%]"
+        imageBadgeLabel="Постановочный кадр"
       />
 
       {/* Страница на 20 000 пикселей: без оглавления до «Чего вы здесь
@@ -100,6 +102,7 @@ export default async function AboutPage() {
                     blurDataURL={teamShots.katyaPlan.blurDataURL || undefined}
                     className="object-cover"
                   />
+                  <RenderBadge label="Постановочный кадр" />
                 </figure>
               </Reveal>
             </div>
@@ -155,6 +158,7 @@ export default async function AboutPage() {
       <PhotoBand
         image={teamShots.heroWide}
         alt={teamShotAlt.hero}
+        badgeLabel="Постановочный кадр"
         overlay="quote"
         height="lg"
         objectPosition="object-[58%_28%]"

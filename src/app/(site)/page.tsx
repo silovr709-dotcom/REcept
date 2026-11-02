@@ -74,6 +74,7 @@ export default async function HomePage() {
       <PhotoBand
         image={teamShots.robertSite}
         alt={teamShotAlt.robertSite}
+        badgeLabel="Постановочный кадр"
         overlay="quote"
         height="lg"
         /* На полосе 3:1 центр кадра приходится на грудь, и голову

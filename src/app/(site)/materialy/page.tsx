@@ -5,6 +5,7 @@ import { PageHero } from '@/components/PageHero';
 import { CtaButton } from '@/components/CtaButton';
 import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
+import { RenderBadge } from '@/components/ui/RenderBadge';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { Suppliers } from '@/components/sections/Suppliers';
 import { PhotoBand } from '@/components/PhotoBand';
@@ -448,6 +449,7 @@ export default async function MaterialsPage() {
                   blurDataURL={teamShots.katyaSample.blurDataURL || undefined}
                   className="object-cover"
                 />
+                <RenderBadge label="Постановочный кадр" />
               </figure>
             </Reveal>
 

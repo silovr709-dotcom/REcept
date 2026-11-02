@@ -2,13 +2,14 @@
 
 import { createPortal } from "react-dom";
 import { Photo } from "./ui/Photo";
+import { RenderBadge } from "./ui/RenderBadge";
 import type { ImageRef } from "@/lib/content/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
- * Фотография, которую можно рассмотреть.
- * Для мебели это не украшательство: качество работы видно на стыках,
- * кромках и фурнитуре, а на маленьком превью их не разглядеть.
+ * Изображение, которое можно рассмотреть.
+ * На маленьком превью трудно различить рисунок, стык или профиль фасада.
+ * Если это иллюстрация, тип кадра отмечается и в превью, и в подписи окна.
  *
  * Компонент самодостаточный — никаких провайдеров и библиотек.
  * Оверлей монтируется только когда его открыли, поэтому на вес страницы
@@ -22,6 +23,7 @@ export function ZoomableImage({
   className = "",
   wrapperClassName = "",
   priority = false,
+  badgeLabel,
 }: {
   image: ImageRef;
   alt: string;
@@ -30,6 +32,7 @@ export function ZoomableImage({
   className?: string;
   wrapperClassName?: string;
   priority?: boolean;
+  badgeLabel?: string;
 }) {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -79,7 +82,7 @@ export function ZoomableImage({
         ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
-        aria-label={`Рассмотреть фотографию: ${alt}`}
+        aria-label={`Рассмотреть изображение: ${alt}`}
         className={`group relative block w-full cursor-zoom-in overflow-hidden bg-sand ${wrapperClassName}`}
       >
         <Photo
@@ -90,6 +93,7 @@ export function ZoomableImage({
           sizes={sizes}
           className={`object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] ${className}`}
         />
+        {badgeLabel ? <RenderBadge label={badgeLabel} /> : null}
         <span
           aria-hidden="true"
           className="pointer-events-none absolute bottom-3 right-3 grid size-9 place-items-center rounded-full bg-ink/55 text-cream opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
@@ -127,7 +131,7 @@ export function ZoomableImage({
                 ref={closeRef}
                 type="button"
                 onClick={close}
-                aria-label="Закрыть просмотр фотографии"
+                aria-label="Закрыть окно просмотра"
                 className="absolute right-4 top-4 grid size-11 place-items-center rounded-full bg-cream/10 text-cream transition-colors hover:bg-cream/20"
               >
                 <svg

@@ -12,6 +12,7 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { BreadcrumbJsonLd, ProjectJsonLd } from '@/components/JsonLd';
 import { getVisibleDetails, getVisibleProjects } from '@/lib/content/store';
 import { getSiteView } from '@/lib/content/view';
+import { isIllustrativeProjectDetail } from '@/lib/content/images';
 import { projectAlt, projectDescription, projectTitle } from '@/lib/content/seo';
 
 type Params = { params: Promise<{ slug: string }> };
@@ -124,14 +125,23 @@ export default async function ProjectPage({ params }: Params) {
                   ))}
                 </dl>
 
-                {/* Фрагменты: фурнитура, фактуры и стыки крупным планом */}
+                {/* Иллюстрации проектных решений: фурнитура, фактуры и стыки */}
                 {projectDetails.length > 0 ? (
                   <div className="mt-12">
-                    <div className="flex items-baseline justify-between gap-6">
-                      <h2 className="text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
-                        Детали этого проекта
-                      </h2>
-                      <p className="text-small text-stone">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                      <div>
+                        <h2 className="text-eyebrow font-medium uppercase tracking-[0.18em] text-gold">
+                          Детали этого проекта
+                        </h2>
+                        {projectDetails.some((detail) =>
+                          isIllustrativeProjectDetail(detail.image),
+                        ) ? (
+                          <p className="mt-2 max-w-xl text-small leading-relaxed text-stone">
+                            Крупные планы с плашкой «Визуализация» — иллюстрации решений, а не фотографии с объекта.
+                          </p>
+                        ) : null}
+                      </div>
+                      <p className="text-small text-stone sm:text-right">
                         {projectDetails.length > 1
                           ? 'Листайте вбок · нажмите, чтобы рассмотреть'
                           : 'Нажмите, чтобы рассмотреть'}
@@ -154,8 +164,13 @@ export default async function ProjectPage({ params }: Params) {
                           <Reveal delay={Math.min(i, 4) * 40}>
                             <ZoomableImage
                               image={d.image}
-                              alt={d.alt}
-                              caption={`${d.title} — ${d.note.toLowerCase()}`}
+                              alt={`${isIllustrativeProjectDetail(d.image) ? 'Иллюстрация. ' : ''}${d.alt}`}
+                              caption={`${isIllustrativeProjectDetail(d.image) ? 'Визуализация. ' : ''}${d.title} — ${d.note.toLowerCase()}`}
+                              badgeLabel={
+                                isIllustrativeProjectDetail(d.image)
+                                  ? 'Визуализация'
+                                  : undefined
+                              }
                               sizes="(max-width: 639px) 76vw, (max-width: 1023px) 58vw, 26vw"
                               wrapperClassName={`rounded-md ${
                                 projectDetails.length === 1
