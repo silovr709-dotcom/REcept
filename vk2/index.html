@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>РЕцепт — визуальная система ВКонтакте · версия 2</title>
+<style>
+  :root{
+    --bone:#f7f2e9; --paper:#fcf9f3; --sand:#eee5d7; --line:#dfd4c3;
+    --ink:#2a3026; --graph:#22261f; --olive:#4a5a44; --olived:#2f3a2e;
+    --clay:#968874; --brass:#7a613c; --brassl:#b69a63; --brasss:#d6bc92;
+    --cream:#fffcf7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bone);color:var(--ink);
+    font-family:"Golos Text",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;margin:0}
+  .wrap{max-width:1200px;margin:0 auto;padding:52px 28px 110px}
+  .label{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--clay);
+    display:flex;align-items:center;gap:14px;margin:0 0 12px}
+  .label::before{content:"";width:24px;height:1px;background:var(--brassl)}
+  header.top{border-bottom:1px solid var(--line);padding-bottom:34px;margin-bottom:52px}
+  .mark{font-family:Georgia,serif;font-size:32px;letter-spacing:-.01em}
+  .mark b{color:var(--brass);font-weight:400}
+  header.top h1{font-size:46px;line-height:1.04;margin:24px 0 18px;max-width:22ch}
+  header.top h1 em{font-style:normal;color:var(--olive)}
+  header.top p{max-width:64ch;color:#5f6459;font-size:16px;line-height:1.65;margin:0}
+  section{margin:0 0 74px}
+  section h2{font-size:29px;margin-bottom:6px}
+  section .lead{color:#5f6459;font-size:15px;line-height:1.62;max-width:72ch;margin:0 0 26px}
+  .grid{display:grid;gap:20px}
+  .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)} .g6{grid-template-columns:repeat(6,1fr)}
+  figure{margin:0}
+  figure img{width:100%;display:block;border:1px solid var(--line);background:var(--sand)}
+  figcaption{font-size:12.5px;color:#6f7466;margin-top:9px;line-height:1.5}
+  figcaption b{color:var(--ink);font-weight:600;display:block;font-size:13px;margin-bottom:2px}
+  .row{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap}
+  .col{flex:1;min-width:290px}
+  .phone{width:330px;border-radius:36px;background:var(--graph);padding:11px;
+    box-shadow:0 34px 70px -34px rgba(34,38,31,.6);flex:0 0 auto}
+  .phone .screen{background:#efe9de;border-radius:26px;overflow:hidden}
+  .phone .cover{position:relative;height:236px;overflow:hidden;background:var(--graph)}
+  .phone .cover img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+  .phone .av{margin-top:-52px;padding-left:16px;position:relative}
+  .phone .av img{width:84px;height:84px;border-radius:50%;border:3px solid #efe9de;display:block}
+  .phone .meta{padding:10px 18px 20px;color:#2a3026;font-size:14.5px;line-height:1.4}
+  .phone .meta small{display:block;color:#6f7466;font-size:11.5px;margin-top:5px;letter-spacing:.04em}
+  .desktop{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--graph);
+    box-shadow:0 34px 70px -38px rgba(34,38,31,.5)}
+  .desktop .bar{height:30px;display:flex;align-items:center;gap:6px;padding:0 12px;background:#1b1f19}
+  .desktop .bar i{width:8px;height:8px;border-radius:50%;background:#3d4438;display:block}
+  .desktop img{width:100%;display:block}
+  .list{list-style:none;padding:0;margin:0;font-size:14px;line-height:1.68;color:#5f6459}
+  .list li{padding-left:20px;position:relative;margin-bottom:7px}
+  .list li::before{content:"";position:absolute;left:0;top:11px;width:9px;height:1px;background:var(--brassl)}
+  .list b{color:var(--ink);font-weight:600}
+  .card{background:var(--paper);border:1px solid var(--line);padding:24px 26px}
+  .card h3{font-size:19px;margin-bottom:10px}
+  .card p{font-size:14px;line-height:1.62;color:#5f6459;margin:0}
+  .sw{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .sw div{width:104px}
+  .sw i{display:block;height:56px;border:1px solid rgba(0,0,0,.08)}
+  .sw span{display:block;font-size:11px;color:#6f7466;margin-top:6px;letter-spacing:.04em}
+  .types{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:22px}
+  .types figure img{border:none;box-shadow:0 18px 34px -24px rgba(34,38,31,.45)}
+  .note{font-size:13.5px;line-height:1.62;color:#6f7466;border-left:2px solid var(--brassl);
+    padding:2px 0 2px 16px;margin:24px 0 0;max-width:74ch}
+  .status{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+  .status div{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--brassl);padding:20px 22px}
+  .status h4{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin:0 0 10px;font-weight:600}
+  .status p{font-size:13.5px;line-height:1.6;color:#5f6459;margin:0}
+  @media (max-width:860px){
+    .g3,.g4,.g6,.types,.status{grid-template-columns:repeat(2,1fr)}
+    .g2{grid-template-columns:1fr}
+    header.top h1{font-size:34px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark">Р<b>Е</b>цепт <span style="font-size:14px;letter-spacing:.3em;color:var(--clay);vertical-align:middle;margin-left:12px">ТВЕРЬ</span></div>
+    <h1>Сообщество как <em>тетрадь проекта</em>: бумага, чертёж, олива и латунь</h1>
+    <p>Вторая версия визуальной системы для vk.ru/tverkuhniru.
+       Первый комплект был синим «как сайт». Синий убран: он делает мебельную компанию
+       неотличимой от девяноста других. Основа теперь — бумага, на которой рисуют кухню,
+       и олива, в которой она стоит. Ниже — всё, что нужно загрузить, и то, что осталось
+       за вами: доступ к сообществу у нас не через API.</p>
+  </header>
+
+  <!-- ============================================ 1. ЧТО НА ЭКРАНЕ -->
+  <section>
+    <div class="label">как это выглядит</div>
+    <h2>Телефон и десктоп</h2>
+    <p class="lead">Мобильная версия — приоритет: у ВК это первый экран и единственный, который
+       видит 80 % людей. Обложка 4:5 собирается так, чтобы знак, заголовок, лица и три тезиса
+       попадали в кадр целиком, без обрезки сверху и снизу.</p>
+    <div class="row">
+      <div class="phone">
+        <div class="screen">
+          <div class="cover"><img src="cover/cover-mobile-1080x1350.jpg" alt="Мобильная обложка"></div>
+          <div class="av"><img src="avatar/avatar-01-monogram-paper-400x400.jpg" alt="Аватар"></div>
+          <div class="meta">
+            РЕцепт — кухни на заказ в Твери
+            <small>Мебельное ателье · с 2004 года · проект бесплатно</small>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="desktop">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <img src="cover/cover-desktop-1920x768.jpg" alt="Обложка для компьютера">
+        </div>
+        <p class="note">На десктопе ВК показывает 1590×400 по центру. Полотно 1920×768
+           с текстом в левой половине остаётся читаемым и при этой обрезке, и при полной.</p>
+        <div class="grid g2" style="margin-top:22px">
+          <figure>
+            <img src="cover/cover-classic-1590x530.jpg" alt="Классический формат">
+            <figcaption><b>1590×530</b>Запасной вариант, если грузите «классическую» обложку</figcaption>
+          </figure>
+          <figure>
+            <img src="cover/live-cover-1080x1920.jpg" alt="Живая обложка">
+            <figcaption><b>1080×1920 · живая</b>Видят только с телефона; текст стоит на плотной плашке</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ 2. СИСТЕМА -->
+  <section>
+    <div class="label">из чего собрано</div>
+    <h2>Палитра и приёмы</h2>
+    <p class="lead">Одна логика на всех носителях: бумажное поле с миллиметровкой, латунные
+       засечки по углам, размерная линия как разделитель, фотография без скруглений и теней,
+       оливковая плашка для подписей.</p>
+    <div class="sw">
+      <div><i style="background:#f7f2e9"></i><span>BONE</span></div>
+      <div><i style="background:#fcf9f3"></i><span>PAPER</span></div>
+      <div><i style="background:#eee5d7"></i><span>SAND</span></div>
+      <div><i style="background:#dfd4c3"></i><span>LINE</span></div>
+      <div><i style="background:#968874"></i><span>CLAY</span></div>
+      <div><i style="background:#b69a63"></i><span>BRASS</span></div>
+      <div><i style="background:#4a5a44"></i><span>OLIVE</span></div>
+      <div><i style="background:#2f3a2e"></i><span>OLIVE DEEP</span></div>
+      <div><i style="background:#2a3026"></i><span>INK</span></div>
+      <div><i style="background:#22261f"></i><span>GRAPHITE</span></div>
+    </div>
+    <div class="grid g2" style="margin-top:28px">
+      <div class="card">
+        <h3>Шрифты</h3>
+        <p>Playfair Display — заголовки. Cormorant — знак «РЕцепт». Marck Script — подпись
+           «Роберт и Катя ведут проект лично»: один рукописный голос на всю систему, не больше.
+           Golos Text — тексты и капитель с трекингом 0,22.</p>
+      </div>
+      <div class="card">
+        <h3>Кадры</h3>
+        <p>Тёплая коррекция и мягкий свет на лицах, чтобы разные сцены читались как одна
+           съёмка. Обрез по грудь — норма: плашка с тезисами всегда закрывает нижнюю часть.
+           Никаких коллажей, наклонов и «красивых» фильтров.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ 3. АВАТАР И МЕНЮ -->
+  <section>
+    <div class="label">аватар и навигация</div>
+    <h2>Знак и иконки меню</h2>
+    <p class="lead">Аватар — монограмма «РЕ», а не фотография кухни: в кружке 44 px фотография
+       превращается в пятно, а монограмма остаётся. Латунная «Е» держит связь со знаком сайта.</p>
+    <div class="grid g2">
+      <figure>
+        <img src="avatar/avatar-01-monogram-paper-1200x1200.jpg" alt="Аватар, бумага">
+        <figcaption><b>Аватар A · бумага</b>Базовый вариант: светлый, хорошо смотрится в тёмной ленте</figcaption>
+      </figure>
+      <figure>
+        <img src="avatar/avatar-02-monogram-olive-1200x1200.jpg" alt="Аватар, олива">
+        <figcaption><b>Аватар B · олива</b>Если нужен более плотный знак — например, на светлых обложках</figcaption>
+      </figure>
+    </div>
+    <div class="grid g6" style="margin-top:24px">
+      <figure><img src="menu/menu-kuhni-400x400.png" alt=""><figcaption><b>Кухни</b></figcaption></figure>
+      <figure><img src="menu/menu-mebel-400x400.png" alt=""><figcaption><b>Другая мебель</b></figcaption></figure>
+      <figure><img src="menu/menu-raboty-400x400.png" alt=""><figcaption><b>Работы</b></figcaption></figure>
+      <figure><img src="menu/menu-process-400x400.png" alt=""><figcaption><b>Как работаем</b></figcaption></figure>
+      <figure><img src="menu/menu-about-400x400.png" alt=""><figcaption><b>О нас</b></figcaption></figure>
+      <figure><img src="menu/menu-otzyvy-400x400.png" alt=""><figcaption><b>Отзывы</b></figcaption></figure>
+    </div>
+    <p class="note">Иконки — линейные, в одну толщину, без заливок: на 44 px в мобильном меню
+       они не слипаются. Подпись внутри квадрата страхует, если ВК её обрежет.</p>
+  </section>
+
+  <!-- ============================================ 4. УСЛУГИ И РАБОТЫ -->
+  <section>
+    <div class="label">услуги · работы</div>
+    <h2>Карточки направлений</h2>
+    <p class="lead">Четыре направления из сайта, без выдуманных услуг. Каждая карточка — одна
+       фотография, номер, название, одна честная строка. Вертикальные — для услуг, горизонтальные —
+       для подборок и рекламы.</p>
+    <div class="grid g4">
+      <figure><img src="services/service-kuhni-1080x1350.jpg" alt=""><figcaption><b>Кухни на заказ</b>1080×1350</figcaption></figure>
+      <figure><img src="services/service-garderobnye-1080x1350.jpg" alt=""><figcaption><b>Гардеробные и шкафы</b>1080×1350</figcaption></figure>
+      <figure><img src="services/service-vannaya-1080x1350.jpg" alt=""><figcaption><b>Мебель для ванной</b>1080×1350</figcaption></figure>
+      <figure><img src="services/service-prihozhie-1080x1350.jpg" alt=""><figcaption><b>Прихожие и детские</b>1080×1350</figcaption></figure>
+    </div>
+    <div class="grid g2" style="margin-top:24px">
+      <figure><img src="services/service-kuhni-1280x720.jpg" alt=""><figcaption><b>1280×720</b>Горизонтальный кроп для подборок и обложек статей</figcaption></figure>
+      <figure><img src="services/service-garderobnye-1280x720.jpg" alt=""><figcaption><b>1280×720</b>Тот же макет, другая фотография</figcaption></figure>
+    </div>
+    <div class="grid g4" style="margin-top:24px">
+      <figure><img src="works/work-01-1000x1000.jpg" alt=""><figcaption><b>Кухня с островом</b>товар / работа</figcaption></figure>
+      <figure><img src="works/work-02-1000x1000.jpg" alt=""><figcaption><b>Кухня в неоклассике</b>товар / работа</figcaption></figure>
+      <figure><img src="works/work-03-1000x1000.jpg" alt=""><figcaption><b>Угловая кухня</b>товар / работа</figcaption></figure>
+      <figure><img src="works/work-04-1000x1000.jpg" alt=""><figcaption><b>Кухня в нише</b>товар / работа</figcaption></figure>
+    </div>
+    <figure style="margin-top:26px">
+      <img src="widget/widget-1530x384.jpg" alt="Виджет">
+      <figcaption><b>Виджет 1530×384</b>«Расскажите про кухню — посчитаем за один разговор». Круглый кадр с Робертом и Катей справа</figcaption>
+    </figure>
+  </section>
+
+  <!-- ============================================ 5. ПУБЛИКАЦИИ -->
+  <section>
+    <div class="label">сетка публикаций</div>
+    <h2>Направления постов</h2>
+    <p class="lead">Пять визуальных типов, которые не спорят друг с другом в ленте: тетрадь
+       (экспертиза), работа (проект), мнение (позиция), личное (люди), материалы (фактуры).
+       Порядок чередуется — в ленте это выглядит как журнал, а не как каталог.</p>
+    <div class="types">
+      <figure><img src="posts/post-01-pinned.jpg" alt=""><figcaption><b>A. Тетрадь</b>Закреплённый пост</figcaption></figure>
+      <figure><img src="posts/post-03-opinion.jpg" alt=""><figcaption><b>C. Мнение</b>Позиция, лёгкая провокация</figcaption></figure>
+      <figure><img src="posts/post-02-work.jpg" alt=""><figcaption><b>B. Работа</b>Проект с подписью</figcaption></figure>
+      <figure><img src="posts/post-04-personal.jpg" alt=""><figcaption><b>D. Личное</b>Роберт и Катя</figcaption></figure>
+    </div>
+    <div class="types" style="margin-top:24px">
+      <figure><img src="posts/post-05-materials.jpg" alt=""><figcaption><b>E. Материалы</b>Марки и фактуры</figcaption></figure>
+      <figure><img src="posts/post-06-review.jpg" alt=""><figcaption><b>Отзыв</b>Цитата на бумаге</figcaption></figure>
+      <figure><img src="posts/post-07-mistakes.jpg" alt=""><figcaption><b>A. Тетрадь</b>Разбор ошибок</figcaption></figure>
+      <figure><img src="posts/post-08-process.jpg" alt=""><figcaption><b>A. Тетрадь</b>Как мы работаем</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ============================================ 6. ИСТОРИИ -->
+  <section>
+    <div class="label">истории и клипы</div>
+    <h2>Вертикаль 9:16</h2>
+    <p class="lead">Текст держится выше нижней трети: там ВК рисует кнопки и название клипа.
+       Знак — в верхней трети, там же, где и на обложке.</p>
+    <div class="grid g6">
+      <figure><img src="stories/story-01-meet.jpg" alt=""><figcaption><b>Знакомство</b></figcaption></figure>
+      <figure><img src="stories/story-02-project.jpg" alt=""><figcaption><b>Чертёж</b></figcaption></figure>
+      <figure><img src="stories/story-03-evening.jpg" alt=""><figcaption><b>Мнение</b></figcaption></figure>
+      <figure><img src="clips/clip-01-kitchen.jpg" alt=""><figcaption><b>Клип · замер</b></figcaption></figure>
+      <figure><img src="clips/clip-02-samples.jpg" alt=""><figcaption><b>Клип · образцы</b></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ============================================ 7. ЧТО ДАЛЬШЕ -->
+  <section>
+    <div class="label">границы работы</div>
+    <h2>Реализовано · подготовлено · нужно ваше участие</h2>
+    <div class="status">
+      <div>
+        <h4>Сделано здесь</h4>
+        <p>Вся визуальная система: обложки, аватар, меню, услуги, работы, виджет, шаблоны
+           постов, истории, обложки клипов. Лежит в папке <code>vk2/</code> в готовых размерах.</p>
+      </div>
+      <div>
+        <h4>Подготовлено текстом</h4>
+        <p>Название, статус, два описания, закреплённый пост, рубрикатор, план на месяц,
+           рекомендации по ведению — в <code>README.md</code> рядом.</p>
+      </div>
+      <div>
+        <h4>Нужно ваше участие</h4>
+        <p>Загрузить файлы в сообщество: у нас нет доступа к редактированию vk.ru/tverkuhniru.
+           И подтвердить три вещи — домен, телефон в шапке и право публиковать отзывы.</p>
+      </div>
+    </div>
+    <p class="note">На сайте телефон и домен в макетах — tver-kuhni.ru, а сайт открывается
+       по адресу рецепт-тверь.рф. Пока вы не скажете, какой адрес считать главным, в макетах
+       оставлено только название, без ссылок в подписях.</p>
+  </section>
+
+  <footer style="border-top:1px solid var(--line);padding-top:22px;font-size:12.5px;color:#6f7466">
+    РЕцепт · визуальная система ВКонтакте, версия 2 · макеты и тексты подготовлены в репозитории,
+    загрузка в сообщество — за владельцем
+  </footer>
+</div>
+</body>
+</html>
