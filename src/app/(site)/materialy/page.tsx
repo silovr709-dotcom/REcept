@@ -430,21 +430,21 @@ export default async function MaterialsPage() {
             </p>
           </Reveal>
 
-          {/* После длинного каталога — совместный портрет владельцев:
-              про материалы можно спросить тех, кто подбирает их для проекта. */}
+          {/* После длинного каталога — новая сцена Кати за подбором
+              образцов, чтобы показать, кто помогает выбрать материалы. */}
           <div className="mt-14 grid gap-10 border-t border-line pt-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-16">
             <Reveal>
               <figure className="relative aspect-4/5 overflow-hidden bg-sand">
                 <Image
-                  src={assetUrl(teamShots.coupleClose.src)}
-                  alt={teamShotAlt.coupleClose}
+                  src={assetUrl(teamShots.katyaMaterials.src)}
+                  alt={teamShotAlt.katyaMaterials}
                   fill
                   loading="lazy"
                   sizes="(max-width: 1023px) 100vw, 34vw"
                   placeholder={
-                    teamShots.coupleClose.blurDataURL ? 'blur' : 'empty'
+                    teamShots.katyaMaterials.blurDataURL ? 'blur' : 'empty'
                   }
-                  blurDataURL={teamShots.coupleClose.blurDataURL || undefined}
+                  blurDataURL={teamShots.katyaMaterials.blurDataURL || undefined}
                   className="object-cover"
                 />
               </figure>

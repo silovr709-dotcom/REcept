@@ -84,20 +84,20 @@ export default async function AboutPage() {
                 Почему семейное дело — это другое качество разговора
               </h2>
 
-              {/* История семейного дела рядом с портретом Кати — одного
-                  из двух людей, которые ведут проект от начала до конца. */}
+              {/* История семейного дела рядом с новой сценой Кати за
+                  подбором фасадов — одной из участниц каждого проекта. */}
               <Reveal className="mt-10">
                 <figure className="relative aspect-4/5 overflow-hidden bg-sand">
                   <Image
-                    src={assetUrl(teamShots.katyaPortrait.src)}
-                    alt={teamShotAlt.katyaPortrait}
+                    src={assetUrl(teamShots.katyaMaterials.src)}
+                    alt={teamShotAlt.katyaMaterials}
                     fill
                     loading="lazy"
                     sizes="(max-width: 1023px) 100vw, 36vw"
                     placeholder={
-                      teamShots.katyaPortrait.blurDataURL ? 'blur' : 'empty'
+                      teamShots.katyaMaterials.blurDataURL ? 'blur' : 'empty'
                     }
-                    blurDataURL={teamShots.katyaPortrait.blurDataURL || undefined}
+                    blurDataURL={teamShots.katyaMaterials.blurDataURL || undefined}
                     className="object-cover"
                   />
                 </figure>
@@ -149,15 +149,14 @@ export default async function AboutPage() {
         </div>
       </Section>
 
-      {/* На странице «О нас» полосу занимает не кухня, а те, про кого
-          эта страница: подпись говорит «ведут сами» — значит, видно,
-          кто именно */}
+      {/* Полоса продолжает рассказ о Роберте и Кате новой редакционной
+          сценой обсуждения проекта в студии, без изображения заказа клиента. */}
       <PhotoBand
-        image={teamShots.coupleAtTable}
-        alt={teamShotAlt.coupleAtTable}
+        image={teamShots.coupleProject}
+        alt={teamShotAlt.coupleProject}
         overlay="quote"
         height="lg"
-        objectPosition="object-[58%_18%]"
+        objectPosition="object-[50%_24%]"
         caption="Каждый проект Роберт и Катя ведут сами — от планировки до сборки на объекте."
       />
 

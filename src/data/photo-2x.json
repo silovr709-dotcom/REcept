@@ -443,11 +443,11 @@
     "height": 2560,
     "base": 1024
   },
-  "/images/team/couple-close.webp": {
-    "src": "/images/team/couple-close@2x.webp",
+  "/images/team/couple-project.webp": {
+    "src": "/images/team/couple-project@2x.webp",
     "width": 2560,
-    "height": 2537,
-    "base": 560
+    "height": 1429,
+    "base": 1376
   },
   "/images/team/couple-wide.webp": {
     "src": "/images/team/couple-wide@2x.webp",
@@ -455,17 +455,17 @@
     "height": 1429,
     "base": 1376
   },
-  "/images/team/katya-portrait.webp": {
-    "src": "/images/team/katya-portrait@2x.webp",
-    "width": 2048,
+  "/images/team/katya-materials.webp": {
+    "src": "/images/team/katya-materials@2x.webp",
+    "width": 2062,
     "height": 2560,
-    "base": 512
+    "base": 928
   },
-  "/images/team/robert-portrait.webp": {
-    "src": "/images/team/robert-portrait@2x.webp",
-    "width": 2560,
-    "height": 2291,
-    "base": 950
+  "/images/team/robert-studio.webp": {
+    "src": "/images/team/robert-studio@2x.webp",
+    "width": 2062,
+    "height": 2560,
+    "base": 928
   },
   "/images/team/work-measure.webp": {
     "src": "/images/team/work-measure@2x.webp",

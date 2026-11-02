@@ -186,9 +186,9 @@ export function buildSeed(): ContentShape {
         // если кого-то поменять местами, Катя не окажется подписана
         // кадром Роберта.
         photo: t.fullName.startsWith('Роберт')
-          ? teamShots.robertPortrait
+          ? teamShots.robertStudio
           : t.fullName.startsWith('Екатерина')
-            ? teamShots.katyaPortrait
+            ? teamShots.katyaMaterials
             : null,
         vk: t.vk,
       })),

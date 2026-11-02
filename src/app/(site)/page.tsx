@@ -67,12 +67,12 @@ export default async function HomePage() {
 
       <Headache index="02" />
 
-      {/* После блока про головную боль — Роберт и Катя, которые ведут
-          проект сами. Широкий совместный портрет поддерживает разговор
-          о личной ответственности, не выдавая интерьер за выполненный заказ. */}
+      {/* После блока про головную боль — новая сцена Роберта и Кати,
+          обсуждающих план в студии. Это не кадр конкретного выполненного
+          заказа, а образ совместной работы над проектом. */}
       <PhotoBand
-        image={teamShots.coupleWide}
-        alt={teamShotAlt.coupleWide}
+        image={teamShots.coupleProject}
+        alt={teamShotAlt.coupleProject}
         overlay="quote"
         height="lg"
         objectPosition="object-[50%_22%]"

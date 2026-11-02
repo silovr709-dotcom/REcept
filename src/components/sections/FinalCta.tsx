@@ -23,7 +23,7 @@ export async function FinalCta({
   const site = await getSiteView();
   // За формой стоят те, кто на неё ответит. Надзаголовок рядом говорит
   // «Пишет вам не робот» — кадр договаривает это без единого слова.
-  const shot = teamShots.coupleWide;
+  const shot = teamShots.coupleProject;
   const activeContacts = site.contacts;
   const hasPhone = Boolean(site.primaryPhone);
   const phoneDisplay = site.primaryPhone?.display ?? '';

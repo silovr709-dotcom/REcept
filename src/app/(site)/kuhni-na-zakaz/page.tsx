@@ -211,16 +211,16 @@ export default async function KitchensPage() {
               <Reveal className="mt-10">
                 <figure className="relative aspect-4/5 overflow-hidden bg-ink/60 sm:aspect-3/2 lg:aspect-4/5">
                   <Image
-                    src={assetUrl(teamShots.robertPortrait.src)}
-                    alt={teamShotAlt.robertPortrait}
+                    src={assetUrl(teamShots.robertStudio.src)}
+                    alt={teamShotAlt.robertStudio}
                     fill
                     loading="lazy"
                     sizes="(max-width: 1023px) 100vw, 40vw"
                     placeholder={
-                      teamShots.robertPortrait.blurDataURL ? 'blur' : 'empty'
+                      teamShots.robertStudio.blurDataURL ? 'blur' : 'empty'
                     }
                     blurDataURL={
-                      teamShots.robertPortrait.blurDataURL || undefined
+                      teamShots.robertStudio.blurDataURL || undefined
                     }
                     className="object-cover"
                   />
