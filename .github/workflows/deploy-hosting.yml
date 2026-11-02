@@ -160,33 +160,82 @@ jobs:
             api/lead-config.php
             .well-known/**
 
-      - name: Убедиться, что на сайте новая версия
+      - name: Проверить доступность сайта и версию
         if: steps.cfg.outputs.ready == 'yes' && steps.cfg.outputs.live == 'yes'
         run: |
-          url="https://${SITE_DOMAIN}/version.txt?nocache=${GITHUB_RUN_ID}"
-          echo "Проверяю $url"
-          # Домен может отдавать 301 на канонический адрес. Следуем за редиректом,
-          # иначе curl вернёт HTML-страницу 301 вместо содержимого version.txt.
-          # Параметр nocache исключает проверку закэшированной старой версии.
-          # Если HTTPS пока не работает, пробуем HTTP; повторяем несколько раз.
-          got=""
-          for i in 1 2 3; do
-            got=$(curl -L -fsS --max-redirs 5 --max-time 25 "$url" 2>/dev/null \
-              || curl -L -fsS --max-redirs 5 --max-time 25 "http://${SITE_DOMAIN}/version.txt?nocache=${GITHUB_RUN_ID}" 2>/dev/null \
-              || true)
-            [ -n "$got" ] && break
-            sleep 10
+          set -euo pipefail
+          home_url="https://${SITE_DOMAIN}/"
+          version_url="https://${SITE_DOMAIN}/version.txt?nocache=${GITHUB_RUN_ID}"
+          body_file=$(mktemp)
+          error_file=$(mktemp)
+          trap 'rm -f "$body_file" "$error_file"' EXIT
+
+          probe() {
+            local label="$1"
+            local url="$2"
+            local status=""
+            local curl_rc=0
+            LAST_BODY_HAS_SHA=no
+            : > "$body_file"
+            : > "$error_file"
+            if status=$(curl -L -sS --max-redirs 5 --connect-timeout 10 --max-time 25 \
+              -o "$body_file" -w '%{http_code}' "$url" 2>"$error_file"); then
+              curl_rc=0
+            else
+              curl_rc=$?
+            fi
+            status="${status:-000}"
+            echo "$label: HTTP $status (curl exit $curl_rc) — $url"
+            if [ "$curl_rc" -ne 0 ] && [ -s "$error_file" ]; then
+              sed 's/^/  curl: /' "$error_file"
+            fi
+            LAST_HTTP_STATUS="$status"
+            if [ "$label" = "HTTPS /version.txt" ] && [ "$status" = "200" ] \
+              && grep -Fq "$GITHUB_SHA" "$body_file"; then
+              LAST_BODY_HAS_SHA=yes
+            fi
+          }
+
+          success=no
+          https_home_status=000
+          https_version_status=000
+          version_has_sha=no
+          for attempt in 1 2 3; do
+            echo "Проверка HTTPS после выгрузки, попытка $attempt/3"
+            probe "HTTPS /" "$home_url"
+            https_home_status="$LAST_HTTP_STATUS"
+            probe "HTTPS /version.txt" "$version_url"
+            https_version_status="$LAST_HTTP_STATUS"
+            version_has_sha="$LAST_BODY_HAS_SHA"
+
+            if [ "$https_home_status" = "200" ] \
+              && [ "$https_version_status" = "200" ] \
+              && [ "$version_has_sha" = "yes" ]; then
+              success=yes
+              break
+            fi
+            if [ "$attempt" -lt 3 ]; then sleep 10; fi
           done
-          if [ -z "$got" ]; then
-            echo "::warning::Сайт по адресу ${SITE_DOMAIN} пока не отвечает. Файлы выгружены; проверьте привязку домена и сертификат."
-            echo "⚠️ Файлы выгружены, но домен пока не отвечает — проверьте привязку домена и SSL." >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$success" = "yes" ]; then
+            echo "✅ HTTPS главная страница и version.txt отвечают с HTTP 200; опубликован commit ${GITHUB_SHA:0:7}."
+            echo "✅ HTTPS / и /version.txt: HTTP 200; опубликован commit ${GITHUB_SHA:0:7}." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
-          echo "$got"
-          if echo "$got" | grep -q "$GITHUB_SHA"; then
-            echo "✅ На сайте свежая версия: \`${GITHUB_SHA:0:7}\`" >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "::error::На сайте лежит другая версия — выгрузка не дошла."
-            echo "❌ На сайте другая версия. Проверьте папку выгрузки FTP_DIR." >> "$GITHUB_STEP_SUMMARY"
-            exit 1
-          fi
+
+          # HTTP проверяем только для диагностики: зелёный HTTP не доказывает,
+          # что HTTPS-сайт, на котором пользователь видит ошибку, исправен.
+          probe "HTTP / (диагностика)" "http://${SITE_DOMAIN}/"
+          http_home_status="$LAST_HTTP_STATUS"
+          probe "HTTP /version.txt (диагностика)" "http://${SITE_DOMAIN}/version.txt?nocache=${GITHUB_RUN_ID}"
+          http_version_status="$LAST_HTTP_STATUS"
+          echo "::error::Проверка публикации не пройдена: HTTPS / вернул HTTP $https_home_status, /version.txt — HTTP $https_version_status (commit совпал: $version_has_sha). HTTP для диагностики: / — $http_home_status, /version.txt — $http_version_status."
+          {
+            echo "❌ Проверка после FTP-выгрузки не пройдена."
+            echo ""
+            echo "- HTTPS `/`: HTTP $https_home_status"
+            echo "- HTTPS `/version.txt`: HTTP $https_version_status; commit совпал: $version_has_sha"
+            echo "- HTTP для диагностики: `/` — HTTP $http_home_status, `/version.txt` — HTTP $http_version_status"
+            echo "- Ожидался commit: ${GITHUB_SHA}."
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1
