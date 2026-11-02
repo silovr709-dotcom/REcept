@@ -29,9 +29,9 @@ import { assetUrl } from '@/lib/content/images';
  * Поэтому здесь не «наша команда», а два конкретных человека с фамилией,
  * телефоном и отзывами, где их называют по имени.
  *
- * Роберт и Катя показаны на актуальных личных снимках из единого реестра.
- * Эти портреты не выдаются за фотографии выполненных проектов; если в
- * блоке появится другой участник без снимка, останется нейтральный кадр работы.
+ * Для Роберта и Кати используются новые редакционные сцены по их фото-
+ * референсам. Они не выдаются за фотографии выполненных проектов; если
+ * в блоке появится другой участник без снимка, останется нейтральный кадр работы.
  */
 export async function Founders({ index }: { index?: string } = {}) {
   const [{ team, founders }, site, reviews] = await Promise.all([
@@ -72,15 +72,15 @@ export async function Founders({ index }: { index?: string } = {}) {
             return (
               <Reveal key={person.name} className="bg-bone p-8 sm:p-12">
                 {(() => {
-                  // Для Роберта и Кати используем актуальные снимки из
-                  // реестра даже в том случае, если старый путь остался в
-                  // редактируемом контенте. Для остальных участников берём
-                  // их фото или нейтральный кадр работы.
+                  // Для Роберта и Кати используем новые сцены из реестра,
+                  // даже если старый путь остался в редактируемом контенте.
+                  // Для остальных участников берём их фото или нейтральный
+                  // кадр работы.
                   const isRobert = person.fullName.startsWith('Роберт');
                   const ownerPortrait = isRobert
-                    ? teamShots.robertPortrait
+                    ? teamShots.robertStudio
                     : person.fullName.startsWith('Екатерина')
-                      ? teamShots.katyaPortrait
+                      ? teamShots.katyaMaterials
                       : null;
                   const portrait = ownerPortrait ?? person.photo;
                   const fallback = atelierShots[i % atelierShots.length];
@@ -89,8 +89,8 @@ export async function Founders({ index }: { index?: string } = {}) {
                     : fallback.image.src;
                   const alt = ownerPortrait
                     ? isRobert
-                      ? teamShotAlt.robertPortrait
-                      : teamShotAlt.katyaPortrait
+                      ? teamShotAlt.robertStudio
+                      : teamShotAlt.katyaMaterials
                     : portrait
                       ? `${person.fullName} — мебельное ателье «РЕцепт», Тверь`
                       : fallback.alt;
