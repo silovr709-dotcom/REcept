@@ -162,15 +162,16 @@ jobs:
       - name: Убедиться, что на сайте новая версия
         if: steps.cfg.outputs.ready == 'yes' && steps.cfg.outputs.live == 'yes'
         run: |
-          url="https://${SITE_DOMAIN}/version.txt"
+          url="https://${SITE_DOMAIN}/version.txt?nocache=${GITHUB_RUN_ID}"
           echo "Проверяю $url"
-          # Домен может ещё не смотреть на хостинг или ждать сертификат —
-          # это не повод считать выгрузку неудачной, поэтому пробуем
-          # и https, и http, и несколько раз.
+          # Домен может отдавать 301 на канонический адрес. Следуем за редиректом,
+          # иначе curl вернёт HTML-страницу 301 вместо содержимого version.txt.
+          # Параметр nocache исключает проверку закэшированной старой версии.
+          # Если HTTPS пока не работает, пробуем HTTP; повторяем несколько раз.
           got=""
           for i in 1 2 3; do
-            got=$(curl -fsS --max-time 25 "$url" 2>/dev/null \
-              || curl -fsS --max-time 25 "http://${SITE_DOMAIN}/version.txt" 2>/dev/null \
+            got=$(curl -L -fsS --max-redirs 5 --max-time 25 "$url" 2>/dev/null \
+              || curl -L -fsS --max-redirs 5 --max-time 25 "http://${SITE_DOMAIN}/version.txt?nocache=${GITHUB_RUN_ID}" 2>/dev/null \
               || true)
             [ -n "$got" ] && break
             sleep 10
