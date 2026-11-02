@@ -15,8 +15,9 @@ name: Выгрузка сайта на хостинг
 #     FTP_USER      — по умолчанию u3683615
 #     FTP_DIR       — по умолчанию /www/xn----dtbhac1degob3b6e.xn--p1ai/
 #                     (папка домена рецепт-тверь.рф)
-#     FTP_PROTOCOL  — по умолчанию ftps (шифрованный FTP). Если хостинг
-#                     его не поддерживает, поставьте ftp.
+#     FTP_PROTOCOL  — используется ftp, как в рабочих выкладках CRM и Calculator.
+#                     FTP не шифрует соединение. Этот режим выбран явно для
+#                     совместимости с текущими настройками хостинга.
 #
 # Выкладывается только «живая» ветка — по умолчанию arena/01a0e490-recept,
 # та, в которой сейчас ведётся работа. Менять её не нужно; если когда-то
@@ -51,7 +52,7 @@ jobs:
       FTP_HOST: ${{ secrets.FTP_HOST || 'u3683615.isp.regruhosting.ru' }}
       FTP_USER: ${{ secrets.FTP_USER || 'u3683615' }}
       FTP_DIR: ${{ secrets.FTP_DIR || '/www/xn----dtbhac1degob3b6e.xn--p1ai/' }}
-      FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
+      FTP_PROTOCOL: ftp
     steps:
       - uses: actions/checkout@v4
 
