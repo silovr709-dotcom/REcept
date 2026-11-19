@@ -18,9 +18,7 @@ name: Выгрузка сайта на хостинг
 #     FTP_PROTOCOL  — по умолчанию ftps (шифрованный FTP). Если хостинг
 #                     его не поддерживает, поставьте ftp.
 #
-# Выкладывается только «живая» ветка — по умолчанию arena/01a0e490-recept,
-# та, в которой сейчас ведётся работа. Менять её не нужно; если когда-то
-# понадобится, заведите переменную (Variables, не Secrets) LIVE_BRANCH.
+# Выкладывается только текущая рабочая ветка arena/6a04751a-recept.
 # Остальные ветки собираются и проверяются, но на сайт не уезжают.
 #
 # Пока пароль не добавлен, выгрузка пропускается, а сборка всё равно
@@ -66,6 +64,7 @@ jobs:
       - name: Собрать сайт для домена
         env:
           NEXT_PUBLIC_SITE_URL: https://xn----dtbhac1degob3b6e.xn--p1ai
+          NEXT_PUBLIC_YANDEX_METRIKA_ID: ${{ vars.NEXT_PUBLIC_YANDEX_METRIKA_ID }}
         run: npm run build:domain
 
       - name: Поставить отметку версии
@@ -110,7 +109,7 @@ jobs:
         id: cfg
         env:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          LIVE_BRANCH: ${{ vars.LIVE_BRANCH || 'arena/01a0e490-recept' }}
+          LIVE_BRANCH: arena/6a04751a-recept
         run: |
           # На хостинг выкладывается только «живая» ветка. Иначе случайная
           # правка в отставшей ветке молча откатила бы сайт назад.

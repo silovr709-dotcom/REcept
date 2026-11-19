@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+/* docs/ is a separately deployed, generated Pages export; never scan its old
+   HTML as application source or stale utility classes leak into this build. */
+@source not "../../docs";
 
 /* ==================================================================
    ШРИФТЫ
@@ -36,10 +39,10 @@
       гротеск, рисованный под кириллицу.
 
    2. ЦВЕТНОЕ ПОЛЕ ВМЕСТО ЗАТЕМНЁННОГО ФОТО. Тёмные секции — это
-      плотная синь с тёплым световым пятном и зерном, а не фотография
+      тёплый графит с мягким световым пятном и зерном, а не фотография
       под чёрной шторкой. Фотографии от этого выигрывают дважды: их
-      больше не нужно глушить, и они остаются тёплыми рядом с холодным
-      полем.
+      больше не нужно глушить, и они остаются тёплыми рядом с тёплым
+      графитовым полем.
 
    3. ДИСЦИПЛИНА ДЕТАЛЕЙ. Надзаголовки — капителью в широкую разрядку
       с золотым штрихом слева. Разделители — в один пиксель. Золото
@@ -51,31 +54,32 @@
    ================================================================== */
 
 @theme {
-  /* --- Тёмная сторона: глубокая синь, а не чёрное ---------------- */
-  /* Этим же цветом набран весь текст: печатная краска никогда не
-     бывает чёрной, и на тёплой бумаге синяя гуще смотрится дороже. */
-  --color-ink: #13294a;
-  --color-soot: #0b1a30;
-  --color-coal: #1f3f68;
+  /* --- Тёмная сторона: тёплый графит и орех ------------------------ */
+  /* Текст и тёмные поля — графит с кофейным подтоном, без синевы. */
+  --color-ink: #342b24;
+  --color-soot: #211b16;
+  --color-coal: #534236;
 
-  /* --- Светлая сторона: бумага и молоко --------------------------- */
-  --color-cream: #fffcf7;
-  --color-bone: #f6f0e7;
-  --color-sand: #ece3d5;
-  --color-line: #ddd4c5;
+  /* --- Светлая сторона: лён, бумага и песок ------------------------ */
+  --color-cream: #fcf9f3;
+  --color-bone: #f3ede3;
+  --color-sand: #e8ddcd;
+  --color-line: #d7cbbb;
 
-  /* --- Серые: тёплые, из той же бумаги ---------------------------- */
-  --color-stone: #6b635c;
-  --color-clay: #a2988c;
+  /* --- Тёплые нейтрали --------------------------------------------- */
+  --color-stone: #675f56;
+  /* Светлая глина — подписи на тёмном и декоративные линии; на
+     светлом фоне для текста используется контрастный stone. */
+  --color-clay: #b7aa99;
 
-  /* --- Металл ------------------------------------------------------
-     gold — надписи и ссылки на светлом (контраст 5.7:1),
+  /* --- Состаренная латунь ------------------------------------------
+     gold — надписи и ссылки на светлом (контраст 6.1:1),
      goldline — волосяные линии и рамки,
-     goldsoft — то же самое на тёмном поле.
-     Правило: золотом не заливают. Только линия, цифра, мелкая надпись. */
-  --color-gold: #7a613c;
-  --color-goldline: #b69a63;
-  --color-goldsoft: #d3bd95;
+     goldsoft — акценты на тёмном поле.
+     Правило: латунью не заливают. Только линия, цифра, мелкая надпись. */
+  --color-gold: #765938;
+  --color-goldline: #b69b68;
+  --color-goldsoft: #d6c196;
 
   /* Текст — Golos Text, заголовки — антиква Cormorant Garamond.
      Локальный Manrope остаётся запасным: если шрифт издания почему-то
@@ -148,7 +152,7 @@
   /* Воздух дорог, пустота дешева. Разница между ними — в том, работает
      ли пустое место как пауза или просто тянет страницу вниз. Прежние
      16rem между секциями на большом экране читались как недоделанная
-     вёрстка: человек прокручивал пустой синий экран. */
+     вёрстка: человек прокручивал пустой тёмный экран. */
   --spacing-section: clamp(4rem, 2.5rem + 6vw, 9.5rem);
   --spacing-gutter: clamp(1.375rem, 0.5rem + 3.4vw, 6rem);
 
@@ -390,8 +394,8 @@
 }
 
 /* Общая цветокоррекция для портретов людей. Снимки сняты при тёплом
-   свете, поле — холодное; без лёгкого усмирения насыщенности они
-   спорят с полосой и выглядят вклеенными из другого проекта. */
+   свете; тёплое графитовое поле поддерживает тот же тон, а лёгкое
+   усмирение насыщенности помогает кадрам не спорить с полосой. */
 @utility photo-calm {
   filter: saturate(0.92) contrast(1.03);
 }
@@ -406,6 +410,43 @@
     transparent
   );
   height: 1px;
+}
+
+/* Глубина первого экрана строится из той же системы: угольный графит,
+   тёплый ореховый край и мягкое латунное свечение — без отдельного синего. */
+@utility hero-field {
+  background:
+    radial-gradient(
+      120% 85% at 84% -4%,
+      color-mix(in oklab, var(--color-goldsoft) 22%, transparent),
+      transparent 56%
+    ),
+    radial-gradient(
+      95% 85% at -5% 105%,
+      color-mix(in oklab, var(--color-soot) 78%, transparent),
+      transparent 64%
+    ),
+    linear-gradient(
+      162deg,
+      var(--color-coal) 0%,
+      var(--color-ink) 48%,
+      var(--color-soot) 100%
+    );
+}
+
+/* Компактное латунное свечение для других тёмных разворотов. */
+@utility field-glow {
+  background:
+    radial-gradient(
+      85% 60% at 78% 8%,
+      color-mix(in oklab, var(--color-goldsoft) 14%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      70% 60% at 0% 100%,
+      color-mix(in oklab, var(--color-soot) 60%, transparent),
+      transparent 70%
+    );
 }
 
 /* ==================================================================
@@ -444,148 +485,205 @@ html:not([data-hydrated]) [data-reveal] {
 }
 
 /* ==================================================================
-   LOADING EXPERIENCE
+   LOADING EXPERIENCE — КОЛЛАЖ ИЗ КАДРОВ ПРОЕКТОВ
    ================================================================== */
 
 #recept-loader {
   position: fixed;
   inset: 0;
   z-index: 200;
-  display: grid;
-  place-items: center;
-  /* Фон держат створки, а не сам слой: иначе распахивать было бы
-     нечего — под створками оказался бы тот же синий прямоугольник */
-  background: transparent;
-  perspective: 2400px;
-  opacity: 1;
-  transition:
-    opacity 0.5s var(--ease-soft) 0.45s,
-    visibility 0.5s 0.45s;
-  animation: loader-failsafe 0.6s var(--ease-soft) 6s forwards;
-}
-
-/* --- Створки шторки --------------------------------------------- */
-
-.loader-leaf {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50.4%;
+  overflow: hidden;
   background:
     radial-gradient(
-      120% 90% at 50% 45%,
-      transparent 40%,
-      color-mix(in oklab, var(--color-soot) 55%, transparent) 100%
+      ellipse at 50% 43%,
+      color-mix(in oklab, var(--color-coal) 42%, transparent),
+      transparent 64%
     ),
-    repeating-linear-gradient(
-      to right,
-      color-mix(in oklab, white 3%, transparent) 0 1px,
-      transparent 1px 2px,
-      color-mix(in oklab, black 10%, transparent) 2px 3px,
-      transparent 3px 14px
-    ),
-    var(--color-ink);
-  transition: transform 900ms var(--ease-out-expo);
-  backface-visibility: hidden;
-  will-change: transform;
-}
-
-.loader-leaf--l {
-  left: 0;
-  transform-origin: left center;
-}
-
-.loader-leaf--r {
-  right: 0;
-  transform-origin: right center;
+    var(--color-soot);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 460ms var(--ease-soft),
+    visibility 0s linear 460ms;
+  animation: loader-failsafe 0.6s var(--ease-soft) 8.2s forwards;
 }
 
 .loader-stage {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-inline: 1.5rem;
-  transition:
-    opacity 320ms var(--ease-soft),
-    transform 520ms var(--ease-out-expo);
-}
-
-/* --- Приводочные метки по углам листа ---------------------------- */
-
-.loader-mark {
   position: absolute;
-  z-index: 2;
-  width: 2.25rem;
-  height: 2.25rem;
-  opacity: 0;
-  animation: piece-in 0.7s var(--ease-soft) 60ms forwards;
-  /* Сокращение border-top: 1px solid берёт currentColor, поэтому цвет
-     задаётся именно через color, а не border-color */
-  color: color-mix(in oklab, var(--color-goldsoft) 45%, transparent);
-}
-
-.loader-mark--tl {
-  top: 2rem;
-  left: 2rem;
-  border-top: 1px solid;
-  border-left: 1px solid;
-}
-.loader-mark--tr {
-  top: 2rem;
-  right: 2rem;
-  border-top: 1px solid;
-  border-right: 1px solid;
-}
-.loader-mark--bl {
-  bottom: 2rem;
-  left: 2rem;
-  border-bottom: 1px solid;
-  border-left: 1px solid;
-}
-.loader-mark--br {
-  bottom: 2rem;
-  right: 2rem;
-  border-bottom: 1px solid;
-  border-right: 1px solid;
-}
-
-/* --- Направляющая-индикатор внизу -------------------------------- */
-
-.loader-rail {
-  position: absolute;
-  z-index: 2;
-  bottom: 4.25rem;
-  left: 50%;
-  width: min(22rem, 62vw);
-  height: 2px;
-  translate: -50% 0;
-  background: color-mix(in oklab, var(--color-cream) 12%, transparent);
+  inset: 0;
   overflow: hidden;
+  isolation: isolate;
 }
 
-.loader-rail-fill {
+.loader-stage::before {
+  position: absolute;
+  z-index: 1;
+  inset: -16%;
+  pointer-events: none;
+  content: '';
+  opacity: 0.075;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.48'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  animation: loader-grain 260ms steps(2, end) infinite;
+}
+
+.loader-stage::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  background:
+    linear-gradient(90deg, color-mix(in oklab, var(--color-soot) 25%, transparent), transparent 20%, transparent 80%, color-mix(in oklab, var(--color-soot) 30%, transparent)),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-soot) 30%, transparent), transparent 28%, transparent 76%, color-mix(in oklab, var(--color-soot) 48%, transparent)),
+    radial-gradient(ellipse at center, transparent 40%, color-mix(in oklab, var(--color-soot) 46%, transparent) 100%);
+}
+
+@keyframes loader-grain {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-0.5%, 0.4%, 0); }
+  50% { transform: translate3d(0.4%, -0.5%, 0); }
+  75% { transform: translate3d(0.5%, 0.3%, 0); }
+  100% { transform: translate3d(-0.4%, -0.3%, 0); }
+}
+
+.loader-mosaic {
+  position: absolute;
+  inset: 0;
   display: block;
-  height: 100%;
   width: 100%;
-  transform-origin: left center;
-  transform: scaleX(0);
-  background: linear-gradient(
-    to right,
-    color-mix(in oklab, var(--color-goldsoft) 35%, transparent),
-    var(--color-goldline)
-  );
-  animation: rail-fill 2.3s var(--ease-soft) 120ms forwards;
+  height: 100%;
+  filter: saturate(0.92) contrast(1.035);
 }
 
-@keyframes rail-fill {
-  to {
-    transform: scaleX(1);
+.loader-light-sweep {
+  position: absolute;
+  z-index: 3;
+  top: -18%;
+  bottom: -18%;
+  left: -42%;
+  width: 34%;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-goldsoft) 12%, transparent) 35%,
+    color-mix(in oklab, var(--color-cream) 30%, transparent) 50%,
+    color-mix(in oklab, var(--color-goldsoft) 10%, transparent) 64%,
+    transparent
+  );
+  filter: blur(12px);
+  mix-blend-mode: screen;
+  transform: skewX(-20deg);
+}
+
+html[data-mosaic-phase='logo'] .loader-light-sweep {
+  animation: loader-light-sweep 720ms var(--ease-out-expo) 120ms both;
+}
+
+@keyframes loader-light-sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(0) skewX(-20deg);
+  }
+  18% { opacity: 0.68; }
+  74% { opacity: 0.3; }
+  100% {
+    opacity: 0;
+    transform: translateX(430%) skewX(-20deg);
   }
 }
 
-/* --- Уход: створки распахиваются --------------------------------- */
+html[data-mosaic-ready='true'] .loader-wordmark-fallback {
+  opacity: 0;
+}
+
+html[data-mosaic-ready='error'] .loader-mosaic {
+  opacity: 0;
+}
+
+.loader-copy {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  pointer-events: none;
+  transition:
+    opacity 300ms var(--ease-soft),
+    transform 420ms var(--ease-out-expo);
+}
+
+.loader-wordmark-fallback {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  color: var(--color-cream);
+  font-family: var(--font-logo);
+  font-size: clamp(3.25rem, 10vw, 8.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  translate: -50% -50%;
+  transition: opacity 260ms var(--ease-soft);
+}
+
+.loader-wordmark-fallback span {
+  color: var(--color-goldsoft);
+}
+
+.loader-copy-rule {
+  position: absolute;
+  top: calc(43% + clamp(4.5rem, 12vh, 7rem));
+  left: 50%;
+  width: 2rem;
+  height: 1px;
+  background: var(--color-goldline);
+  opacity: 0;
+  translate: -50% 0;
+  transform: scaleX(0.65);
+  transform-origin: center;
+  transition:
+    opacity 720ms var(--ease-soft),
+    transform 850ms var(--ease-out-expo);
+}
+
+.loader-tagline,
+.loader-return {
+  position: absolute;
+  top: calc(43% + clamp(5.2rem, 14vh, 8rem));
+  right: 1rem;
+  left: 1rem;
+  margin: 0;
+  color: color-mix(in oklab, var(--color-cream) 76%, transparent);
+  font-size: var(--text-small);
+  line-height: 1.5;
+  letter-spacing: 0.035em;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(9px);
+  transition:
+    opacity 720ms var(--ease-soft),
+    transform 850ms var(--ease-out-expo);
+}
+
+html[data-mosaic-phase='logo'] .loader-copy-rule,
+html[data-mosaic-phase='logo'] .loader-tagline,
+html[data-mosaic-phase='logo'] .loader-return,
+html[data-mosaic-phase='fallback'] .loader-copy-rule,
+html[data-mosaic-phase='fallback'] .loader-tagline,
+html[data-mosaic-phase='fallback'] .loader-return {
+  opacity: 1;
+  transform: none;
+  transition-delay: 140ms;
+}
+
+.loader-return {
+  display: none;
+  color: var(--color-goldsoft);
+  font-family: var(--font-hand);
+  font-size: var(--text-sub);
+  letter-spacing: 0;
+}
 
 #recept-loader[data-state='done'] {
   opacity: 0;
@@ -593,23 +691,9 @@ html:not([data-hydrated]) [data-reveal] {
   pointer-events: none;
 }
 
-#recept-loader[data-state='done'] .loader-leaf--l {
-  transform: rotateY(-102deg);
-}
-
-#recept-loader[data-state='done'] .loader-leaf--r {
-  transform: rotateY(102deg);
-}
-
-#recept-loader[data-state='done'] .loader-stage {
+#recept-loader[data-state='done'] .loader-copy {
   opacity: 0;
-  transform: scale(0.97);
-}
-
-#recept-loader[data-state='done'] .loader-mark,
-#recept-loader[data-state='done'] .loader-rail {
-  opacity: 0;
-  transition: opacity 260ms var(--ease-soft);
+  transform: translateY(-6px);
 }
 
 @keyframes loader-failsafe {
@@ -625,94 +709,91 @@ html[data-loading='true'] body {
   overflow: hidden;
 }
 
-#recept-loader {
-  --loader-speed: 1;
+/* Пять широких шагов процесса читаются как единый путь, а не как
+   равные карточки в таблице. Тонкая латунная линия соединяет этапы;
+   на телефоне описание уходит под заголовок, на широком экране — рядом. */
+.process-journey__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.35rem minmax(0, 1fr);
+  column-gap: 1.125rem;
+  row-gap: 1.15rem;
+  padding: 1.7rem 0 2rem;
+  border-top: 1px solid var(--color-line);
 }
 
-.loader-piece {
-  opacity: 0;
-  animation: piece-in 0.6s var(--ease-out-expo) forwards;
-  animation-delay: calc(var(--d) * var(--loader-speed, 1));
+.process-journey__item::after {
+  position: absolute;
+  z-index: 0;
+  top: 2.875rem;
+  bottom: -2.875rem;
+  left: 1.175rem;
+  width: 1px;
+  content: '';
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-goldline) 78%, var(--color-line)),
+    color-mix(in oklab, var(--color-line) 72%, transparent)
+  );
 }
 
-.loader-piece--up {
-  transform: translateY(16px);
-}
-.loader-piece--down {
-  transform: translateY(-14px);
-}
-.loader-piece--left {
-  transform: translateX(-20px);
+.process-journey__item:last-child::after {
+  display: none;
 }
 
-@keyframes piece-in {
-  to {
-    opacity: 1;
-    transform: none;
+.process-journey__marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 2.35rem;
+  height: 2.35rem;
+  margin-top: 0.05rem;
+  place-items: center;
+  border: 1px solid color-mix(in oklab, var(--color-goldline) 72%, var(--color-line));
+  background: var(--color-cream);
+  color: var(--color-gold);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.process-journey__main,
+.process-journey__copy {
+  grid-column: 2;
+}
+
+@media (min-width: 64rem) {
+  .process-journey__item {
+    grid-template-columns: 3rem minmax(0, 0.82fr) minmax(0, 1.18fr);
+    column-gap: clamp(2rem, 4vw, 4.5rem);
+    row-gap: 0;
+    padding: 2rem 0 2.5rem;
   }
-}
 
-/* Профиль-ручка расходится от середины */
-.loader-gola {
-  transform-origin: center;
-  transform: scaleX(0);
-  animation: gola-extend 0.75s var(--ease-out-expo) forwards;
-  animation-delay: calc(var(--d) * var(--loader-speed, 1));
-}
-
-@keyframes gola-extend {
-  to {
-    transform: scaleX(1);
+  .process-journey__item::after {
+    top: 3.5rem;
+    bottom: -3.5rem;
+    left: 1.5rem;
   }
-}
 
-/* Фреза прорисовывается сверху вниз */
-.loader-reed {
-  stroke-dasharray: 220;
-  stroke-dashoffset: 220;
-  opacity: 0.75;
-  animation: reed-draw 0.65s var(--ease-out-expo) forwards;
-  animation-delay: calc(var(--d) * var(--loader-speed, 1));
-}
-
-@keyframes reed-draw {
-  to {
-    stroke-dashoffset: 0;
+  .process-journey__marker {
+    grid-row: 1;
+    width: 3rem;
+    height: 3rem;
+    margin-top: 0;
+    font-size: 1.0625rem;
   }
-}
 
-.loader-light {
-  opacity: 0;
-  animation: light-on 1.1s ease-out forwards;
-  animation-delay: calc(var(--d) * var(--loader-speed, 1));
-}
-
-@keyframes light-on {
-  0% {
-    opacity: 0;
+  .process-journey__main {
+    grid-column: 2;
   }
-  45% {
-    opacity: 1;
+
+  .process-journey__copy {
+    grid-column: 3;
+    align-self: start;
   }
-  100% {
-    opacity: 0.88;
-  }
-}
-
-.loader-text {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: piece-in 0.8s var(--ease-out-expo) forwards;
-  animation-delay: calc(var(--d) * var(--loader-speed, 1));
-}
-
-/* Повторный визит: та же сборка, но вдвое быстрее */
-html[data-loader='short'] #recept-loader {
-  --loader-speed: 0.45;
-}
-
-html[data-loader='short'] .loader-rail-fill {
-  animation-duration: 1.05s;
 }
 
 /* ==================================================================
@@ -880,7 +961,7 @@ html[data-loader='short'] .loader-rail-fill {
    РЕЙКА. Фрезерованная рейка — самая узнаваемая фактура в современной
    кухне. На тёмных секциях она идёт еле заметной вертикальной
    бороздой: заметишь, только если присмотришься, но плоскость сразу
-   перестаёт быть просто синей заливкой.
+   перестаёт быть просто плоской заливкой.
 
    ЦОКОЛЬ. Мебель не стоит на полу всей массой: внизу идёт утопленный
    цоколь, и корпус как будто висит. Подвал сайта сделан так же.
@@ -1351,13 +1432,12 @@ html[data-loader='short'] .loader-rail-fill {
     transform: none !important;
   }
 
-  .loader-piece,
-  .loader-gola,
-  .loader-light,
-  .loader-text {
+  #recept-loader .loader-copy-rule,
+  #recept-loader .loader-tagline,
+  #recept-loader .loader-return {
     opacity: 1 !important;
     transform: none !important;
-    stroke-dashoffset: 0 !important;
+    animation: none !important;
   }
 }
 
@@ -1417,7 +1497,7 @@ html[data-loader='short'] .loader-rail-fill {
    ВЫДЕЛЕНИЕ ТЕКСТА
    ------------------------------------------------------------------
    Мелочь, которую замечают не все, но она работает на то же ощущение
-   сделанной вручную вещи: синее системное выделение выбивается из
+   сделанной вручную вещи: яркое системное выделение выбивалось бы из
    тёплой бумажной страницы.
    ------------------------------------------------------------------ */
 ::selection {

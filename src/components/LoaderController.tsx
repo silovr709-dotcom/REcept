@@ -5,9 +5,9 @@ import { useEffect } from 'react';
 /**
  * Снимает шторку загрузки.
  * Пользователя не держим: как только страница готова — уходим.
- * Минимальная длительность равна длине сборки фасада: показать её
- * наполовину хуже, чем не показывать вовсе. При повторном визите она
- * вдвое короче, при reduce-motion — нулевая.
+ * Минимальная длительность даёт киноколлажу успеть перейти из кадров
+ * проектов в логотип. При повторном визите версия короче, при
+ * reduce-motion — нулевая.
  */
 export function LoaderController() {
   useEffect(() => {
@@ -20,13 +20,14 @@ export function LoaderController() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isShort = document.documentElement.dataset.loader === 'short';
     /*
-     * Сборка фасада идёт до 2,4 с, и обрывать её на середине нельзя —
-     * половина впечатления в том, что рейка дорисовывается до конца.
-     * Повторный визит укорочен вдвое, «меньше движения» — мгновенно.
+     * Первый монтаж длится около 7,15 с, повторный — 4,75 с.
+     * Даём кадрам, сборке логотипа и световому проходу завершиться; reduce-motion — мгновенно.
      */
-    const minDuration = reduce ? 0 : isShort ? 1150 : 2400;
+    const minDuration = reduce ? 0 : isShort ? 4750 : 7150;
 
-    const start = Number(document.documentElement.dataset.loaderStart) || Date.now();
+    // The client animation starts after hydration; time it from here rather
+    // than from the head script, or slow hydration could skip the whole reveal.
+    const start = Date.now();
     let done = false;
 
     const finish = () => {
@@ -37,7 +38,7 @@ export function LoaderController() {
       el.removeAttribute('role');
       document.documentElement.removeAttribute('data-loading');
       try {
-        sessionStorage.setItem('recept:visited', '1');
+        sessionStorage.setItem('recept:visited:mosaic-v4', '1');
       } catch {
         /* приватный режим — не критично */
       }
@@ -48,9 +49,8 @@ export function LoaderController() {
       window.setTimeout(finish, Math.max(0, minDuration - elapsed));
     };
 
-    // Страховка на медленных сетях: дольше четырёх с половиной секунд
-    // не держим никого, даже если страница ещё не догрузилась
-    const hardStop = window.setTimeout(finish, 4500);
+    // Страховка на медленных сетях: заставка не задержит страницу дольше 8,2 с.
+    const hardStop = window.setTimeout(finish, 8200);
 
     if (document.readyState === 'complete') {
       schedule();

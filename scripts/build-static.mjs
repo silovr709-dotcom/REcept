@@ -115,6 +115,9 @@ ErrorDocument 404 /404.html
 `;
 
 try {
+  // Обновить киноколлаж загрузчика из архивных фото и деталей проектов
+  // до того, как Next соберёт клиентский код и скопирует public/.
+  execSync('node scripts/build-loader-atlas.mjs', { stdio: 'inherit' });
   shift();
   rmSync(path.join(root, 'out'), { recursive: true, force: true });
   execSync('npx --no-install next build', {

@@ -17,8 +17,8 @@ import { teamShots, teamShotAlt } from '@/data/team-shots';
  * то есть ровно то, ради чего человек сюда и приходит. Люди исчезали.
  *
  * Теперь первый экран построен как разворот журнала. Слева — плотное
- * синее поле с текстом: оно само по себе носитель, его не нужно
- * «забивать» градиентом, и контраст там идеальный по построению.
+ * графитовое поле с текстом: оно само по себе носитель, его не нужно
+ * подменять затемнённой фотографией, и контраст там заложен в построении.
  * Справа — портрет в золотой рамке: не фон, а объект, которым можно
  * любоваться. Фотография не притушена ни на процент.
  *
@@ -52,12 +52,12 @@ export async function Hero() {
         className="grain relative isolate overflow-hidden bg-ink text-cream"
       >
         {/* Поле собрано из трёх слоёв: тёплый золотой свет сверху справа,
-            глубокая тень снизу слева и диагональный переход синего.
+            глубокая тень снизу слева и мягкий переход тёплого графита.
             Ровная заливка одним цветом — главный признак дешёвой
             вёрстки: в печати и в природе плоского цвета не бывает */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(120%_85%_at_84%_-4%,rgba(199,170,112,0.22),transparent_56%),radial-gradient(95%_85%_at_-5%_105%,rgba(5,12,24,0.78),transparent_64%),linear-gradient(162deg,#1b3a63_0%,#13294a_48%,#0a1930_100%)]"
+          className="absolute inset-0 -z-10 hero-field"
         />
 
         <div className="container-page relative z-10 flex min-h-[92svh] flex-col justify-center pb-10 pt-[4.75rem] sm:pb-14 sm:pt-24 lg:pb-16 lg:pt-28">
@@ -168,32 +168,30 @@ export async function Hero() {
                 </CtaButton>
 
                 <ButtonLink
-                  href="/portfolio"
+                  href={primaryPhone ? `tel:${primaryPhone.raw}` : '/kontakty'}
                   variant="light"
                   size="lg"
                   className="max-sm:w-full"
+                  aria-label={
+                    primaryPhone
+                      ? `Позвонить ${primaryPhone.display}`
+                      : 'Открыть контакты'
+                  }
                 >
-                  {hero.secondaryCta}
+                  {primaryPhone ? 'Позвонить' : 'Связаться'}
                 </ButtonLink>
               </div>
 
               <p className="mt-3.5 max-w-md text-small leading-relaxed text-cream/60 sm:mt-4">
                 {hero.reassurance}
               </p>
-
-              {/* Третья дверь: часть людей не станет заполнять форму
-                  ни при каких условиях, им проще один раз позвонить */}
-              {primaryPhone ? (
-                <p className="mt-2 text-small text-cream/60">
-                  Или просто позвоните:{' '}
-                  <a
-                    href={`tel:${primaryPhone.raw}`}
-                    className="-my-1.5 inline-flex min-h-11 items-center font-medium text-cream underline decoration-goldsoft/50 underline-offset-4 transition-colors hover:text-goldsoft"
-                  >
-                    {primaryPhone.display}
-                  </a>
-                </p>
-              ) : null}
+              <Link
+                href="/portfolio"
+                className="link-sweep -my-1.5 mt-1 inline-flex min-h-11 items-center text-small text-cream/70"
+              >
+                {hero.secondaryCta}
+                <span aria-hidden="true" className="ml-2 text-goldsoft">→</span>
+              </Link>
 
               {/* Доказательство в первом экране. На большом экране
                   рейтинг стоит в строке под кадром, на телефоне до неё

@@ -10,7 +10,7 @@ import { MarginNote } from '../ui/MarginNote';
  * Форма здесь короткая, а рядом объяснено, что произойдёт дальше.
  */
 export async function FinalCta({
-  title = 'Давайте разберём вашу кухню',
+  title = 'Давайте соберём вашу кухню',
   lead = 'Расскажите, что у вас за помещение и чего хочется. Мы посмотрим, что реально сделать в ваших размерах, предложим варианты и посчитаем стоимость. Бесплатно и без обязательств — дальше решаете вы.',
   submitLabel = 'Обсудить мою кухню',
   source = 'final',
@@ -21,8 +21,7 @@ export async function FinalCta({
   source?: string;
 }) {
   const site = await getSiteView();
-  // За формой стоят те, кто на неё ответит. Надзаголовок рядом говорит
-  // «Пишет вам не робот» — кадр договаривает это без единого слова.
+  // На заключительном экране — Роберт и Катя, которые ведут проекты лично.
   const shot = teamShots.evening;
   const activeContacts = site.contacts;
   const hasPhone = Boolean(site.primaryPhone);
@@ -51,7 +50,7 @@ export async function FinalCta({
           <div>
             <p className="flex items-center gap-3 text-eyebrow font-bold uppercase text-clay">
               <span aria-hidden="true" className="h-px w-6 bg-clay/60" />
-              Пишет вам не робот
+              Вам ответит Роберт или Катя
             </p>
 
             <h2
@@ -112,7 +111,7 @@ export async function FinalCta({
           </div>
 
           {/* Форма стоит на собственном светлом поле. Полупрозрачная
-              «стеклянная» карточка размывала и бумагу, и синеву: такой
+              «стеклянная» карточка размывала и бумагу, и графитовый фон: такой
               приём выдаёт шаблон. Бумажный прямоугольник на тёмной
               странице — это бланк, который хочется заполнить. */}
           <div className="bg-cream p-7 text-ink sm:p-10">
@@ -120,7 +119,7 @@ export async function FinalCta({
               Расскажите, какую кухню вы хотите
             </h3>
             <p className="mt-3 text-stone">
-              Можно даже без точного проекта — разберёмся вместе.
+              Можно без точного проекта — подскажем, с чего начать.
             </p>
             <div className="mt-7">
               <LeadForm submitLabel={submitLabel} source={source} />
@@ -128,8 +127,8 @@ export async function FinalCta({
 
             <MarginNote author="Роберт и Катя" className="mt-9">
               Вы дочитали до самого низа. Обычно так делают, когда вопрос
-              серьёзный и решение ещё не принято. Напишите — разберём вашу
-              кухню, ни к чему вас это не обязывает.
+              серьёзный и решение ещё не принято. Напишите — обсудим, с чего
+              начать. Это ни к чему вас не обязывает.
             </MarginNote>
           </div>
         </div>

@@ -8,9 +8,11 @@ import { assetUrl } from '@/lib/content/images';
  * УТП. Не 15 одинаковых иконок, а «условие → что это даёт вам».
  */
 export async function Advantages({
+  index,
   tone = 'bone',
   limit,
 }: {
+  index?: string;
   tone?: 'cream' | 'bone';
   /** Сколько условий показать. Без ограничения — все */
   limit?: number;
@@ -21,13 +23,6 @@ export async function Advantages({
   ]);
   const advantages = limit ? allAdvantages.slice(0, limit) : allAdvantages;
 
-  // Числительное словом: «6 условий» посреди живого текста выглядит как опечатка
-  const WORDS = [
-    '', 'Одно', 'Два', 'Три', 'Четыре', 'Пять', 'Шесть',
-    'Семь', 'Восемь', 'Девять', 'Десять',
-  ];
-  const count = WORDS[advantages.length] ?? String(advantages.length);
-  const noun = advantages.length === 1 ? 'условие' : 'условий';
   const advantageShots = details.slice(1, 3);
   const [first, ...rest] = advantages;
   if (!first) return null;
@@ -36,10 +31,11 @@ export async function Advantages({
     <Section tone={tone} id="usloviya" aria-labelledby="advantages-title">
       <div className="container-page">
         <SectionHeading
+          index={index}
           id="advantages-title"
-          eyebrow="Почему с нами спокойнее"
-          title={`${count} ${noun}, каждое из которых что-то для вас значит`}
-          lead="Это не «преимущества компании». Это то, что вы почувствуете на себе во время работы."
+          eyebrow="За что нас выбирают"
+          title="Почему нам доверяют"
+          lead="Личное ведение проекта, понятные условия и поддержка после сборки — конкретные решения на каждом этапе, а не общие обещания."
         />
 
         <div className="mt-16 grid gap-6 lg:mt-24 lg:grid-cols-3">

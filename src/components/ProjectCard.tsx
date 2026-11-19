@@ -53,7 +53,7 @@ export function ProjectCard({
           как номер работы в выставочном листе. */}
       <div className="mt-4 flex items-start justify-between gap-4 border-t border-line pt-4">
         <div>
-          <p className="label-xs text-clay">{project.layout}</p>
+          <p className="label-xs text-stone">{project.layout}</p>
           <h3 className="font-display mt-2 text-big text-ink transition-colors group-hover:text-gold sm:text-sub">
             {project.title}
           </h3>

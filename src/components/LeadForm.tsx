@@ -154,7 +154,7 @@ export function LeadForm({
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="m4.5 12.5 5 5 10-11"
-              stroke="#1f4176"
+              stroke="var(--color-ink)"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -373,8 +373,8 @@ export function LeadForm({
         <Button
           type="submit"
           /* Главное действие формы — плотная заливка, а не контур:
-             на светлом поле синяя, на тёмном бумажная. Контурная
-             кнопка «золотом» раньше была невидима на синем фоне. */
+             на светлом поле графитовая, на тёмном бумажная. Контурная
+             кнопка «золотом» терялась на тёмном фоне. */
           variant={light ? 'light-solid' : 'primary'}
           size="lg"
           withArrow

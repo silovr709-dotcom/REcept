@@ -37,9 +37,9 @@ const base =
   'disabled:pointer-events-none disabled:opacity-55 text-center';
 
 const variants: Record<Variant, string> = {
-  // Основное действие: плотная синь
+  // Основное действие: тёплый графит
   primary: 'border-ink bg-ink text-cream hover:border-soot hover:bg-soot',
-  // Второе по силе на светлой странице: та же синь, но контуром
+  // Второе по силе на светлой странице: тот же графит, но контуром
   gold: 'border-gold/45 bg-transparent text-ink hover:border-gold hover:bg-gold/6',
   outline:
     'border-ink/22 bg-transparent text-ink hover:border-ink hover:bg-ink/4',
@@ -118,6 +118,7 @@ export function ButtonLink({
   children,
   withArrow,
   href,
+  'aria-label': ariaLabel,
   ...rest
 }: CommonProps & { href: string } & Omit<ComponentProps<typeof Link>, 'href'>) {
   const isExternal = /^(https?:|tel:|mailto:)/.test(href);
@@ -128,6 +129,7 @@ export function ButtonLink({
       <a
         href={href}
         className={cls}
+        aria-label={ariaLabel}
         {...(href.startsWith('http')
           ? { target: '_blank', rel: 'noopener noreferrer' }
           : {})}
@@ -138,7 +140,7 @@ export function ButtonLink({
   }
 
   return (
-    <Link href={href} className={cls} {...rest}>
+    <Link href={href} className={cls} aria-label={ariaLabel} {...rest}>
       <Inner withArrow={withArrow}>{children}</Inner>
     </Link>
   );

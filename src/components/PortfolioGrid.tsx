@@ -61,7 +61,7 @@ export function PortfolioGrid({
               }`}
             >
               {chip.label}
-              <span className="font-display text-small text-clay">
+              <span className="font-display text-small text-stone">
                 {chip.count}
               </span>
             </button>

@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "build:static": "node scripts/build-static.mjs",
     "build:domain": "SITE_TARGET=domain node scripts/build-static.mjs",
+    "build:loader-atlas": "node scripts/build-loader-atlas.mjs",
     "audit": "node scripts/audit.mjs"
   },
   "dependencies": {

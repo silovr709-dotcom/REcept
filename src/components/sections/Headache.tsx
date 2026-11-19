@@ -30,7 +30,7 @@ export async function Headache({ index }: { index?: string } = {}) {
           дают ту же глубину честнее и в сто раз легче по весу. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(85%_60%_at_78%_8%,rgba(199,170,112,0.14),transparent_62%),radial-gradient(70%_60%_at_0%_100%,rgba(5,12,24,0.6),transparent_70%)]"
+        className="absolute inset-0 -z-10 field-glow"
       />
 
       <div className="container-page">

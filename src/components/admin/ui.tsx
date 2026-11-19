@@ -53,7 +53,7 @@ export function Checkbox({
       <input
         type="checkbox"
         {...props}
-        className="size-4 rounded border-line accent-[#1f4176]"
+        className="size-4 rounded border-line accent-ink"
       />
       {label}
     </label>

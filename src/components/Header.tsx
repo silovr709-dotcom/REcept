@@ -180,7 +180,7 @@ export function Header() {
                               >
                                 {child.label}
                                 {child.note ? (
-                                  <span className="text-caption text-clay">
+                                  <span className="text-caption text-stone">
                                     {child.note}
                                   </span>
                                 ) : null}
@@ -373,7 +373,7 @@ export function Header() {
                           <span>
                             {child.label}
                             {child.note ? (
-                              <span className="block text-caption text-clay">
+                              <span className="block text-caption text-stone">
                                 {child.note}
                               </span>
                             ) : null}
@@ -418,7 +418,7 @@ export function Header() {
                     href={c.href}
                     className="flex items-baseline justify-between gap-4 text-ui text-stone transition-colors hover:text-gold"
                   >
-                    <span className="text-caption font-semibold uppercase tracking-[0.18em] text-clay">
+                    <span className="text-caption font-semibold uppercase tracking-[0.18em] text-stone">
                       {c.label}
                     </span>
                     <span className="font-display text-big text-ink">
