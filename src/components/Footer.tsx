@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Logo } from './Logo';
 import { getSiteView } from '@/lib/content/view';
+import { CookieSettingsButton } from './MetrikaConsent';
 
 export async function Footer() {
   const site = await getSiteView();
@@ -20,6 +21,8 @@ export async function Footer() {
   ];
   const phoneDisplay = site.primaryPhone?.display ?? '';
   const phoneHref = site.primaryPhone ? `tel:${site.primaryPhone.raw}` : '';
+  const metrikaNumber = Number(site.metrikaId);
+  const hasMetrika = Number.isSafeInteger(metrikaNumber) && metrikaNumber > 0;
   const year = new Date().getFullYear();
 
   return (
@@ -152,12 +155,15 @@ export async function Footer() {
               визуализация, это подписано прямо на изображении.
             </p>
           </div>
-          <Link
-            href="/politika-konfidencialnosti"
-            className="-my-2 inline-flex min-h-11 items-center py-2 transition-colors hover:text-cream/80"
-          >
-            Политика обработки персональных данных
-          </Link>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            <Link
+              href="/politika-konfidencialnosti"
+              className="-my-2 inline-flex min-h-11 items-center py-2 transition-colors hover:text-cream/80"
+            >
+              Политика обработки персональных данных
+            </Link>
+            {hasMetrika ? <CookieSettingsButton /> : null}
+          </div>
         </div>
       </div>
     </footer>

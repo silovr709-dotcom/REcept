@@ -64,7 +64,7 @@ jobs:
       - name: Собрать сайт для домена
         env:
           NEXT_PUBLIC_SITE_URL: https://xn----dtbhac1degob3b6e.xn--p1ai
-          NEXT_PUBLIC_YANDEX_METRIKA_ID: ${{ vars.NEXT_PUBLIC_YANDEX_METRIKA_ID }}
+          NEXT_PUBLIC_YANDEX_METRIKA_ID: '114488340'
         run: npm run build:domain
 
       - name: Поставить отметку версии

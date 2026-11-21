@@ -211,6 +211,7 @@ export function LeadForm({
   }
 
   return (
+    // Значения полей и имена файлов заявки скрыты в записях Вебвизора.
     <form
       ref={formRef}
       onSubmit={handleSubmit}
@@ -242,7 +243,7 @@ export function LeadForm({
             autoComplete="name"
             enterKeyHint="next"
             placeholder="Имя"
-            className={fieldCls}
+            className={`${fieldCls} ym-disable-keys`}
           />
         </div>
 
@@ -259,7 +260,7 @@ export function LeadForm({
             autoComplete="tel"
             enterKeyHint="next"
             placeholder="Телефон или ник в Telegram"
-            className={fieldCls}
+            className={`${fieldCls} ym-disable-keys`}
             aria-describedby={`${id}-contact-hint`}
           />
           <p
@@ -283,7 +284,7 @@ export function LeadForm({
           name="message"
           rows={compact ? 3 : 4}
           placeholder="Например: кухня 9 м² в новостройке, ремонт ещё не начали, хотим без ручек и со встроенной техникой"
-          className={`${fieldCls} resize-y`}
+          className={`${fieldCls} resize-y ym-disable-keys`}
         />
       </div>
 
@@ -322,7 +323,7 @@ export function LeadForm({
           className="sr-only"
         />
         {files.length > 0 ? (
-          <ul className={`mt-2 text-xs ${light ? 'text-cream/60' : 'text-stone'}`}>
+          <ul className={`ym-hide-content mt-2 text-xs ${light ? 'text-cream/60' : 'text-stone'}`}>
             {files.map((f) => (
               <li key={f.name}>• {f.name}</li>
             ))}
